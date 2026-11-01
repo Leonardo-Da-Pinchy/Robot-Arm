@@ -16,9 +16,15 @@ five arm joints plus its gripper; it does not yet represent the custom hardware.
 The initial launch displays the reference arm with virtual joint sliders.
 No motor driver, hardware control, physics simulation, or MoveIt configuration
 is implemented yet. The stock gripper remains visible until the writing tool is
-modeled. See [arm development notes](docs/arm_development.md) for next steps.
+modeled. See the [implementation roadmap](docs/implementation_roadmap.md) for
+the staged path to real hardware and drawing, and the
+[arm development notes](docs/arm_development.md) for modeling context.
 
 ## Build and display
+
+For the initial standalone Feetech control tool, see
+[servo setup and bench control](docs/servo_bench.md). It defaults to mock mode;
+the real servo connection has not yet been validated.
 
 Use a ROS 2 environment with colcon and rosdep installed. Example below uses
 Jazzy on Ubuntu 24.04; choose the ROS distribution matching the deployed OS,

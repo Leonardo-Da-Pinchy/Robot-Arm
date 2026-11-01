@@ -3,7 +3,7 @@ For CMU ECE Capstone (18-500); Fall 2026, Group 2B - Leonardo Da Pinchy
 
 ## Arm hardware
 
-The custom SO-101 derivative has **six arm degrees of freedom**, with six
+The SO-101 derivative we made has **six arm degrees of freedom**, with six
 independently actuated joints driven by **Feetech smart bus servo motors**.
 A **seventh servo** operates the end-effector gripper to grip and release the
 pen. The gripper actuator is separate from the six arm joints: seven servos
