@@ -9,6 +9,10 @@
   </head>
   <body>
     <h1>Leonardo Da Pinchy</h1>
+    <p>Draw with your mouse, finger, or pen.</p>
+    <canvas id="drawing-canvas" width="600" height="400" aria-label="Drawing area"></canvas>
+    <button id="clear-drawing" type="button">Clear drawing</button>
+    <p id="drawing-status" role="status">0 strokes</p>
     <button id="check-backend" type="button" data-url="{{ url_for('health') }}">Check backend connection</button>
     <p id="status" role="status"></p>
   </body>

@@ -2,3 +2,11 @@ body {
   margin: 20px;
   font-family: sans-serif;
 }
+
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  outline: 1px solid black;
+  touch-action: none;
+}
