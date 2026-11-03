@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Leonardo Da Pinchy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </head>
+  <body>
+    <h1>Leonardo Da Pinchy</h1>
+    <button id="check-backend" type="button" data-url="{{ url_for('health') }}">Check backend connection</button>
+    <p id="status" role="status"></p>
+  </body>
+</html>
