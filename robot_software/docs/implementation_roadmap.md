@@ -13,7 +13,11 @@ exists and has been exercised at the level stated, not just discussed.
 - [x] `pinchy_bringup/display.launch.py` shows that URDF in RViz with virtual
   joint sliders and synthetic `/joint_states`.
 - [ ] A URDF for the actual six positioning joints, pen holder, and pen tip.
-- [ ] Communication with real servos, controllers, planned motion, or drawing.
+- [x] Communication and a small out-and-back test with one physical servo.
+- [x] IDs 1–6 labelled and power-cycle verified; individual motor operation confirmed by user.
+- [x] Physical unloaded six-motor chain sequence, including individual, together,
+  opposite-direction and mixed-speed out-and-back stages (five-tick tolerance).
+- [ ] ROS controllers, planned arm motion, and drawing.
 
 Keep the display launch useful for viewing a model without motor power. A
 separate hardware launch must own the real `/joint_states` source; never run
@@ -62,13 +66,17 @@ The model's joint names and limits are ready for controllers and planning.
 See [servo setup and bench control](servo_bench.md) for ID/baud/mode setup,
 calibration records, and the initial single-servo control tool. Servos run their
 existing firmware; persistent setup and normal position commands are separate
-operations. Real motor testing is still pending.
+operations. All six motors are labelled, power-cycle verified and individually
+working per the user, including motor 6 passing on retry. The full unloaded
+six-motor chain sequence passed; assembled-joint qualification remains pending.
+See the [current point-motion status](point_motion_plan.md) and
+[hardware record](hardware_inventory.md) for verified results.
 
-- [ ] Test each Feetech smart servo individually before it drives an arm joint:
-  connect the specified supply and USB-to-UART bus adapter, read its ID and
-  reported position/voltage/temperature, command a small slow movement, and
-  confirm direction, zero, units, and safe range. Keep a per-servo calibration
-  and mapping record.
+- [x] Test each unloaded motor, assign/label unique IDs and verify persistence
+  after power cycling. Verify the six-motor bus with individual and grouped
+  movements and feedback. See the hardware record for parameters and results.
+- [ ] Measure assembled-joint zero, direction, encoder conversion and usable
+  ranges; record the final motor-to-joint mapping and calibration.
 - [ ] On the assembled arm, start with small, slow movements. Check reported
   position against measured motion, unexpected reversals, limit behavior,
   heating, holding behavior, and response to lost communication.

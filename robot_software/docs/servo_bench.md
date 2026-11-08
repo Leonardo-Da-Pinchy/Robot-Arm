@@ -1,89 +1,139 @@
-# Feetech smart-servo setup and bench control
+# Set up and test each arm motor
 
-The report lists **STS3215-12V servos and a URT-2 adapter**. Confirm the labels
-on the actual equipment before using this tool. The code targets the Feetech
-STS/SMS position-control SDK, not every Feetech servo family.
+For **STS3215-12V + URT-2**, one unassembled, mechanically unloaded motor at a
+time. Programming means assigning settings, not flashing firmware. Connect its
+three-wire plug to **TTL**; external supply goes to **V1 (+12 V) / G**. Turn power
+off before changing wires. USB can power parameter setup without supplying 12 V.
 
-## What programming the servos means
+## 1. Prepare the Jetson
 
-The servos already contain firmware and an internal position controller. Initial
-setup normally means configuring that firmware, then sending goal positions
-from the computer. No custom firmware flashing is planned.
-
-Using the manufacturer's configuration software and model-specific manual:
-
-1. Connect **one unloaded servo at a time** to the adapter, with the supply
-   appropriate to its exact voltage variant. USB alone does not supply motor
-   power. Check adapter wiring and TTL port against its manual.
-2. Discover the servo at its current baud rate and read its model, ID, operating
-   mode, and existing limits. STS commonly uses 1,000,000 baud; verify rather
-   than assuming it. Save the original settings.
-3. Assign a unique ID and label the servo. The report proposes IDs 1–6 from
-   base to wrist; confirm this mapping with the actual assembly. Reconnect and
-   verify each ID before daisy-chaining. Keep the same bus baud rate.
-4. Configure position mode and appropriate travel limits. Measure each joint's
-   zero and direction; record calibration in software. Do not overwrite the
-   servo's stored encoder offset until the team's calibration convention is set.
-5. With the servo unloaded, establish a current-position goal before enabling
-   torque, using the manufacturer's supported procedure. An old goal can cause
-   motion when torque is enabled. Then perform the small motion check below.
-6. Record model, ID, baud, mode, limits, zero, direction, and observed behavior.
-   Repeat for every servo. Change persistent settings only during deliberate
-   setup, not in a normal movement loop.
-
-## Run the bench tool
-
-From `robot_software`, mock operation needs only Python:
+From `robot_software/` (dependencies are already installed on this Jetson):
 
 ```bash
-python3 tools/servo_bench.py read
-python3 tools/servo_bench.py move --delta 20 --min 2000 --max 2100
+python3 -m venv --without-pip .venv
+python3 -m pip --python .venv/bin/python install -r tools/requirements-servo.txt
 ```
 
-Every mock invocation starts at tick 2048; it does not model dynamics. Real
-operation requires the manufacturer's SDK. Use a local virtual environment:
+Set the adapter path shown by `ls /dev/serial/by-id/` and define a shortcut:
 
 ```bash
-python3 -m venv .venv-servo
-.venv-servo/bin/pip install ftservo-python-sdk pyserial
-.venv-servo/bin/python tools/servo_bench.py --hardware --port /dev/serial/by-id/YOUR_ADAPTER --id 1 read
+PORT=/dev/serial/by-id/usb-1a86_USB_Single_Serial_5B79078770-if00
+servo() { .venv/bin/python tools/servo_setup.py --hardware --port "$PORT" "$@"; }
 ```
 
-Use the read position and independently checked clearance to choose a small
-allowed interval. The numbers below are an **example only**, appropriate only
-if the measured position is near 2048 and that range is mechanically clear:
+If opening the port gives “Permission denied,” run
+`sudo setfacl -m u:"$USER":rw "$(readlink -f "$PORT")"` in your own terminal.
+This permission lasts until the adapter is unplugged.
+
+## 2. Find and inspect the connected motor
 
 ```bash
-.venv-servo/bin/python tools/servo_bench.py --hardware --port /dev/serial/by-id/YOUR_ADAPTER --id 1 move --delta 20 --min 2000 --max 2100
+servo scan
+servo --id 1 inspect
 ```
 
-The tool requires position mode and torque already enabled. It allows at most
-64 ticks per command, checks feedback, and attempts a hold after timeout,
-interruption, or motion failure. Speed and acceleration are raw SDK values;
-the bounds are initial bench restrictions, not measured arm operating limits.
-It makes no persistent ID, baud, offset, limit, or firmware changes.
+`scan` pings IDs 1–253 at 1,000,000 baud without writes. Use the returned ID for
+`--id`. `inspect` reads settings, position, voltage and alarms without changes.
+`voltage_raw` is tenths of a volt: **120 = 12.0 V; 51 = 5.1 V**. Save the original
+inspection output before configuration, e.g. `servo --id 1 inspect > /tmp/motor-before.json`.
 
-`hold` sets the goal to measured position; `release` disables torque. Support
-the arm before releasing torque. Neither software command substitutes for the
-physical motor-power emergency stop. A failed serial connection can prevent a
-hold command; closing the program does not itself disable torque or stop a
-servo's internally running command. Do not run multiple bus programs together.
+## 3. Assign an ID and position mode
 
-## Connection to ROS and RViz
+```bash
+servo --id 1 configure --new-id 1 --single-servo
+```
 
-This is the first bench-control layer, not yet the assembled-arm controller.
-RViz joint sliders publish synthetic `/joint_states`; they are not motor
-commands. The next layer is a calibrated Feetech hardware interface behind
-`ros2_control`, with measured joint positions published back to RViz. A motion
-node or MoveIt will command trajectories through that controller. A future
-manual control panel should use that same command interface.
+Replace `--new-id 1` with the intended label **1–6**; `--id` is its *current* ID.
+This persists the new ID and position mode 0, verifies readback and relocks EEPROM.
+It skips unchanged settings and leaves baud, encoder offset, limits and gains
+unchanged. Requires torque off; run `servo --id 1 release` if necessary.
+Only one physical motor may be connected: duplicate IDs cannot reliably be
+counted by scanning.
 
-Real motor operation is unverified until the correct hardware is connected.
-Bench checks should establish feedback, small motion, hold/release behavior,
-disconnect behavior, and emergency power cut before moving the assembled arm.
+Power off USB **and** external power, reconnect, then verify using the new ID:
 
-## Manufacturer references
+```bash
+servo --id 1 inspect
+```
 
-- [Feetech Python SDK and installation](https://github.com/ftservo/FTServo_Python)
-- [STS/SMS SDK implementation](https://github.com/ftservo/FTServo_Python/blob/main/scservo_sdk/sms_sts.py)
-- [Feetech setup tutorial](https://www.feetechrc.com/Data/feetechrc/upload/file/20201127/start%20%20tutorial201015.pdf)
+Use the new ID in that command. Label the motor; power-cycle verification
+establishes persistence.
+
+## 4. Run a movement test
+
+Place the motor securely with the shaft/horn clear. Choose a mechanically clear
+interval from the **fresh position reading**. Example **only if near 4092**:
+
+```bash
+servo --id 1 test-motion --delta -20 --min 4000 --max 4095 --speed 100
+```
+
+- `--delta -20`: move **20 encoder ticks below the current position**, then return.
+  Positive values move toward higher readings; negative values toward lower ones.
+- `--min 4000`: lowest **absolute encoder reading** allowed during this test.
+- `--max 4095`: highest **absolute encoder reading** allowed during this test.
+  Both the start and target must fit this interval. These bounds do not change
+  the servo's EEPROM limits, and widening them alone does not increase movement.
+
+**4096 ticks = 360°**: 20 ticks ≈ 1.76°, 512 ticks = 45°, 1024 ticks = 90°.
+`target = current position + delta`; these readings are not calibrated arm angles.
+
+For a clearly visible **45° out-and-back** on the unloaded motor, first inspect
+again. If the reading is near 4000 and the shaft/horn has clear travel, run:
+
+```bash
+servo --id 1 test-motion --delta -512 --min 3000 --max 4095 --speed 1000 --timeout 20
+```
+
+For example, start **4000** → target **3488** → return **4000**. The wider
+3000–4095 interval accommodates that path. The negative direction avoids crossing
+4095. The setup test accepts up to ±1024 ticks (90°) per leg; give larger moves
+more time with `--timeout` (seconds per leg).
+
+This sets a temporary 30% output limit, commands the current position before
+explicit torque enable, moves by the requested delta, returns to the starting
+position, and disables torque. Goal writes may themselves enable torque.
+It checks feedback and attempts release on failure/Ctrl+C. A failed bus can
+prevent release; cut motor power if needed. Use this only on an unloaded motor.
+
+The test refuses non-position mode, torque already on, alarms, hot motors,
+encoder wrap and servo-reported voltage outside **10.0–13.0 V**. A measured 12 V
+at the board plus 5.1 V feedback remains a discrepancy to resolve before motion.
+The RAM output limit lasts until changed or power-cycled; it is not calibrated N·m.
+
+Observe the shaft moving both ways. Record ID, readings, direction and whether
+motion/release worked in the [hardware inventory](hardware_inventory.md). Repeat
+steps 2–4 for each motor individually; connect the full bus after assigning IDs.
+Arm-joint zero/direction/range calibration happens after assembly, on the Jetson.
+
+After assigning unique IDs and testing two motors individually, use the
+[chained-motor test](servo_chain.md) for individual, together, opposite-direction
+and different-speed movement on the shared bus.
+
+## Flags and other tools
+
+| Flag | Meaning |
+| --- | --- |
+| `--hardware --port PATH` | Use the real adapter; omit both for mock operation |
+| `--id N` | Current ID, default 1; put before the command |
+| `--baud N` | Host connection baud, default 1000000; does not reprogram baud |
+| `--new-id N --single-servo` | `configure`: target ID and acknowledgement of one connected motor |
+| `--delta N` | `test-motion`: signed move, ±1–1024 ticks (up to 90°) |
+| `--min N --max N` | `test-motion`: allowed encoder interval, within 0–4095 |
+| `--speed N` | Raw speed 1–1000; default 5 standard / 50 fine units; fine units require ≥50 |
+| `--acceleration N` | Raw acceleration 1–10, default 1 |
+| `--timeout N` | Seconds per movement leg, default 8, maximum 30 |
+
+Speed units depend on the servo phase setting; these are raw SDK values, not
+radians/second. With fine units (phase bit 2 set), **1000 ≈ 14.6 RPM ≈ 87.8°/s**.
+The script cap is separate from the motor's documented **45 RPM no-load speed
+at 12 V** (0.222 s per 60°, ±10%) for the 12 V / 30 kg·cm variant. Loaded speed
+and short moves depend on load, acceleration and output limits.
+Run `python3 tools/servo_setup.py COMMAND --help` for command help.
+`servo_bench.py` supplies individual read/inspect/move/hold/release commands;
+`test_servo_*.py` test software with fake motors and never connect to hardware.
+
+[Manufacturer register reference](https://ftservo.github.io/ftservo-wiki/reference/parameter/memory-sts/)
+· [SDK](https://github.com/ftservo/FTServo_Python)
+· [URT-2 wiring diagram](https://akizukidenshi.com/goodsaffix/URT-2.pdf)
+· [12 V motor datasheet](https://www.feetechrc.com/Data/feetechrc/upload/file/20240507/6385067068652648096680943.pdf)

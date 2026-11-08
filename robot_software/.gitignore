@@ -4,3 +4,8 @@
 /log/
 __pycache__/
 /.venv-servo/
+/venv/
+
+# Editor recovery files
+*.swp
+*.swo
