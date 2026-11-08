@@ -14,4 +14,4 @@ total, with six degrees of freedom for positioning and orienting the pen.
 - `calculations/` — Workspace and torque calculations based on robot specifications.
 - [`robot_software/`](robot_software/README.md) — ROS 2 arm workspace, reference
   SO-101 description, and visualization launch files.
-- [`website/`](website/README.md) — Minimal Flask backend and HTML/CSS/JavaScript frontend.
+- [`website/`](website/README.md) — Draw on a canvas and view the SVG payload.

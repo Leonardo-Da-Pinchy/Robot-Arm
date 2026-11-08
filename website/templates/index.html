@@ -4,16 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Leonardo Da Pinchy</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='app.js') }}" defer></script>
   </head>
   <body>
     <h1>Leonardo Da Pinchy</h1>
-    <p>Draw with your mouse, finger, or pen.</p>
-    <canvas id="drawing-canvas" width="600" height="400" aria-label="Drawing area"></canvas>
+    <fieldset>
+      <legend>Draw here</legend>
+      <canvas id="drawing-canvas" width="600" height="400" aria-label="Drawing area"></canvas>
+    </fieldset>
     <button id="clear-drawing" type="button">Clear drawing</button>
-    <p id="drawing-status" role="status">0 strokes</p>
-    <button id="check-backend" type="button" data-url="{{ url_for('health') }}">Check backend connection</button>
-    <p id="status" role="status"></p>
+    <button id="send-drawing" type="button" data-url="{{ url_for('receive_payload') }}">Send drawing</button>
+
+    <h2>Raw SVG payload</h2>
+    <pre id="payload" role="status"></pre>
   </body>
 </html>
