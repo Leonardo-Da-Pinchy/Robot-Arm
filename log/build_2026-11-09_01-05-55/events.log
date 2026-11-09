@@ -1,0 +1,470 @@
+[0.000000] (-) TimerEvent: {}
+[0.000428] (-) JobUnselected: {'identifier': 'pinchy_description'}
+[0.000872] (pinchy_hardware) JobQueued: {'identifier': 'pinchy_hardware', 'dependencies': OrderedDict()}
+[0.000932] (pinchy_bringup) JobQueued: {'identifier': 'pinchy_bringup', 'dependencies': OrderedDict({'pinchy_description': '/home/leo/Robot-Arm/robot_software/install/pinchy_description', 'pinchy_hardware': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware'})}
+[0.000995] (pinchy_hardware) JobStarted: {'identifier': 'pinchy_hardware'}
+[0.015611] (pinchy_hardware) JobProgress: {'identifier': 'pinchy_hardware', 'progress': 'cmake'}
+[0.017514] (pinchy_hardware) Command: {'cmd': ['/usr/bin/cmake', '/home/leo/Robot-Arm/robot_software/src/pinchy_hardware', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware'], 'cwd': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'TMUX': '/tmp/tmux-1000/default,6320,0', 'CODEX_CI': '1', 'LANGUAGE': 'en', 'USER': 'leo', 'LC_TIME': 'en_US.UTF-8', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/usr/local/cuda/lib64:/usr/local/cuda/lib64:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/leo', 'OLDPWD': '/home/leo', 'TERM_PROGRAM_VERSION': '3.4', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'LC_MONETARY': 'en_US.UTF-8', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '3757', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'CODEX_PERMISSION_PROFILE': ':workspace', 'CODEX_TOOL_CALL_ID': 'exec-9ebc1ac4-2c3b-4259-a428-7f34ecbeceb5', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'leo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS': '1', 'USERNAME': 'leo', 'TERM': 'tmux-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/home/leo/.codex/tmp/arg0-linux/codex-arg0ioC605:/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.codex/tmp/arg0-linux/codex-arg0ATGMvp:/home/leo/.codex/packages/standalone/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/home/leo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/leo:@/tmp/.ICE-unix/3726,unix/leo:/tmp/.ICE-unix/3726', 'CODEX_VERSION': '0.167.0', 'CODEX_SESSION_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_US.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/292f53d3_a8bb_400d_bc12_7667f825a41e', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_US.UTF-8', 'XMODIFIERS': '@im=ibus', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.98', 'TERM_PROGRAM': 'tmux', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_US.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:/usr/local/lib:/usr/local/lib', 'LC_NUMERIC': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'COLCON': '1', 'VTE_VERSION': '7600', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.042509] (pinchy_hardware) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.099354] (-) TimerEvent: {}
+[0.199742] (-) TimerEvent: {}
+[0.300065] (-) TimerEvent: {}
+[0.400365] (-) TimerEvent: {}
+[0.496587] (pinchy_hardware) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.500473] (-) TimerEvent: {}
+[0.522698] (pinchy_hardware) StdoutLine: {'line': b'-- Found hardware_interface: 4.48.1 (/opt/ros/jazzy/share/hardware_interface/cmake)\n'}
+[0.586626] (pinchy_hardware) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[0.600591] (-) TimerEvent: {}
+[0.602263] (pinchy_hardware) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[0.622794] (pinchy_hardware) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.645663] (pinchy_hardware) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.700719] (-) TimerEvent: {}
+[0.800970] (-) TimerEvent: {}
+[0.901263] (-) TimerEvent: {}
+[0.929455] (pinchy_hardware) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2\n'}
+[0.984025] (pinchy_hardware) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[0.986162] (pinchy_hardware) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.001333] (-) TimerEvent: {}
+[1.016323] (pinchy_hardware) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2\n'}
+[1.031617] (pinchy_hardware) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2\n'}
+[1.059302] (pinchy_hardware) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2\n'}
+[1.074717] (pinchy_hardware) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2\n'}
+[1.094033] (pinchy_hardware) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.101449] (-) TimerEvent: {}
+[1.201686] (-) TimerEvent: {}
+[1.301961] (-) TimerEvent: {}
+[1.318870] (pinchy_hardware) StdoutLine: {'line': b'-- Found std_srvs: 5.3.8 (/opt/ros/jazzy/share/std_srvs/cmake)\n'}
+[1.374621] (pinchy_hardware) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 2.5.6 (/opt/ros/jazzy/share/ament_cmake_gtest/cmake)\n'}
+[1.375643] (pinchy_hardware) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/jazzy/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[1.402156] (-) TimerEvent: {}
+[1.502475] (-) TimerEvent: {}
+[1.578698] (pinchy_hardware) StdoutLine: {'line': b'-- Configuring done (1.5s)\n'}
+[1.602776] (-) TimerEvent: {}
+[1.674988] (pinchy_hardware) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[1.691033] (pinchy_hardware) StdoutLine: {'line': b'-- Build files have been written to: /home/leo/Robot-Arm/robot_software/build/pinchy_hardware\n'}
+[1.702863] (-) TimerEvent: {}
+[1.718430] (pinchy_hardware) CommandEnded: {'returncode': 0}
+[1.720191] (pinchy_hardware) JobProgress: {'identifier': 'pinchy_hardware', 'progress': 'build'}
+[1.722681] (pinchy_hardware) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', '--', '-j6', '-l6'], 'cwd': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'TMUX': '/tmp/tmux-1000/default,6320,0', 'CODEX_CI': '1', 'LANGUAGE': 'en', 'USER': 'leo', 'LC_TIME': 'en_US.UTF-8', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/usr/local/cuda/lib64:/usr/local/cuda/lib64:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/leo', 'OLDPWD': '/home/leo', 'TERM_PROGRAM_VERSION': '3.4', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'LC_MONETARY': 'en_US.UTF-8', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '3757', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'CODEX_PERMISSION_PROFILE': ':workspace', 'CODEX_TOOL_CALL_ID': 'exec-9ebc1ac4-2c3b-4259-a428-7f34ecbeceb5', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'leo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS': '1', 'USERNAME': 'leo', 'TERM': 'tmux-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/home/leo/.codex/tmp/arg0-linux/codex-arg0ioC605:/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.codex/tmp/arg0-linux/codex-arg0ATGMvp:/home/leo/.codex/packages/standalone/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/home/leo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/leo:@/tmp/.ICE-unix/3726,unix/leo:/tmp/.ICE-unix/3726', 'CODEX_VERSION': '0.167.0', 'CODEX_SESSION_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_US.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/292f53d3_a8bb_400d_bc12_7667f825a41e', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_US.UTF-8', 'XMODIFIERS': '@im=ibus', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.98', 'TERM_PROGRAM': 'tmux', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_US.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:/usr/local/lib:/usr/local/lib', 'LC_NUMERIC': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'COLCON': '1', 'VTE_VERSION': '7600', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[1.803055] (-) TimerEvent: {}
+[1.851929] (pinchy_hardware) StdoutLine: {'line': b'[ 18%] Built target gtest\n'}
+[1.854522] (pinchy_hardware) StdoutLine: {'line': b'[ 36%] Built target gtest_main\n'}
+[1.872357] (pinchy_hardware) StdoutLine: {'line': b'[ 63%] Building CXX object CMakeFiles/pinchy_hardware.dir/vendor/ftservo/SMS_STS.cpp.o\n'}
+[1.872794] (pinchy_hardware) StdoutLine: {'line': b'[ 63%] Building CXX object CMakeFiles/pinchy_hardware.dir/vendor/ftservo/SCS.cpp.o\n'}
+[1.873371] (pinchy_hardware) StdoutLine: {'line': b'[ 72%] Building CXX object CMakeFiles/pinchy_hardware.dir/vendor/ftservo/SCSerial.cpp.o\n'}
+[1.873509] (pinchy_hardware) StdoutLine: {'line': b'[ 63%] Building CXX object CMakeFiles/pinchy_hardware.dir/src/feetech_system.cpp.o\n'}
+[1.903207] (-) TimerEvent: {}
+[2.003543] (-) TimerEvent: {}
+[2.103898] (-) TimerEvent: {}
+[2.204315] (-) TimerEvent: {}
+[2.304767] (-) TimerEvent: {}
+[2.405160] (-) TimerEvent: {}
+[2.505564] (-) TimerEvent: {}
+[2.605946] (-) TimerEvent: {}
+[2.706329] (-) TimerEvent: {}
+[2.806710] (-) TimerEvent: {}
+[2.907095] (-) TimerEvent: {}
+[3.007496] (-) TimerEvent: {}
+[3.107879] (-) TimerEvent: {}
+[3.208273] (-) TimerEvent: {}
+[3.308709] (-) TimerEvent: {}
+[3.409130] (-) TimerEvent: {}
+[3.509550] (-) TimerEvent: {}
+[3.609934] (-) TimerEvent: {}
+[3.710325] (-) TimerEvent: {}
+[3.810718] (-) TimerEvent: {}
+[3.911142] (-) TimerEvent: {}
+[4.011602] (-) TimerEvent: {}
+[4.112032] (-) TimerEvent: {}
+[4.212483] (-) TimerEvent: {}
+[4.312883] (-) TimerEvent: {}
+[4.413295] (-) TimerEvent: {}
+[4.513719] (-) TimerEvent: {}
+[4.614141] (-) TimerEvent: {}
+[4.714548] (-) TimerEvent: {}
+[4.814964] (-) TimerEvent: {}
+[4.915365] (-) TimerEvent: {}
+[5.015788] (-) TimerEvent: {}
+[5.116203] (-) TimerEvent: {}
+[5.216623] (-) TimerEvent: {}
+[5.317033] (-) TimerEvent: {}
+[5.417440] (-) TimerEvent: {}
+[5.517839] (-) TimerEvent: {}
+[5.618191] (-) TimerEvent: {}
+[5.718525] (-) TimerEvent: {}
+[5.818868] (-) TimerEvent: {}
+[5.919227] (-) TimerEvent: {}
+[6.019583] (-) TimerEvent: {}
+[6.119957] (-) TimerEvent: {}
+[6.220721] (-) TimerEvent: {}
+[6.321091] (-) TimerEvent: {}
+[6.421465] (-) TimerEvent: {}
+[6.521823] (-) TimerEvent: {}
+[6.622180] (-) TimerEvent: {}
+[6.722524] (-) TimerEvent: {}
+[6.822852] (-) TimerEvent: {}
+[6.923171] (-) TimerEvent: {}
+[7.023504] (-) TimerEvent: {}
+[7.123831] (-) TimerEvent: {}
+[7.224168] (-) TimerEvent: {}
+[7.253533] (pinchy_hardware) StderrLine: {'line': b'/home/leo/Robot-Arm/robot_software/src/pinchy_hardware/src/feetech_system.cpp: In member function \xe2\x80\x98virtual hardware_interface::CallbackReturn pinchy_hardware::FeetechSystem::on_init(const hardware_interface::HardwareInfo&)\xe2\x80\x99:\n'}
+[7.254247] (pinchy_hardware) StderrLine: {'line': b'/home/leo/Robot-Arm/robot_software/src/pinchy_hardware/src/feetech_system.cpp:153:31: warning: \xe2\x80\x98virtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn hardware_interface::HardwareComponentInterface::on_init(const hardware_interface::HardwareInfo&)\xe2\x80\x99 is deprecated: Use on_init(const HardwareComponentInterfaceParams & params) instead. [-Wdeprecated-declarations]\n'}
+[7.254608] (pinchy_hardware) StderrLine: {'line': b'  153 |   if (SystemInterface::on_init(info) != CallbackReturn::SUCCESS) return CallbackReturn::ERROR;\n'}
+[7.254943] (pinchy_hardware) StderrLine: {'line': b'      |       ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~\n'}
+[7.255233] (pinchy_hardware) StderrLine: {'line': b'In file included from /opt/ros/jazzy/include/hardware_interface/hardware_interface/system_interface.hpp:18,\n'}
+[7.255507] (pinchy_hardware) StderrLine: {'line': b'                 from /home/leo/Robot-Arm/robot_software/src/pinchy_hardware/include/pinchy_hardware/feetech_system.hpp:7,\n'}
+[7.255796] (pinchy_hardware) StderrLine: {'line': b'                 from /home/leo/Robot-Arm/robot_software/src/pinchy_hardware/src/feetech_system.cpp:1:\n'}
+[7.256049] (pinchy_hardware) StderrLine: {'line': b'/opt/ros/jazzy/include/hardware_interface/hardware_interface/hardware_component_interface.hpp:140:26: note: declared here\n'}
+[7.256298] (pinchy_hardware) StderrLine: {'line': b'  140 |   virtual CallbackReturn on_init(const HardwareInfo & hardware_info);\n'}
+[7.256624] (pinchy_hardware) StderrLine: {'line': b'      |                          ^~~~~~~\n'}
+[7.324298] (-) TimerEvent: {}
+[7.424573] (-) TimerEvent: {}
+[7.524877] (-) TimerEvent: {}
+[7.625168] (-) TimerEvent: {}
+[7.725483] (-) TimerEvent: {}
+[7.825829] (-) TimerEvent: {}
+[7.926180] (-) TimerEvent: {}
+[8.026533] (-) TimerEvent: {}
+[8.126879] (-) TimerEvent: {}
+[8.227188] (-) TimerEvent: {}
+[8.327494] (-) TimerEvent: {}
+[8.427848] (-) TimerEvent: {}
+[8.528213] (-) TimerEvent: {}
+[8.628566] (-) TimerEvent: {}
+[8.728915] (-) TimerEvent: {}
+[8.830844] (-) TimerEvent: {}
+[8.931171] (-) TimerEvent: {}
+[9.031517] (-) TimerEvent: {}
+[9.131881] (-) TimerEvent: {}
+[9.232184] (-) TimerEvent: {}
+[9.332486] (-) TimerEvent: {}
+[9.432819] (-) TimerEvent: {}
+[9.533177] (-) TimerEvent: {}
+[9.633500] (-) TimerEvent: {}
+[9.733819] (-) TimerEvent: {}
+[9.834145] (-) TimerEvent: {}
+[9.934456] (-) TimerEvent: {}
+[10.034772] (-) TimerEvent: {}
+[10.135092] (-) TimerEvent: {}
+[10.235422] (-) TimerEvent: {}
+[10.335781] (-) TimerEvent: {}
+[10.436124] (-) TimerEvent: {}
+[10.536482] (-) TimerEvent: {}
+[10.636859] (-) TimerEvent: {}
+[10.737239] (-) TimerEvent: {}
+[10.837625] (-) TimerEvent: {}
+[10.938103] (-) TimerEvent: {}
+[11.038501] (-) TimerEvent: {}
+[11.138865] (-) TimerEvent: {}
+[11.239209] (-) TimerEvent: {}
+[11.339562] (-) TimerEvent: {}
+[11.439908] (-) TimerEvent: {}
+[11.540313] (-) TimerEvent: {}
+[11.641023] (-) TimerEvent: {}
+[11.741343] (-) TimerEvent: {}
+[11.841650] (-) TimerEvent: {}
+[11.941961] (-) TimerEvent: {}
+[12.042279] (-) TimerEvent: {}
+[12.142609] (-) TimerEvent: {}
+[12.242903] (-) TimerEvent: {}
+[12.343220] (-) TimerEvent: {}
+[12.443527] (-) TimerEvent: {}
+[12.543840] (-) TimerEvent: {}
+[12.644151] (-) TimerEvent: {}
+[12.744484] (-) TimerEvent: {}
+[12.844804] (-) TimerEvent: {}
+[12.945146] (-) TimerEvent: {}
+[13.045466] (-) TimerEvent: {}
+[13.145778] (-) TimerEvent: {}
+[13.246083] (-) TimerEvent: {}
+[13.346407] (-) TimerEvent: {}
+[13.446720] (-) TimerEvent: {}
+[13.547033] (-) TimerEvent: {}
+[13.647344] (-) TimerEvent: {}
+[13.747651] (-) TimerEvent: {}
+[13.847952] (-) TimerEvent: {}
+[13.948262] (-) TimerEvent: {}
+[14.048579] (-) TimerEvent: {}
+[14.148900] (-) TimerEvent: {}
+[14.249240] (-) TimerEvent: {}
+[14.349565] (-) TimerEvent: {}
+[14.449879] (-) TimerEvent: {}
+[14.550195] (-) TimerEvent: {}
+[14.650556] (-) TimerEvent: {}
+[14.750899] (-) TimerEvent: {}
+[14.851215] (-) TimerEvent: {}
+[14.951519] (-) TimerEvent: {}
+[15.051826] (-) TimerEvent: {}
+[15.152129] (-) TimerEvent: {}
+[15.252470] (-) TimerEvent: {}
+[15.352797] (-) TimerEvent: {}
+[15.453129] (-) TimerEvent: {}
+[15.553440] (-) TimerEvent: {}
+[15.653749] (-) TimerEvent: {}
+[15.754071] (-) TimerEvent: {}
+[15.854389] (-) TimerEvent: {}
+[15.954720] (-) TimerEvent: {}
+[16.055059] (-) TimerEvent: {}
+[16.155382] (-) TimerEvent: {}
+[16.255732] (-) TimerEvent: {}
+[16.356053] (-) TimerEvent: {}
+[16.456506] (-) TimerEvent: {}
+[16.556823] (-) TimerEvent: {}
+[16.657133] (-) TimerEvent: {}
+[16.757436] (-) TimerEvent: {}
+[16.857758] (-) TimerEvent: {}
+[16.958083] (-) TimerEvent: {}
+[17.058495] (-) TimerEvent: {}
+[17.159086] (-) TimerEvent: {}
+[17.259601] (-) TimerEvent: {}
+[17.359914] (-) TimerEvent: {}
+[17.460213] (-) TimerEvent: {}
+[17.560556] (-) TimerEvent: {}
+[17.660868] (-) TimerEvent: {}
+[17.761177] (-) TimerEvent: {}
+[17.861479] (-) TimerEvent: {}
+[17.961805] (-) TimerEvent: {}
+[18.024552] (pinchy_hardware) StdoutLine: {'line': b'[ 81%] Linking CXX shared library libpinchy_hardware.so\n'}
+[18.061973] (-) TimerEvent: {}
+[18.162327] (-) TimerEvent: {}
+[18.262732] (-) TimerEvent: {}
+[18.363287] (-) TimerEvent: {}
+[18.463577] (-) TimerEvent: {}
+[18.563921] (-) TimerEvent: {}
+[18.664292] (-) TimerEvent: {}
+[18.764652] (-) TimerEvent: {}
+[18.832237] (pinchy_hardware) StdoutLine: {'line': b'[ 81%] Built target pinchy_hardware\n'}
+[18.864802] (-) TimerEvent: {}
+[18.900861] (pinchy_hardware) StdoutLine: {'line': b'[ 90%] Building CXX object CMakeFiles/test_feetech_system.dir/test/test_feetech_system.cpp.o\n'}
+[18.964943] (-) TimerEvent: {}
+[19.065306] (-) TimerEvent: {}
+[19.165665] (-) TimerEvent: {}
+[19.266017] (-) TimerEvent: {}
+[19.366390] (-) TimerEvent: {}
+[19.466763] (-) TimerEvent: {}
+[19.567134] (-) TimerEvent: {}
+[19.667517] (-) TimerEvent: {}
+[19.767932] (-) TimerEvent: {}
+[19.868323] (-) TimerEvent: {}
+[19.968723] (-) TimerEvent: {}
+[20.069125] (-) TimerEvent: {}
+[20.169535] (-) TimerEvent: {}
+[20.269913] (-) TimerEvent: {}
+[20.370277] (-) TimerEvent: {}
+[20.470643] (-) TimerEvent: {}
+[20.571016] (-) TimerEvent: {}
+[20.671385] (-) TimerEvent: {}
+[20.771756] (-) TimerEvent: {}
+[20.872116] (-) TimerEvent: {}
+[20.972616] (-) TimerEvent: {}
+[21.073029] (-) TimerEvent: {}
+[21.173373] (-) TimerEvent: {}
+[21.273714] (-) TimerEvent: {}
+[21.374065] (-) TimerEvent: {}
+[21.474409] (-) TimerEvent: {}
+[21.574715] (-) TimerEvent: {}
+[21.675050] (-) TimerEvent: {}
+[21.776536] (-) TimerEvent: {}
+[21.876849] (-) TimerEvent: {}
+[21.977177] (-) TimerEvent: {}
+[22.077516] (-) TimerEvent: {}
+[22.177861] (-) TimerEvent: {}
+[22.278194] (-) TimerEvent: {}
+[22.378526] (-) TimerEvent: {}
+[22.478853] (-) TimerEvent: {}
+[22.579204] (-) TimerEvent: {}
+[22.679544] (-) TimerEvent: {}
+[22.779852] (-) TimerEvent: {}
+[22.880168] (-) TimerEvent: {}
+[22.980504] (-) TimerEvent: {}
+[23.080819] (-) TimerEvent: {}
+[23.181136] (-) TimerEvent: {}
+[23.281460] (-) TimerEvent: {}
+[23.381766] (-) TimerEvent: {}
+[23.482067] (-) TimerEvent: {}
+[23.582394] (-) TimerEvent: {}
+[23.682693] (-) TimerEvent: {}
+[23.782991] (-) TimerEvent: {}
+[23.883389] (-) TimerEvent: {}
+[23.983715] (-) TimerEvent: {}
+[24.083987] (-) TimerEvent: {}
+[24.184266] (-) TimerEvent: {}
+[24.284521] (-) TimerEvent: {}
+[24.384798] (-) TimerEvent: {}
+[24.485081] (-) TimerEvent: {}
+[24.585366] (-) TimerEvent: {}
+[24.685647] (-) TimerEvent: {}
+[24.785927] (-) TimerEvent: {}
+[24.886215] (-) TimerEvent: {}
+[24.986500] (-) TimerEvent: {}
+[25.086789] (-) TimerEvent: {}
+[25.187077] (-) TimerEvent: {}
+[25.287369] (-) TimerEvent: {}
+[25.387664] (-) TimerEvent: {}
+[25.487973] (-) TimerEvent: {}
+[25.588280] (-) TimerEvent: {}
+[25.688614] (-) TimerEvent: {}
+[25.788924] (-) TimerEvent: {}
+[25.889233] (-) TimerEvent: {}
+[25.989552] (-) TimerEvent: {}
+[26.089861] (-) TimerEvent: {}
+[26.190183] (-) TimerEvent: {}
+[26.290510] (-) TimerEvent: {}
+[26.390838] (-) TimerEvent: {}
+[26.491194] (-) TimerEvent: {}
+[26.591522] (-) TimerEvent: {}
+[26.691842] (-) TimerEvent: {}
+[26.792138] (-) TimerEvent: {}
+[26.892485] (-) TimerEvent: {}
+[26.992791] (-) TimerEvent: {}
+[27.093100] (-) TimerEvent: {}
+[27.193415] (-) TimerEvent: {}
+[27.293721] (-) TimerEvent: {}
+[27.394026] (-) TimerEvent: {}
+[27.494335] (-) TimerEvent: {}
+[27.594648] (-) TimerEvent: {}
+[27.694964] (-) TimerEvent: {}
+[27.795282] (-) TimerEvent: {}
+[27.895596] (-) TimerEvent: {}
+[27.995914] (-) TimerEvent: {}
+[28.096227] (-) TimerEvent: {}
+[28.196532] (-) TimerEvent: {}
+[28.296844] (-) TimerEvent: {}
+[28.397174] (-) TimerEvent: {}
+[28.497513] (-) TimerEvent: {}
+[28.597837] (-) TimerEvent: {}
+[28.698168] (-) TimerEvent: {}
+[28.798469] (-) TimerEvent: {}
+[28.898780] (-) TimerEvent: {}
+[28.999097] (-) TimerEvent: {}
+[29.099394] (-) TimerEvent: {}
+[29.199692] (-) TimerEvent: {}
+[29.300011] (-) TimerEvent: {}
+[29.400310] (-) TimerEvent: {}
+[29.500624] (-) TimerEvent: {}
+[29.600903] (-) TimerEvent: {}
+[29.701169] (-) TimerEvent: {}
+[29.801439] (-) TimerEvent: {}
+[29.901711] (-) TimerEvent: {}
+[30.001987] (-) TimerEvent: {}
+[30.102325] (-) TimerEvent: {}
+[30.202990] (-) TimerEvent: {}
+[30.303364] (-) TimerEvent: {}
+[30.403789] (-) TimerEvent: {}
+[30.504187] (-) TimerEvent: {}
+[30.604567] (-) TimerEvent: {}
+[30.704996] (-) TimerEvent: {}
+[30.805411] (-) TimerEvent: {}
+[30.905713] (-) TimerEvent: {}
+[31.006022] (-) TimerEvent: {}
+[31.059590] (pinchy_hardware) StdoutLine: {'line': b'[100%] Linking CXX executable test_feetech_system\n'}
+[31.106199] (-) TimerEvent: {}
+[31.206536] (-) TimerEvent: {}
+[31.306862] (-) TimerEvent: {}
+[31.407205] (-) TimerEvent: {}
+[31.507551] (-) TimerEvent: {}
+[31.607917] (-) TimerEvent: {}
+[31.708290] (-) TimerEvent: {}
+[31.808659] (-) TimerEvent: {}
+[31.908999] (-) TimerEvent: {}
+[32.009330] (-) TimerEvent: {}
+[32.066380] (pinchy_hardware) StdoutLine: {'line': b'[100%] Built target test_feetech_system\n'}
+[32.093553] (pinchy_hardware) CommandEnded: {'returncode': 0}
+[32.095812] (pinchy_hardware) JobProgress: {'identifier': 'pinchy_hardware', 'progress': 'install'}
+[32.109429] (-) TimerEvent: {}
+[32.113609] (pinchy_hardware) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware'], 'cwd': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'TMUX': '/tmp/tmux-1000/default,6320,0', 'CODEX_CI': '1', 'LANGUAGE': 'en', 'USER': 'leo', 'LC_TIME': 'en_US.UTF-8', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/usr/local/cuda/lib64:/usr/local/cuda/lib64:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/leo', 'OLDPWD': '/home/leo', 'TERM_PROGRAM_VERSION': '3.4', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'LC_MONETARY': 'en_US.UTF-8', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '3757', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'CODEX_PERMISSION_PROFILE': ':workspace', 'CODEX_TOOL_CALL_ID': 'exec-9ebc1ac4-2c3b-4259-a428-7f34ecbeceb5', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'leo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS': '1', 'USERNAME': 'leo', 'TERM': 'tmux-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/home/leo/.codex/tmp/arg0-linux/codex-arg0ioC605:/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.codex/tmp/arg0-linux/codex-arg0ATGMvp:/home/leo/.codex/packages/standalone/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/home/leo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/leo:@/tmp/.ICE-unix/3726,unix/leo:/tmp/.ICE-unix/3726', 'CODEX_VERSION': '0.167.0', 'CODEX_SESSION_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_US.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/292f53d3_a8bb_400d_bc12_7667f825a41e', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_US.UTF-8', 'XMODIFIERS': '@im=ibus', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.98', 'TERM_PROGRAM': 'tmux', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_US.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:/usr/local/lib:/usr/local/lib', 'LC_NUMERIC': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'COLCON': '1', 'VTE_VERSION': '7600', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[32.130441] (pinchy_hardware) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[32.131125] (pinchy_hardware) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[32.131859] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware//pinchy_hardware.xml\n'}
+[32.132551] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/include/pinchy_hardware/feetech_system.hpp\n'}
+[32.133161] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/LICENSE\n'}
+[32.134514] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/THIRD_PARTY.md\n'}
+[32.135190] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/library_path.sh\n'}
+[32.135483] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/library_path.dsv\n'}
+[32.135991] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/package_run_dependencies/pinchy_hardware\n'}
+[32.136146] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/parent_prefix_path/pinchy_hardware\n'}
+[32.136282] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/ament_prefix_path.sh\n'}
+[32.136427] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/ament_prefix_path.dsv\n'}
+[32.136572] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/path.sh\n'}
+[32.136694] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/path.dsv\n'}
+[32.136808] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.bash\n'}
+[32.136948] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.sh\n'}
+[32.137069] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.zsh\n'}
+[32.137175] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.dsv\n'}
+[32.137279] (pinchy_hardware) StdoutLine: {'line': b'-- Symlinking: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.dsv\n'}
+[32.153272] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/packages/pinchy_hardware\n'}
+[32.153630] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/pinchy_hardware\n'}
+[32.153860] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[32.154061] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[32.154289] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/pinchy_hardwareConfig.cmake\n'}
+[32.154485] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/pinchy_hardwareConfig-version.cmake\n'}
+[32.154730] (pinchy_hardware) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.xml\n'}
+[32.155185] (pinchy_hardware) StdoutLine: {'line': b'-- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/libpinchy_hardware.so\n'}
+[32.162303] (pinchy_hardware) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/libpinchy_hardware.so" to ""\n'}
+[32.164125] (pinchy_hardware) StdoutLine: {'line': b'-- Old export file "/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport.cmake" will be replaced.  Removing files [/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport-noconfig.cmake].\n'}
+[32.164456] (pinchy_hardware) StdoutLine: {'line': b'-- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport.cmake\n'}
+[32.164646] (pinchy_hardware) StdoutLine: {'line': b'-- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport-noconfig.cmake\n'}
+[32.166988] (pinchy_hardware) CommandEnded: {'returncode': 0}
+[32.209744] (-) TimerEvent: {}
+[32.241015] (pinchy_hardware) JobEnded: {'identifier': 'pinchy_hardware', 'rc': 0}
+[32.244680] (pinchy_bringup) JobStarted: {'identifier': 'pinchy_bringup'}
+[32.270174] (pinchy_bringup) JobProgress: {'identifier': 'pinchy_bringup', 'progress': 'cmake'}
+[32.271751] (pinchy_bringup) JobProgress: {'identifier': 'pinchy_bringup', 'progress': 'build'}
+[32.272439] (pinchy_bringup) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup', '--', '-j6', '-l6'], 'cwd': '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'TMUX': '/tmp/tmux-1000/default,6320,0', 'CODEX_CI': '1', 'LANGUAGE': 'en', 'USER': 'leo', 'LC_TIME': 'en_US.UTF-8', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib64:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/leo', 'OLDPWD': '/home/leo', 'TERM_PROGRAM_VERSION': '3.4', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'LC_MONETARY': 'en_US.UTF-8', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '3757', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'CODEX_PERMISSION_PROFILE': ':workspace', 'CODEX_TOOL_CALL_ID': 'exec-9ebc1ac4-2c3b-4259-a428-7f34ecbeceb5', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'leo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS': '1', 'USERNAME': 'leo', 'TERM': 'tmux-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/home/leo/.codex/tmp/arg0-linux/codex-arg0ioC605:/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.codex/tmp/arg0-linux/codex-arg0ATGMvp:/home/leo/.codex/packages/standalone/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/home/leo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/leo:@/tmp/.ICE-unix/3726,unix/leo:/tmp/.ICE-unix/3726', 'CODEX_VERSION': '0.167.0', 'CODEX_SESSION_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_US.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/292f53d3_a8bb_400d_bc12_7667f825a41e', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_US.UTF-8', 'XMODIFIERS': '@im=ibus', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.98', 'TERM_PROGRAM': 'tmux', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_US.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:/usr/local/lib:/usr/local/lib', 'LC_NUMERIC': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'COLCON': '1', 'VTE_VERSION': '7600', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[32.309901] (-) TimerEvent: {}
+[32.322203] (pinchy_bringup) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[32.410057] (-) TimerEvent: {}
+[32.510590] (-) TimerEvent: {}
+[32.610909] (-) TimerEvent: {}
+[32.711225] (-) TimerEvent: {}
+[32.784199] (pinchy_bringup) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[32.811495] (-) TimerEvent: {}
+[32.911904] (-) TimerEvent: {}
+[33.012312] (-) TimerEvent: {}
+[33.020812] (pinchy_bringup) StdoutLine: {'line': b'-- Configuring done (0.7s)\n'}
+[33.031284] (pinchy_bringup) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[33.037322] (pinchy_bringup) StdoutLine: {'line': b'-- Build files have been written to: /home/leo/Robot-Arm/robot_software/build/pinchy_bringup\n'}
+[33.099879] (pinchy_bringup) CommandEnded: {'returncode': 0}
+[33.101929] (pinchy_bringup) JobProgress: {'identifier': 'pinchy_bringup', 'progress': 'install'}
+[33.102792] (pinchy_bringup) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup'], 'cwd': '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'TMUX': '/tmp/tmux-1000/default,6320,0', 'CODEX_CI': '1', 'LANGUAGE': 'en', 'USER': 'leo', 'LC_TIME': 'en_US.UTF-8', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib64:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/leo', 'OLDPWD': '/home/leo', 'TERM_PROGRAM_VERSION': '3.4', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'LC_MONETARY': 'en_US.UTF-8', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '3757', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'CODEX_PERMISSION_PROFILE': ':workspace', 'CODEX_TOOL_CALL_ID': 'exec-9ebc1ac4-2c3b-4259-a428-7f34ecbeceb5', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'leo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS': '1', 'USERNAME': 'leo', 'TERM': 'tmux-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/home/leo/.codex/tmp/arg0-linux/codex-arg0ioC605:/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.codex/tmp/arg0-linux/codex-arg0ATGMvp:/home/leo/.codex/packages/standalone/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/home/leo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/leo:@/tmp/.ICE-unix/3726,unix/leo:/tmp/.ICE-unix/3726', 'CODEX_VERSION': '0.167.0', 'CODEX_SESSION_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_US.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/292f53d3_a8bb_400d_bc12_7667f825a41e', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_US.UTF-8', 'XMODIFIERS': '@im=ibus', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.98', 'TERM_PROGRAM': 'tmux', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_US.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:/usr/local/lib:/usr/local/lib', 'LC_NUMERIC': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'COLCON': '1', 'VTE_VERSION': '7600', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[33.112394] (-) TimerEvent: {}
+[33.125237] (pinchy_bringup) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[33.126157] (pinchy_bringup) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[33.127163] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/__pycache__/calibration_reference.launch.cpython-312.pyc\n'}
+[33.127653] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/__pycache__/display.launch.cpython-312.pyc\n'}
+[33.128067] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/__pycache__/ee_parts.launch.cpython-312.pyc\n'}
+[33.128334] (pinchy_bringup) StdoutLine: {'line': b'-- Symlinking: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/__pycache__/hardware_control.launch.cpython-312.pyc\n'}
+[33.155800] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/__pycache__/mock_control.launch.cpython-312.pyc\n'}
+[33.156212] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/calibration_reference.launch.py\n'}
+[33.156703] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/display.launch.py\n'}
+[33.157171] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/ee_parts.launch.py\n'}
+[33.157799] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/hardware_control.launch.py\n'}
+[33.158207] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/launch/mock_control.launch.py\n'}
+[33.158719] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm.rviz\n'}
+[33.159051] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml\n'}
+[33.159365] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/servo_calibration.example.yaml\n'}
+[33.160088] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/mock_trajectory.py\n'}
+[33.160653] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/joint_sliders.py\n'}
+[33.161069] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/ros_bench_test.py\n'}
+[33.161495] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/startup_ready.py\n'}
+[33.161992] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/motion_monitor.py\n'}
+[33.162251] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/start_arm\n'}
+[33.162625] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/ament_index/resource_index/package_run_dependencies/pinchy_bringup\n'}
+[33.162900] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/ament_index/resource_index/parent_prefix_path/pinchy_bringup\n'}
+[33.163336] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/environment/ament_prefix_path.sh\n'}
+[33.163578] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/environment/ament_prefix_path.dsv\n'}
+[33.163815] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/environment/path.sh\n'}
+[33.164049] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/environment/path.dsv\n'}
+[33.164281] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/local_setup.bash\n'}
+[33.164598] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/local_setup.sh\n'}
+[33.164855] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/local_setup.zsh\n'}
+[33.165091] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/local_setup.dsv\n'}
+[33.165371] (pinchy_bringup) StdoutLine: {'line': b'-- Symlinking: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.dsv\n'}
+[33.184492] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/ament_index/resource_index/packages/pinchy_bringup\n'}
+[33.184941] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/cmake/pinchy_bringupConfig.cmake\n'}
+[33.185334] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/cmake/pinchy_bringupConfig-version.cmake\n'}
+[33.185750] (pinchy_bringup) StdoutLine: {'line': b'-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.xml\n'}
+[33.189209] (pinchy_bringup) CommandEnded: {'returncode': 0}
+[33.212976] (-) TimerEvent: {}
+[33.243300] (pinchy_bringup) JobEnded: {'identifier': 'pinchy_bringup', 'rc': 0}
+[33.245579] (-) EventReactorShutdown: {}

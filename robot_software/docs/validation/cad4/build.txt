@@ -1,0 +1,8 @@
+Starting >>> pinchy_description
+Starting >>> pinchy_hardware
+Finished <<< pinchy_description [0.23s]
+Finished <<< pinchy_hardware [0.35s]
+Starting >>> pinchy_bringup
+Finished <<< pinchy_bringup [0.25s]
+
+Summary: 3 packages finished [1.12s]

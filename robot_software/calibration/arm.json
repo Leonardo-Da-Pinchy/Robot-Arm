@@ -1,0 +1,1030 @@
+{
+  "schema_version": 1,
+  "profile_kind": "assembled_arm",
+  "calibration_confirmed": false,
+  "capture_backend": "hardware",
+  "cad4_source_sha256": "92ab62409e9267e84250e2581e34781d901ed8e5b9e884b6b680620c613f7d51",
+  "port": "/dev/serial/by-id/usb-1a86_USB_Single_Serial_5B79078770-if00",
+  "timeout_ms": 20,
+  "speed": 500,
+  "acceleration": 32,
+  "torque_limit": 1000,
+  "max_feedback_age": 0.25,
+  "joints": {
+    "shoulder_pan": {
+      "servo_id": 1,
+      "zero_tick": 2197,
+      "direction": 1,
+      "min_tick": 1097,
+      "max_tick": 3436,
+      "min_radians": -1.6873788666742053,
+      "max_radians": 1.9006021961903095,
+      "max_velocity": 0.5235987755982988
+    },
+    "shoulder_lift": {
+      "servo_id": 2,
+      "zero_tick": 1904,
+      "direction": 1,
+      "min_tick": 867,
+      "max_tick": 2901,
+      "min_radians": -1.59073807703741,
+      "max_radians": 1.5293788455219843,
+      "max_velocity": 0.5235987755982988
+    },
+    "elbow_flex": {
+      "servo_id": 3,
+      "zero_tick": 2249,
+      "direction": 1,
+      "min_tick": 1281,
+      "max_tick": 3255,
+      "min_radians": -1.4848934026733007,
+      "max_radians": 1.543184672612955,
+      "max_velocity": 0.5235987755982988
+    },
+    "wrist_flex": {
+      "servo_id": 4,
+      "zero_tick": 2198,
+      "direction": 1,
+      "min_tick": 1164,
+      "max_tick": 2925,
+      "min_radians": -1.586136134673753,
+      "max_radians": 1.1152040327928612,
+      "max_velocity": 0.5235987755982988
+    },
+    "wrist_roll": {
+      "servo_id": 5,
+      "zero_tick": 1748,
+      "direction": 1,
+      "min_tick": 1748,
+      "max_tick": 3244,
+      "min_radians": 0.0,
+      "max_radians": 2.2948352586769194,
+      "max_velocity": 0.5235987755982988
+    },
+    "pen_pitch": {
+      "servo_id": 6,
+      "zero_tick": 1288,
+      "direction": 1,
+      "min_tick": 1269,
+      "max_tick": 2316,
+      "min_radians": -0.02914563496982718,
+      "max_radians": 1.576932249946439,
+      "max_velocity": 0.5235987755982988
+    }
+  },
+  "observations": {
+    "shoulder_pan": {
+      "zero": {
+        "position": 2197,
+        "samples": [
+          2197,
+          2197,
+          2197,
+          2197,
+          2197
+        ],
+        "configuration": {
+          "stored_id": 1,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:32:52.945717+00:00",
+        "pose": "Operator aligned this joint to CAD angle 0 rad"
+      },
+      "positive_direction": {
+        "position": 2610,
+        "samples": [
+          2610,
+          2610,
+          2610,
+          2610,
+          2610
+        ],
+        "configuration": {
+          "stored_id": 1,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:42:25.361118+00:00",
+        "encoder_delta": 413,
+        "pose": "Operator moved this joint a small positive CAD angle from its saved zero"
+      },
+      "safe_position_1": {
+        "position": 3436,
+        "samples": [
+          3436,
+          3436,
+          3436,
+          3436,
+          3436
+        ],
+        "configuration": {
+          "stored_id": 1,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:03.732805+00:00",
+        "angle_radians": 1.9006021961903095
+      },
+      "safe_position_2": {
+        "position": 1097,
+        "samples": [
+          1097,
+          1097,
+          1097,
+          1097,
+          1097
+        ],
+        "configuration": {
+          "stored_id": 1,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:14.411749+00:00",
+        "angle_radians": -1.6873788666742053
+      },
+      "limit_lower": {
+        "position": 1097,
+        "samples": [
+          1097,
+          1097,
+          1097,
+          1097,
+          1097
+        ],
+        "configuration": {
+          "stored_id": 1,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:14.411749+00:00",
+        "angle_radians": -1.6873788666742053
+      },
+      "limit_upper": {
+        "position": 3436,
+        "samples": [
+          3436,
+          3436,
+          3436,
+          3436,
+          3436
+        ],
+        "configuration": {
+          "stored_id": 1,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:03.732805+00:00",
+        "angle_radians": 1.9006021961903095
+      }
+    },
+    "shoulder_lift": {
+      "zero": {
+        "position": 1904,
+        "samples": [
+          1904,
+          1904,
+          1904,
+          1904,
+          1904
+        ],
+        "configuration": {
+          "stored_id": 2,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T03:31:42.141050+00:00",
+        "pose": "Operator corrected this joint to CAD angle zero"
+      },
+      "positive_direction": {
+        "position": 2552,
+        "samples": [
+          2552,
+          2552,
+          2552,
+          2552,
+          2552
+        ],
+        "configuration": {
+          "stored_id": 2,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:43:02.933810+00:00",
+        "encoder_delta": 636,
+        "pose": "Operator moved this joint a small positive CAD angle from its saved zero",
+        "reference_zero_tick": 1916
+      },
+      "safe_position_1": {
+        "position": 867,
+        "samples": [
+          867,
+          867,
+          867,
+          867,
+          867
+        ],
+        "configuration": {
+          "stored_id": 2,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:24.891321+00:00",
+        "angle_radians": -1.59073807703741
+      },
+      "safe_position_2": {
+        "position": 2901,
+        "samples": [
+          2901,
+          2901,
+          2901,
+          2901,
+          2901
+        ],
+        "configuration": {
+          "stored_id": 2,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:35.322712+00:00",
+        "angle_radians": 1.5293788455219843
+      },
+      "limit_lower": {
+        "position": 867,
+        "samples": [
+          867,
+          867,
+          867,
+          867,
+          867
+        ],
+        "configuration": {
+          "stored_id": 2,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:24.891321+00:00",
+        "angle_radians": -1.59073807703741
+      },
+      "limit_upper": {
+        "position": 2901,
+        "samples": [
+          2901,
+          2901,
+          2901,
+          2901,
+          2901
+        ],
+        "configuration": {
+          "stored_id": 2,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:35.322712+00:00",
+        "angle_radians": 1.5293788455219843
+      },
+      "zero_adjustments": [
+        {
+          "previous_zero": {
+            "position": 1916,
+            "samples": [
+              1916,
+              1916,
+              1916,
+              1916,
+              1916
+            ],
+            "configuration": {
+              "stored_id": 2,
+              "model_raw": 777,
+              "offset_raw": 85,
+              "phase_raw": 12,
+              "resolution_raw": 1,
+              "mode": 0,
+              "baud_code": 0,
+              "min_position_raw": 0,
+              "max_position_raw": 4095
+            },
+            "captured_at": "2026-11-09T01:34:41.773338+00:00",
+            "pose": "Operator aligned this joint to CAD angle 0 rad"
+          },
+          "previous_bounds": {
+            "min_tick": 867,
+            "max_tick": 2901,
+            "min_radians": -1.6091458464920376,
+            "max_radians": 1.5109710760673565
+          },
+          "new_zero_tick": 1889,
+          "captured_at": "2026-11-09T03:31:31.681854+00:00"
+        },
+        {
+          "previous_zero": {
+            "position": 1889,
+            "samples": [
+              1889,
+              1889,
+              1889,
+              1889,
+              1889
+            ],
+            "configuration": {
+              "stored_id": 2,
+              "model_raw": 777,
+              "offset_raw": 85,
+              "phase_raw": 12,
+              "resolution_raw": 1,
+              "mode": 0,
+              "baud_code": 0,
+              "min_position_raw": 0,
+              "max_position_raw": 4095
+            },
+            "captured_at": "2026-11-09T03:31:31.681854+00:00",
+            "pose": "Operator corrected this joint to CAD angle zero"
+          },
+          "previous_bounds": {
+            "min_tick": 867,
+            "max_tick": 2901,
+            "min_radians": -1.5677283652191252,
+            "max_radians": 1.552388557340269
+          },
+          "new_zero_tick": 1904,
+          "captured_at": "2026-11-09T03:31:42.141050+00:00"
+        }
+      ]
+    },
+    "elbow_flex": {
+      "zero": {
+        "position": 2249,
+        "samples": [
+          2249,
+          2249,
+          2249,
+          2249,
+          2249
+        ],
+        "configuration": {
+          "stored_id": 3,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T05:00:13.673972+00:00",
+        "pose": "Operator corrected this joint to CAD angle zero"
+      },
+      "positive_direction": {
+        "position": 3062,
+        "samples": [
+          3062,
+          3062,
+          3062,
+          3062,
+          3062
+        ],
+        "configuration": {
+          "stored_id": 3,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:43:21.777686+00:00",
+        "encoder_delta": 787,
+        "pose": "Operator moved this joint a small positive CAD angle from its saved zero",
+        "reference_zero_tick": 2275
+      },
+      "safe_position_1": {
+        "position": 3255,
+        "samples": [
+          3255,
+          3255,
+          3255,
+          3255,
+          3256
+        ],
+        "configuration": {
+          "stored_id": 3,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:51.185510+00:00",
+        "angle_radians": 1.543184672612955
+      },
+      "safe_position_2": {
+        "position": 1281,
+        "samples": [
+          1281,
+          1281,
+          1281,
+          1281,
+          1281
+        ],
+        "configuration": {
+          "stored_id": 3,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:57.988604+00:00",
+        "angle_radians": -1.4848934026733007
+      },
+      "limit_lower": {
+        "position": 1281,
+        "samples": [
+          1281,
+          1281,
+          1281,
+          1281,
+          1281
+        ],
+        "configuration": {
+          "stored_id": 3,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:57.988604+00:00",
+        "angle_radians": -1.4848934026733007
+      },
+      "limit_upper": {
+        "position": 3255,
+        "samples": [
+          3255,
+          3255,
+          3255,
+          3255,
+          3256
+        ],
+        "configuration": {
+          "stored_id": 3,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:02:51.185510+00:00",
+        "angle_radians": 1.543184672612955
+      },
+      "zero_adjustments": [
+        {
+          "previous_zero": {
+            "position": 2275,
+            "samples": [
+              2275,
+              2275,
+              2275,
+              2275,
+              2275
+            ],
+            "configuration": {
+              "stored_id": 3,
+              "model_raw": 777,
+              "offset_raw": 85,
+              "phase_raw": 12,
+              "resolution_raw": 1,
+              "mode": 0,
+              "baud_code": 0,
+              "min_position_raw": 0,
+              "max_position_raw": 4095
+            },
+            "captured_at": "2026-11-09T01:34:53.647464+00:00",
+            "pose": "Operator aligned this joint to CAD angle 0 rad"
+          },
+          "previous_bounds": {
+            "min_tick": 1281,
+            "max_tick": 3255,
+            "min_radians": -1.5247769031583274,
+            "max_radians": 1.5033011721279284
+          },
+          "new_zero_tick": 2249,
+          "captured_at": "2026-11-09T05:00:13.673972+00:00"
+        }
+      ]
+    },
+    "wrist_flex": {
+      "zero": {
+        "position": 2198,
+        "samples": [
+          2198,
+          2198,
+          2198,
+          2198,
+          2198
+        ],
+        "configuration": {
+          "stored_id": 4,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:35:16.352781+00:00",
+        "pose": "Operator aligned this joint to CAD angle 0 rad"
+      },
+      "positive_direction": {
+        "position": 2958,
+        "samples": [
+          2958,
+          2958,
+          2958,
+          2958,
+          2958
+        ],
+        "configuration": {
+          "stored_id": 4,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:43:44.590881+00:00",
+        "encoder_delta": 760,
+        "pose": "Operator moved this joint a small positive CAD angle from its saved zero"
+      },
+      "safe_position_1": {
+        "position": 2925,
+        "samples": [
+          2925,
+          2925,
+          2925,
+          2925,
+          2925
+        ],
+        "configuration": {
+          "stored_id": 4,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:09:15.188109+00:00",
+        "angle_radians": 1.1152040327928612
+      },
+      "safe_position_2": {
+        "position": 1164,
+        "samples": [
+          1164,
+          1164,
+          1164,
+          1164,
+          1164
+        ],
+        "configuration": {
+          "stored_id": 4,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:09:27.965865+00:00",
+        "angle_radians": -1.586136134673753
+      },
+      "limit_lower": {
+        "position": 1164,
+        "samples": [
+          1164,
+          1164,
+          1164,
+          1164,
+          1164
+        ],
+        "configuration": {
+          "stored_id": 4,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:09:27.965865+00:00",
+        "angle_radians": -1.586136134673753
+      },
+      "limit_upper": {
+        "position": 2925,
+        "samples": [
+          2925,
+          2925,
+          2925,
+          2925,
+          2925
+        ],
+        "configuration": {
+          "stored_id": 4,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:09:15.188109+00:00",
+        "angle_radians": 1.1152040327928612
+      }
+    },
+    "wrist_roll": {
+      "zero": {
+        "position": 1748,
+        "samples": [
+          1748,
+          1748,
+          1748,
+          1748,
+          1748
+        ],
+        "configuration": {
+          "stored_id": 5,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:36:19.469385+00:00",
+        "pose": "Operator aligned this joint to CAD angle 0 rad"
+      },
+      "positive_direction": {
+        "position": 2315,
+        "samples": [
+          2315,
+          2315,
+          2315,
+          2315,
+          2315
+        ],
+        "configuration": {
+          "stored_id": 5,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:49:09.580093+00:00",
+        "encoder_delta": 567,
+        "pose": "Operator moved this joint a small positive CAD angle from its saved zero"
+      },
+      "safe_position_1": {
+        "position": 3244,
+        "samples": [
+          3244,
+          3244,
+          3244,
+          3244,
+          3243
+        ],
+        "configuration": {
+          "stored_id": 5,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:03:26.945502+00:00",
+        "angle_radians": 2.2948352586769194
+      },
+      "safe_position_2": {
+        "position": 1796,
+        "samples": [
+          1796,
+          1796,
+          1796,
+          1796,
+          1796
+        ],
+        "configuration": {
+          "stored_id": 5,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:03:33.347881+00:00",
+        "angle_radians": 0.07363107781851078
+      },
+      "limit_lower": {
+        "position": 1748,
+        "samples": [
+          1748,
+          1748,
+          1748,
+          1748,
+          1748
+        ],
+        "configuration": {
+          "stored_id": 5,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:36:19.469385+00:00",
+        "pose": "Operator aligned this joint to CAD angle 0 rad",
+        "angle_radians": 0.0
+      },
+      "limit_upper": {
+        "position": 3244,
+        "samples": [
+          3244,
+          3244,
+          3244,
+          3244,
+          3243
+        ],
+        "configuration": {
+          "stored_id": 5,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:03:26.945502+00:00",
+        "angle_radians": 2.2948352586769194
+      }
+    },
+    "pen_pitch": {
+      "zero": {
+        "position": 1288,
+        "samples": [
+          1288,
+          1288,
+          1288,
+          1288,
+          1288
+        ],
+        "configuration": {
+          "stored_id": 6,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:36:42.388814+00:00",
+        "pose": "Operator aligned this joint to CAD angle 0 rad"
+      },
+      "positive_direction": {
+        "position": 2081,
+        "samples": [
+          2081,
+          2081,
+          2081,
+          2081,
+          2081
+        ],
+        "configuration": {
+          "stored_id": 6,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T01:49:45.454978+00:00",
+        "encoder_delta": 793,
+        "pose": "Operator moved this joint a small positive CAD angle from its saved zero"
+      },
+      "safe_position_1": {
+        "position": 2316,
+        "samples": [
+          2316,
+          2316,
+          2316,
+          2316,
+          2316
+        ],
+        "configuration": {
+          "stored_id": 6,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:03:57.820083+00:00",
+        "angle_radians": 1.576932249946439
+      },
+      "safe_position_2": {
+        "position": 1269,
+        "samples": [
+          1269,
+          1269,
+          1269,
+          1269,
+          1269
+        ],
+        "configuration": {
+          "stored_id": 6,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:04:08.413307+00:00",
+        "angle_radians": -0.02914563496982718
+      },
+      "limit_lower": {
+        "position": 1269,
+        "samples": [
+          1269,
+          1269,
+          1269,
+          1269,
+          1269
+        ],
+        "configuration": {
+          "stored_id": 6,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:04:08.413307+00:00",
+        "angle_radians": -0.02914563496982718
+      },
+      "limit_upper": {
+        "position": 2316,
+        "samples": [
+          2316,
+          2316,
+          2316,
+          2316,
+          2316
+        ],
+        "configuration": {
+          "stored_id": 6,
+          "model_raw": 777,
+          "offset_raw": 85,
+          "phase_raw": 12,
+          "resolution_raw": 1,
+          "mode": 0,
+          "baud_code": 0,
+          "min_position_raw": 0,
+          "max_position_raw": 4095
+        },
+        "captured_at": "2026-11-09T02:03:57.820083+00:00",
+        "angle_radians": 1.576932249946439
+      }
+    }
+  },
+  "updated_at": "2026-11-09T05:00:13.677632+00:00"
+}

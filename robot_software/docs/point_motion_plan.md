@@ -1,5 +1,10 @@
 # Plan to reach Cartesian point and waypoint control
 
+> For current status, settings, safety behavior and agent entry point, read the
+> [checkpoint handoff](checkpoint_handoff.md). The owner now accepts basic
+> physical motion and wants the empty holder's tip used for this checkpoint;
+> final pen-tip calibration is deferred. Earlier status tables below are historical.
+
 Original assessment: November 4, 2026. Status reviewed November 8, 2026.
 
 This plan compares the October 9 design report with the code currently in this
@@ -21,10 +26,10 @@ failure from feedback**. Drawing on an object comes afterward.
 | Label IDs 1–6 and verify after power cycling | ✅ Complete: confirmed by user for every motor |
 | Basic individual movement of all six motors | ✅ Complete: confirmed by user |
 | Physical two-motor and six-motor chain tests | ✅ Complete for unloaded bench operation; six-motor sequence passed with tolerance 5 |
-| Actual six-joint URDF and pen-tip model | ⬜ Pending: stock reference is still the only ROS description |
-| Assembly, joint calibration, load and stop/recovery tests | ⬜ Pending |
-| Mock ros2_control trajectory execution | ⬜ Pending |
-| Feetech hardware plugin and real ROS joint trajectories | ⬜ Pending |
+| Six-axis motor model | 🟨 CAD 4 axes, nominal pen tip, visuals/inertias and collision proxies integrated; physical calibration pending |
+| Assembly, joint calibration, load and stop/recovery tests | 🟨 Assembly and installed ID order confirmed; calibration and qualification pending |
+| Mock ros2_control trajectory execution | ✅ Complete: action, feedback, cancellation, rejection and slider tests |
+| Feetech hardware plugin and real ROS joint trajectories | ✅ First physical proof complete: user confirmed all six unloaded motors passed the ROS out-and-back sequence; assembled-arm qualification remains pending |
 | MoveIt configuration and one real Cartesian pose | ⬜ Pending |
 | Ordered pose lists and Cartesian path execution | ⬜ Pending |
 
@@ -39,13 +44,13 @@ subsequently confirmed operation and ID persistence for all six motors. See the
 
 | Area | Implemented | Remaining before real Cartesian motion |
 | --- | --- | --- |
-| ROS description | `pinchy_description`: stock SO-101 URDF and meshes | Actual six-arm-joint geometry, measured limits, pen mount and `pen_tip` frame |
-| Visualization | `pinchy_bringup/display.launch.py`: reference model, virtual joint states, TF, RViz | Custom model selection and separate mock-control/hardware launches |
+| ROS description | Stock reference plus CAD 4 runtime model, nominal tip and source geometry | Installed-pen compression/offset, measured limits and physical calibration |
+| Visualization | Reference display plus separate mock/hardware control launches, target sliders, TF and RViz | Review assembled EE alignment and physical joint correspondence |
 | Motor bench tools | Single-motor setup and chain-test tools; all six labelled IDs power-cycle verified, individual movement and full chain sequence verified | Assembled-joint calibration, load and stop/recovery qualification |
 | Bench guards | 67 software tests; individual movement and full six-motor chain sequence verified | Temperature telemetry root cause, emergency stop, power-loss and assembled-arm behavior |
 | Offline kinematics | `calculations/`: FK, Jacobians, numerical IK, geometry-specific IK-Geo, sampled workspace/stroke checks | Match the actual arm; integrate runtime planning separately |
 | Load analysis | Gravity torque, model import, optional comparison with external SO-101/MuJoCo files | Custom-arm load assessment and measured operating limits; no implemented full inverse dynamics/contact-force analysis |
-| ROS hardware control | No implementation | Feetech hardware interface, feedback, controller configuration and trajectory execution |
+| ROS hardware control | Feetech hardware plugin, controller/action pipeline and target sliders | Measured calibration, real-bus timing, supervised joint/stop qualification |
 | MoveIt | No project configuration or motion client | SRDF/planning group, IK, planning scene, limits, execution controller mapping |
 | Browser | Flask health route; canvas records strokes in browser memory | No robot commands, drawing submission, job execution or robot status integration |
 | Full project | Design and a broad [implementation roadmap](implementation_roadmap.md) | Registration, SVG mapping, contact handling, drawing validation and optional gripping |
@@ -53,8 +58,9 @@ subsequently confirmed operation and ID persistence for all six motors. See the
 Three distinctions matter:
 
 - The stock URDF has **five joints that position/orient the tool plus a gripper**.
-  The custom robot has **six positioning joints plus a separate seventh gripper
-  servo**. The report's six-servo purchase/mapping describes the arm only.
+  Per the owner's November 8 clarification, the custom robot reuses all six
+  motor axes and repurposes that gripper output as `pen_pitch`. No seventh
+  gripping motor is assumed; the pen is held mechanically.
 - The six-joint DH calculation model is separate from the displayed stock URDF.
   Its configuration explicitly contains demonstration limits, masses, tool
   offsets and collision shapes. Supplied geometry still needs comparison with
@@ -93,8 +99,7 @@ and [trajectory-controller connection](https://moveit.picknik.ai/main/doc/exampl
 Record the actual servo voltage variants/models, adapter, supply, motor IDs,
 joint order/axes, CAD revision and mechanical ranges. Define stable joint names,
 metres/radians, `base_link`, `tool0`, and `pen_tip`, including which tip axis points
-along the pen. Resolve how the six arm motors and optional gripper are powered
-and addressed. Choose the deployed ROS distribution before writing version-
+along the pen. Record how the six arm motors are powered and addressed. Choose the deployed ROS distribution before writing version-
 specific configuration: this machine has Jazzy; the report proposes Humble.
 
 **Done when:** a versioned inventory and calibration template identify every arm
@@ -112,8 +117,7 @@ themselves enable output, so the initial current-position goal matters.
 Use the bench tool for small slow moves only after independently checking the
 allowed range. Record actual position change, direction, voltage/temperature,
 hold/release behavior and reconnect behavior. Verify emergency power cut with
-the mechanism supported. Repeat for all six arm motors; test the seventh before
-using gripping. The tool's hold is best effort, not a guaranteed stop on bus loss.
+the mechanism supported. Repeat for all six arm motors. The tool's hold is best effort, not a guaranteed stop on bus loss.
 
 **Done when:** every arm motor communicates and moves as expected, has a unique
 labelled ID, and has recorded bench results. Mock tests do not satisfy this step.
@@ -123,7 +127,8 @@ labelled ID, and has recorded bench results. Mock tests do not satisfy this step
 Retain the stock reference and add a separate custom description from current
 CAD/measurements. Include all six arm axes, measured link transforms, realistic
 joint ranges, simple collision geometry, pen holder and fixed tip transform.
-Model or fix the gripper appropriately for the first manually loaded pen.
+Use the confirmed former gripper axis as `pen_pitch`; mount the manually
+loaded pen assembly with verified fixed/rotating part assignments.
 
 Check zero pose, axis directions, tip position and clearances in RViz against the
 assembly. Add the table/base fixture to the planning scene. Accurate inertials
@@ -156,6 +161,12 @@ joint-state broadcaster, and a joint trajectory controller. Use explicit mock
 hardware initially. Create a small joint-target client using the
 `FollowJointTrajectory` action and check completion, timeout and cancellation.
 Use the same joint names and controller action later for real hardware.
+
+The six motor transforms now reuse the SO-101 reference as confirmed by the
+owner. Mock control and sliders are described in [mock control](mock_control.md);
+the integrated model now follows the supplied [CAD 4 source](cad4_model.md),
+including nominal pen tip and simplified EE geometry. Physical calibration and
+collision-aware planning remain pending.
 
 **Done when:** mock trajectories move the custom model through the controller,
 with feedback and action results. RViz sliders alone do not satisfy this step.
@@ -207,10 +218,34 @@ client is enough for the first milestone.
 Support two different requests deliberately:
 
 - **Visit poses:** reach them in order using planned transit motions; the tip may
-  curve between endpoints. Stop at each pose initially if that simplifies testing.
+  curve between endpoints. A commissioning mode may stop at each pose, but
+  continuous operation must not decelerate to rest at every intermediate waypoint.
 - **Follow a Cartesian path:** preserve the intended tool path between poses,
   needed for drawing. Use Cartesian interpolation and IK continuity checks;
   reject incomplete paths, collisions and excessive joint jumps before execution.
+
+**End-effector speed requirement:** During normal continuous operation, maintain
+approximately constant pen-tip linear speed through intermediate points, above
+a measured minimum useful speed. Express this in mm/s at the active tool frame
+(the empty holder's tip initially, the calibrated pen tip later), separately
+from joint speed in degrees/s. The requested operating speed, minimum threshold
+and allowed speed variation are **TBD from physical measurements**.
+
+The owner observes stepping at very low speeds; this is a working explanation,
+not a confirmed diagnosis. Qualification should characterize useful operating
+speeds rather than require arbitrarily slow slider motion to look continuous.
+Plan and time the whole continuous segment together, with compatible velocities
+through intermediate waypoints, instead of chaining independent moves that each
+have zero endpoint velocity. This requirement is not implemented by the current
+single-target sliders.
+
+Acceleration/deceleration at segment starts and ends, explicit pauses, approach/
+retract moves, sharp corners and safety stops are exceptions to the minimum
+speed. Preserve sharp corners or use an explicitly allowed blending tolerance;
+do not distort the path or exceed joint, collision or acceleration constraints
+to maintain speed. If the requested speed cannot be maintained over a continuous
+section, report that limitation before execution. Verify measured tip speed and
+path accuracy together when choosing the operating profile.
 
 For the first Cartesian implementation, use explicit orientations. Later support
 pen-axis alignment with free roll deliberately: full-pose IK does not automatically

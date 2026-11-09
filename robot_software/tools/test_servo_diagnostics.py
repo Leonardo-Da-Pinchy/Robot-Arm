@@ -21,6 +21,38 @@ READ_TEMP = [255, 255, 2, 4, 2, 63, 1, 0]
 
 
 class DiagnosticTests(unittest.TestCase):
+    def test_opt_in_read_retries_recover_corrupt_frame_and_validate_next_reply(self):
+        class SDK:
+            calls = 0
+            def txRxPacket(self, packet):
+                self.calls += 1
+                return (reply(data=()), 0, 0) if self.calls == 1 else (reply(), 0, 0)
+        class Handler(CheckedReplies, SDK): pass
+        handler = Handler(); handler.read_retries = 2
+        handler.portHandler = SimpleNamespace(is_using=False, clearPort=Mock())
+        with patch.dict('sys.modules', {'scservo_sdk': SimpleNamespace(COMM_RX_CORRUPT=-7, COMM_RX_TIMEOUT=-6)}):
+            self.assertEqual(handler.txRxPacket(READ_TEMP)[1], 0)
+        self.assertEqual(handler.calls, 2)
+        self.assertIsNone(handler.last_reply_problem)
+        handler.portHandler.clearPort.assert_called_once()
+
+    def test_retries_are_bounded_and_never_replay_a_write(self):
+        class SDK:
+            calls = 0
+            def txRxPacket(self, packet):
+                self.calls += 1
+                return None, -7, 0
+        class Handler(CheckedReplies, SDK): pass
+        handler = Handler(); handler.read_retries = 2
+        handler.portHandler = SimpleNamespace(is_using=False, clearPort=Mock())
+        with patch.dict('sys.modules', {'scservo_sdk': SimpleNamespace(COMM_RX_CORRUPT=-7, COMM_RX_TIMEOUT=-6)}):
+            self.assertEqual(handler.txRxPacket(READ_TEMP)[1], -7)
+        self.assertEqual(handler.calls, 3)
+        handler.calls = 0
+        write = [255, 255, 2, 4, 3, 40, 1, 0]
+        self.assertEqual(handler.txRxPacket(write)[1], -7)
+        self.assertEqual(handler.calls, 1)
+
     def test_interrupted_sdk_read_clears_busy_flag_before_cleanup(self):
         class SDK:
             calls = 0

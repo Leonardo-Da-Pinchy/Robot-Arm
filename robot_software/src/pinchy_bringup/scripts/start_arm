@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+"""ROS CLI entry point for the interactive physical zero/hold workflow."""
+import os
+from pathlib import Path
+import sys
+
+from rclpy.utilities import remove_ros_args
+
+
+def main():
+    explicit = os.environ.get('ROBOT_SOFTWARE_ROOT')
+    candidates = ([Path(explicit)] if explicit else []) + list(Path(__file__).resolve().parents)
+    root = next((path for path in candidates if (path/'tools/start_arm.py').is_file()), None)
+    if root is None:
+        raise SystemExit('Robot workspace not found. Run connect.sh or set ROBOT_SOFTWARE_ROOT.')
+    python = root/'.venv/bin/python'
+    if not python.is_file():
+        raise SystemExit(f'Servo environment missing. Run {root}/connect.sh first.')
+    arguments = remove_ros_args(sys.argv)[1:]
+    # ros2 run inherits terminal input. Exec retains it for curses/keypresses;
+    # a normal launch child can have stdin disconnected from the terminal.
+    os.execv(str(python), [str(python), str(root/'tools/start_arm.py'), '--hardware',
+                          '--domain', os.environ.get('ROS_DOMAIN_ID', '42'), *arguments])
+
+
+if __name__ == '__main__': main()

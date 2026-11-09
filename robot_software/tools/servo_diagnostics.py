@@ -51,6 +51,7 @@ class CheckedReplies:
     """Mixin wrapping the SDK transaction; no external SDK files are modified."""
     trace = None
     last_reply_problem = None
+    read_retries = 0 # Opt-in; never replay writes or movement commands.
 
     def recover_interrupted_transaction(self):
         # The SDK normally clears this in rxPacket, but Ctrl+C can skip that.
@@ -61,6 +62,18 @@ class CheckedReplies:
             pass
 
     def txRxPacket(self, packet):
+        retries = min(2, max(0, self.read_retries)) if len(packet) >= 7 and packet[4] == 2 else 0
+        for attempt in range(retries+1):
+            reply, result, error = self._checked_transaction(list(packet), attempt+1)
+            if attempt == retries or result == 0 or error:
+                return reply, result, error
+            from scservo_sdk import COMM_RX_CORRUPT, COMM_RX_TIMEOUT
+            if result not in (COMM_RX_CORRUPT, COMM_RX_TIMEOUT):
+                return reply, result, error
+            time.sleep(0.01)
+            self.recover_interrupted_transaction()
+
+    def _checked_transaction(self, packet, attempt):
         request = list(packet)
         try:
             reply, result, error = super().txRxPacket(packet)
@@ -75,7 +88,8 @@ class CheckedReplies:
                 result = COMM_RX_CORRUPT
         if self.trace is not None:
             self.trace(dict(servo_id=request[2], instruction=request[4],
-                            address=request[5] if request[4] == 2 else None,
+                            address=request[5] if len(request) > 6 and request[4] in (2, 3) else None,
+                            attempt=attempt,
                             requested_bytes=request[6] if request[4] == 2 else None,
                             tx_hex=bytes(packet).hex(' '),
                             rx_hex=bytes(reply).hex(' ') if reply is not None else None,

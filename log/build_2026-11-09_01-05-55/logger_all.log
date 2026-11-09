@@ -1,0 +1,197 @@
+[0.218s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--base-paths', 'robot_software/src', '--build-base', 'robot_software/build', '--install-base', 'robot_software/install', '--packages-select', 'pinchy_hardware', 'pinchy_bringup', '--symlink-install']
+[0.219s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='/home/leo/Robot-Arm/robot_software/build', install_base='/home/leo/Robot-Arm/robot_software/install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=6, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['robot_software/src'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['pinchy_hardware', 'pinchy_bringup'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffff87432630>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff874338c0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff874338c0>>)
+[0.489s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.489s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.489s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.489s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.489s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.489s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/leo/Robot-Arm/robot_software/src'
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extensions ['ignore', 'ignore_ament_install']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'ignore'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'ignore_ament_install'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extensions ['colcon_pkg']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'colcon_pkg'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extensions ['colcon_meta']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'colcon_meta'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extensions ['ros']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'ros'
+[0.542s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extensions ['cmake', 'python']
+[0.543s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'cmake'
+[0.543s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'python'
+[0.543s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extensions ['python_setup_py']
+[0.543s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src) by extension 'python_setup_py'
+[0.543s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extension 'ignore'
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extension 'ignore_ament_install'
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extensions ['colcon_pkg']
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extension 'colcon_pkg'
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extensions ['colcon_meta']
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extension 'colcon_meta'
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extensions ['ros']
+[0.544s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_bringup) by extension 'ros'
+[0.550s] DEBUG:colcon.colcon_core.package_identification:Package 'robot_software/src/pinchy_bringup' with type 'ros.ament_cmake' and name 'pinchy_bringup'
+[0.550s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extensions ['ignore', 'ignore_ament_install']
+[0.550s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extension 'ignore'
+[0.550s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extension 'ignore_ament_install'
+[0.551s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extensions ['colcon_pkg']
+[0.551s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extension 'colcon_pkg'
+[0.551s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extensions ['colcon_meta']
+[0.551s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extension 'colcon_meta'
+[0.551s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extensions ['ros']
+[0.551s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_description) by extension 'ros'
+[0.552s] DEBUG:colcon.colcon_core.package_identification:Package 'robot_software/src/pinchy_description' with type 'ros.ament_cmake' and name 'pinchy_description'
+[0.552s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extensions ['ignore', 'ignore_ament_install']
+[0.552s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extension 'ignore'
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extension 'ignore_ament_install'
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extensions ['colcon_pkg']
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extension 'colcon_pkg'
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extensions ['colcon_meta']
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extension 'colcon_meta'
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extensions ['ros']
+[0.553s] Level 1:colcon.colcon_core.package_identification:_identify(robot_software/src/pinchy_hardware) by extension 'ros'
+[0.555s] DEBUG:colcon.colcon_core.package_identification:Package 'robot_software/src/pinchy_hardware' with type 'ros.ament_cmake' and name 'pinchy_hardware'
+[0.555s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.594s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'pinchy_description' in 'robot_software/src/pinchy_description'
+[0.594s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.594s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.600s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 360 installed packages in /opt/ros/jazzy
+[0.601s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'cmake_args' from command line to 'None'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'cmake_target' from command line to 'None'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'cmake_clean_cache' from command line to 'False'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'cmake_clean_first' from command line to 'False'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'cmake_force_configure' from command line to 'False'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'ament_cmake_args' from command line to 'None'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'catkin_cmake_args' from command line to 'None'
+[0.700s] Level 5:colcon.colcon_core.verb:set package 'pinchy_hardware' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.701s] DEBUG:colcon.colcon_core.verb:Building package 'pinchy_hardware' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware', 'merge_install': False, 'path': '/home/leo/Robot-Arm/robot_software/src/pinchy_hardware', 'symlink_install': True, 'test_result_base': None}
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'cmake_args' from command line to 'None'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'cmake_target' from command line to 'None'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.701s] Level 5:colcon.colcon_core.verb:set package 'pinchy_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.701s] DEBUG:colcon.colcon_core.verb:Building package 'pinchy_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup', 'merge_install': False, 'path': '/home/leo/Robot-Arm/robot_software/src/pinchy_bringup', 'symlink_install': True, 'test_result_base': None}
+[0.702s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.704s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.704s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/leo/Robot-Arm/robot_software/src/pinchy_hardware' with build type 'ament_cmake'
+[0.705s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/leo/Robot-Arm/robot_software/src/pinchy_hardware'
+[0.708s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.708s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.709s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.724s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/leo/Robot-Arm/robot_software/src/pinchy_hardware -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware
+[2.423s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/leo/Robot-Arm/robot_software/src/pinchy_hardware -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware
+[2.428s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/leo/Robot-Arm/robot_software/build/pinchy_hardware -- -j6 -l6
+[32.798s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/leo/Robot-Arm/robot_software/build/pinchy_hardware -- -j6 -l6
+[32.819s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/leo/Robot-Arm/robot_software/build/pinchy_hardware
+[32.870s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pinchy_hardware)
+[32.872s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/leo/Robot-Arm/robot_software/build/pinchy_hardware
+[32.879s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware' for CMake module files
+[32.881s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware' for CMake config files
+[32.882s] Level 1:colcon.colcon_core.shell:create_environment_hook('pinchy_hardware', 'cmake_prefix_path')
+[32.882s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/cmake_prefix_path.ps1'
+[32.885s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/cmake_prefix_path.dsv'
+[32.886s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/cmake_prefix_path.sh'
+[32.890s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib'
+[32.890s] Level 1:colcon.colcon_core.shell:create_environment_hook('pinchy_hardware', 'ld_library_path_lib')
+[32.891s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/ld_library_path_lib.ps1'
+[32.893s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/ld_library_path_lib.dsv'
+[32.894s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/ld_library_path_lib.sh'
+[32.896s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/bin'
+[32.896s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/pkgconfig/pinchy_hardware.pc'
+[32.897s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/python3.12/site-packages'
+[32.898s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/bin'
+[32.899s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.ps1'
+[32.903s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.dsv'
+[32.906s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.sh'
+[32.908s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.bash'
+[32.910s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.zsh'
+[32.912s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/colcon-core/packages/pinchy_hardware)
+[32.915s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pinchy_hardware)
+[32.915s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware' for CMake module files
+[32.918s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware' for CMake config files
+[32.919s] Level 1:colcon.colcon_core.shell:create_environment_hook('pinchy_hardware', 'cmake_prefix_path')
+[32.919s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/cmake_prefix_path.ps1'
+[32.921s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/cmake_prefix_path.dsv'
+[32.922s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/cmake_prefix_path.sh'
+[32.924s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib'
+[32.925s] Level 1:colcon.colcon_core.shell:create_environment_hook('pinchy_hardware', 'ld_library_path_lib')
+[32.925s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/ld_library_path_lib.ps1'
+[32.927s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/ld_library_path_lib.dsv'
+[32.928s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/hook/ld_library_path_lib.sh'
+[32.929s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/bin'
+[32.929s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/pkgconfig/pinchy_hardware.pc'
+[32.930s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/python3.12/site-packages'
+[32.931s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/bin'
+[32.932s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.ps1'
+[32.935s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.dsv'
+[32.938s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.sh'
+[32.939s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.bash'
+[32.940s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.zsh'
+[32.942s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/colcon-core/packages/pinchy_hardware)
+[32.943s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/leo/Robot-Arm/robot_software/src/pinchy_bringup' with build type 'ament_cmake'
+[32.944s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/leo/Robot-Arm/robot_software/src/pinchy_bringup'
+[32.944s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[32.945s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[32.978s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup': AMENT_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/leo/Robot-Arm/robot_software/build/pinchy_bringup -- -j6 -l6
+[33.804s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup' returned '0': AMENT_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/leo/Robot-Arm/robot_software/build/pinchy_bringup -- -j6 -l6
+[33.808s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup': AMENT_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/leo/Robot-Arm/robot_software/build/pinchy_bringup
+[33.893s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pinchy_bringup)
+[33.893s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup' for CMake module files
+[33.895s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_bringup' returned '0': AMENT_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/leo/Robot-Arm/robot_software/build/pinchy_bringup
+[33.897s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup' for CMake config files
+[33.898s] Level 1:colcon.colcon_core.shell:create_environment_hook('pinchy_bringup', 'cmake_prefix_path')
+[33.899s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/hook/cmake_prefix_path.ps1'
+[33.902s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/hook/cmake_prefix_path.dsv'
+[33.907s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/hook/cmake_prefix_path.sh'
+[33.910s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib'
+[33.910s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/bin'
+[33.910s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pkgconfig/pinchy_bringup.pc'
+[33.911s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/python3.12/site-packages'
+[33.913s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/bin'
+[33.913s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.ps1'
+[33.915s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.dsv'
+[33.917s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.sh'
+[33.919s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.bash'
+[33.920s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.zsh'
+[33.922s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/colcon-core/packages/pinchy_bringup)
+[33.924s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pinchy_bringup)
+[33.924s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup' for CMake module files
+[33.927s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup' for CMake config files
+[33.928s] Level 1:colcon.colcon_core.shell:create_environment_hook('pinchy_bringup', 'cmake_prefix_path')
+[33.929s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/hook/cmake_prefix_path.ps1'
+[33.930s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/hook/cmake_prefix_path.dsv'
+[33.931s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/hook/cmake_prefix_path.sh'
+[33.934s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib'
+[33.935s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/bin'
+[33.935s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pkgconfig/pinchy_bringup.pc'
+[33.936s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/python3.12/site-packages'
+[33.937s] Level 1:colcon.colcon_core.environment:checking '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/bin'
+[33.938s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.ps1'
+[33.940s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.dsv'
+[33.942s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.sh'
+[33.943s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.bash'
+[33.945s] INFO:colcon.colcon_core.shell:Creating package script '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/package.zsh'
+[33.946s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/colcon-core/packages/pinchy_bringup)
+[33.947s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[33.948s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[33.948s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[33.948s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[33.971s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[33.971s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[33.972s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[34.028s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[34.029s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/leo/Robot-Arm/robot_software/install/local_setup.ps1'
+[34.033s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/leo/Robot-Arm/robot_software/install/_local_setup_util_ps1.py'
+[34.039s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/leo/Robot-Arm/robot_software/install/setup.ps1'
+[34.043s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/leo/Robot-Arm/robot_software/install/local_setup.sh'
+[34.045s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/leo/Robot-Arm/robot_software/install/_local_setup_util_sh.py'
+[34.047s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/leo/Robot-Arm/robot_software/install/setup.sh'
+[34.050s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/leo/Robot-Arm/robot_software/install/local_setup.bash'
+[34.052s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/leo/Robot-Arm/robot_software/install/setup.bash'
+[34.055s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/leo/Robot-Arm/robot_software/install/local_setup.zsh'
+[34.056s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/leo/Robot-Arm/robot_software/install/setup.zsh'

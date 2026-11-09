@@ -1,0 +1,158 @@
+{
+ "what": "Parameters of the joint-6 pen holder. CAD 4 AS BUILT IN SOLIDWORKS with Wrist_Roll_Follower_SO101_NoClaw and the 2026-10-05 review fixes (wider hub rail roots with webs and fillets, cap locating lips; cad/joint6_pen/checks/mass_j6.json, Bambu-sliced printed masses). Earlier inputs: joint6_params_cad4_prereview.json (CAD 4 NoClaw before the review fixes), joint6_params_noclaw_proxy.json (NoClaw mesh proxy), joint6_params_cad4_claw.json (CAD 4 with the claw), joint6_params_estimate_110g.json (first estimate).",
+ "units": "mm, g, deg",
+ "frames": {
+  "gripper": "URDF gripper_link = MJCF body 'gripper' (wrist-roll horn face, z = roll axis, tool along -z)",
+  "pen_holder": "URDF moving_jaw_so101_v1_link frame = official joint 'gripper' frame: origin (20.2, 18.8, -23.4) in gripper, z = servo 6's axis = gripper -y. In this frame the pen points along -y at q6 = 0 (gripper -z, parallel to the roll axis, the tool direction); +q6 swings the pen towards gripper +x (away from the roll axis and from the fixed jaw, the official 'open' sense).",
+  "pen_r": "r = distance along the pen from servo 6's axis; y = gripper y of the pen plane (the plane the pen swings in)"
+ },
+ "fixed": {
+  "what": "CAD 4: Wrist_Roll_Follower_SO101_NoClaw (sliced 20.54 g, official 2 walls / 15 %) + servo 6 body (55.0 g, horns excluded) + 4 x M3x6 + 4 x M2x6 + servo 6 lead share 1.2 g; gripper frame",
+  "mass_g": 79.34,
+  "com_mm": [
+   0.7,
+   0.38,
+   -20.89
+  ],
+  "inertia_gmm2_about_com": [
+   [
+    15609.6,
+    -182.4,
+    526.4
+   ],
+   [
+    -182.4,
+    26748.6,
+    118.0
+   ],
+   [
+    526.4,
+    118.0,
+    29712.5
+   ]
+  ]
+ },
+ "moving_parts": {
+  "what": "Lumps that turn with joint 6 (the pen holder group). [label, mass_g, r_mm, y_mm, rod_len_mm, half_span_y_mm]: mass at radius r along the pen in the plane y; rod_len > 0 makes it a rod of that length along the pen (6 mm radius); half_span_y > 0 splits it into two halves at y +/- half_span (the two horns / cheeks). Total 23 g so the end effector starts at 110 g.",
+  "items": [
+   [
+    "Sharpie Fine Point, uncapped (123 mm, 7 g), back end at r 27",
+    7.0,
+    88.5,
+    0.0,
+    123.0,
+    0.0
+   ],
+   [
+    "idler horn + 8 x M3x6 horn screws (servo accessory bag), on both horns",
+    4.0,
+    0.0,
+    0.0,
+    0.0,
+    19.5
+   ],
+   [
+    "printed yoke: two cheeks on the horns",
+    3.5,
+    10.0,
+    0.0,
+    0.0,
+    19.5
+   ],
+   [
+    "printed yoke bridge under servo 6",
+    1.5,
+    17.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    "printed sleeve / cage with front stop and printed bushings, r 16..110",
+    5.5,
+    63.0,
+    0.0,
+    94.0,
+    0.0
+   ],
+   [
+    "compliant element (spring or flexure) + back stop + printed clamp nut",
+    1.5,
+    22.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  ]
+ },
+ "moving_override": {
+  "what": "CAD 4 joint-6 group at q6 = 0 and the 2.0 N set point: J6_Hub, J6_FrontCap, J6_Sleeve, J6_Thumbscrew (sliced), both servo-6 horns + horn screw, 8 x M3x6, 4 x M2x6, 2 springs, Sharpie; pen-holder (URDF moving-jaw) frame",
+  "mass_g": 52.33,
+  "com_mm_pen_holder_frame": [
+   0.662,
+   -48.212,
+   18.669
+  ],
+  "inertia_gmm2_about_com": [
+   [
+    80422.7,
+    592.7,
+    -1.7
+   ],
+   [
+    592.7,
+    9911.2,
+    387.4
+   ],
+   [
+    -1.7,
+    387.4,
+    74352.4
+   ]
+  ]
+ },
+ "pen": {
+  "tip_r_mm": 149.0,
+  "tip_note": "CAD 4: tip 149 mm from servo 6's axis at the 2.0 N set point (154 free, 144 on the back stop); sleeve = the holder's round envelope r 10.5 (lands, stop ring, collar) from the back land (s 30) to the front land (s 120); the rails (s 20-69), the thumbscrew head (t up to 25.9 mm at s 50-69) and the splice plates (|y| 19.5, |t| 8.65 at s 49-76) are not in this simple model",
+  "plane_y_mm": 0.0,
+  "length_mm": 123.0,
+  "nib_mm": 7.0,
+  "sleeve_r0_mm": 30.0,
+  "sleeve_r1_mm": 120.0,
+  "sleeve_radius_mm": 10.5,
+  "barrel_radius_mm": 5.75
+ },
+ "joint6": {
+  "zero": "pen along gripper -z (parallel to the roll axis); the LeRobot calibration of motor 6 has to be redone for this zero",
+  "range_deg": [
+   -3.0,
+   100.0
+  ],
+  "range_note": "CAD 4 on the NoClaw follower: working range -3..100 deg, a SOFT limit (review fix 2026-10-05). The official gripper's lower limit is -10 deg, but in the CAD the hub's kept official fork arms graze servo 6's case from about -5 deg (as the stock Moving_Jaw does), so the planner and the drawing code stop at -3 until the bench stop is measured (case j6_range_m10 shows the official -10). SolidWorks interference over the sweep (cad/joint6_pen/checks/sw_sweep_summary.json, -45..125 deg, 1 deg near the ends): physical stops, first angle with more than 1 mm3 of new overlap, -11 deg (J6_Hub x ST3215_Servo6_Body 1.105 mm3) and 116 deg (J6_Hub x Wrist_Roll_Follower_SO101_NoClaw 1.121 mm3). With the claw gone no new holder part stops joint 6; the new parts first touch at -33 deg (mesh sweep)."
+ },
+ "compliance": {
+  "what": "the dampening thing (CAD 4): the pen sleeve slides 10 mm between the front stop (c = 0, 1.5 N preload) and the back stop (c = 10, 2.5 N); 2 springs, 0.10 N/mm together; set point c = 5 (2.0 N)",
+  "preload_N": 1.5,
+  "rate_N_per_mm": 0.1,
+  "set_point_mm": 5.0,
+  "surface_error_mm": 5.0,
+  "back_stop_mm": 10.0,
+  "clearance_mm": 3.0,
+  "travel_mm": 10.0
+ },
+ "table_z_shift_mm": 2.4,
+ "loads": {
+  "press_N": 2.0,
+  "drag_N": 0.8,
+  "tilt_max_deg": 30.0
+ },
+ "follower": {
+  "mesh": "wrist_roll_follower_so101_noclaw",
+  "variant": "Wrist_Roll_Follower_SO101_NoClaw (cad/joint6_pen/Wrist_Roll_Follower_SO101_NoClaw.SLDPRT): the official part with only the lower claw removed, cut flush with the servo-pocket floor underside",
+  "cut": "gripper_link z = -37.05 mm (part z 38), keep z >= -37.05",
+  "sliced_g": 20.54,
+  "official_sliced_g": 28.14,
+  "mesh_check": "assets/wrist_roll_follower_so101_noclaw.stl = the SolidWorks part to 0.05 mm (cad/joint6_pen/checks/noclaw_check.json)",
+  "source": "cad/joint6_pen/checks/mass_j6.json"
+ }
+}

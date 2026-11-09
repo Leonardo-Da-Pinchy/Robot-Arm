@@ -1,0 +1,2 @@
+mujoco==3.17.0
+yourdfpy==0.0.60

@@ -9,3 +9,7 @@ __pycache__/
 # Editor recovery files
 *.swp
 *.swo
+
+# Calibration recovery files; retain the actual calibration JSON as project data.
+/calibration/*.json.bak
+/calibration/.*.tmp

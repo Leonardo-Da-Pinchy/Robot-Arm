@@ -1,0 +1,26 @@
+{
+  "cad4_model.xml": {
+    "source": "analysis/joint6/so101_joint6.xml",
+    "sha256": "1e91094799d3afe42ea1366f23b00af86135bd97af16c964c2747c6a8b4230d5"
+  },
+  "cad4_parameters.json": {
+    "source": "analysis/joint6/joint6_params.json",
+    "sha256": "f10c206dbeae7d07593ac3c075398743ad95852ff46fcff9cf0e494fdcaae5f9"
+  },
+  "cad4_holder_measurements.json": {
+    "source": "cad/joint6_pen/checks/holder_asm_report.json",
+    "sha256": "fcf684d6703c5d52d449b6691b61de4c86ff80677e3bfcbebf2616af4c39547d"
+  },
+  "cad4_assembly_measurements.json": {
+    "source": "cad/joint6_pen/checks/arm_asm_report.json",
+    "sha256": "93a386739741e7152a921bfca63a57e66516b7a2b3744aeeafe9acc86774308c"
+  },
+  "base_registration.json": {
+    "source": "cad/checks/pose_and_axes.json",
+    "sha256": "5741186b4694c1e85c7276bd8fdb33f4add6e32948f674e2613e584a8bac9aed"
+  },
+  "cad_joint_axes.json": {
+    "source": "cad/checks/urdf_axes_zero_pose.json",
+    "sha256": "7e9d4e2859a426bce929cbd75535b2f0604a851be17dafce7ae615ae7814fb86"
+  }
+}

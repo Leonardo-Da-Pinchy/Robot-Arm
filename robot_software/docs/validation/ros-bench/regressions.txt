@@ -1,0 +1,23 @@
+
+HardwarePipeline artifacts: /tmp/pinchy-ros-tests-6w5wqe60
+test_01_waypoints_feedback (__main__.HardwarePipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (__main__.HardwarePipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (__main__.HardwarePipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (__main__.HardwarePipeline.test_04_sliders_send_feedback) ... ok
+test_06_hardware_fault_prevents_success (__main__.HardwarePipeline.test_06_hardware_fault_prevents_success) ... ok
+test_07_bench_client_refuses_regular_robot (__main__.HardwarePipeline.test_07_bench_client_refuses_regular_robot) ... ok
+
+MockPipeline artifacts: /tmp/pinchy-ros-tests-8r27frqb
+test_01_waypoints_feedback (__main__.MockPipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (__main__.MockPipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (__main__.MockPipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (__main__.MockPipeline.test_04_sliders_send_feedback) ... ok
+test_05_cli_timeout_cancels (__main__.MockPipeline.test_05_cli_timeout_cancels) ... ok
+test_06_cli_success_and_explicit_cancel (__main__.MockPipeline.test_06_cli_success_and_explicit_cancel) ... ok
+test_07_slider_executable_accepts_ros_launch_arguments (__main__.MockPipeline.test_07_slider_executable_accepts_ros_launch_arguments) ... ok
+test_08_bench_client_refuses_regular_robot (__main__.MockPipeline.test_08_bench_client_refuses_regular_robot) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 40.763s
+
+OK

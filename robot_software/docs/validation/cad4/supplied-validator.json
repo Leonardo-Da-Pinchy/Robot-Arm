@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "revolute_joints": [
+    "shoulder_pan",
+    "shoulder_lift",
+    "elbow_flex",
+    "wrist_flex",
+    "wrist_roll",
+    "pen_pitch"
+  ],
+  "fixed_tip_frame": "pen_tip",
+  "poses_checked_against_mujoco": 107,
+  "maximum_position_difference_m": 3.818989693997047e-15,
+  "maximum_rotation_matrix_element_difference": 1.6042722705833512e-14,
+  "solidworks_tip_readback_error_mm": {
+    "Q6_0_Set": 7.811812913871582e-06,
+    "Q6_45_Set": 1.664965863199898e-05,
+    "Q6_100_Set": 4.818636115689916e-05
+  },
+  "cad_zero_pose_axis_errors": {
+    "shoulder_pan": {
+      "position_error_mm": 2.672885336490497e-05,
+      "axis_vector_error": 2.674068993577715e-06
+    },
+    "shoulder_lift": {
+      "position_error_mm": 0.0001232849727039546,
+      "axis_vector_error": 7.163758224101754e-06
+    },
+    "elbow_flex": {
+      "position_error_mm": 0.00032373801795115907,
+      "axis_vector_error": 7.163758223854379e-06
+    },
+    "wrist_flex": {
+      "position_error_mm": 0.0007841997127786964,
+      "axis_vector_error": 7.16375822630846e-06
+    },
+    "wrist_roll": {
+      "position_error_mm": 0.0012289916338600391,
+      "axis_vector_error": 1.2030117404265526e-05
+    },
+    "pen_pitch": {
+      "position_error_mm": 0.001563753656935671,
+      "axis_vector_error": 1.4526011172916761e-05
+    }
+  },
+  "base_link_to_pen_tip_at_all_zero_m": [
+    [
+      -5.24282804461951e-08,
+      1.5155052365224487e-14,
+      0.9999999999999987,
+      0.4656344999999995
+    ],
+    [
+      -0.04866029119614192,
+      -0.9988153863756338,
+      -2.5511602563253664e-09,
+      -0.0011607472388541382
+    ],
+    [
+      0.9988153863756325,
+      -0.04866029119614198,
+      5.23661739283257e-08,
+      0.2545460786073479
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "assembly_from_base_link_m": [
+    [
+      4e-06,
+      1.0,
+      1e-06,
+      -7.7e-08
+    ],
+    [
+      -1.0,
+      4e-06,
+      -1.3e-05,
+      0.031557846
+    ],
+    [
+      -1.3e-05,
+      -1e-06,
+      1.0,
+      0.002794238
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "registration_note": "Existing CAD mesh registration; rotation and translation rounded in source. Not a physical calibration.",
+  "versions": {
+    "mujoco": "3.17.0",
+    "numpy": "2.5.4"
+  }
+}

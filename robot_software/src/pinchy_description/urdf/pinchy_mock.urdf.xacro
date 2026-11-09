@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pinchy_mock">
+  <xacro:include filename="pinchy_arm.urdf"/>
+  <xacro:macro name="controlled_joint" params="name">
+    <joint name="${name}">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+    </joint>
+  </xacro:macro>
+  <ros2_control name="MockArm" type="system">
+    <hardware><plugin>mock_components/GenericSystem</plugin></hardware>
+    <xacro:controlled_joint name="shoulder_pan"/>
+    <xacro:controlled_joint name="shoulder_lift"/>
+    <xacro:controlled_joint name="elbow_flex"/>
+    <xacro:controlled_joint name="wrist_flex"/>
+    <xacro:controlled_joint name="wrist_roll"/>
+    <xacro:controlled_joint name="pen_pitch"/>
+  </ros2_control>
+</robot>

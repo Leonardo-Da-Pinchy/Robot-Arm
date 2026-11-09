@@ -1,0 +1,20 @@
+
+HardwarePipeline artifacts: /tmp/pinchy-ros-tests-5hvi2t3l
+test_01_waypoints_feedback (__main__.HardwarePipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (__main__.HardwarePipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (__main__.HardwarePipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (__main__.HardwarePipeline.test_04_sliders_send_feedback) ... ok
+test_06_hardware_fault_prevents_success (__main__.HardwarePipeline.test_06_hardware_fault_prevents_success) ... ok
+
+MockPipeline artifacts: /tmp/pinchy-ros-tests-doe7f2b8
+test_01_waypoints_feedback (__main__.MockPipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (__main__.MockPipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (__main__.MockPipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (__main__.MockPipeline.test_04_sliders_send_feedback) ... ok
+test_05_cli_timeout_cancels (__main__.MockPipeline.test_05_cli_timeout_cancels) ... ok
+test_06_cli_success_and_explicit_cancel (__main__.MockPipeline.test_06_cli_success_and_explicit_cancel) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 29.815s
+
+OK

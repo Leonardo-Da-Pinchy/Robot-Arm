@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Gallery of individual parts, NOT an assembled end effector. Native files are mm. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ee_parts_gallery">
+  <link name="base_link"/>
+  <xacro:macro name="part" params="name xyz">
+    <link name="${name}">
+      <visual><geometry><mesh filename="package://pinchy_description/meshes/ee_v1/${name}.stl" scale="0.001 0.001 0.001"/></geometry>
+        <material name="part_blue"><color rgba="0.2 0.6 0.9 1"/></material>
+      </visual>
+    </link>
+    <joint name="${name}_gallery" type="fixed">
+      <parent link="base_link"/><child link="${name}"/><origin xyz="${xyz}"/>
+    </joint>
+  </xacro:macro>
+  <xacro:part name="J6_Hub" xyz="0 0 0"/>
+  <xacro:part name="J6_Sleeve" xyz="0.22 0 0"/>
+  <xacro:part name="J6_FrontCap" xyz="0.44 0 0"/>
+  <xacro:part name="J6_Thumbscrew" xyz="0 0.18 0"/>
+  <xacro:part name="J6_PreloadShims" xyz="0.22 0.18 0"/>
+  <xacro:part name="Wrist_Roll_Follower_SO101_NoClaw" xyz="0.44 0.18 0"/>
+</robot>

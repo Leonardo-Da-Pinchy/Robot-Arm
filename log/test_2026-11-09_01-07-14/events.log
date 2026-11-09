@@ -1,0 +1,182 @@
+[0.000000] (-) TimerEvent: {}
+[0.000209] (pinchy_hardware) JobQueued: {'identifier': 'pinchy_hardware', 'dependencies': OrderedDict({'pinchy_hardware': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware'})}
+[0.000806] (pinchy_hardware) JobStarted: {'identifier': 'pinchy_hardware'}
+[0.040959] (pinchy_hardware) Command: {'cmd': ['/usr/bin/ctest', '-C', 'Release', '-D', 'ExperimentalTest', '--no-compress-output', '-V', '--force-new-ctest-process'], 'cwd': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'TMUX': '/tmp/tmux-1000/default,6320,0', 'CODEX_CI': '1', 'LANGUAGE': 'en', 'USER': 'leo', 'LC_TIME': 'en_US.UTF-8', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'XDG_SESSION_TYPE': 'x11', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib64:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/leo', 'OLDPWD': '/home/leo', 'TERM_PROGRAM_VERSION': '3.4', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'LC_MONETARY': 'en_US.UTF-8', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '3757', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'COLCON_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install', 'CODEX_PERMISSION_PROFILE': ':workspace', 'CODEX_TOOL_CALL_ID': 'exec-f3b232b3-fee7-4b6f-ae3d-2ed7470c2c36', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'leo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS': '1', 'USERNAME': 'leo', 'TERM': 'tmux-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/home/leo/.codex/tmp/arg0-linux/codex-arg0ioC605:/home/leo/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.codex/tmp/arg0-linux/codex-arg0ATGMvp:/home/leo/.codex/packages/standalone/releases/0.167.0-aarch64-unknown-linux-musl/codex-path:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/usr/local/cuda/bin:/home/leo/.local/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/home/leo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/leo:@/tmp/.ICE-unix/3726,unix/leo:/tmp/.ICE-unix/3726', 'CODEX_VERSION': '0.167.0', 'CODEX_SESSION_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_US.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/292f53d3_a8bb_400d_bc12_7667f825a41e', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_US.UTF-8', 'XMODIFIERS': '@im=ibus', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.98', 'TERM_PROGRAM': 'tmux', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup:/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_US.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '01a1a877-717c-73c3-a1cd-e182a622162b', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:/usr/local/lib:/usr/local/lib', 'LC_NUMERIC': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'COLCON': '1', 'VTE_VERSION': '7600', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/home/leo/Robot-Arm/robot_software/install/pinchy_hardware:/home/leo/Robot-Arm/robot_software/install/pinchy_bringup:/home/leo/Robot-Arm/robot_software/install/pinchy_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}), 'shell': False}
+[0.055620] (pinchy_hardware) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini\n'}
+[0.056264] (pinchy_hardware) StdoutLine: {'line': b'Parse Config file:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini\n'}
+[0.056445] (pinchy_hardware) StdoutLine: {'line': b'   Site: leo\n'}
+[0.056653] (pinchy_hardware) StdoutLine: {'line': b'   Build name: (empty)\n'}
+[0.056864] (pinchy_hardware) StdoutLine: {'line': b' Add coverage exclude regular expressions.\n'}
+[0.057113] (pinchy_hardware) StdoutLine: {'line': b'Create new tag: 20261109-0607 - Experimental\n'}
+[0.057250] (pinchy_hardware) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini\n'}
+[0.057376] (pinchy_hardware) StdoutLine: {'line': b'Parse Config file:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini\n'}
+[0.057496] (pinchy_hardware) StdoutLine: {'line': b'Test project /home/leo/Robot-Arm/robot_software/build/pinchy_hardware\n'}
+[0.057646] (pinchy_hardware) StdoutLine: {'line': b'Constructing a list of tests\n'}
+[0.057768] (pinchy_hardware) StdoutLine: {'line': b'Done constructing a list of tests\n'}
+[0.057887] (pinchy_hardware) StdoutLine: {'line': b'Updating test list for fixtures\n'}
+[0.058005] (pinchy_hardware) StdoutLine: {'line': b'Added 0 tests to meet fixture requirements\n'}
+[0.058122] (pinchy_hardware) StdoutLine: {'line': b'Checking test dependency graph...\n'}
+[0.058238] (pinchy_hardware) StdoutLine: {'line': b'Checking test dependency graph end\n'}
+[0.058354] (pinchy_hardware) StdoutLine: {'line': b'test 1\n'}
+[0.058470] (pinchy_hardware) StdoutLine: {'line': b'    Start 1: test_feetech_system\n'}
+[0.058584] (pinchy_hardware) StdoutLine: {'line': b'\n'}
+[0.058698] (pinchy_hardware) StdoutLine: {'line': b'1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml" "--package-name" "pinchy_hardware" "--output-file" "/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/ament_cmake_gtest/test_feetech_system.txt" "--command" "/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_feetech_system" "--gtest_output=xml:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml"\n'}
+[0.058842] (pinchy_hardware) StdoutLine: {'line': b'1: Working Directory: /home/leo/Robot-Arm/robot_software/build/pinchy_hardware\n'}
+[0.058959] (pinchy_hardware) StdoutLine: {'line': b'1: Test timeout computed to be: 60\n'}
+[0.099580] (-) TimerEvent: {}
+[0.167821] (pinchy_hardware) StdoutLine: {'line': b"1: -- run_test.py: invoking following command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware':\n"}
+[0.168250] (pinchy_hardware) StdoutLine: {'line': b'1:  - /home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_feetech_system --gtest_output=xml:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml\n'}
+[0.192745] (pinchy_hardware) StdoutLine: {'line': b'1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[0.193550] (pinchy_hardware) StdoutLine: {'line': b'1: [==========] Running 27 tests from 4 test suites.\n'}
+[0.193816] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] Global test environment set-up.\n'}
+[0.193960] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 2 tests from Calibration\n'}
+[0.194092] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Calibration.DirectionRoundTripAndLimits\n'}
+[0.194220] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Calibration.DirectionRoundTripAndLimits (0 ms)\n'}
+[0.194343] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Calibration.FeedbackAllowanceDoesNotExpandCommands\n'}
+[0.194465] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Calibration.FeedbackAllowanceDoesNotExpandCommands (0 ms)\n'}
+[0.194586] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 2 tests from Calibration (0 ms total)\n'}
+[0.194706] (pinchy_hardware) StdoutLine: {'line': b'1: \n'}
+[0.194824] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 15 tests from Hardware\n'}
+[0.194941] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.ExplicitCalibrationAndUniqueIDs\n'}
+[0.195062] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.164086068] [pinchy_hardware]: Configuration rejected: Hardware requires reviewed calibration and explicit motion_enabled=true\n'}
+[0.195184] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.164303781] [pinchy_hardware]: Configuration rejected: Hardware requires reviewed calibration and explicit motion_enabled=true\n'}
+[0.195301] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.164680292] [pinchy_hardware]: Configuration rejected: Duplicate servo ID\n'}
+[0.197305] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.ExplicitCalibrationAndUniqueIDs (1 ms)\n'}
+[0.197828] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.StartupAtActualPositionSyncAndRelease\n'}
+[0.199671] (-) TimerEvent: {}
+[0.213187] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.183880558] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.224176] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.StartupAtActualPositionSyncAndRelease (30 ms)\n'}
+[0.224589] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.PortOwnershipAndReadOnlyConfigureFailure\n'}
+[0.225949] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.196837367] [pinchy_hardware]: Configure failed: Servo port is owned by another process\n'}
+[0.236648] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.PortOwnershipAndReadOnlyConfigureFailure (12 ms)\n'}
+[0.237069] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.FeedbackSweepUsesSixTransactionsAndHeldGoalsAreNotResent\n'}
+[0.239560] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.210474264] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.250743] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.FeedbackSweepUsesSixTransactionsAndHeldGoalsAreNotResent (14 ms)\n'}
+[0.251027] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.DroppedGroupedGoalIsRetriedUntilReadbackConfirmsIt\n'}
+[0.254591] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.225485193] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.265961] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.DroppedGroupedGoalIsRetriedUntilReadbackConfirmsIt (15 ms)\n'}
+[0.266287] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.IsolatedTemperatureSpikeNeedsTwoAgreeingCoolRechecks\n'}
+[0.269853] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.240666633] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.270542] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.241412326] [pinchy_hardware]: ID 6 temperature check 0/4: initial=65 C, direct=33 C, block=33 C, status=0x00; isolated high sample, rechecks cool\n'}
+[0.271035] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.241954643] [pinchy_hardware]: ID 6 temperature check 1/4: initial=65 C, direct=40 C, block=33 C, status=0x00; suspect reading\n'}
+[0.281904] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.IsolatedTemperatureSpikeNeedsTwoAgreeingCoolRechecks (15 ms)\n'}
+[0.282215] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.FourHotCyclesLatchHoldWithoutTorqueReleaseOrAutomaticRecovery\n'}
+[0.285948] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.256760883] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.286567] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.257435851] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.287207] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.258097825] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.287762] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.258670960] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.288764] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.259546008] [pinchy_hardware]: ID 6 temperature check 4/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.289008] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.259632703] [pinchy_hardware]: Safety HOLD: ID 6: four consecutive suspect temperature checks; initial=70, direct=70, block=70, status=0. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.299764] (-) TimerEvent: {}
+[0.300284] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.FourHotCyclesLatchHoldWithoutTorqueReleaseOrAutomaticRecovery (18 ms)\n'}
+[0.300790] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.CoolSampleResetsConsecutiveHighCounter\n'}
+[0.310177] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.280693122] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.310986] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.281668978] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.312437] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.283202992] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.313581] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.284304555] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.316316] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.286378421] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.320622] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.291147357] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.324600] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.292443560] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading\n'}
+[0.333908] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.CoolSampleResetsConsecutiveHighCounter (33 ms)\n'}
+[0.334337] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.FourConflicting706036ChecksLatchHoldOnFourthCycle\n'}
+[0.338335] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.308875886] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.340349] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.310768202] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading\n'}
+[0.342157] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.312774254] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading\n'}
+[0.345059] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.315570196] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading\n'}
+[0.347666] (pinchy_hardware) StdoutLine: {'line': b'1: [WARN] [1794204435.317924406] [pinchy_hardware]: ID 6 temperature check 4/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading\n'}
+[0.348131] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.318100580] [pinchy_hardware]: Safety HOLD: ID 6: four consecutive suspect temperature checks; initial=70, direct=70, block=36, status=0. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.359635] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.FourConflicting706036ChecksLatchHoldOnFourthCycle (25 ms)\n'}
+[0.360290] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.RejectJumpAndNaNBeforeGroupWrite\n'}
+[0.368528] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.339135365] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.369019] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.339245742] [pinchy_hardware]: Safety HOLD: ID 1 (joint_1): command exceeds calibrated joint velocity/step limit; previous=0.004602, requested=0.500000 rad, period=0.050000 s, actual_interval=0.000040 s, max_velocity=0.300000 rad/s. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.384206] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.354645951] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.384553] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.354741383] [pinchy_hardware]: Safety HOLD: Command outside calibrated joint bounds. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.398538] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.369136390] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.398918] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.369208460] [pinchy_hardware]: Safety HOLD: Command outside calibrated joint bounds. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.399809] (-) TimerEvent: {}
+[0.409171] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.RejectJumpAndNaNBeforeGroupWrite (50 ms)\n'}
+[0.409488] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.StaleFeedbackStopsWithoutWrite\n'}
+[0.413118] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.383867457] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.478618] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.449064719] [pinchy_hardware]: Safety HOLD: Measured feedback is stale. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.489706] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.StaleFeedbackStopsWithoutWrite (80 ms)\n'}
+[0.490048] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.SpeedGuardUsesActualWriteIntervalAfterSchedulingDelay\n'}
+[0.498928] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.468219477] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.499929] (-) TimerEvent: {}
+[0.556621] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.SpeedGuardUsesActualWriteIntervalAfterSchedulingDelay (66 ms)\n'}
+[0.557308] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.AdoptPoweredZeroHoldsWithoutTorqueGap\n'}
+[0.560774] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.531243664] [pinchy_hardware]: Adopted six calibrated zero holds without disabling torque\n'}
+[0.572259] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.AdoptPoweredZeroHoldsWithoutTorqueGap (16 ms)\n'}
+[0.572873] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.AdoptRejectsUnknownGoalsWithoutDisablingExternalHolds\n'}
+[0.574880] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.545644463] [pinchy_hardware]: Configure failed: Zero-hold handoff requires each measured position near zero and goal at its calibrated zero\n'}
+[0.585084] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.AdoptRejectsUnknownGoalsWithoutDisablingExternalHolds (13 ms)\n'}
+[0.585355] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Hardware.AdoptRejectsTorqueOffBeforeAnyGoalWrite\n'}
+[0.587191] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.558044458] [pinchy_hardware]: Configure failed: Unexpected servo torque state\n'}
+[0.597641] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Hardware.AdoptRejectsTorqueOffBeforeAnyGoalWrite (12 ms)\n'}
+[0.598103] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 15 tests from Hardware (404 ms total)\n'}
+[0.598355] (pinchy_hardware) StdoutLine: {'line': b'1: \n'}
+[0.598563] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 5 tests from Checks/PacketFault\n'}
+[0.598756] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/0\n'}
+[0.600034] (-) TimerEvent: {}
+[0.603856] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.574547223] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.604277] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.574694371] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=2, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.622070] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/0 (22 ms)\n'}
+[0.622988] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/1\n'}
+[0.630210] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.600291898] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.631404] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.600461768] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=3, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.640493] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/1 (19 ms)\n'}
+[0.640927] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/2\n'}
+[0.646569] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.616921969] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.647002] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.617051612] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=4, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.658696] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/2 (18 ms)\n'}
+[0.659093] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/3\n'}
+[0.662381] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.633084737] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.682094] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.652331247] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=1, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.693754] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/3 (34 ms)\n'}
+[0.694193] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/4\n'}
+[0.696593] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.667457226] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.696922] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.667622903] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=0, status=4). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.700107] (-) TimerEvent: {}
+[0.707601] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/4 (14 ms)\n'}
+[0.707874] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 5 tests from Checks/PacketFault (109 ms total)\n'}
+[0.708134] (pinchy_hardware) StdoutLine: {'line': b'1: \n'}
+[0.708289] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 5 tests from Checks/HealthFault\n'}
+[0.708433] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/0\n'}
+[0.712757] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.683492912] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.713284] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.683824779] [pinchy_hardware]: Safety HOLD: Servo supply outside 10..13 V. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.723677] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/0 (16 ms)\n'}
+[0.724127] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/1\n'}
+[0.728685] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.699336198] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.729259] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.699669313] [pinchy_hardware]: Safety HOLD: Servo supply outside 10..13 V. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.739755] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/1 (15 ms)\n'}
+[0.740194] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/2\n'}
+[0.744162] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.714775482] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.744477] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.714978891] [pinchy_hardware]: Safety HOLD: ID 3: servo alarm register nonzero. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.754730] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/2 (15 ms)\n'}
+[0.755111] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/3\n'}
+[0.757726] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.728591658] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.758242] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.729030318] [pinchy_hardware]: Safety HOLD: Unexpected servo torque state. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.768782] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/3 (13 ms)\n'}
+[0.769295] (pinchy_hardware) StdoutLine: {'line': b'1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/4\n'}
+[0.773092] (pinchy_hardware) StdoutLine: {'line': b'1: [INFO] [1794204435.743867665] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement\n'}
+[0.773723] (pinchy_hardware) StdoutLine: {'line': b'1: [ERROR] [1794204435.744298933] [pinchy_hardware]: Safety HOLD: Measured ticks outside calibrated bounds. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.\n'}
+[0.784065] (pinchy_hardware) StdoutLine: {'line': b'1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/4 (15 ms)\n'}
+[0.784473] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] 5 tests from Checks/HealthFault (76 ms total)\n'}
+[0.784784] (pinchy_hardware) StdoutLine: {'line': b'1: \n'}
+[0.785064] (pinchy_hardware) StdoutLine: {'line': b'1: [----------] Global test environment tear-down\n'}
+[0.787035] (pinchy_hardware) StdoutLine: {'line': b'1: [==========] 27 tests from 4 test suites ran. (591 ms total)\n'}
+[0.787350] (pinchy_hardware) StdoutLine: {'line': b'1: [  PASSED  ] 27 tests.\n'}
+[0.793490] (pinchy_hardware) StdoutLine: {'line': b'1: -- run_test.py: return code 0\n'}
+[0.794002] (pinchy_hardware) StdoutLine: {'line': b"1: -- run_test.py: inject classname prefix into gtest result file '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml'\n"}
+[0.794669] (pinchy_hardware) StdoutLine: {'line': b"1: -- run_test.py: verify result file '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml'\n"}
+[0.801042] (-) TimerEvent: {}
+[0.832414] (pinchy_hardware) StdoutLine: {'line': b'1/1 Test #1: test_feetech_system ..............   Passed    0.77 sec\n'}
+[0.833385] (pinchy_hardware) StdoutLine: {'line': b'\n'}
+[0.833741] (pinchy_hardware) StdoutLine: {'line': b'100% tests passed, 0 tests failed out of 1\n'}
+[0.834050] (pinchy_hardware) StdoutLine: {'line': b'\n'}
+[0.834337] (pinchy_hardware) StdoutLine: {'line': b'Label Time Summary:\n'}
+[0.834618] (pinchy_hardware) StdoutLine: {'line': b'gtest    =   0.77 sec*proc (1 test)\n'}
+[0.834891] (pinchy_hardware) StdoutLine: {'line': b'\n'}
+[0.835158] (pinchy_hardware) StdoutLine: {'line': b'Total Test time (real) =   0.78 sec\n'}
+[0.839532] (pinchy_hardware) CommandEnded: {'returncode': 0}
+[0.841043] (pinchy_hardware) JobEnded: {'identifier': 'pinchy_hardware', 'rc': 0}
+[0.843509] (-) EventReactorShutdown: {}

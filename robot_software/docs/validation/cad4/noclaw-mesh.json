@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "watertight": true,
+  "reconstructed_volume_mm3": 40344.19684290135,
+  "saved_cad_volume_mm3": 40342.3,
+  "cut_native_part_z_m": 0.038,
+  "mesh_units": "metres",
+  "note": "Reconstructed CAD4 cut proxy; no surface-accuracy claim against an unavailable original mesh."
+}

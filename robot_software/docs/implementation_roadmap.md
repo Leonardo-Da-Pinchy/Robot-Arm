@@ -1,5 +1,9 @@
 # Robot software implementation roadmap
 
+> Start with the [current checkpoint handoff](checkpoint_handoff.md) for latest
+> status and owner decisions, including the empty-holder tool frame. This broader
+> roadmap includes historical status and work beyond the point-motion checkpoint.
+
 This is the working path from the current ROS 2 display to a robot that draws
 SVG strokes on a known curved object. The [October 9 design report](../../18_500_Capstone_Design_Report.pdf)
 sets the initial goals and architecture; measured hardware, newer CAD, and team
@@ -17,7 +21,9 @@ exists and has been exercised at the level stated, not just discussed.
 - [x] IDs 1–6 labelled and power-cycle verified; individual motor operation confirmed by user.
 - [x] Physical unloaded six-motor chain sequence, including individual, together,
   opposite-direction and mixed-speed out-and-back stages (five-tick tolerance).
-- [ ] ROS controllers, planned arm motion, and drawing.
+- [x] Mock ROS controllers, trajectory action and target sliders; Feetech plugin tested on emulated hardware.
+- [x] First physical ROS joint proof: user confirmed all six unloaded motors completed the ROS bench out-and-back sequence.
+- [ ] Assembled-arm ROS qualification, Cartesian planning, and drawing.
 
 Keep the display launch useful for viewing a model without motor power. A
 separate hardware launch must own the real `/joint_states` source; never run
@@ -30,9 +36,9 @@ virtual sliders and hardware state publishers together on the same robot.
   protocol details, and driver board connection. Record measured values and
   assumptions separately.
 - [ ] Decide which pen mount is used for the first drawing: manual loading is
-  enough for the first milestone in the design report. The planned seventh
-  gripping servo can be integrated later without making the first drawing
-  depend on it.
+  enough for the first milestone in the design report. The former SO-101
+  gripper output is joint six of the arm; the sleeve/thumbscrew holds the pen.
+  No separate seventh gripping motor is assumed.
 - [ ] Define frames and joint names once: `base_link`, each arm joint/link,
   `tool0`, `pen_tip`, and eventually camera, platform, and object frames. Record
   the pen axis and the physical tip offset after the pen is tightened.
@@ -92,14 +98,15 @@ behavior. Stop and power-loss behavior are understood before ROS motion control.
 
 ## 4. Bring real joint state and control into ROS 2
 
-- [ ] Implement a `pinchy_hardware` interface (the report proposes
-  `ros2_control`) for the Feetech serial bus. Convert radians to servo units
+- [x] Implement a `pinchy_hardware` interface (validated on emulated serial hardware;
+  physical qualification pending). The report proposes
+  `ros2_control` for the Feetech serial bus. Convert radians to servo units
   using the calibration from step 3; read actual joint positions and relevant
   diagnostics. Never treat a sent goal as measured feedback.
-- [ ] Add controller configuration in `pinchy_bringup`: a joint-state
+- [x] Add controller configuration in `pinchy_bringup` (mock/emulated tests): a joint-state
   broadcaster and a trajectory controller for the six arm joints. Configure
   position/velocity limits, command timeout, and a defined stop/hold response.
-- [ ] Add a **separate hardware bringup launch** for the driver, controllers,
+- [x] Add a **separate hardware bringup launch** (emulated-bus validation) for the driver, controllers,
   robot state publisher, and diagnostics. Keep the existing virtual display
   launch for model inspection. If a mock/fake hardware mode is useful, keep its
   selection explicit so it cannot be confused with live motors.
@@ -111,8 +118,8 @@ joint trajectories through one documented command interface.
 
 ## 5. Implement deliberate arm movement
 
-- [ ] Add a small joint-space motion tool or ROS node that can command a named
-  safe pose and a specified six-joint target through the trajectory controller.
+- [x] Add a joint-space motion tool and target sliders for specified six-joint
+  targets through the trajectory controller (mock and emulated-bus validation).
   It should validate names, units, limits, current state, and timing before
   sending a goal, then report completion or failure.
 - [ ] Define homing or startup behavior from the measured current pose; do not
@@ -130,6 +137,10 @@ see whether each move succeeded. This is the foundation for automated paths.
 - [ ] Define the input contract: joint waypoints versus Cartesian pen-tip poses,
   coordinate frame, units, orientation, ordering, speed, and whether the pen is
   up or down. Keep stroke boundaries; do not connect unrelated strokes.
+- [ ] Measure a minimum useful pen-tip speed (mm/s) and maintain approximately
+  constant end-effector speed through continuous waypoint sections, rather than
+  stopping at every point. Define allowed speed variation and explicit slow/stop
+  exceptions; see the [end-effector speed requirement](point_motion_plan.md#8-add-ordered-waypoints-with-clear-path-semantics).
 - [ ] Add `pinchy_moveit_config` or an equivalent planner for the finalized
   six-joint URDF. Configure the arm planning group, `pen_tip` end effector,
   joint limits, collision geometry, IK, and the trajectory controller.
@@ -228,3 +239,10 @@ measured requirements, with remaining limitations documented.
 The report is a design baseline, not proof that any target is already met.
 Update this roadmap when the actual arm, deployment OS, and software interfaces
 are settled.
+
+## Current control implementation
+
+See [control handoff](control_handoff.md) for the mock pipeline, slider UI,
+Feetech hardware adapter and validation results. The model reuses the confirmed
+six SO-101 motor transforms. EE assembly/tip calibration, physical ROS control
+qualification and MoveIt/Cartesian execution remain outstanding.

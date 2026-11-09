@@ -1,0 +1,28 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+arm_controller:
+  ros__parameters:
+    joints: [shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll, pen_pitch]
+    command_interfaces: [position]
+    state_interfaces: [position]
+    allow_partial_joints_goal: false
+    # Servos can settle a few encoder ticks away from the held command.
+    # Start a new interpolation at that command to avoid a first-cycle jump.
+    interpolate_from_desired_state: true
+    set_last_command_interface_value_as_state_on_activation: true
+    constraints:
+      goal_time: 1.0
+      # Allow the same small measured residual accepted at startup (10 ticks),
+      # plus encoder quantization, without changing commanded position bounds.
+      shoulder_pan: {goal: 0.02}
+      shoulder_lift: {goal: 0.02}
+      elbow_flex: {goal: 0.02}
+      wrist_flex: {goal: 0.02}
+      wrist_roll: {goal: 0.02}
+      pen_pitch: {goal: 0.02}

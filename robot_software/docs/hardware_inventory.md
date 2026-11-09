@@ -1,5 +1,9 @@
 # Hardware inventory and calibration record
 
+> Latest assembly, calibration, physical-operation and active tool decisions:
+> [current checkpoint handoff](checkpoint_handoff.md). Older status summaries
+> below are historical; do not repeat completed setup based on them.
+
 Started November 4, 2026. Source: the October 9 design report, particularly
 Sections VI.A–B and Appendix C, plus the repository's custom-arm description.
 The user confirmed the report-listed physical equipment on November 4, 2026.
@@ -24,9 +28,9 @@ after correcting it, the servo reported 12.4 V. Assembled-arm capacity is untest
 | Emergency stop | Baomain 43217-5544, purchased; report proposes cutting motor power | Wiring not established; power-cut behavior untested |
 | Computer | Current host: Jetson Orin Nano; device tree identifies Engineering Reference Developer Kit Super; Ubuntu 24.04.5 LTS, aarch64; ROS 2 Jazzy installed | Exact module memory and JetPack/L4T version if later needed |
 | Camera | Intel RealSense D455, physical equipment confirmed by user; same Jetson intended for AprilTag detection | Camera not visible in inspected USB list; not needed for initial motor tests |
-| Structure | Custom arm is not assembled or wired, per user | Current geometry/CAD and eventual assembly verification |
+| Structure | User confirmed arm assembled and plugged in; all six motors responding | Base fixation, support, emergency-power-cut verification and assembled-joint calibration |
 | Pen | Report proposes a manually loaded sleeve with thumb screw | Actual holder, pen, mounting arrangement and tip offset |
-| Gripper | Repository describes a seventh Feetech servo, separate from six arm joints; report defers gripping and excludes it from the six-pack BOM | Whether present/purchased and exact model/control connection |
+| End effector | Owner clarified: former SO-101 gripper motor is joint six at the same position/orientation; sleeve and thumbscrew hold pen mechanically | Assembled EE transforms, fixed/rotating part assignments, pen-tip offset; no separate seventh servo assumed |
 
 The report proposes a shared serial bus, IDs 1–6 from base to wrist, motor
 power through an emergency stop, and independent computer power. These are
@@ -281,3 +285,82 @@ servo offset alongside each calibration result.
 
 Use [servo_bench.md](servo_bench.md) for the initial bench procedure and
 [point_motion_plan.md](point_motion_plan.md) for the subsequent control work.
+
+## Model/control clarification — November 8
+
+The owner confirmed that all six motors retain the SO-101 positions and axes,
+with its gripper output repurposed as arm joint six. Earlier statements in these
+documents about six additional positioning joints plus a seventh gripper were
+incorrect and are superseded by this clarification. Source end-effector STEP
+parts are now in `src/pinchy_description/cad/EE_STEP_V1`; converted meshes are
+in `meshes/ee_v1` in that package. Their assembled transforms and pen-tip
+measurement remain pending. See [control handoff](control_handoff.md).
+
+## CAD 4 model integration
+
+The newly supplied six-joint URDF/transform bundle is archived under
+`src/pinchy_description/cad/cad4/`, with its originals and provenance preserved.
+The runtime model now uses `pen_pitch` and the nominal CAD pen tip at 5 mm
+compression. Geometry and inertias come from the matched analysis source, with
+a reconstructed NoClaw proxy. Encoder calibration, installed pen/contact offset
+and real motion qualification remain pending. See [CAD 4 model notes](cad4_model.md).
+
+## Loose-motor ROS bench preparation
+
+All six physical IDs responded to a read-only profile capture, with torque off,
+position mode/resolution and health checks passing. Temporary encoder zeros
+were 2052, 2052, 2051, 2050, 2052, 2052. The ephemeral profile is
+`/tmp/pinchy-unloaded-ros-bench.json`; no motion or EEPROM writes occurred.
+The [ROS bench procedure](ros_motor_bench.md) now tests one motor at a time
+through the hardware adapter before assembly. Physical ROS motion remains an
+operator test; emulated execution passed.
+
+## Physical ROS bench passed — all six motors
+
+The user confirmed that the full six-motor unloaded ROS bench sequence worked
+on the physical motors. Each motor was tested individually through the
+FollowJointTrajectory controller and Feetech hardware adapter, with outward
+and return movement. This is user-confirmed completion; no physical-run log was
+independently reviewed for this confirmation. The documented test commands
+32-tick legs and checks feedback within five ticks.
+
+The first real ROS motion checkpoint is complete for the loose motors. The
+temporary bench zeros remain distinct from assembled-arm calibration. Assembly,
+joint mapping/zero/direction/limits, loaded motion, stop/recovery qualification
+and Cartesian/MoveIt execution remain outstanding.
+
+## Assembly and installed ID mapping confirmed
+
+The user confirmed assembly and ID order: 1 shoulder_pan (base), 2 shoulder_lift,
+3 elbow_flex, 4 wrist_flex, 5 wrist_roll, 6 pen_pitch. A read-only assembled-arm
+inspection found all six in mode 0, resolution 1, torque off and no alarms,
+with 12.3–12.4 V and 30–32 C. Encoder readings at that inspection were
+2241, 741, 3323, 1624, 1604, 1140; these are **not calibrated zero readings**.
+No motion or settings were sent. The [calibration tool](arm_calibration.md)
+now records each zero only after the operator aligns that physical joint.
+
+## Assembled-arm zeros and directions captured
+
+The saved physical calibration file now contains zero ticks 2197, 1916, 2275,
+2198, 1748, 1288 for IDs 1–6. All six recorded direction signs are +1. These
+are operator-aligned captures; physical FK accuracy is not independently
+measured. Usable limits remain unset and calibration remains unconfirmed.
+The guided `--step limits` stage now records conservative manual endpoints
+without sending motor writes; review and supported powered tests come next.
+
+## Usable bounds captured; startup pose needs adjustment
+
+All six manual safe-position bounds are saved. Numeric review passed: encoder
+windows remain in 0..4095, include their zero ticks, and stay inside CAD ranges.
+The user confirmed a secured base, supported arm and reachable 12 V power cut.
+A subsequent read-only pose check found IDs 2, 3, 4 and 6 outside the saved
+windows: approximately -102.92, +92.02, -91.58 and -1.76 degrees respectively.
+Their allowed ranges were -92.20..86.57, -87.36..86.13, 0..91.41 and
+-1.67..90.35 degrees. These angles are calculated from the operator's calibration.
+ID 2 was also outside the CAD -100-degree lower soft limit.
+
+All six reported torque off, no alarms and unchanged configuration snapshots.
+No bounds were widened, no motors were enabled, and calibration remains
+unconfirmed pending an interior starting pose and final holding-test review.
+Joint 4's positive-only samples intentionally produced a zero lower bound;
+negative travel requires a deliberate additional calibration decision.

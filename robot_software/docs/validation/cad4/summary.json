@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "servo_bench_tests": 67,
+  "model_tests": 7,
+  "hardware_tests": 17,
+  "ros_integration_tests": 12,
+  "total_test_cases": 103,
+  "independent_fk_poses": 107,
+  "slider_bounds": "All six sliders and numeric inputs checked at both bounds in mock and emulated hardware modes",
+  "physical_motors_accessed": false,
+  "self_collision_checking": false
+}

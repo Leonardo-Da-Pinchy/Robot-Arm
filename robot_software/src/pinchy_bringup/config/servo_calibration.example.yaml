@@ -1,0 +1,17 @@
+# TEMPLATE ONLY. IDs are proposed base-to-tool mapping, not measured calibration.
+# Keep false until the supported assembled mechanism has been measured.
+# CAD 4 joint six is pen_pitch. Its pen-forward zero must be calibrated on the arm.
+calibration_confirmed: false
+port: /dev/serial/by-id/usb-1a86_USB_Single_Serial_5B79078770-if00
+timeout_ms: 20
+speed: 100
+acceleration: 5
+torque_limit: 300
+max_feedback_age: 0.25
+joints:
+  shoulder_pan: {servo_id: 1, zero_tick: 2048, direction: 1, min_tick: 1024, max_tick: 3072, min_radians: -1.0, max_radians: 1.0, max_velocity: 0.3}
+  shoulder_lift: {servo_id: 2, zero_tick: 2048, direction: 1, min_tick: 1024, max_tick: 3072, min_radians: -1.0, max_radians: 1.0, max_velocity: 0.3}
+  elbow_flex: {servo_id: 3, zero_tick: 2048, direction: 1, min_tick: 1024, max_tick: 3072, min_radians: -1.0, max_radians: 1.0, max_velocity: 0.3}
+  wrist_flex: {servo_id: 4, zero_tick: 2048, direction: 1, min_tick: 1024, max_tick: 3072, min_radians: -1.0, max_radians: 1.0, max_velocity: 0.3}
+  wrist_roll: {servo_id: 5, zero_tick: 2048, direction: 1, min_tick: 1024, max_tick: 3072, min_radians: -1.0, max_radians: 1.0, max_velocity: 0.3}
+  pen_pitch: {servo_id: 6, zero_tick: 2048, direction: 1, min_tick: 1024, max_tick: 3072, min_radians: 0.0, max_radians: 1.0, max_velocity: 0.3}

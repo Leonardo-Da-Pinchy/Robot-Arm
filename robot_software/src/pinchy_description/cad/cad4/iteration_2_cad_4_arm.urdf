@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="iteration_2_cad_4_arm">
+  <!-- CAD 4 NoClaw, 2026-10-05 review fixes. Metres and radians. Kinematics only. -->
+  <!-- Six revolute joints; pen_tip fixed at 5 mm sleeve compression. See README.txt. -->
+  <!-- Effort and velocity are zero placeholders: this file does not specify motor control limits. -->
+  <link name="base_link" />
+  <link name="shoulder_link" />
+  <link name="upper_arm_link" />
+  <link name="forearm_link" />
+  <link name="wrist_pitch_link" />
+  <link name="wrist_roll_link" />
+  <link name="pen_holder_link" />
+  <link name="pen_tip" />
+  <joint name="shoulder_pan" type="revolute">
+    <parent link="base_link" />
+    <child link="shoulder_link" />
+    <origin xyz="0.0388353 -8.97657e-09 0.0624" rpy="3.14159265358979 -6.66133814775094e-16 -3.14159265358979" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.91986217719376" upper="1.91986217719376" effort="0" velocity="0" />
+  </joint>
+  <joint name="shoulder_lift" type="revolute">
+    <parent link="shoulder_link" />
+    <child link="upper_arm_link" />
+    <origin xyz="-0.0303992 -0.0182778 -0.0542" rpy="-1.5707963267949 -1.5707963267949 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.74532925199432" upper="1.74532925199434" effort="0" velocity="0" />
+  </joint>
+  <joint name="elbow_flex" type="revolute">
+    <parent link="upper_arm_link" />
+    <child link="forearm_link" />
+    <origin xyz="-0.11257 -0.028 1.73763e-16" rpy="-1.11022302462516e-16 2.22044604925031e-16 1.5707963267949" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.69" upper="1.69" effort="0" velocity="0" />
+  </joint>
+  <joint name="wrist_flex" type="revolute">
+    <parent link="forearm_link" />
+    <child link="wrist_pitch_link" />
+    <origin xyz="-0.1349 0.0052 3.62355e-17" rpy="2.55351295663786e-15 2.22044604925031e-16 -1.5707963267949" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.65806284945569" upper="1.65806272933353" effort="0" velocity="0" />
+  </joint>
+  <joint name="wrist_roll" type="revolute">
+    <parent link="wrist_pitch_link" />
+    <child link="wrist_roll_link" />
+    <origin xyz="5.55112e-17 -0.0611 0.0181" rpy="1.5707963267949 0.048679514853462 3.14159265358979" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.74384729699925" upper="2.8412063093826" effort="0" velocity="0" />
+  </joint>
+  <joint name="pen_pitch" type="revolute">
+    <parent link="wrist_roll_link" />
+    <child link="pen_holder_link" />
+    <origin xyz="0.0202 0.0188 -0.0234" rpy="1.5707963267949 -5.24282746106053e-08 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.05236" upper="1.745329" effort="0" velocity="0" />
+  </joint>
+  <joint name="pen_tip_fixed" type="fixed">
+    <parent link="pen_holder_link" />
+    <child link="pen_tip" />
+    <origin xyz="0 -0.149 0.0188" rpy="1.5707963267949 0 0" />
+  </joint>
+</robot>

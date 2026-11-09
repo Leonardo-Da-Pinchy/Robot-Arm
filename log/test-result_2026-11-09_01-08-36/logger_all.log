@@ -1,0 +1,20 @@
+[0.184s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'test-result', '--test-result-base', 'robot_software/build/pinchy_hardware', '--verbose']
+[0.184s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='test-result', test_result_base='robot_software/build/pinchy_hardware', all=False, result_files_only=False, verbose=True, delete=False, delete_yes=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffffb41dc5f0>, verb_extension=<colcon_test_result.verb.test_result.TestResultVerb object at 0xffffb417a750>, main=<bound method TestResultVerb.main of <colcon_test_result.verb.test_result.TestResultVerb object at 0xffffb417a750>>)
+[0.189s] Level 1:colcon.colcon_test_result.test_result:get_test_results(ctest)
+[0.194s] Level 1:colcon.colcon_test_result.test_result:get_test_results(xunit)
+[0.196s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261108-2043/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.196s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261108-2048/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.197s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261108-2228/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.197s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0232/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.198s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0301/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.198s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0306/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.198s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0314/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.199s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0330/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.199s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0409/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.199s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0436/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.200s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0441/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.200s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0443/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.201s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0456/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.201s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0547/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.201s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0552/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'
+[0.202s] DEBUG:colcon.colcon_test_result.test_result.xunit:Skipping 'robot_software/build/pinchy_hardware/Testing/20261109-0607/Test.xml': the root tag is neither 'testsuite' nor 'testsuites'

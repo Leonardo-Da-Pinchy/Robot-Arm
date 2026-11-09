@@ -1,0 +1,11 @@
+robot name is: pinchy_arm
+---------- Successfully Parsed XML ---------------
+root Link: base_link has 1 child(ren)
+    child(1):  shoulder_link
+        child(1):  upper_arm_link
+            child(1):  forearm_link
+                child(1):  wrist_pitch_link
+                    child(1):  wrist_roll_link
+                        child(1):  pen_holder_link
+                            child(1):  pen_tip
+                            child(2):  tool0

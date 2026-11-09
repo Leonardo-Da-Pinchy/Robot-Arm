@@ -1,0 +1,6 @@
+<library path="pinchy_hardware">
+  <class name="pinchy_hardware/FeetechSystem" type="pinchy_hardware::FeetechSystem"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>Shared TTL STS3215 bus with measured position feedback and explicit calibration.</description>
+  </class>
+</library>

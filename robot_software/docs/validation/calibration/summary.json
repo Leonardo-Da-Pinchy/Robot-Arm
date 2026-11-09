@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "test_cases": 18,
+  "checks": [
+    "six sequential zero captures",
+    "selected motor recapture",
+    "skip/resume and saved progress",
+    "direction signs",
+    "changed configuration rejection",
+    "stability rejection",
+    "enabled torque rejection without altering torque",
+    "atomic save/backup",
+    "mock/hardware separation",
+    "SDK integration through a pseudo-terminal",
+    "lower/upper limits for both direction signs",
+    "CAD endpoint bounds",
+    "partial endpoint resume",
+    "endpoint invalidation",
+    "safe positions in arbitrary order and on either side of zero",
+    "saved zero included in inferred bounds",
+    "legacy partial endpoint migration"
+  ],
+  "emulated_motor_writes": 0,
+  "physical_zero_captures_performed": false,
+  "passive_reference_joint_positions": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ]
+}

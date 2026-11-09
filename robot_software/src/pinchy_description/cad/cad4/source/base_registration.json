@@ -1,0 +1,662 @@
+{
+ "what": "Official SO-101 assembly STEP vs URDF so101_new_calib (all mm / deg, assembly STEP frame, Z up)",
+ "assembly_step": "reference/so101/repo/STEP/SO101/SO101 Assembly.step",
+ "urdf": "reference/so101/repo/Simulation/SO101/so101_new_calib.urdf",
+ "method": "Each printed part's official STL (same frame as its STEP) was ICP-registered to its URDF mesh; with the assembly placement this gives every URDF link frame in the assembly. Per joint: the URDF joint axis placed through the PARENT part is compared with (a) the child part (tilt/offset left after removing the joint angle) and (b) the servo horn axis of the STEP's servo instance that drives the joint. The zero-pose model rotates each link group about the STEP's own horn axes to q=0 and is then compared with the URDF chain anchored at the base.",
+ "registration_residual_mm": {
+  "Base_SO101": {
+   "mean": 0.0012,
+   "p95": 0.0071,
+   "max": 0.0688
+  },
+  "Rotation_Pitch_SO101": {
+   "mean": 0.0022,
+   "p95": 0.0122,
+   "max": 0.0273
+  },
+  "Upper_arm_SO101": {
+   "mean": 0.0048,
+   "p95": 0.02,
+   "max": 0.037
+  },
+  "Under_arm_SO101": {
+   "mean": 0.0042,
+   "p95": 0.0168,
+   "max": 0.034
+  },
+  "Base_motor_holder_SO101": {
+   "mean": 0.001,
+   "p95": 0.0076,
+   "max": 0.0152
+  },
+  "Motor_holder_SO101_Base": {
+   "mean": 0.0013,
+   "p95": 0.0067,
+   "max": 0.0115
+  },
+  "Motor_holder_SO101_Wrist": {
+   "mean": 0.0013,
+   "p95": 0.0072,
+   "max": 0.0321
+  },
+  "Wrist_Roll_Pitch_SO101": {
+   "mean": 0.003,
+   "p95": 0.0126,
+   "max": 0.0462
+  },
+  "Wrist_Roll_Follower_SO101": {
+   "mean": 0.0038,
+   "p95": 0.0168,
+   "max": 0.0616
+  },
+  "Moving_Jaw_SO101": {
+   "mean": 0.0041,
+   "p95": 0.0149,
+   "max": 0.0682
+  },
+  "WaveShare_Mounting_Plate_SO101": {
+   "mean": 0.0003,
+   "p95": 0.0016,
+   "max": 0.0103
+  }
+ },
+ "link_consistency_parts_on_same_link": {
+  "base_link": [
+   {
+    "part": "Base_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   },
+   {
+    "part": "Base_motor_holder_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.00020150137568222896
+   },
+   {
+    "part": "WaveShare_Mounting_Plate_SO101",
+    "rot_deg": 8.104106518114818e-05,
+    "pos_mm": 0.9910003792031616
+   }
+  ],
+  "shoulder_link": [
+   {
+    "part": "Rotation_Pitch_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   },
+   {
+    "part": "Motor_holder_SO101_Base",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0007825191980173952
+   }
+  ],
+  "upper_arm_link": [
+   {
+    "part": "Upper_arm_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   }
+  ],
+  "lower_arm_link": [
+   {
+    "part": "Under_arm_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   },
+   {
+    "part": "Motor_holder_SO101_Wrist",
+    "rot_deg": 0.0,
+    "pos_mm": 0.002326239683871744
+   }
+  ],
+  "wrist_link": [
+   {
+    "part": "Wrist_Roll_Pitch_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   }
+  ],
+  "gripper_link": [
+   {
+    "part": "Wrist_Roll_Follower_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   }
+  ],
+  "moving_jaw_so101_v1_link": [
+   {
+    "part": "Moving_Jaw_SO101",
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   }
+  ]
+ },
+ "joints_step_pose": [
+  {
+   "joint": "shoulder_pan",
+   "parent_link": "base_link",
+   "child_link": "shoulder_link",
+   "servo_instance": "ST3215 Servo v2:1",
+   "q_step_deg": 0.002,
+   "child_part_tilt_vs_urdf_deg": 0.499,
+   "child_part_offset_vs_urdf_mm": 0.777,
+   "servo_horn_axis_vs_urdf_axis_deg": 0.499,
+   "servo_horn_axis_vs_urdf_axis_mm": 0.297,
+   "urdf_limits_deg": [
+    -110.0,
+    110.0
+   ]
+  },
+  {
+   "joint": "shoulder_lift",
+   "parent_link": "shoulder_link",
+   "child_link": "upper_arm_link",
+   "servo_instance": "ST3215 Servo v2:2",
+   "q_step_deg": -90.0,
+   "child_part_tilt_vs_urdf_deg": 0.5,
+   "child_part_offset_vs_urdf_mm": 2.255,
+   "servo_horn_axis_vs_urdf_axis_deg": 0.501,
+   "servo_horn_axis_vs_urdf_axis_mm": 0.236,
+   "urdf_limits_deg": [
+    -100.0,
+    100.0
+   ]
+  },
+  {
+   "joint": "elbow_flex",
+   "parent_link": "upper_arm_link",
+   "child_link": "lower_arm_link",
+   "servo_instance": "ST3215 Servo v2:3",
+   "q_step_deg": 90.0,
+   "child_part_tilt_vs_urdf_deg": 0.5,
+   "child_part_offset_vs_urdf_mm": 2.513,
+   "servo_horn_axis_vs_urdf_axis_deg": 0.5,
+   "servo_horn_axis_vs_urdf_axis_mm": 0.299,
+   "urdf_limits_deg": [
+    -96.83,
+    96.83
+   ]
+  },
+  {
+   "joint": "wrist_flex",
+   "parent_link": "lower_arm_link",
+   "child_link": "wrist_link",
+   "servo_instance": "ST3215 Servo v2:4",
+   "q_step_deg": -0.004,
+   "child_part_tilt_vs_urdf_deg": 0.709,
+   "child_part_offset_vs_urdf_mm": 1.262,
+   "servo_horn_axis_vs_urdf_axis_deg": 0.707,
+   "servo_horn_axis_vs_urdf_axis_mm": 0.818,
+   "urdf_limits_deg": [
+    -95.0,
+    95.0
+   ]
+  },
+  {
+   "joint": "wrist_roll",
+   "parent_link": "wrist_link",
+   "child_link": "gripper_link",
+   "servo_instance": "ST3215 Servo v2:5",
+   "q_step_deg": 2.79,
+   "child_part_tilt_vs_urdf_deg": 0.0,
+   "child_part_offset_vs_urdf_mm": 1.593,
+   "servo_horn_axis_vs_urdf_axis_deg": 0.002,
+   "servo_horn_axis_vs_urdf_axis_mm": 1.529,
+   "urdf_limits_deg": [
+    -157.21,
+    162.79
+   ]
+  },
+  {
+   "joint": "gripper",
+   "parent_link": "gripper_link",
+   "child_link": "moving_jaw_so101_v1_link",
+   "servo_instance": "ST3215 Servo v2:6",
+   "q_step_deg": 89.998,
+   "child_part_tilt_vs_urdf_deg": 0.497,
+   "child_part_offset_vs_urdf_mm": 0.378,
+   "servo_horn_axis_vs_urdf_axis_deg": 0.499,
+   "servo_horn_axis_vs_urdf_axis_mm": 0.281,
+   "urdf_limits_deg": [
+    -10.0,
+    100.0
+   ]
+  }
+ ],
+ "step_pose_q_deg": {
+  "shoulder_pan": 0.002,
+  "shoulder_lift": -90.0,
+  "elbow_flex": 90.0,
+  "wrist_flex": -0.004,
+  "wrist_roll": 2.79,
+  "gripper": 89.998
+ },
+ "max_servo_horn_axis_vs_urdf_deg": 0.707,
+ "max_servo_horn_axis_vs_urdf_mm": 1.529,
+ "max_child_part_tilt_deg": 0.709,
+ "max_child_part_offset_mm": 2.513,
+ "if_posed_about_the_step_horn_axes": {
+  "note": "zero pose reached by rotating the STEP about its own servo axes (placements_zero_pose_step_axes): the STEP's 0.5 deg servo tilts accumulate, so links drift from the URDF chain",
+  "links_vs_urdf_fk": {
+   "base_link": {
+    "rot_deg": 0.0,
+    "pos_mm": 0.0
+   },
+   "shoulder_link": {
+    "rot_deg": 0.499,
+    "pos_mm": 0.777
+   },
+   "upper_arm_link": {
+    "rot_deg": 0.707,
+    "pos_mm": 2.467
+   },
+   "lower_arm_link": {
+    "rot_deg": 0.499,
+    "pos_mm": 5.213
+   },
+   "wrist_link": {
+    "rot_deg": 0.867,
+    "pos_mm": 6.042
+   },
+   "gripper_link": {
+    "rot_deg": 0.865,
+    "pos_mm": 7.195
+   },
+   "moving_jaw_so101_v1_link": {
+    "rot_deg": 0.709,
+    "pos_mm": 6.802
+   }
+  },
+  "horn_axes_vs_urdf_fk_axes": [
+   {
+    "joint": "shoulder_pan",
+    "angle_deg": 0.499,
+    "distance_mm": 0.297
+   },
+   {
+    "joint": "shoulder_lift",
+    "angle_deg": 0.501,
+    "distance_mm": 1.252
+   },
+   {
+    "joint": "elbow_flex",
+    "angle_deg": 0.001,
+    "distance_mm": 1.887
+   },
+   {
+    "joint": "wrist_flex",
+    "angle_deg": 0.706,
+    "distance_mm": 1.633
+   },
+   {
+    "joint": "wrist_roll",
+    "angle_deg": 0.709,
+    "distance_mm": 6.993
+   },
+   {
+    "joint": "gripper",
+    "angle_deg": 0.523,
+    "distance_mm": 3.026
+   }
+  ]
+ },
+ "clean_zero_pose_servo_squaring": [
+  {
+   "instance": "ST3215 Servo v2:1",
+   "joint": "shoulder_pan",
+   "squaring_rotation_deg": 0.4992,
+   "squaring_shift_mm": 0.2974,
+   "urdf_servo_horn_face_offset_mm": -0.9123,
+   "axial_seat_applied": false,
+   "urdf_servo_axial_extent_mm": [
+    -1.5,
+    37.0
+   ],
+   "step_servo_axial_extent_before_mm": [
+    -0.588,
+    37.212
+   ],
+   "horn_end": "lo",
+   "after_angle_deg": 0.0,
+   "after_distance_mm": 1.2099128567482783e-15
+  },
+  {
+   "instance": "ST3215 Servo v2:2",
+   "joint": "shoulder_lift",
+   "squaring_rotation_deg": 0.5009,
+   "squaring_shift_mm": 0.2358,
+   "urdf_servo_horn_face_offset_mm": -2.8924,
+   "axial_seat_applied": false,
+   "urdf_servo_axial_extent_mm": [
+    -1.5,
+    37.0
+   ],
+   "step_servo_axial_extent_before_mm": [
+    1.392,
+    39.192
+   ],
+   "horn_end": "lo",
+   "after_angle_deg": 0.0,
+   "after_distance_mm": 8.561491559535187e-15
+  },
+  {
+   "instance": "ST3215 Servo v2:3",
+   "joint": "elbow_flex",
+   "squaring_rotation_deg": 0.5,
+   "squaring_shift_mm": 0.2985,
+   "urdf_servo_horn_face_offset_mm": -3.1444,
+   "axial_seat_applied": false,
+   "urdf_servo_axial_extent_mm": [
+    -1.5,
+    37.0
+   ],
+   "step_servo_axial_extent_before_mm": [
+    1.644,
+    39.444
+   ],
+   "horn_end": "lo",
+   "after_angle_deg": 0.0,
+   "after_distance_mm": 1.3558437772108844e-14
+  },
+  {
+   "instance": "ST3215 Servo v2:4",
+   "joint": "wrist_flex",
+   "squaring_rotation_deg": 0.7075,
+   "squaring_shift_mm": 0.8178,
+   "urdf_servo_horn_face_offset_mm": -1.6047,
+   "axial_seat_applied": false,
+   "urdf_servo_axial_extent_mm": [
+    -1.5,
+    37.0
+   ],
+   "step_servo_axial_extent_before_mm": [
+    0.105,
+    37.905
+   ],
+   "horn_end": "lo",
+   "after_angle_deg": 0.0,
+   "after_distance_mm": 2.1181288842389166e-14
+  },
+  {
+   "instance": "ST3215 Servo v2:6",
+   "joint": "gripper",
+   "squaring_rotation_deg": 0.499,
+   "squaring_shift_mm": 0.2811,
+   "urdf_servo_horn_face_offset_mm": -0.8942,
+   "axial_seat_applied": false,
+   "urdf_servo_axial_extent_mm": [
+    -1.5,
+    37.0
+   ],
+   "step_servo_axial_extent_before_mm": [
+    -0.606,
+    37.194
+   ],
+   "horn_end": "lo",
+   "after_angle_deg": 0.0,
+   "after_distance_mm": 2.339183051802999e-14
+  },
+  {
+   "instance": "ST3215 Servo v2:5",
+   "joint": "wrist_roll",
+   "squaring_rotation_deg": 0.0018,
+   "squaring_shift_mm": 1.5295,
+   "urdf_servo_horn_face_offset_mm": -1.0511,
+   "axial_seat_applied": false,
+   "urdf_servo_axial_extent_mm": [
+    -1.5,
+    37.0
+   ],
+   "step_servo_axial_extent_before_mm": [
+    -0.449,
+    37.351
+   ],
+   "horn_end": "lo",
+   "after_angle_deg": 0.0,
+   "after_distance_mm": 1.358627473593391e-14
+  }
+ ],
+ "T_asm_link_step_pose": {
+  "base_link": [
+   [
+    4e-06,
+    1.0,
+    1e-06,
+    -7.7e-05
+   ],
+   [
+    -1.0,
+    4e-06,
+    -1.3e-05,
+    31.557846
+   ],
+   [
+    -1.3e-05,
+    -1e-06,
+    1.0,
+    2.794238
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "shoulder_link": [
+   [
+    2e-05,
+    1.0,
+    -4e-06,
+    -0.120421
+   ],
+   [
+    0.999962,
+    -2e-05,
+    0.008722,
+    -7.773452
+   ],
+   [
+    0.008722,
+    -4e-06,
+    -0.999962,
+    65.779821
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "upper_arm_link": [
+   [
+    0.008719,
+    -0.0,
+    0.999962,
+    -16.156803
+   ],
+   [
+    -0.999924,
+    0.00872,
+    0.008718,
+    -38.880074
+   ],
+   [
+    -0.008719,
+    -0.999962,
+    7.6e-05,
+    119.758437
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "lower_arm_link": [
+   [
+    -0.008731,
+    -0.008721,
+    0.999924,
+    -14.644732
+   ],
+   [
+    0.999924,
+    -0.008807,
+    0.008654,
+    73.55732
+   ],
+   [
+    0.008731,
+    0.999923,
+    0.008797,
+    148.451943
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "wrist_link": [
+   [
+    0.017443,
+    3.4e-05,
+    0.999848,
+    -12.562646
+   ],
+   [
+    0.00881,
+    0.999961,
+    -0.000188,
+    -60.577114
+   ],
+   [
+    -0.999809,
+    0.008812,
+    0.017442,
+    152.25219
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "gripper_link": [
+   [
+    -0.017434,
+    0.999848,
+    -0.0,
+    7.060945
+   ],
+   [
+    -0.008769,
+    -0.000152,
+    0.999962,
+    -122.126929
+   ],
+   [
+    0.99981,
+    0.017433,
+    0.008771,
+    152.051561
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "moving_jaw_so101_v1_link": [
+   [
+    -2e-06,
+    0.008762,
+    -0.999962,
+    25.266519
+   ],
+   [
+    0.999961,
+    0.0088,
+    7.5e-05,
+    -145.706063
+   ],
+   [
+    0.008801,
+    -0.999923,
+    -0.008762,
+    172.078289
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ]
+ },
+ "servo_parts": {
+  "ST3215_Servo": {
+   "instances": [
+    "ST3215 Servo v2:1",
+    "ST3215 Servo v2:2",
+    "ST3215 Servo v2:3",
+    "ST3215 Servo v2:4",
+    "ST3215 Servo v2:6"
+   ],
+   "bodies": 8,
+   "body_volumes_mm3": [
+    14253.0,
+    8527.0,
+    11128.0,
+    5286.0,
+    1238.0,
+    825.0,
+    757.0,
+    566.0
+   ],
+   "max_prototype_difference_mm": 9.999999406318238e-08,
+   "horn_axis_point_mm": [
+    -0.0,
+    -1.6025,
+    -0.0
+   ],
+   "horn_axis_dir": [
+    -0.0,
+    1.0,
+    0.0
+   ]
+  },
+  "ST3215_Servo_no_idler_disc": {
+   "instances": [
+    "ST3215 Servo v2:5"
+   ],
+   "bodies": 7,
+   "body_volumes_mm3": [
+    14253.0,
+    8527.0,
+    11128.0,
+    5286.0,
+    1238.0,
+    825.0,
+    757.0
+   ],
+   "max_prototype_difference_mm": 0.0,
+   "horn_axis_point_mm": [
+    -0.0,
+    -1.6025,
+    -0.0
+   ],
+   "horn_axis_dir": [
+    -0.0,
+    1.0,
+    -0.0
+   ]
+  }
+ }
+}

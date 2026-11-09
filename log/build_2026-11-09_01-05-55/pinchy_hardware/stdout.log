@@ -1,0 +1,63 @@
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found hardware_interface: 4.48.1 (/opt/ros/jazzy/share/hardware_interface/cmake)
+-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2
+-- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2
+-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2
+-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2
+-- Found TinyXML2 via Config file: /usr/lib/aarch64-linux-gnu/cmake/tinyxml2
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found std_srvs: 5.3.8 (/opt/ros/jazzy/share/std_srvs/cmake)
+-- Found ament_cmake_gtest: 2.5.6 (/opt/ros/jazzy/share/ament_cmake_gtest/cmake)
+-- Found gtest sources under '/opt/ros/jazzy/src/gtest_vendor': C++ tests using 'Google Test' will be built
+-- Configuring done (1.5s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/leo/Robot-Arm/robot_software/build/pinchy_hardware
+[ 18%] Built target gtest
+[ 36%] Built target gtest_main
+[ 63%] Building CXX object CMakeFiles/pinchy_hardware.dir/vendor/ftservo/SMS_STS.cpp.o
+[ 63%] Building CXX object CMakeFiles/pinchy_hardware.dir/vendor/ftservo/SCS.cpp.o
+[ 72%] Building CXX object CMakeFiles/pinchy_hardware.dir/vendor/ftservo/SCSerial.cpp.o
+[ 63%] Building CXX object CMakeFiles/pinchy_hardware.dir/src/feetech_system.cpp.o
+[ 81%] Linking CXX shared library libpinchy_hardware.so
+[ 81%] Built target pinchy_hardware
+[ 90%] Building CXX object CMakeFiles/test_feetech_system.dir/test/test_feetech_system.cpp.o
+[100%] Linking CXX executable test_feetech_system
+[100%] Built target test_feetech_system
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware//pinchy_hardware.xml
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/include/pinchy_hardware/feetech_system.hpp
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/LICENSE
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/THIRD_PARTY.md
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/library_path.sh
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/library_path.dsv
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/package_run_dependencies/pinchy_hardware
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/parent_prefix_path/pinchy_hardware
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/path.sh
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/path.dsv
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.bash
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.sh
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.zsh
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.dsv
+-- Symlinking: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.dsv
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/packages/pinchy_hardware
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/pinchy_hardware
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/ament_cmake_export_targets-extras.cmake
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/pinchy_hardwareConfig.cmake
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/pinchy_hardwareConfig-version.cmake
+-- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.xml
+-- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/libpinchy_hardware.so
+-- Set non-toolchain portion of runtime path of "/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/libpinchy_hardware.so" to ""
+-- Old export file "/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport.cmake" will be replaced.  Removing files [/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport-noconfig.cmake].
+-- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport.cmake
+-- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport-noconfig.cmake

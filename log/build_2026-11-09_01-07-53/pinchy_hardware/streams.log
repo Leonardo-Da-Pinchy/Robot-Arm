@@ -1,0 +1,51 @@
+[0.018s] Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/leo/Robot-Arm/robot_software/build/pinchy_hardware -- -j6 -l6
+[0.127s] [ 36%] Built target gtest
+[0.127s] [ 36%] Built target gtest_main
+[0.148s] [ 45%] Building CXX object CMakeFiles/pinchy_hardware.dir/src/feetech_system.cpp.o
+[5.461s] /home/leo/Robot-Arm/robot_software/src/pinchy_hardware/src/feetech_system.cpp: In member function ‘virtual hardware_interface::CallbackReturn pinchy_hardware::FeetechSystem::on_init(const hardware_interface::HardwareInfo&)’:
+[5.461s] /home/leo/Robot-Arm/robot_software/src/pinchy_hardware/src/feetech_system.cpp:153:31: warning: ‘virtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn hardware_interface::HardwareComponentInterface::on_init(const hardware_interface::HardwareInfo&)’ is deprecated: Use on_init(const HardwareComponentInterfaceParams & params) instead. [-Wdeprecated-declarations]
+[5.461s]   153 |   if (SystemInterface::on_init(info) != CallbackReturn::SUCCESS) return CallbackReturn::ERROR;
+[5.461s]       |       ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+[5.461s] In file included from /opt/ros/jazzy/include/hardware_interface/hardware_interface/system_interface.hpp:18,
+[5.461s]                  from /home/leo/Robot-Arm/robot_software/src/pinchy_hardware/include/pinchy_hardware/feetech_system.hpp:7,
+[5.461s]                  from /home/leo/Robot-Arm/robot_software/src/pinchy_hardware/src/feetech_system.cpp:1:
+[5.463s] /opt/ros/jazzy/include/hardware_interface/hardware_interface/hardware_component_interface.hpp:140:26: note: declared here
+[5.463s]   140 |   virtual CallbackReturn on_init(const HardwareInfo & hardware_info);
+[5.463s]       |                          ^~~~~~~
+[16.163s] [ 54%] Linking CXX shared library libpinchy_hardware.so
+[16.956s] [ 81%] Built target pinchy_hardware
+[17.040s] [ 90%] Linking CXX executable test_feetech_system
+[18.055s] [100%] Built target test_feetech_system
+[18.080s] Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/leo/Robot-Arm/robot_software/build/pinchy_hardware -- -j6 -l6
+[18.110s] Invoking command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/leo/Robot-Arm/robot_software/build/pinchy_hardware
+[18.136s] -- Install configuration: ""
+[18.137s] -- Execute custom install script
+[18.137s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware//pinchy_hardware.xml
+[18.138s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/include/pinchy_hardware/feetech_system.hpp
+[18.139s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/LICENSE
+[18.139s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/THIRD_PARTY.md
+[18.139s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/library_path.sh
+[18.140s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/library_path.dsv
+[18.140s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/package_run_dependencies/pinchy_hardware
+[18.140s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/parent_prefix_path/pinchy_hardware
+[18.141s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/ament_prefix_path.sh
+[18.141s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/ament_prefix_path.dsv
+[18.141s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/path.sh
+[18.141s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/environment/path.dsv
+[18.142s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.bash
+[18.142s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.sh
+[18.142s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.zsh
+[18.143s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/local_setup.dsv
+[18.143s] -- Symlinking: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.dsv
+[18.168s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/packages/pinchy_hardware
+[18.168s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/pinchy_hardware
+[18.168s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/ament_cmake_export_targets-extras.cmake
+[18.169s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/ament_cmake_export_dependencies-extras.cmake
+[18.169s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/pinchy_hardwareConfig.cmake
+[18.169s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/pinchy_hardwareConfig-version.cmake
+[18.169s] -- Up-to-date symlink: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/package.xml
+[18.170s] -- Installing: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/libpinchy_hardware.so
+[18.178s] -- Set non-toolchain portion of runtime path of "/home/leo/Robot-Arm/robot_software/install/pinchy_hardware/lib/libpinchy_hardware.so" to ""
+[18.178s] -- Up-to-date: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport.cmake
+[18.178s] -- Up-to-date: /home/leo/Robot-Arm/robot_software/install/pinchy_hardware/share/pinchy_hardware/cmake/export_pinchy_hardwareExport-noconfig.cmake
+[18.186s] Invoked command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/leo/Robot-Arm/robot_software/build/pinchy_hardware

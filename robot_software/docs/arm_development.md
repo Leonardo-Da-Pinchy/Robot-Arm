@@ -1,5 +1,9 @@
 # Arm development notes
 
+> Current status and latest tool-frame decisions are in the
+> [checkpoint handoff](checkpoint_handoff.md); the development history below
+> includes earlier assumptions and outstanding-work descriptions.
+
 ## Project context
 
 Based on `Proposal Presentation - Leonardo Da Pinchy.pptx` and
@@ -17,30 +21,23 @@ and browser UI remain outside this starter workspace's scope.
 
 ## Confirmed custom arm hardware
 
-The custom SO-101 derivative has six independently actuated arm joints, each
-driven by a Feetech smart bus servo motor. These six joints provide the arm's
-six degrees of freedom for positioning and orienting the pen. A seventh servo
-operates the end-effector gripper to grip and release the pen. There are seven
-servos in total; the gripper is separate from the six arm degrees of freedom.
+The owner confirmed on November 8 that all six motor positions and axes match
+the SO-101. The former gripper output becomes joint six (`pen_pitch`);
+there is no separate seventh gripping motor in the current design. A sleeve
+and thumbscrew hold the pen mechanically.
 
-Future URDF, hardware interfaces, controller configuration, and MoveIt planning
-groups must account for six arm joints and a separate gripper actuator. Exact
-servo models, bus IDs, joint geometry, and limits remain to be documented.
+The original `so101_reference.urdf` is preserved. The current `pinchy_arm.urdf`
+is generated from the supplied CAD 4 URDF and matching MJCF source. It includes
+all six joint transforms, nominal `pen_tip`, source geometry proxies and inertias.
+Joint six is named `pen_pitch`. The new source is archived under
+`src/pinchy_description/cad/cad4/`; see [CAD 4 model notes](cad4_model.md).
 
-## Reference model and remaining modeling work
-
-The stock reference has five arm joints (`shoulder_pan`, `shoulder_lift`,
-`elbow_flex`, `wrist_flex`, `wrist_roll`) and a separate `gripper` actuator.
-It is a reference model only and does not yet represent the confirmed six-joint
-custom arm with its seventh gripper servo. Add the sixth arm joint using the
-actual joint arrangement before creating IK or controller configurations.
-
-The reference is unmodified apart from mesh resource paths. Do not infer the
-custom arm's reach or accuracy from it. Replace the gripper geometry with the
-measured pen mount and define a calibrated `tool0`/`pen_tip` frame. Record its
-position and orientation relative to the wrist, along with tool mass and inertia.
-Use metres and radians, and preserve consistent joint names across URDF,
-controllers, and planning configuration.
+The nominal pen tip assumes 5 mm spring compression. Installed pen geometry,
+encoder zero/sign conventions and physical travel limits remain to be checked.
+`tool0` stays at the sixth-axis origin. Joint limits constrain individual angles;
+they do not provide collision avoidance. The current slider/mock workflow has
+no collision-aware planner. `pinchy_mock.urdf.xacro` provides explicit mock
+position control; separate hardware bringup requires reviewed calibration.
 
 ## Suggested next packages
 

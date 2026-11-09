@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "poses_checked_against_mujoco": 107,
+  "maximum_position_difference_m": 3.705967028916239e-15,
+  "maximum_rotation_matrix_element_difference": 1.599415044850616e-14,
+  "solidworks_tip_readback_error_mm": {
+    "Q6_0_Set": 7.811812913871582e-06,
+    "Q6_45_Set": 1.664965863199898e-05,
+    "Q6_100_Set": 4.818636115689916e-05
+  },
+  "base_link_to_pen_tip_at_all_zero_m": [
+    [
+      -5.24282804461951e-08,
+      1.5155052365224487e-14,
+      0.9999999999999987,
+      0.4656344999999995
+    ],
+    [
+      -0.04866029119614192,
+      -0.9988153863756338,
+      -2.5511602563253664e-09,
+      -0.0011607472388541382
+    ],
+    [
+      0.9988153863756325,
+      -0.04866029119614198,
+      5.23661739283257e-08,
+      0.2545460786073479
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "spring_compression_mm": 5,
+  "self_collision_checking": false,
+  "versions": {
+    "mujoco": "3.17.0",
+    "numpy": "2.5.4"
+  }
+}
