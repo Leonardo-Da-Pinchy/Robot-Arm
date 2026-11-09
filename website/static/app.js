@@ -2,6 +2,7 @@ const canvas = document.getElementById("drawing-canvas");
 const context = canvas.getContext("2d");
 const clearButton = document.getElementById("clear-drawing");
 const sendButton = document.getElementById("send-drawing");
+const strokeCount = document.getElementById("stroke-count");
 const drawing = {
   width: canvas.width,
   height: canvas.height,
@@ -37,6 +38,7 @@ function startDrawing(event) {
   const point = getPoint(event);
   currentStroke = [point];
   drawing.strokes.push(currentStroke);
+  strokeCount.value = drawing.strokes.length;
 
   context.beginPath();
   context.arc(point[0], point[1], 1, 0, Math.PI * 2);
@@ -80,6 +82,7 @@ function clearDrawing() {
   activePointerId = null;
   currentStroke = null;
   drawing.strokes = [];
+  strokeCount.value = drawing.strokes.length;
   context.clearRect(0, 0, canvas.width, canvas.height);
 }
 

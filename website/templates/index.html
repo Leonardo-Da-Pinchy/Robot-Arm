@@ -4,6 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Leonardo Da Pinchy</title>
+    <style>
+      fieldset {
+        min-inline-size: 0;
+      }
+
+      #drawing-canvas {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        outline: 1px solid currentColor;
+      }
+    </style>
     <script src="{{ url_for('static', filename='app.js') }}" defer></script>
   </head>
   <body>
@@ -14,6 +26,7 @@
     </fieldset>
     <button id="clear-drawing" type="button">Clear drawing</button>
     <button id="send-drawing" type="button" data-url="{{ url_for('receive_payload') }}">Send drawing</button>
+    <p>Strokes: <output id="stroke-count">0</output></p>
 
     <h2>Raw SVG payload</h2>
     <pre id="payload" role="status"></pre>
