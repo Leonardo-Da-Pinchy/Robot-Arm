@@ -6,6 +6,9 @@ Its URDF, CSV, README, JSON report and ZIP were preserved unchanged. The ZIP's
 matching validation program and provenance-hashed source files were unpacked
 alongside them.
 
+> Current active TCP: **`pointer_tip`**, the owner-approved RViz pointer proxy.
+> See [tool frames](tool_frames.md) for its definition and physical limitations.
+
 ## Runtime integration
 
 `tools/build_arm_model.py` generates `urdf/pinchy_arm.urdf` from the supplied
@@ -14,7 +17,7 @@ fixed nominal `pen_tip` attachment are retained. The runtime chain is:
 
 ```text
 base_link → shoulder_link → upper_arm_link → forearm_link
-          → wrist_pitch_link → wrist_roll_link → pen_holder_link → pen_tip
+          → wrist_pitch_link → wrist_roll_link → pen_holder_link → pen_tip → pointer_tip
 ```
 
 The six joint names, in order, are `shoulder_pan`, `shoulder_lift`, `elbow_flex`,

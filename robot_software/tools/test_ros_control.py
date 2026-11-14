@@ -186,6 +186,30 @@ class Pipeline:
             goal.trajectory.points.append(point)
         return self.wait(self.client.send_goal_async(goal))
 
+    def test_00_active_pointer_tcp_is_published(self):
+        from tf2_ros import Buffer, TransformListener
+        from rclpy.time import Time
+        buffer = Buffer()
+        listener = TransformListener(buffer, self.node)
+        try:
+            deadline = time.monotonic()+5
+            while time.monotonic() < deadline:
+                self.executor.spin_once(timeout_sec=0.05)
+                if buffer.can_transform('base_link', 'pointer_tip', Time()): break
+            self.assertTrue(buffer.can_transform('base_link', 'pointer_tip', Time()))
+            local = buffer.lookup_transform('pen_holder_link', 'pointer_tip', Time()).transform
+            for actual, expected in zip((local.translation.x, local.translation.y, local.translation.z), (0, -0.149, 0.0188)):
+                self.assertAlmostEqual(actual, expected, places=12)
+            self.assertAlmostEqual(local.rotation.x, math.sqrt(0.5), places=12)
+            self.assertAlmostEqual(local.rotation.w, math.sqrt(0.5), places=12)
+            point = buffer.lookup_transform('base_link', 'pointer_tip', Time()).transform
+            nominal = buffer.lookup_transform('base_link', 'pen_tip', Time()).transform
+            self.assertAlmostEqual(point.translation.x, nominal.translation.x, places=12)
+            self.assertAlmostEqual(point.translation.y, nominal.translation.y, places=12)
+            self.assertAlmostEqual(point.translation.z, nominal.translation.z, places=12)
+        finally:
+            listener.unregister()
+
     def test_01_waypoints_feedback(self):
         target = [0.1, -0.1, 0.05, -0.05, 0.1, 0.1]
         handle = self.goal([target, [0.0] * 6])
@@ -314,6 +338,34 @@ class HardwarePipeline(Pipeline, unittest.TestCase):
     hardware = True
     hardware_velocity = math.radians(30)
 
+    def test_05_target_telemetry_supports_late_subscribers_without_hold(self):
+        from std_msgs.msg import String
+        from rclpy.qos import QoSProfile, DurabilityPolicy
+        qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+        statuses = []
+        status = self.node.create_subscription(String, '/arm_safety/status', lambda msg: statuses.append(msg.data), qos)
+        try:
+            for _ in range(6):
+                samples = []
+                sub = self.node.create_subscription(JointState, '/arm_safety/held_positions',
+                    lambda msg: samples.append(msg), qos)
+                try:
+                    deadline = time.monotonic()+3
+                    while (not samples or not statuses) and time.monotonic() < deadline:
+                        self.executor.spin_once(timeout_sec=0.02)
+                    self.assertTrue(samples)
+                    self.assertEqual(list(samples[-1].name), JOINTS)
+                    self.assertEqual(len(samples[-1].position), 6)
+                    self.assertGreater(samples[-1].header.stamp.sec, 0)
+                    self.assertTrue(all(math.isfinite(value) for value in samples[-1].position))
+                    self.assertIn('READY', statuses)
+                    self.assertFalse(any(value.startswith('HOLD:') for value in statuses))
+                finally:
+                    self.node.destroy_subscription(sub)
+            self.assertIsNone(self.process.poll())
+        finally:
+            self.node.destroy_subscription(status)
+
     def test_05_motion_log_records_command_and_measured_feedback(self):
         import json
         deadline = time.monotonic()+5
@@ -348,6 +400,11 @@ class HardwarePipeline(Pipeline, unittest.TestCase):
                 app.processEvents(); time.sleep(0.01)
             self.assertTrue(window.pending)
             window.cancel()
+            # A delayed pre-Stop telemetry sample must not move the arm back.
+            window.saved_hold_stamp = window.pause_stamp-1
+            window.submit_hold()
+            self.assertTrue(window.pause_pending)
+            self.assertIn('waiting for fresh', window.status.text())
             deadline = time.monotonic()+6
             while window.pending and time.monotonic() < deadline:
                 app.processEvents(); time.sleep(0.01)
@@ -424,32 +481,51 @@ class HardwarePipeline(Pipeline, unittest.TestCase):
     def test_07_bench_client_refuses_regular_robot(self):
         self.assert_bench_client_refuses_regular_robot()
 
-    def test_05_velocity_fault_recovers_without_restart(self):
+    def test_05_small_residual_and_controller_abort_do_not_latch_velocity_fault(self):
         from python_qt_binding.QtWidgets import QApplication
+        from control_msgs.msg import JointTolerance
         app = QApplication.instance() or QApplication([])
-        spec = importlib.util.spec_from_file_location('velocity_sliders', ROOT/'src/pinchy_bringup/scripts/joint_sliders.py')
+        spec = importlib.util.spec_from_file_location('settling_sliders', ROOT/'src/pinchy_bringup/scripts/joint_sliders.py')
         module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
-        node = rclpy.create_node('velocity_recovery_test', context=self.context)
+        node = rclpy.create_node('settling_test', context=self.context)
         window = module.Sliders(node, True)
         def until(predicate, seconds=7):
             deadline = time.monotonic()+seconds
             while not predicate() and time.monotonic() < deadline:
+                self.executor.spin_once(timeout_sec=0)
                 app.processEvents(); time.sleep(0.01)
             self.assertTrue(predicate(), window.status.text())
         try:
             until(lambda: window.send_button.isEnabled())
-            self.goal([[0.3]*6], seconds=0.1)
-            until(lambda: window.safety_hold)
-            self.assertIn('velocity/step limit', window.safety_reason)
-            window.cancel()
-            until(lambda: not window.safety_hold and not window.pending)
-            window.inputs[0].setValue(0.01)
-            window.speed.setValue(30); window.acceleration.setValue(180)
-            window.send()
-            until(lambda: not window.pending)
+            self.assertEqual(window.speed.value(), 30)
+            self.assertEqual(window.acceleration.value(), 180)
+            self.bus.feedback_offset(3, 14) # Exact ~1.23 degree residual from the real report.
+            for _ in range(25): app.processEvents(); time.sleep(0.01)
+            window.inputs[2].setValue(window.commanded['elbow_flex']+0.02)
+            window.send(); until(lambda: not window.pending)
+            self.assertEqual(window.status.text(), 'Reached target')
+            self.assertFalse(window.safety_hold)
+            # A client requesting tighter tolerance still receives an honest
+            # failure, but its abort-to-measured hold must not fault the hardware.
+            goal = FollowJointTrajectory.Goal(); goal.trajectory.joint_names = JOINTS
+            point = JointTrajectoryPoint(positions=[window.commanded[name] for name in JOINTS])
+            point.time_from_start.nanosec = 500_000_000
+            goal.trajectory.points = [point]
+            goal.goal_tolerance = [JointTolerance(name=name, position=0.01) for name in JOINTS]
+            handle = self.wait(self.client.send_goal_async(goal))
+            result = self.wait(handle.get_result_async(), seconds=6)
+            self.assertEqual(result.status, GoalStatus.STATUS_ABORTED)
+            for _ in range(40): app.processEvents(); time.sleep(0.01)
+            self.assertFalse(window.safety_hold, window.safety_reason)
+            self.assertTrue(window.send_button.isEnabled())
+            self.bus.feedback_offset(3, 0)
+            for _ in range(25): app.processEvents(); time.sleep(0.01)
+            window.inputs[2].setValue(0.01)
+            window.send(); until(lambda: not window.pending)
             self.assertEqual(window.status.text(), 'Reached target')
             self.assertIsNone(self.process.poll())
         finally:
+            self.bus.feedback_offset(3, 0)
             window.timer.stop(); window.client.destroy(); window.executor.shutdown()
             window.deleteLater(); app.processEvents(); node.destroy_node()
 

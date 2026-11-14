@@ -7,7 +7,7 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   <depend>hardware_interface</depend><depend>pluginlib</depend><depend>rclcpp</depend>
   <depend>rclcpp_lifecycle</depend>
-  <depend>std_msgs</depend><depend>std_srvs</depend><depend>control_msgs</depend>
+  <depend>std_msgs</depend><depend>sensor_msgs</depend><depend>std_srvs</depend><depend>realtime_tools</depend><depend>control_msgs</depend>
   <test_depend>ament_cmake_gtest</test_depend>
   <export><build_type>ament_cmake</build_type></export>
 </package>

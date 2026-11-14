@@ -80,20 +80,22 @@ CLI deliberately refuses hardware; use the explicit hardware sliders or
 - `write()` checks all targets before sending one SDK sync-write packet with
   position, raw speed and acceleration. Broadcast writes have no per-motor ACK;
   subsequent reads and trajectory tolerances establish tracking.
-- The launch requests 20 Hz. Its actual sustainability on the URT-2 must be
+- The launch requests 50 Hz. Its actual sustainability on the URT-2 must be
   measured under physical load; the emulated bus cannot qualify that rate.
   Each serial transaction has a bounded timeout, default 20 ms. Feedback age
   and long control periods are also checked; this is not a hard real-time driver.
-- Faults include packet checksum/ID/length errors, missing replies, encoder or
-  joint bounds, unexpected torque state, servo alarms, voltage outside 10..13 V,
-  temperature >=60 C, stale feedback and excessive command steps/velocity.
-- A fault stops command streaming, returns ERROR and attempts torque release
-  on every configured servo. A disconnected bus cannot acknowledge release;
-  logs identify unconfirmed releases. The arm may sag when torque releases.
-  This software behavior is separate from an independent motor-power cut.
-- Cancelling a trajectory holds position through the controller. Deactivating,
-  shutting down or faulting the hardware attempts **torque off**, not powered
-  hold. A killed process or power/USB failure cannot guarantee a stop.
+- Oversized but finite, in-range command steps are rate-limited to the
+  configured joint speeds; they do **not** latch a safety hold. A common progress
+  fraction keeps each six-joint step coordinated. A throttled warning explains
+  when limiting occurs. Encoder quantization still affects individual tick steps.
+- Faults include packet checksum/ID/length errors, missing replies, invalid
+  numeric targets, encoder/joint bounds, unexpected torque state, servo alarms,
+  voltage outside 10..13 V, confirmed thermal faults and stale/stalled feedback.
+  Runtime faults block new goals while retaining torque; configuration/startup
+  failure and explicit deactivation/shutdown have separate release behavior.
+- GUI Stop/hold freezes the adapter's last accepted target, including when an
+  upstream command is ahead of the limiter. A killed process, servo protection
+  or power/USB failure cannot guarantee powered holding.
 - Runtime faults retain the existing powered hold and pause the controller.
   Correct the cause, then press **Stop / hold** in the sliders. It replaces the
   interrupted trajectory with the last accepted hardware target, then requests
@@ -102,6 +104,36 @@ CLI deliberately refuses hardware; use the explicit hardware sliders or
   commands. It discards the old move; use Send for the next move. An active fault
   stays blocked. No ROS restart is needed after a recoverable physical condition.
   Startup/configuration failures still need startup to be rerun.
+
+Slider **defaults and maxima are 30 deg/s and 180 deg/s²**, reduced automatically
+if the loaded profile permits less. Startup zeroing remains separately limited.
+Joint arrival tolerance is 0.03 rad (about 1.72 degrees), allowing modest servo
+settling under load; it is not a Cartesian accuracy guarantee. Clients can
+request tighter tolerances and receive honest failures. In a recorded event,
+a 0.021476 rad elbow residual exceeded the old 0.02 rad tolerance, causing JTC
+to abort and switch to measured-position hold; the resulting command jump
+triggered the old velocity latch. The new tolerance accepts that small residual,
+and the limiter prevents a command jump from creating a velocity safety latch.
+
+Live accepted-target telemetry is handed to a `realtime_tools::RealtimePublisher`
+worker using a nonblocking try-lock and preallocated payload. Subscriber
+connection/discovery or DDS backpressure must not synchronously publish from
+`write()`; a busy worker skips a sample and retries later. Latched faults retry
+their frozen target from subsequent reads so recovery clients can still obtain
+it. This corrects an idle-startup overrun observed after adding live target
+publication; a logged write cycle took about 326 ms against a 20 ms budget.
+There was no motion goal at that point. Telemetry blocking is the likely cause;
+the log does not instrument individual write substeps to prove it. The stalled
+control-period guard remains active for actual long control-loop interruptions.
+
+Rate limiting can make the applied command lag the requested trajectory. Future
+Cartesian/drawing planning must respect the limits in advance and validate
+measured path/timing; this fallback does not certify path accuracy. Controller
+output traces remain upstream requests; `/arm_safety/held_positions` reports the
+last adapter-accepted targets as stamped `sensor_msgs/JointState` in radians.
+Stop waits for a snapshot captured after the pause request, so delayed DDS data
+cannot cause a jump back to an old target. This topic was previously an
+unstamped Float64MultiArray; external consumers must use the new message type.
 
 The actual column shows position in radians and estimated speed/acceleration in
 deg/s and deg/s². Estimates use a quadratic fit over about 0.25 s of encoder

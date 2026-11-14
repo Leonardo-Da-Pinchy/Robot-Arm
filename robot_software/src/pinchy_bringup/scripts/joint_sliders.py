@@ -24,7 +24,7 @@ from rclpy.qos import DurabilityPolicy, QoSProfile
 from rclpy.signals import SignalHandlerOptions
 from rclpy.utilities import remove_ros_args
 from sensor_msgs.msg import JointState
-from std_msgs.msg import String, Float64MultiArray
+from std_msgs.msg import String
 from std_srvs.srv import Trigger
 from trajectory_msgs.msg import JointTrajectoryPoint
 
@@ -63,6 +63,7 @@ class Sliders(QWidget):
         self.safety_reason = ''
         self.recovering = False
         self.saved_hold = []
+        self.saved_hold_stamp = -1
         self.motion_history = []
         self.active_record = None
         self.encoder_window = deque(maxlen=20)
@@ -92,9 +93,9 @@ class Sliders(QWidget):
             self.inputs.append(spin); self.sliders.append(slider); self.labels.append(label)
             grid.addWidget(slider, row, 1); grid.addWidget(spin, row, 2); grid.addWidget(label, row, 3)
         self.speed = QDoubleSpinBox(); self.speed.setDecimals(2)
-        self.speed.setRange(0.1, 30); self.speed.setValue(3); self.speed.setSuffix(' deg/s')
+        self.speed.setRange(0.1, 30); self.speed.setValue(30); self.speed.setSuffix(' deg/s')
         self.acceleration = QDoubleSpinBox(); self.acceleration.setDecimals(1)
-        self.acceleration.setRange(0.1, 180); self.acceleration.setValue(10); self.acceleration.setSuffix(' deg/s²')
+        self.acceleration.setRange(0.1, 180); self.acceleration.setValue(180); self.acceleration.setSuffix(' deg/s²')
         grid.addWidget(QLabel('Maximum speed'), 7, 0); grid.addWidget(self.speed, 7, 1)
         grid.addWidget(QLabel('Maximum acceleration'), 7, 2); grid.addWidget(self.acceleration, 7, 3)
         self.estimate = QLabel('Estimated move duration: waiting for controller feedback')
@@ -111,8 +112,8 @@ class Sliders(QWidget):
         graphs = QPushButton('Motion graphs / recordings'); graphs.clicked.connect(self.show_graph)
         grid.addWidget(graphs, 9, 3)
         self.reset_client = node.create_client(Trigger, '/arm_safety/reset')
-        self.held_sub = node.create_subscription(Float64MultiArray, '/arm_safety/held_positions',
-            lambda message: setattr(self, 'saved_hold', list(message.data)),
+        self.held_sub = node.create_subscription(JointState, '/arm_safety/held_positions',
+            self.on_applied_targets,
             QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.client = ActionClient(node, FollowJointTrajectory, '/arm_controller/follow_joint_trajectory')
         self.scaling = node.create_publisher(SpeedScalingFactor, '/arm_controller/speed_scaling_input',
@@ -125,6 +126,12 @@ class Sliders(QWidget):
         self.safety_sub = node.create_subscription(String, '/arm_safety/status', self.on_safety,
             QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.timer = QTimer(self); self.timer.timeout.connect(self.poll); self.timer.start(20)
+
+    def on_applied_targets(self, message):
+        values = dict(zip(message.name, message.position))
+        if not all(name in values and math.isfinite(values[name]) for name in JOINTS): return
+        self.saved_hold = [values[name] for name in JOINTS]
+        self.saved_hold_stamp = message.header.stamp.sec*1_000_000_000+message.header.stamp.nanosec
 
     def on_model(self, message):
         self.description = None
@@ -327,7 +334,16 @@ class Sliders(QWidget):
         self.status.setText('Stop requested — waiting for controller pause; torque stays on')
 
     def submit_hold(self):
-        self.hold_positions = list(self.saved_hold) if self.recovering else [self.commanded[name] for name in JOINTS]
+        if self.hardware and self.saved_hold_stamp < self.pause_stamp:
+            # DDS may deliver a sample captured before Stop after a delay.
+            # Stay paused until a post-request hardware snapshot arrives.
+            self.pause_pending = True
+            self.status.setText('Paused — waiting for fresh accepted motor targets')
+            return
+        # Hardware may have limited a controller step. Freeze the last target
+        # actually accepted by the adapter, not an upstream target still ahead.
+        self.hold_positions = (list(self.saved_hold) if self.hardware and len(self.saved_hold) == len(JOINTS)
+                               else [self.commanded[name] for name in JOINTS])
         goal = FollowJointTrajectory.Goal(); goal.trajectory.joint_names = JOINTS
         start = JointTrajectoryPoint(positions=self.hold_positions, velocities=[0.0]*len(JOINTS))
         end = JointTrajectoryPoint(positions=self.hold_positions, velocities=[0.0]*len(JOINTS))

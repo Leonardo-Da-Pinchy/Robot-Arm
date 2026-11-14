@@ -75,6 +75,37 @@ class ModelTests(unittest.TestCase):
             actual = (np.linalg.inv(frames['wrist_roll_link']) @ frames['pen_tip'])[:3, 3] * 1000
             np.testing.assert_allclose(actual, measurement['pen_tip_mm'], atol=0.001, rtol=0)
 
+    def test_active_tcp_matches_visual_endpoint_and_points_outward(self):
+        profile = json.loads((PACKAGE / 'config/active_tool.json').read_text())
+        self.assertEqual(profile['tcp_frame'], 'pointer_tip')
+        self.assertFalse(profile['physical_tip_verified'])
+        visual = self.arm.find("link[@name='pen_holder_link']/visual[@name='pen_holder_link_sharpie_nib_visual']")
+        cylinder = visual.find('geometry/cylinder')
+        geometry_pose = transform(visual.find('origin'))
+        endpoint = geometry_pose @ np.array([0, 0, float(cylinder.get('length'))/2, 1])
+        frames = fk(self.arm, {})
+        local_tcp = np.linalg.inv(frames['pen_holder_link']) @ frames['pointer_tip']
+        np.testing.assert_allclose(local_tcp[:3, 3], endpoint[:3], atol=1e-13, rtol=0)
+        np.testing.assert_allclose(local_tcp[:3, 2], geometry_pose[:3, 2], atol=1e-13, rtol=0)
+        self.assertIsNotNone(self.arm.find("link[@name='pointer_tip']/visual[@name='active_tcp_marker']"))
+        self.assertIsNone(self.arm.find("link[@name='pointer_tip']/collision"))
+
+    def test_active_tcp_fk_and_original_links_at_107_poses(self):
+        names = [j.get('name') for j in self.source.findall("joint[@type='revolute']")]
+        bounds = np.array([[float(self.source.find(f"joint[@name='{name}']/limit").get(bound))
+                            for bound in ('lower', 'upper')] for name in names])
+        poses = [np.zeros(6), bounds[:, 0], bounds[:, 1]]
+        for angle in (0, 45, 90, 100):
+            pose = np.zeros(6); pose[-1] = math.radians(angle); poses.append(pose)
+        poses.extend(np.random.default_rng(7).uniform(bounds[:, 0], bounds[:, 1], (100, 6)))
+        for pose in poses:
+            positions = dict(zip(names, pose))
+            frames, original = fk(self.arm, positions), fk(self.source, positions)
+            for link in original:
+                np.testing.assert_allclose(frames[link], original[link], atol=1e-13, rtol=0)
+            np.testing.assert_allclose(frames['pointer_tip'], original['pen_tip'], atol=1e-13, rtol=0)
+            np.testing.assert_allclose(frames['tool0'], frames['pen_holder_link'], atol=1e-13, rtol=0)
+
     def test_mesh_paths_units_and_no_original_claw(self):
         for mesh in self.arm.findall('.//mesh'):
             path = mesh.get('filename').removeprefix('package://pinchy_description/')

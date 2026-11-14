@@ -1,8 +1,13 @@
 # Agent handoff: Cartesian point and waypoint checkpoint
 
+> November 13: the demo checkpoint is retired. Use the
+> [final-product roadmap](implementation_roadmap.md) for current scope, full
+> status and HTTPS/AprilTag integration. This file remains the technical map
+> of the established control stack; its checkpoint-only task list is historical.
+
 Updated November 9, 2026. Read this first, then inspect the linked code and
-repository. This file records the latest owner decisions and supersedes older
-status/checklist text in the linked historical documents. It is a starting map,
+repository. This file records technical decisions; the final-product roadmap
+is the authority for current statuses and ordering. It is a starting map,
 not a substitute for checking the implementation and working-tree changes.
 
 ## Objective and latest owner decisions
@@ -11,9 +16,12 @@ The checkpoint is a physical arm that accepts an end-effector pose or ordered
 poses in a known frame, uses IK and collision-aware planning, executes the
 motion, and reports actual progress, success, failure and safety holds.
 
-**Use the empty holder's tip as the end effector for this checkpoint. There is
-currently no pen installed.** The final pen length, nib offset and compression
-are unknown and deferred; they must not block initial holder-only point motion.
+**November 13: use `pointer_tip`, the end of the current RViz pointer, as the
+temporary end-effector point.** The owner authorized this proxy while only the
+single servo-mounted attachment is installed. Its physical endpoint is not
+measured; do not describe the nominal modeled pen tip as a calibrated empty
+holder opening. Final pen length, nib offset and compression remain deferred.
+See [tool frames](tool_frames.md).
 The owner reports that physical robot motion now looks good. This establishes
 basic operation, not measured positioning accuracy or completion of every
 load/thermal/fault test.
@@ -46,7 +54,7 @@ Use the existing control stack and configure MoveIt 2 for runtime IK/planning.
 | 6 | Working | Mock and real ros2_control, joint feedback, trajectory execution, RViz and sliders. |
 | 7 | Implemented | Interactive zero/hold startup, speed/acceleration controls, motion recording and torque-preserving runtime safety holds. |
 | 8 | Partly qualified | Owner accepts basic assembled-arm motion. Complete measured loaded holding, temperature, Stop, fault and recovery qualification. Do not treat emulator tests as physical qualification. |
-| 9 | Next | Define/verify the empty-holder tip frame and check physical/model agreement at several poses. Final pen TCP calibration is deferred. |
+| 9 | Software implemented | Active `pointer_tip` at owner-approved RViz endpoint; physical attachment agreement and final pen calibration remain unmeasured. See current roadmap. |
 | 10 | Remaining | Establish measured joint operating limits, useful end-effector speed range, minimum continuous-path speed and positioning tolerance. Current selectable maxima are not certified physical limits. |
 | 11 | Remaining | Create MoveIt configuration: six-joint group, base/tool frames, IK solver, limits and reviewed self-collision setup. |
 | 12 | Remaining | Add table/fixtures to the planning scene; connect execution to the existing trajectory controller and safety-hold status. |
@@ -57,11 +65,19 @@ Use the existing control stack and configure MoveIt 2 for runtime IK/planning.
 | 17 | Remaining | Time continuous paths for approximately constant tool speed through intermediate points, with explicit exceptions/blending. |
 | 18 | Remaining | Demonstrate a physical pose sequence and short free-space path; verify accuracy, progress/results, invalid-path rejection and recovery. |
 
-**Practical next work:** establish the holder-only tool frame and start the
-MoveIt/mock planning configuration. Continue targeted physical qualification
+**Practical next work:** start the MoveIt/mock planning configuration using
+the explicit `pointer_tip` proxy. Continue targeted physical qualification
 alongside that work; do not repeatedly redo completed bench setup or block on
 an unknown future pen offset. No project MoveIt configuration or runtime
 Cartesian motion package exists yet; verify this again when picking up work.
+
+## Pending hardware update (November 13)
+
+The owner is redesigning the base with wings integrating a marker holder and
+camera holder, and will provide updated geometry and exact mounting transforms.
+See the [pending-base note](implementation_roadmap.md#pending-base-redesign--owner-follow-up).
+Do not assume these transforms are available or overwrite measured calibration.
+The moving holder TCP remains a separate step from fixed base/camera mounting.
 
 ## Hardware and calibration
 
@@ -82,26 +98,24 @@ Cartesian motion package exists yet; verify this again when picking up work.
   temporary confirmed handoff profile after establishing all six zero holds.
 - Current ROS profile: raw servo speed cap 500, acceleration cap 32, torque
   limit 1000/1000; per-joint velocity ceiling 30 deg/s. GUI selectable maxima:
-  30 deg/s and 180 deg/s²; defaults remain 3 deg/s and 10 deg/s².
+  30 deg/s and 180 deg/s²; these are also the defaults, subject to profile caps.
   GUI trajectory limits and servo raw register values are different quantities.
 
-## Tool frame: important unresolved model mismatch
+## Active tool frame
 
-The [runtime URDF](../src/pinchy_description/urdf/pinchy_arm.urdf) currently has:
+The runtime model now includes **`pointer_tip`**, an identity attachment to the
+preserved CAD `pen_tip` frame at `(0, -0.149, 0.0188)` m relative to
+`pen_holder_link`, with roll π/2. Its +z points outward along the modeled tool.
+A cyan visual dot marks it. `tool0` stays at the sixth-axis origin.
 
-- `pen_holder_link`: rotating holder link at the sixth joint's origin.
-- `tool0`: coincident with that sixth-axis origin, **not the holder opening**.
-- `pen_tip`: a nominal pen/nib point at `(0, -0.149, 0.0188)` metres relative
-  to `pen_holder_link`, assuming 5 mm sleeve compression.
-
-Neither existing fixed frame can simply be relabelled as the physical empty
-holder's tip without checking its transform. Define a clear holder-only TCP
-(for example `holder_tip`) from the CAD holder datum and confirm the point on
-the physical assembly. Do not invent its offset or silently use the nominal
-pen nib. Review the currently included nominal pen/nib visuals, collision
-shapes and mass when configuring holder-only planning; preserve source CAD
-and make the active tool geometry explicit. The model has not yet been
-changed to implement this new holder-only decision.
+[Active tool configuration](../src/pinchy_description/config/active_tool.json)
+records the explicit RViz endpoint proxy and `physical_tip_verified: false`.
+The owner permits this reference while only the single servo-mounted attachment
+is installed. Its actual endpoint is not established by the available model.
+Use `pointer_tip` for upcoming MoveIt configuration; measure the physical
+attachment and update geometry/TCP together before claiming real-tip accuracy.
+Model/FK and mock/emulated TF checks passed; no physical motor moved.
+See [tool-frame definition and inspection](tool_frames.md).
 
 Read [CAD/model notes](cad4_model.md), the
 [source URDF](../src/pinchy_description/cad/cad4/iteration_2_cad_4_arm.urdf),
@@ -163,6 +177,20 @@ remain at most 100/5, independently of the higher ROS operating caps.
 After all six holds, the script transfers serial ownership to ROS without
 releasing torque and opens RViz/sliders. Default physical ROS domain is 42.
 
+Live `/arm_safety/held_positions` telemetry now uses a nonblocking realtime
+publisher handoff; DDS publication runs on its background thread. It must never
+be moved back to synchronous per-cycle publication in the motor write thread.
+A 326 ms idle-startup write overrun triggered the stalled-period guard after the
+original synchronous publisher was added; transport blocking is the suspected
+cause. Keep actual feedback-age/stalled-loop guards enabled.
+
+November 13 velocity behavior: finite, in-range command steps are now
+**rate-limited rather than latched off**. Shared six-joint progress respects the
+configured speeds; invalid numeric/position targets and hardware health/timing
+faults still hold. Joint goal tolerance is now 0.03 rad (~1.72 deg), preventing
+a modest settling residual from repeatedly aborting commissioning moves. This
+is not a Cartesian accuracy claim. See [hardware control](hardware_control.md).
+
 Critical owner requirement: **ordinary runtime faults must block movement
 while retaining existing powered holds, rather than deliberately dropping a
 gravity-loaded arm.** The driver latches new goal writes off, publishes
@@ -212,7 +240,7 @@ startup. Only one process may own the servo serial port.
 | `/arm_controller/controller_state` | Controller reference, actual feedback and output command; use output to maintain command continuity. |
 | `/joint_states` | Measured joint positions for TF/RViz/planning. |
 | `/arm_safety/reset` | `std_srvs/Trigger`: explicit recovery after four healthy sweeps and a synchronized replacement hold; the GUI orchestrates this through Stop / hold. |
-| `/arm_safety/held_positions` | Transient-local `std_msgs/Float64MultiArray`: last accepted command in the six-joint order, used to replace the interrupted move. |
+| `/arm_safety/held_positions` | Transient-local stamped `sensor_msgs/JointState`: last adapter-accepted command in the six-joint order, published during normal writes and latched on fault; Stop/recovery uses this rather than an upstream target ahead of the limiter. |
 | `/arm_safety/status` | Transient-local `std_msgs/String`: `READY` or latched `HOLD: ...`. Future motion clients must honor it; action acceptance alone does not prove motion is permitted. |
 | `/arm_controller/speed_scaling_input` | `control_msgs/msg/SpeedScalingFactor`; 0 pauses, 1 resumes. The backend latch blocks writes even if another client publishes 1. |
 

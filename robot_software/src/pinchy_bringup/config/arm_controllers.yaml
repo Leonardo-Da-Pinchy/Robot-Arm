@@ -18,11 +18,12 @@ arm_controller:
     set_last_command_interface_value_as_state_on_activation: true
     constraints:
       goal_time: 1.0
-      # Allow the same small measured residual accepted at startup (10 ticks),
-      # plus encoder quantization, without changing commanded position bounds.
-      shoulder_pan: {goal: 0.02}
-      shoulder_lift: {goal: 0.02}
-      elbow_flex: {goal: 0.02}
-      wrist_flex: {goal: 0.02}
-      wrist_roll: {goal: 0.02}
-      pen_pitch: {goal: 0.02}
+      # Position-servo settling/deadband can leave ~14 ticks of residual under load.
+      # Allow 0.03 rad (~1.72 deg) for joint commissioning; this is not a
+      # Cartesian accuracy claim. Future drawing goals must choose measured tolerances.
+      shoulder_pan: {goal: 0.03}
+      shoulder_lift: {goal: 0.03}
+      elbow_flex: {goal: 0.03}
+      wrist_flex: {goal: 0.03}
+      wrist_roll: {goal: 0.03}
+      pen_pitch: {goal: 0.03}

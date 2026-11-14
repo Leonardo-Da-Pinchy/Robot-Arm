@@ -319,9 +319,9 @@ TEST_P(HealthFault, RejectUnsafeFeedback)
 INSTANTIATE_TEST_SUITE_P(Checks, HealthFault, testing::Values(
   std::make_pair(62, 90), std::make_pair(62, 140),
   std::make_pair(65, 4), std::make_pair(40, 0), std::make_pair(57, 0)));
-TEST(Hardware, RejectJumpAndNaNBeforeGroupWrite)
+TEST(Hardware, RejectNaNAndPositionLimitsBeforeGroupWrite)
 {
-  for (double command : {0.5, std::nan(""), 2.0}) {
+  for (double command : {std::nan(""), 2.0}) {
     Bus bus; FeetechSystem hw;
     ASSERT_EQ(hw.on_init(info(bus.path)), CallbackReturn::SUCCESS);
     auto commands = hw.export_command_interfaces();
@@ -332,6 +332,33 @@ TEST(Hardware, RejectJumpAndNaNBeforeGroupWrite)
     for (int i = 1; i <= 6; ++i) EXPECT_EQ(bus.byte(i, 40), 1);
   }
 }
+TEST(Hardware, OversizedStepsAreRateLimitedAndContinueWithoutFault)
+{
+  Bus bus; FeetechSystem hw;
+  ASSERT_EQ(hw.on_init(info(bus.path)), CallbackReturn::SUCCESS);
+  auto states = hw.export_state_interfaces(); auto commands = hw.export_command_interfaces();
+  ASSERT_EQ(hw.on_configure(state), CallbackReturn::SUCCESS);
+  ASSERT_EQ(hw.on_activate(state), CallbackReturn::SUCCESS);
+  double previous = states[0].get_optional().value();
+  const double target = previous + 0.3;
+  ASSERT_TRUE(commands[0].set_value(target));
+  for (int cycle=0; cycle<25; ++cycle) {
+    ASSERT_EQ(hw.write(now, period), return_type::OK);
+    ASSERT_EQ(hw.read(now, period), return_type::OK);
+    const double actual = states[0].get_optional().value();
+    EXPECT_GE(actual+0.0008, previous);
+    EXPECT_LE(actual-previous, 0.3*period.seconds()+0.001534);
+    previous = actual;
+  }
+  EXPECT_NEAR(previous, target, 0.0008);
+  EXPECT_GT(bus.syncs, 1); EXPECT_EQ(bus.torque_off_writes, 0);
+  // The limiter did not latch a fault: a later reverse move is accepted too.
+  ASSERT_TRUE(commands[0].set_value(target-0.005));
+  ASSERT_EQ(hw.write(now, period), return_type::OK);
+  ASSERT_EQ(hw.read(now, period), return_type::OK);
+  EXPECT_NEAR(states[0].get_optional().value(), target-0.005, 0.0008);
+}
+
 TEST(Hardware, StaleFeedbackStopsWithoutWrite)
 {
   Bus bus; FeetechSystem hw; auto h = info(bus.path); h.hardware_parameters["max_feedback_age"] = "0.05";

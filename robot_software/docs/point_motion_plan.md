@@ -1,9 +1,10 @@
 # Plan to reach Cartesian point and waypoint control
 
-> For current status, settings, safety behavior and agent entry point, read the
-> [checkpoint handoff](checkpoint_handoff.md). The owner now accepts basic
-> physical motion and wants the empty holder's tip used for this checkpoint;
-> final pen-tip calibration is deferred. Earlier status tables below are historical.
+> For current scope/status, use the [final-product roadmap](implementation_roadmap.md).
+> The temporary active TCP is now `pointer_tip`, the owner-approved RViz pointer
+> endpoint proxy; see [tool frames](tool_frames.md) for physical limitations.
+> [Technical handoff](checkpoint_handoff.md) covers the working control stack.
+> Earlier status tables below are historical.
 
 Original assessment: November 4, 2026. Status reviewed November 8, 2026.
 

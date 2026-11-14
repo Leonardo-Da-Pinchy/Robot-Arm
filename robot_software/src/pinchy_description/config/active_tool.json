@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "active_tool": "rviz_pointer_proxy",
+  "planning_frame": "base_link",
+  "tcp_frame": "pointer_tip",
+  "mount_frame": "tool0",
+  "attachment": {
+    "parent_frame": "pen_tip",
+    "xyz_m": [0.0, 0.0, 0.0],
+    "rpy_rad": [0.0, 0.0, 0.0]
+  },
+  "geometry_reference": {
+    "link": "pen_holder_link",
+    "visual": "pen_holder_link_sharpie_nib_visual",
+    "endpoint": "positive cylinder z end"
+  },
+  "physical_tip_verified": false,
+  "decision": "Owner authorized using the end of the existing RViz pointer as the temporary TCP on November 13, 2026.",
+  "limitation": "Only the single servo-mounted part is currently installed. Its physical endpoint has not been identified/measured; the full modeled pen/holder endpoint is a permitted proxy, not a calibrated physical tip. Final pen length and compression remain pending."
+}

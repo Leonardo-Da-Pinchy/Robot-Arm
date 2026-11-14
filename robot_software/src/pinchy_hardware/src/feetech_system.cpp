@@ -188,7 +188,12 @@ CallbackReturn FeetechSystem::on_init(const hardware_interface::HardwareInfo & i
       safety_node_ = std::make_shared<rclcpp::Node>("pinchy_hardware_safety", options);
       auto qos = rclcpp::QoS(1).transient_local().reliable();
       safety_status_ = safety_node_->create_publisher<std_msgs::msg::String>("/arm_safety/status", qos);
-      held_publisher_ = safety_node_->create_publisher<std_msgs::msg::Float64MultiArray>("/arm_safety/held_positions", qos);
+      held_publisher_ = safety_node_->create_publisher<sensor_msgs::msg::JointState>("/arm_safety/held_positions", qos);
+      held_realtime_ = std::make_unique<realtime_tools::RealtimePublisher<sensor_msgs::msg::JointState>>(held_publisher_);
+      held_realtime_->lock();
+      held_realtime_->msg_.position.resize(n);
+      for (const auto & joint : info_.joints) held_realtime_->msg_.name.push_back(joint.name);
+      held_realtime_->unlock();
       reset_service_ = safety_node_->create_service<std_srvs::srv::Trigger>("/arm_safety/reset",
         [this](std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
           response->success = false;
@@ -354,11 +359,7 @@ return_type FeetechSystem::fault(const std::exception & e)
     if (!faulted_) {
       healthy_cycles_ = 0;
       held_commands_ = previous_commands_;
-      try {
-        if (held_publisher_) { std_msgs::msg::Float64MultiArray held; held.data = held_commands_; held_publisher_->publish(held); }
-      } catch (const std::exception & error) {
-        RCLCPP_ERROR(logger, "Could not publish held positions: %s", error.what());
-      }
+      publish_targets(held_commands_);
       faulted_ = true;
       RCLCPP_ERROR(logger, "Safety HOLD: %s. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.", e.what());
       announce(std::string("HOLD: ")+e.what());
@@ -378,6 +379,17 @@ return_type FeetechSystem::fault(const std::exception & e)
   }
   RCLCPP_ERROR(logger, "Hardware fault: %s. Releasing torque; recovery requires reconfiguration.", e.what());
   faulted_ = true; release(); return return_type::ERROR;
+}
+void FeetechSystem::publish_targets(const std::vector<double> & targets)
+{
+  // ROS/DDS publication may block during reader discovery or backpressure.
+  // The control thread only copies preallocated data if the worker is free;
+  // otherwise skip this diagnostic sample and retry next cycle.
+  if (held_realtime_ && held_realtime_->trylock()) {
+    held_realtime_->msg_.header.stamp = safety_node_->get_clock()->now();
+    std::copy(targets.begin(), targets.end(), held_realtime_->msg_.position.begin());
+    held_realtime_->unlockAndPublish();
+  }
 }
 void FeetechSystem::announce(const std::string & message)
 {
@@ -401,6 +413,7 @@ return_type FeetechSystem::read(const rclcpp::Time &, const rclcpp::Duration &)
     bool healthy = true;
     for (size_t i=0; i<temperatures_.size(); ++i) healthy = healthy && temperatures_[i] < 60 && hot_counts_[i] == 0;
     healthy_cycles_ = healthy ? std::min(4, healthy_cycles_+1) : 0;
+    if (faulted_) publish_targets(held_commands_);
     if (safety_executor_) safety_executor_->spin_some(std::chrono::nanoseconds(0));
     return return_type::OK;
   } catch (const std::exception & e) {
@@ -425,18 +438,25 @@ return_type FeetechSystem::write(const rclcpp::Time &, const rclcpp::Duration & 
     // period remains nominal. Check against the real interval too, including
     // cycles with no changed encoder goal; idle time cannot accumulate credit.
     const double command_interval = std::max(period.seconds(), elapsed);
+    // Validate the whole request before changing any motor. Limit command
+    // progress rather than faulting on a finite, in-range trajectory step.
+    // A shared fraction preserves this step's direction across all six joints.
+    double fraction = 1.0;
+    for (size_t i = 0; i < commands_.size(); ++i) {
+      calibration_[i].to_ticks(commands_[i]); // NaN and position limits still fault.
+      const double distance = std::abs(commands_[i]-previous_commands_[i]);
+      if (distance > 0) fraction = std::min(fraction, calibration_[i].max_velocity*command_interval/distance);
+    }
+    if (fraction < 1 && std::chrono::duration<double>(written_at-last_rate_warning_).count() >= 2.0) {
+      RCLCPP_WARN(logger, "Limiting command step to configured joint speeds (fraction %.3f); continuing with torque on", fraction);
+      last_rate_warning_ = written_at;
+    }
+    auto applied = commands_;
     std::vector<u8> ids, accelerations; std::vector<s16> goals; std::vector<u16> speeds;
     for (size_t i = 0; i < commands_.size(); ++i) {
       const auto & c = calibration_[i];
-      auto target = c.to_ticks(commands_[i]);
-      require(std::abs(commands_[i] - previous_commands_[i]) <=
-              c.max_velocity * command_interval + 2 * radians_per_tick,
-              "ID " + std::to_string(c.id) + " (" + info_.joints[i].name +
-              "): command exceeds calibrated joint velocity/step limit; previous=" +
-              std::to_string(previous_commands_[i]) + ", requested=" + std::to_string(commands_[i]) +
-              " rad, period=" + std::to_string(period.seconds()) +
-              " s, actual_interval=" + std::to_string(elapsed) +
-              " s, max_velocity=" + std::to_string(c.max_velocity) + " rad/s");
+      applied[i] = previous_commands_[i] + fraction*(commands_[i]-previous_commands_[i]);
+      auto target = c.to_ticks(applied[i]);
       // Verify through readback: a dropped broadcast remains different next
       // cycle and is retried. Avoid reissuing an already-held encoder target.
       if (target != goal_ticks_[i]) {
@@ -444,8 +464,11 @@ return_type FeetechSystem::write(const rclcpp::Time &, const rclcpp::Duration & 
       }
     }
     if (!ids.empty()) port_->SyncWritePosEx(ids.data(), ids.size(), goals.data(), speeds.data(), accelerations.data());
-    previous_commands_ = commands_;
+    previous_commands_ = applied;
     last_write_ = written_at;
+    // Stop follows the accepted target even while commands are being limited.
+    // DDS work is performed by the realtime publisher's background worker.
+    publish_targets(previous_commands_);
     return return_type::OK;
   } catch (const std::exception & e) { return fault(e); }
 }

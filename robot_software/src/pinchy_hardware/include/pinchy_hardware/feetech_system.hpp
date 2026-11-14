@@ -7,8 +7,9 @@
 #include "hardware_interface/system_interface.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "std_msgs/msg/float64_multi_array.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
 #include "std_srvs/srv/trigger.hpp"
+#include "realtime_tools/realtime_publisher.hpp"
 #include "control_msgs/msg/speed_scaling_factor.hpp"
 
 namespace pinchy_hardware
@@ -42,6 +43,7 @@ private:
   void verify_zero_hold();
   void release() noexcept;
   void announce(const std::string & message);
+  void publish_targets(const std::vector<double> & targets);
   hardware_interface::return_type fault(const std::exception &);
   std::unique_ptr<CheckedPort> port_;
   std::vector<Calibration> calibration_;
@@ -50,7 +52,8 @@ private:
   std::shared_ptr<rclcpp::Node> safety_node_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr safety_status_;
   rclcpp::Publisher<control_msgs::msg::SpeedScalingFactor>::SharedPtr pause_publisher_;
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr held_publisher_;
+  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr held_publisher_;
+  std::unique_ptr<realtime_tools::RealtimePublisher<sensor_msgs::msg::JointState>> held_realtime_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr reset_service_;
   std::unique_ptr<rclcpp::executors::SingleThreadedExecutor> safety_executor_;
   std::vector<double> held_commands_;
@@ -59,6 +62,6 @@ private:
   int timeout_ms_ = 20, speed_ = 100, acceleration_ = 5, torque_limit_ = 300;
   double max_feedback_age_ = 0.25;
   bool active_ = false, faulted_ = false, adopt_zero_hold_ = false;
-  std::chrono::steady_clock::time_point last_feedback_, last_write_;
+  std::chrono::steady_clock::time_point last_feedback_, last_write_, last_rate_warning_;
 };
 }  // namespace pinchy_hardware
