@@ -7,6 +7,7 @@
   <maintainer email="maintainer@example.com">Leonardo Da Pinchy Team B2</maintainer>
   <license>Apache-2.0</license>
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
   <exec_depend>pinchy_description</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>

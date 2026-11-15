@@ -1,0 +1,5 @@
+[INFO] [1794708600.270820130] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[INFO] [1794708603.324031693] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[INFO] [1794708603.404657997] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[INFO] [1794708603.463977585] [spawner_joint_state_broadcaster]: Loaded arm_controller
+[INFO] [1794708603.545693404] [spawner_joint_state_broadcaster]: Configured and activated arm_controller

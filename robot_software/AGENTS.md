@@ -19,3 +19,19 @@ When the user asks for the full list or current project status:
 - Retain implementation caveats, external ownership and pending owner inputs
   in the roadmap or linked technical documents when shortening descriptions.
 - Historical checkpoint/status tables are references, not competing task lists.
+
+# Shared motion contracts
+
+Keep planning and commissioning layered on the same live robot description,
+active-tool profile, calibrated limits, controllers and hardware adapter.
+Use `pinchy_bringup.control_contract` for joint order, limit interpretation,
+trajectory endpoints and constant hold goals. Preserve the shared RViz layout;
+planning adds displays rather than keeping an independent copy of the view.
+Never implement a second servo writer or weaken thermal confirmation/powered
+fault handling in the Cartesian application.
+
+Continuous drawing must follow
+`src/pinchy_moveit_config/config/drawing_motion_policy.yaml`: approximately
+constant TCP surface speed during contact; accelerate/decelerate in pen-up
+motion wherever feasible. Do not stop at sampled contact waypoints or silently
+relax geometry/speed to get a trajectory. Pose transit is not contact drawing.

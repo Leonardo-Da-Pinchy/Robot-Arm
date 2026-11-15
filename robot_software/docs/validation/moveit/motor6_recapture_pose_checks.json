@@ -1,0 +1,72 @@
+{
+  "count": 1,
+  "stress": false,
+  "domain": 210,
+  "artifacts": "/tmp/pinchy-ik-benchmark-otba_t1q",
+  "native_fastpath_successes": 1,
+  "bounded_successes": 1,
+  "known_reachable": [
+    {
+      "index": 0,
+      "inside_design_region": false,
+      "native_fastpath": true,
+      "native_time_s": 0.008068010996794328,
+      "bounded_success": true,
+      "bounded_time_s": 0.0394874829944456,
+      "witness_joint_radians": [
+        1.8485419413129092,
+        0.10404124365108958,
+        -0.09392506108848431,
+        -0.4115982262965283,
+        0.7945015185127349,
+        0.0866305053762163
+      ],
+      "report": {
+        "mode": "full",
+        "attempts": 1,
+        "elapsed_s": 0.03930421199765988,
+        "rejected_candidates": 0,
+        "reason": "solved",
+        "best_position_error_mm": 1.686950572505072e-11,
+        "best_orientation_error_deg": 7.720043712574675e-12,
+        "limiting_joints": []
+      }
+    }
+  ],
+  "operator_examples": [
+    {
+      "xyz": [
+        0.329988,
+        0.124285,
+        0.155302
+      ],
+      "rpy": [
+        -113.168,
+        -86.871,
+        -108.553
+      ],
+      "mode": "tool_axis",
+      "success": true,
+      "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY -91.68, -42.91, -130.55 deg."
+    }
+  ],
+  "zero_conditioning": {
+    "mode": "full",
+    "task_dimensions": 6,
+    "smallest_singular_value": 0.011899691343663286,
+    "condition_number": 209.3726438163612,
+    "near_singular": true,
+    "translation_scale_m": 0.4
+  },
+  "bent_conditioning": {
+    "mode": "full",
+    "task_dimensions": 6,
+    "smallest_singular_value": 0.11032375719081018,
+    "condition_number": 21.765426275113903,
+    "near_singular": false,
+    "translation_scale_m": 0.4
+  },
+  "method": "Fresh searches from zero/midpoint; valid target witnesses generated in calibrated bounds and checked by MoveIt; target poses independently returned by MoveIt FK. Native is the fast phase, not an exhaustive proof. No physical port or execute action.",
+  "motor_commands_sent": false,
+  "calibration_sha256": "4bfed5d9ad885b7f605126566fe7e914cde8ce420751abda75145212bba2969c"
+}

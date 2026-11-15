@@ -1,0 +1,4 @@
+{
+  "success": false,
+  "message": "MoveIt found no pen-direction solution within the saved ranges. A diagnostic model-range solution exists but exceeds: wrist_roll -92.0 deg vs saved [+0.0, +131.5]; pen_pitch +95.1 deg vs saved [-1.7, +90.4]. It is NOT an executable plan. Physical range verification is required; no limits were changed and no motion sent."
+}

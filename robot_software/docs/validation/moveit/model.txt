@@ -1,0 +1,14 @@
+test_active_tcp_fk_and_original_links_at_107_poses (test_arm_model.ModelTests.test_active_tcp_fk_and_original_links_at_107_poses) ... ok
+test_active_tcp_matches_visual_endpoint_and_points_outward (test_arm_model.ModelTests.test_active_tcp_matches_visual_endpoint_and_points_outward) ... ok
+test_all_supplied_joint_transforms_names_and_ranges_preserved (test_arm_model.ModelTests.test_all_supplied_joint_transforms_names_and_ranges_preserved) ... ok
+test_cad_source_hashes (test_arm_model.ModelTests.test_cad_source_hashes) ... ok
+test_ee_inertias_and_collision_proxies_are_present (test_arm_model.ModelTests.test_ee_inertias_and_collision_proxies_are_present) ... ok
+test_mesh_paths_units_and_no_original_claw (test_arm_model.ModelTests.test_mesh_paths_units_and_no_original_claw) ... ok
+test_nominal_zero_tip_matches_supplied_validation (test_arm_model.ModelTests.test_nominal_zero_tip_matches_supplied_validation) ... ok
+test_pen_pitch_cad_soft_limits (test_arm_model.ModelTests.test_pen_pitch_cad_soft_limits) ... ok
+test_tip_matches_solidworks_zero_45_and_100_degrees (test_arm_model.ModelTests.test_tip_matches_solidworks_zero_45_and_100_degrees) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.369s
+
+OK

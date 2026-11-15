@@ -1,0 +1,8 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-1l5dn1f7
+test_01k_spline_and_visit_path_previews (__main__.MockCartesian.test_01k_spline_and_visit_path_previews) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 21.903s
+
+OK

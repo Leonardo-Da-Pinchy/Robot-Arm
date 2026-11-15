@@ -1,0 +1,19 @@
+{
+  "method": "Independent differential evolution under unchanged saved bounds; finite numerical evidence, not proof of impossibility",
+  "cylinder_center_x_m": 0.35,
+  "radius_m": 0.04,
+  "surface_height_m": 0.15,
+  "angle_deg": -90,
+  "position_error_mm": 9.453453514282586,
+  "direction_error_deg": 14.686900441241738,
+  "q_deg": [
+    36.092902862296825,
+    87.62695270440167,
+    -72.80710264768194,
+    -64.27079676823875,
+    70.12469532496927,
+    99.1406249952777
+  ],
+  "objective": 0.07428528976840074,
+  "motor_commands_sent": false
+}

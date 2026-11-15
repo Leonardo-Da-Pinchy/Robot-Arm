@@ -1,0 +1,8 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-32k053ol
+test_01m_operator_nearby_xyz_with_changed_direction (__main__.MockCartesian.test_01m_operator_nearby_xyz_with_changed_direction) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 38.416s
+
+OK

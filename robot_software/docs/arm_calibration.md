@@ -4,6 +4,53 @@ This tool **reads only**. It never moves motors, enables/releases torque, or
 changes RAM/EEPROM. Support the assembled arm with torque off and stop other
 serial tools/drivers. Move joints gently; do not force a gearbox or a stop.
 
+## Review the operating limits without changing zero/direction
+
+Use this after initial commissioning ranges prove too narrow for planning.
+The earlier two-safe-position mode can produce a one-sided range if both
+samples are positive. The new mode explicitly captures **negative then positive**.
+
+1. Support the arm, then stop the **physical startup/ROS launch terminal**.
+   Explicit shutdown releases torque; the GUI Stop/hold button does **not**.
+   Leave USB and 12 V connected for encoder reads. Do not run another servo driver.
+2. From `robot_software/`, prepare the shell if needed and review the wrist joints:
+
+   ```bash
+   source ./connect.sh --domain 0
+   calibrate --step review-limits --ids 4 5 6
+   ```
+
+3. For each prompted joint, manually choose clear usable **negative** travel,
+   press `p` to check its signed angle, hold still and press Enter. Then do the
+   same on the **positive** side. Reposition/support the rest of the arm as
+   needed for clearance. Never force a stop or chase a target angle through contact.
+4. `s` keeps that joint's previous range; `q` stops. Both endpoints are staged
+   together: quitting partway through a joint keeps its complete old range.
+   A timestamped session backup is printed. Zeros/directions and motor registers
+   are unchanged; only completed measured ranges are written to the JSON profile.
+5. Inspect the saved ranges:
+
+   ```bash
+   calibrate --status
+   ```
+
+These are the operating bounds that MoveIt and the controller will enforce.
+Tiny initial +/-5° samples are not full travel calibration. Conversely the model
+range shown is an outer envelope, not permission to move there or a clearance
+guarantee. Record sufficiently wide, physically verified usable travel; do not
+force mechanical stops. The reported IK cases need substantial negative travel
+on joint 5 (one example about -95°). If that travel is blocked physically, stop:
+changing numbers cannot create it. Joint 6 remains subject to its shallow CAD range.
+
+Omit `--ids 4 5 6` to review all six, or use `--id 5` for only wrist roll. For a
+**genuine one-sided joint**, `--allow-one-sided` explicitly enables `z` to declare
+the saved zero as one boundary; it never silently accepts two positive samples
+as a two-sided review. The original `--step limits` is retained for small initial
+commissioning ranges and its older resumable workflow.
+
+Restart normal guided startup after completing/reviewing the capture so the new
+model/controller limits are loaded. No zeroing or direction recapture is needed.
+
 ## Zero each joint
 
 From `robot_software/`:
@@ -124,8 +171,9 @@ or testing small powered movements.
 
 | Flag | Meaning |
 | --- | --- |
-| `--id N` | One motor, 1–6; default visits all incomplete entries |
-| `--step zero`, `direction`, or `limits` | Choose measurement stage; default zero |
+| `--id N` / `--ids N ...` | One motor or selected motors in order |
+| `--step zero`, `direction`, `limits`, `review-limits`, `adjust-zero` | Choose measurement stage; default zero |
+| `--allow-one-sided` | Review only: permit explicit saved-zero boundary with `z`; otherwise require negative/positive captures |
 | `--redo` | Revisit completed entries in an all-motor session |
 | `--status` | Display saved progress without accessing motors |
 | `--output PATH` | Different calibration file |
@@ -145,7 +193,7 @@ bounds, encoder-wrap margin, support/power-cut arrangements, and the physical
 model alignment before enabling hardware control. Do not reuse the unloaded
 bench profile on the assembled arm or try to sweep mechanically to hard stops.
 
-Validation: 18 tests passed, including sequential/selected capture, endpoint
+Validation: 27 tests passed, including sequential/selected capture, endpoint
 validation/resume, direction-aware limits, invalidation,
 configuration/stability rejection and real SDK transactions over a virtual
 serial bus. The emulator observed **zero motor writes**. The passive reference

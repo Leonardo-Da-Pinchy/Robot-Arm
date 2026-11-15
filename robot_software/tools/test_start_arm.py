@@ -60,9 +60,9 @@ def profile(bus):
     result = new_profile(True, '/test-port')
     for servo_id, name in __import__('calibrate').JOINTS.items():
         bus.servo_id = servo_id; state = bus.setup_state()
-        result['joints'][name].update(zero_tick=2048, direction=1, min_tick=1984,
-            max_tick=2112, min_radians=-64*2*3.141592653589793/4096,
-            max_radians=64*2*3.141592653589793/4096)
+        result['joints'][name].update(zero_tick=2048, direction=1, min_tick=1024,
+            max_tick=3072, min_radians=-3.141592653589793/2,
+            max_radians=3.141592653589793/2)
         if servo_id == 6:
             result['joints'][name].update(min_tick=2032, min_radians=-16*2*3.141592653589793/4096)
         result['observations'][name] = dict(zero=dict(configuration={key:state[key] for key in CONFIG_KEYS}),
@@ -77,20 +77,46 @@ class Clock:
 
 
 class CaptureTests(unittest.TestCase):
-    def test_capture_needs_one_second_without_motion_and_resets_when_ineligible(self):
-        gate = CaptureWindow()
-        self.assertEqual(gate.update(0, 2048, True), 0)
-        self.assertEqual(gate.update(1, 2052, True), 0)
-        self.assertEqual(gate.update(1.5, 2053, True), 0.5)
-        self.assertEqual(gate.update(2, 2052, True), 1)
-        self.assertEqual(gate.update(4, 2052, False), 0)
-        self.assertEqual(gate.update(5, 2052, True), 0)
+    def test_static_encoder_captures_without_any_wiggle(self):
+        gate=CaptureWindow()
+        for i in range(10):self.assertLess(gate.update(i/10,2048,True),1.)
+        self.assertEqual(gate.update(1.,2048,True),1.)
+        self.assertEqual(gate.update(1.1,2048,False),0.)
+
+    def test_small_zero_mean_jitter_does_not_reset_forever(self):
+        gate=CaptureWindow()
+        for i,value in enumerate([0,3,-3,2,-2,3,0,-3,2,-2,0]):
+            progress=gate.update(i/10,2048+value,True)
+        self.assertEqual(progress,1.)
+
+    def test_slow_continuous_movement_is_not_auto_captured(self):
+        gate=CaptureWindow()
+        for i in range(31):
+            progress=gate.update(i/10,2048+round(i*.4),True)
+            self.assertLess(progress,1.)
+
+    def test_large_move_restarts_the_one_second_window(self):
+        gate=CaptureWindow();gate.update(0.,2048,True)
+        self.assertEqual(gate.update(.9,2068,True),0.)
+        self.assertLess(gate.update(1.5,2068,True),1.)
+        self.assertEqual(gate.update(1.9,2068,True),1.)
 
 
 class StartupTests(unittest.TestCase):
     def setUp(self):
         self.bus = Bus(); self.profile = profile(self.bus); self.clock = Clock()
         self.start = GuidedStartup(self.bus, self.profile, clock=self.clock, sleep=self.clock.sleep)
+
+    def test_loaded_joints_accept_existing_runtime_sized_settling_without_faking_zero(self):
+        self.start.held=[2,3]
+        for servo in (2,3):
+            self.bus.motors[servo].torque=1;self.bus.motors[servo].position=2048+17
+        self.start.monitor()
+        self.assertEqual(self.bus.motors[2].position,2065)
+        self.assertEqual(self.start.zero_tolerance(2),19)
+        self.assertEqual(self.start.zero_tolerance(6),10)
+        self.bus.motors[2].position=2048+25
+        with self.assertRaises(RuntimeError):self.start.monitor()
 
     def test_one_at_a_time_keeps_previous_hold_and_others_free(self):
         self.start.preflight()
@@ -117,12 +143,28 @@ class StartupTests(unittest.TestCase):
         self.profile.update(speed=500, acceleration=32)
         with redirect_stdout(io.StringIO()): self.start.lock_motor(1)
         self.assertTrue(self.bus.motion_settings)
-        self.assertTrue(all(speed == 100 and acceleration == 5 for _, speed, acceleration in self.bus.motion_settings))
+        self.assertTrue(all(speed == 150 and acceleration == 8 for _, speed, acceleration in self.bus.motion_settings))
 
-    def test_folded_pose_rejected_before_any_write(self):
-        self.bus.motors[1].position = 2400 # More than 25 degrees from zero
+    def test_outside_ninety_degree_window_rejected_before_any_write(self):
+        self.bus.motors[1].position = 3200 # More than 90 degrees from zero
         with self.assertRaises(ValueError): self.start.lock_motor(1)
         self.assertEqual(self.bus.events, [])
+
+    def test_default_capture_accepts_both_ninety_degree_endpoints(self):
+        for position in (1024,3072):
+            bus=Bus();clock=Clock();startup=GuidedStartup(bus,profile(bus),clock=clock,sleep=clock.sleep)
+            bus.motors[1].position=position
+            with redirect_stdout(io.StringIO()):startup.lock_motor(1)
+            goals=[e[2] for e in bus.events if e[1]=='goal']
+            self.assertEqual(goals[-1],2048);self.assertEqual(bus.motors[1].torque,1)
+            self.assertEqual(goals,sorted(goals,reverse=position>2048))
+
+    def test_wide_window_does_not_expand_saved_operating_range(self):
+        joint=self.profile['joints']['wrist_flex']
+        joint.update(max_radians=1.,max_tick=2700)
+        self.bus.motors[4].position=2800
+        with self.assertRaises(ValueError):self.start.lock_motor(4)
+        self.assertEqual(self.bus.events,[])
 
     def test_default_window_allows_twenty_degrees_with_slow_monotonic_move(self):
         self.bus.motors[1].position = 2276 # About 20 degrees from zero
@@ -130,7 +172,7 @@ class StartupTests(unittest.TestCase):
         goals = [event[2] for event in self.bus.events if event[1] == 'goal']
         self.assertEqual(goals, sorted(goals, reverse=True))
         self.assertEqual(goals[-1], 2048)
-        self.assertAlmostEqual(self.clock.now, 4.7, delta=0.1)
+        self.assertAlmostEqual(self.clock.now, 3.5, delta=0.1)
         self.assertEqual(self.bus.motors[1].torque, 1)
 
     def test_brief_tracking_lag_pauses_then_recovers(self):
@@ -317,7 +359,10 @@ class StartupIntegrationTests(unittest.TestCase):
     def test_ros_cli_keeps_terminal_input_and_powered_handoff(self):
         self.live_dashboard(True)
 
-    def live_dashboard(self, via_ros):
+    def test_cartesian_entry_preserves_guided_holds_through_moveit_start(self):
+        self.live_dashboard(True, motion=True)
+
+    def live_dashboard(self, via_ros, motion=False):
         folder = Path(tempfile.mkdtemp(prefix='pinchy-dashboard-test-'))
         ready, report = folder/'ready.json', folder/'report.json'
         initial = folder/'initial.json'
@@ -342,9 +387,12 @@ class StartupIntegrationTests(unittest.TestCase):
             calibration = folder/'arm.json'; calibration.write_text(json.dumps(saved))
             command = [str(ROOT/'.venv/bin/python'), str(ROOT/'tools/start_arm.py')]
             if via_ros:
+                entry = 'pinchy_motion start_motion' if motion else 'pinchy_bringup start_arm'
                 command = ['/bin/bash', '-c', 'source /opt/ros/jazzy/setup.bash\n'
-                    'source "$1/install/setup.bash"\nshift\nexec ros2 run pinchy_bringup start_arm "$@"',
+                    'source "$1/install/setup.bash"\nshift\nexec ros2 run '+entry+' "$@"',
                     'ros-startup-test', str(ROOT)]
+            elif motion:
+                command += ['--motion']
             process = subprocess.Popen([*command,
                 '--hardware', '--calibration', str(calibration), '--domain', str(80+os.getpid()%10),
                 '--no-gui', '--log', str(events)], stdin=slave, stdout=slave, stderr=slave,
@@ -368,6 +416,22 @@ class StartupIntegrationTests(unittest.TestCase):
             self.assertIn(b'\x1b[32m', transcript) # Green when held
             self.assertEqual([e['id'] for e in log() if e['event'] == 'locked'], [1,2,3,4,5,6])
             adopted_at = datetime.fromisoformat(next(e['time'] for e in log() if e['event'] == 'ros_ready')).timestamp()
+            if motion:
+                status_command = ['/bin/bash', '-c', 'source /opt/ros/jazzy/setup.bash\n'
+                    'source "$1/install/setup.bash"\nexec ros2 run pinchy_motion pose status', 'motion-ready', str(ROOT)]
+                deadline = time.monotonic()+40
+                motion_ready = False
+                while time.monotonic()<deadline and process.poll() is None:
+                    drain()
+                    status_result = subprocess.run(status_command, capture_output=True, text=True, timeout=12,
+                        env=dict(os.environ, ROS_DOMAIN_ID=str(80+os.getpid()%10)))
+                    if status_result.returncode == 0:
+                        motion_ready = json.loads(status_result.stdout).get('ready', False)
+                        if motion_ready: break
+                    time.sleep(.1)
+                self.assertTrue(motion_ready, transcript.decode(errors='replace'))
+                adopted_at = time.time() # No torque drop even while the planner starts.
+
             os.killpg(process.pid, signal.SIGINT); process.wait(timeout=15)
             self.assertEqual(process.returncode, 0)
         finally:

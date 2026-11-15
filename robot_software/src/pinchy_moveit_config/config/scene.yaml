@@ -1,0 +1,8 @@
+# Example workspace floor relative to the existing CAD base_link datum.
+# NOT a measured tabletop, fixture, new base-wing or camera registration.
+# Replace/add actual objects before physical planning near them.
+objects:
+  - id: example_floor
+    frame: base_link
+    size: [1.2, 1.2, 0.04]
+    center: [0.0, 0.0, -0.04]

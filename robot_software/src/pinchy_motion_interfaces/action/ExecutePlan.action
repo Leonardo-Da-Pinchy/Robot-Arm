@@ -1,0 +1,11 @@
+string plan_id
+bool hardware_confirmed
+---
+bool success
+string message
+geometry_msgs/PoseStamped measured_pose
+float64 position_error_m
+float64 orientation_error_rad
+---
+string stage
+float64 progress

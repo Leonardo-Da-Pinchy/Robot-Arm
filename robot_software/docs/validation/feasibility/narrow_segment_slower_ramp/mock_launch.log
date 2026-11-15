@@ -1,0 +1,186 @@
+[INFO] [launch]: All log files can be found below /home/leo/Robot-Arm/robot_software/docs/validation/feasibility/narrow_segment_slower_ramp/ros_logs/2026-11-14-21-18-14-083502-leo-87395
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [robot_state_publisher-1]: process started with pid [87410]
+[INFO] [ros2_control_node-2]: process started with pid [87411]
+[INFO] [spawner-3]: process started with pid [87412]
+[INFO] [planning_stack.py-4]: process started with pid [87413]
+[INFO] [motion_server-5]: process started with pid [87414]
+[robot_state_publisher-1] [WARN] [1794709094.831577801] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-1] [INFO] [1794709094.831878612] [robot_state_publisher]: Robot initialized
+[ros2_control_node-2] [INFO] [1794709094.839685789] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[ros2_control_node-2] [INFO] [1794709094.859235799] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[ros2_control_node-2] [INFO] [1794709094.860390175] [controller_manager]: update rate is 50 Hz
+[ros2_control_node-2] [INFO] [1794709094.860504706] [controller_manager]: Overruns handling is : enabled
+[ros2_control_node-2] [INFO] [1794709094.860527171] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[ros2_control_node-2] [WARN] [1794709094.864497130] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[ros2_control_node-2] [INFO] [1794709094.984828588] [controller_manager]: Received robot description from topic.
+[ros2_control_node-2] [INFO] [1794709094.984971665] [controller_manager]: Enforcing command limits is disabled. Command limits from URDF will be ignored.
+[ros2_control_node-2] [INFO] [1794709094.999606019] [controller_manager]: Loading hardware 'MockArm' 
+[ros2_control_node-2] [INFO] [1794709095.001255164] [controller_manager]: Loaded hardware 'MockArm' from plugin 'mock_components/GenericSystem'
+[ros2_control_node-2] [INFO] [1794709095.001652553] [controller_manager]: Initialize hardware 'MockArm' 
+[ros2_control_node-2] [INFO] [1794709095.025925123] [controller_manager]: Successful initialization of hardware 'MockArm'
+[ros2_control_node-2] [INFO] [1794709095.026942566] [controller_manager]: Activating component 'MockArm'.
+[ros2_control_node-2] [INFO] [1794709095.027043370] [resource_manager]: 'configure' hardware 'MockArm' 
+[ros2_control_node-2] [INFO] [1794709095.027077867] [resource_manager]: Successful 'configure' of hardware 'MockArm'
+[ros2_control_node-2] [INFO] [1794709095.027092683] [resource_manager]: 'activate' hardware 'MockArm' 
+[ros2_control_node-2] [INFO] [1794709095.027114604] [resource_manager]: Successful 'activate' of hardware 'MockArm'
+[ros2_control_node-2] [INFO] [1794709095.027275505] [controller_manager]: Registering statistics for : MockArm
+[ros2_control_node-2] [INFO] [1794709095.027470648] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[ros2_control_node-2] [INFO] [1794709095.972613228] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[ros2_control_node-2] [INFO] [1794709095.972733297] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794709095.980045162] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml 
+[spawner-3] [INFO] [1794709096.074650686] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1794709096.084580720] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794709096.084968317] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[planning_stack.py-4] [INFO] [1794709096.103434034] [pinchy_planning_stack]: MoveIt uses the live calibrated model; execution stays in the powered-hold gateway
+[ros2_control_node-2] [INFO] [1794709096.132870076] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1794709096.145844054] [controller_manager]: Successfully switched controllers!
+[spawner-3] [INFO] [1794709096.170756998] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1794709096.173766092] [controller_manager]: Loading controller : 'arm_controller' of type 'joint_trajectory_controller/JointTrajectoryController'
+[ros2_control_node-2] [INFO] [1794709096.173865904] [controller_manager]: Loading controller 'arm_controller'
+[ros2_control_node-2] [INFO] [1794709096.179318633] [controller_manager]: Controller 'arm_controller' node arguments: --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml 
+[spawner-3] [INFO] [1794709096.251366718] [spawner_joint_state_broadcaster]: Loaded arm_controller
+[ros2_control_node-2] [INFO] [1794709096.254778258] [controller_manager]: Configuring controller: 'arm_controller'
+[ros2_control_node-2] [INFO] [1794709096.260201963] [arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[ros2_control_node-2] [INFO] [1794709096.260353680] [arm_controller]: Command interfaces are [position] and state interfaces are [position].
+[ros2_control_node-2] [INFO] [1794709096.260535830] [arm_controller]: Using 'splines' interpolation method.
+[ros2_control_node-2] [INFO] [1794709096.275452018] [arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[ros2_control_node-2] [INFO] [1794709096.312045264] [arm_controller]: Setting initial scaling factor to 1.000000
+[ros2_control_node-2] [INFO] [1794709096.313053618] [arm_controller]: No scaling interface set. This controller will not read speed scaling from the hardware.
+[ros2_control_node-2] [INFO] [1794709096.330531557] [controller_manager]: Activating controllers: [ arm_controller ]
+[ros2_control_node-2] [INFO] [1794709096.346501285] [controller_manager]: Successfully switched controllers!
+[spawner-3] [INFO] [1794709096.379633869] [spawner_joint_state_broadcaster]: Configured and activated arm_controller
+[INFO] [spawner-3]: process has finished cleanly [pid 87412]
+[planning_stack.py-4] [INFO] [1794709096.746710653] [move_group.moveit.moveit.ros.rdf_loader]: Loaded robot model in 0.0097708 seconds
+[planning_stack.py-4] [INFO] [1794709096.747050952] [move_group.moveit.moveit.core.robot_model]: Loading robot model 'pinchy_mock'...
+[planning_stack.py-4] [INFO] [1794709096.747097098] [move_group.moveit.moveit.core.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[planning_stack.py-4] [WARN] [1794709097.267459131] [move_group.moveit.moveit.core.robot_model]: Link pointer_tip has visual geometry but no collision geometry. Collision geometry will be left empty. Fix your URDF file by explicitly specifying collision geometry.
+[planning_stack.py-4] [WARN] [1794709097.274190144] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[planning_stack.py-4] [INFO] [1794709097.274449385] [move_group.moveit.moveit.kinematics.kdl_kinematics_plugin]: Joint weights for group 'arm': 1 1 1 1 1 1
+[planning_stack.py-4] [INFO] [1794709099.060063786] [move_group.moveit.moveit.ros.planning_scene_monitor]: Publishing maintained planning scene on 'monitored_planning_scene'
+[planning_stack.py-4] [INFO] [1794709099.060494937] [move_group.moveit.moveit.ros.moveit_cpp]: Listening to 'joint_states' for joint states
+[planning_stack.py-4] [INFO] [1794709099.062733285] [move_group.moveit.moveit.ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[planning_stack.py-4] [INFO] [1794709099.063959791] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to '/attached_collision_object' for attached collision objects
+[planning_stack.py-4] [INFO] [1794709099.064023601] [move_group.moveit.moveit.ros.planning_scene_monitor]: Stopping existing planning scene publisher.
+[planning_stack.py-4] [INFO] [1794709099.064307098] [move_group.moveit.moveit.ros.planning_scene_monitor]: Stopped publishing maintained planning scene.
+[planning_stack.py-4] [INFO] [1794709099.065875504] [move_group.moveit.moveit.ros.planning_scene_monitor]: Publishing maintained planning scene on 'monitored_planning_scene'
+[planning_stack.py-4] [INFO] [1794709099.066108856] [move_group.moveit.moveit.ros.planning_scene_monitor]: Starting planning scene monitor
+[planning_stack.py-4] [INFO] [1794709099.069248642] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to '/planning_scene'
+[planning_stack.py-4] [INFO] [1794709099.069319461] [move_group.moveit.moveit.ros.planning_scene_monitor]: Starting world geometry update monitor for collision objects, attached objects, octomap updates.
+[planning_stack.py-4] [INFO] [1794709099.070405482] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to 'collision_object'
+[planning_stack.py-4] [INFO] [1794709099.073266507] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to 'planning_scene_world' for planning scene world geometry
+[planning_stack.py-4] [ERROR] [1794709099.073693114] [move_group.moveit.moveit.ros.occupancy_map_monitor]: No 3D sensor plugin(s) defined for octomap updates
+[planning_stack.py-4] [INFO] [1794709100.917540741] [move_group.moveit.moveit.ros.planning_pipeline]: Successfully loaded planner 'OMPL'
+[planning_stack.py-4] [INFO] [1794709100.919208350] [move_group]: Try loading adapter 'default_planning_request_adapters/ResolveConstraintFrames'
+[planning_stack.py-4] [INFO] [1794709100.920988506] [move_group]: Loaded adapter 'default_planning_request_adapters/ResolveConstraintFrames'
+[planning_stack.py-4] [INFO] [1794709100.921049436] [move_group]: Try loading adapter 'default_planning_request_adapters/ValidateWorkspaceBounds'
+[planning_stack.py-4] [INFO] [1794709100.922157634] [move_group]: Loaded adapter 'default_planning_request_adapters/ValidateWorkspaceBounds'
+[planning_stack.py-4] [INFO] [1794709100.922212772] [move_group]: Try loading adapter 'default_planning_request_adapters/CheckStartStateBounds'
+[planning_stack.py-4] [INFO] [1794709100.922306503] [move_group]: Loaded adapter 'default_planning_request_adapters/CheckStartStateBounds'
+[planning_stack.py-4] [INFO] [1794709100.922331048] [move_group]: Try loading adapter 'default_planning_request_adapters/CheckStartStateCollision'
+[planning_stack.py-4] [INFO] [1794709100.922365001] [move_group]: Loaded adapter 'default_planning_request_adapters/CheckStartStateCollision'
+[planning_stack.py-4] [INFO] [1794709100.923884029] [move_group]: Try loading adapter 'default_planning_response_adapters/AddTimeOptimalParameterization'
+[planning_stack.py-4] [INFO] [1794709100.928047530] [move_group]: Loaded adapter 'default_planning_response_adapters/AddTimeOptimalParameterization'
+[planning_stack.py-4] [INFO] [1794709100.928117837] [move_group]: Try loading adapter 'default_planning_response_adapters/ValidateSolution'
+[planning_stack.py-4] [INFO] [1794709100.933576582] [move_group]: Loaded adapter 'default_planning_response_adapters/ValidateSolution'
+[planning_stack.py-4] [INFO] [1794709100.933650953] [move_group]: Try loading adapter 'default_planning_response_adapters/DisplayMotionPath'
+[planning_stack.py-4] [INFO] [1794709100.935446982] [move_group]: Loaded adapter 'default_planning_response_adapters/DisplayMotionPath'
+[planning_stack.py-4] [INFO] [1794709100.998349698] [move_group.moveit.moveit.plugins.simple_controller_manager]: Added FollowJointTrajectory controller for arm_controller
+[planning_stack.py-4] [INFO] [1794709100.998785457] [move_group.moveit.moveit.plugins.simple_controller_manager]: Returned 1 controllers in list
+[planning_stack.py-4] [INFO] [1794709100.998863635] [move_group.moveit.moveit.plugins.simple_controller_manager]: Returned 1 controllers in list
+[planning_stack.py-4] [INFO] [1794709100.999873526] [move_group.moveit.moveit.ros.trajectory_execution_manager]: Trajectory execution is not managing controllers
+[planning_stack.py-4] [INFO] [1794709100.999945240] [move_group]: MoveGroup debug mode is ON
+[planning_stack.py-4] [INFO] [1794709101.038301041] [move_group.moveit.moveit.ros.move_group.executable]: 
+[planning_stack.py-4] 
+[planning_stack.py-4] ********************************************************
+[planning_stack.py-4] * MoveGroup using: 
+[planning_stack.py-4] *     - apply_planning_scene_service
+[planning_stack.py-4] *     - clear_octomap_service
+[planning_stack.py-4] *     - get_group_urdf
+[planning_stack.py-4] *     - load_geometry_from_file
+[planning_stack.py-4] *     - CartesianPathService
+[planning_stack.py-4] *     - get_planning_scene_service
+[planning_stack.py-4] *     - kinematics_service
+[planning_stack.py-4] *     - motion_plan_service
+[planning_stack.py-4] *     - query_planners_service
+[planning_stack.py-4] *     - state_validation_service
+[planning_stack.py-4] *     - save_geometry_to_file
+[planning_stack.py-4] ********************************************************
+[planning_stack.py-4] 
+[planning_stack.py-4] [INFO] [1794709101.038485335] [move_group.moveit.moveit.ros.move_group.context]: MoveGroup context using pipeline ompl
+[planning_stack.py-4] [INFO] [1794709101.038524408] [move_group.moveit.moveit.ros.move_group.context]: MoveGroup context initialization complete
+[planning_stack.py-4] [96mLoading 'move_group/ApplyPlanningSceneService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/ClearOctomapService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/GetUrdfService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/LoadGeometryFromFileService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/MoveGroupCartesianPathService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/MoveGroupGetPlanningSceneService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/MoveGroupKinematicsService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/MoveGroupPlanService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/MoveGroupQueryPlannersService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/MoveGroupStateValidationService'...[0m
+[planning_stack.py-4] [96mLoading 'move_group/SaveGeometryToFileService'...[0m
+[planning_stack.py-4] 
+[planning_stack.py-4] [92mYou can start planning now![0m
+[planning_stack.py-4] 
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[ros2_control_node-2] [INFO] [1794709104.501150733] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros2_control_node-2] [INFO] [1794709104.501324051] [controller_manager]: Shutdown request received....
+[ros2_control_node-2] [INFO] [1794709104.501440119] [controller_manager]: Shutting down all controllers in the controller manager.
+[ros2_control_node-2] [INFO] [1794709104.501487257] [controller_manager]: Deactivating controller 'arm_controller'
+[ros2_control_node-2] [INFO] [1794709104.501628605] [controller_manager]: Shutting down controller 'arm_controller'
+[ros2_control_node-2] [INFO] [1794709104.501929768] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794709104.502001322] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794709104.502081773] [resource_manager]: 'deactivate' hardware 'MockArm' 
+[ros2_control_node-2] [INFO] [1794709104.502120814] [resource_manager]: Successful 'deactivate' of hardware 'MockArm'
+[ros2_control_node-2] [INFO] [1794709104.502131566] [resource_manager]: 'shutdown' hardware 'MockArm' 
+[ros2_control_node-2] [INFO] [1794709104.502138927] [resource_manager]: Successful 'shutdown' of hardware 'MockArm'
+[ros2_control_node-2] [INFO] [1794709104.502211121] [controller_manager]: Shutting down the controller manager.
+[ros2_control_node-2] [ERROR] [1794709104.502387447] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[ros2_control_node-2] [ERROR] [1794709104.502690305] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[robot_state_publisher-1] [INFO] [1794709104.501147373] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planning_stack.py-4] [INFO] [1794709104.501171246] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [motion_server-5]: sending signal 'SIGINT' to process[motion_server-5]
+[INFO] [planning_stack.py-4]: sending signal 'SIGINT' to process[planning_stack.py-4]
+[INFO] [ros2_control_node-2]: sending signal 'SIGINT' to process[ros2_control_node-2]
+[INFO] [robot_state_publisher-1]: sending signal 'SIGINT' to process[robot_state_publisher-1]
+[ros2_control_node-2] [INFO] [1794709104.512192868] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1794709104.512234662] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[robot_state_publisher-1] [INFO] [1794709104.520245238] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [ros2_control_node-2]: process has died [pid 87411, exit code -2, cmd '/opt/ros/jazzy/lib/controller_manager/ros2_control_node --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml -r ~/robot_description:=/robot_description'].
+[planning_stack.py-4] [INFO] [1794709104.546406768] [move_group.moveit.moveit.ros.moveit_cpp]: Deleting MoveItCpp
+[planning_stack.py-4] Stack trace (most recent call last):
+[planning_stack.py-4] #15   Object "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1", at 0xffffffffffffffff, in 
+[planning_stack.py-4] #14   Object "/opt/ros/jazzy/lib/moveit_ros_move_group/move_group", at 0xaaaaabbd1d6f, in _start
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 87410]
+[planning_stack.py-4] #13   Source "../csu/libc-start.c", line 360, in __libc_start_main_impl [0xffff994a8597]
+[planning_stack.py-4] #12   Source "../sysdeps/nptl/libc_start_call_main.h", line 58, in __aarch64_ldadd4_relax [0xffff994a84c3]
+[planning_stack.py-4] #11   Object "/opt/ros/jazzy/lib/moveit_ros_move_group/move_group", at 0xaaaaabbd0a67, in main
+[planning_stack.py-4] #10   Object "/opt/ros/jazzy/lib/moveit_ros_move_group/move_group", at 0xaaaaabbd36f7, in 
+[planning_stack.py-4] #9    Object "/opt/ros/jazzy/lib/libmoveit_cpp.so.2.12.4", at 0xffff99f29e5f, in moveit_cpp::MoveItCpp::~MoveItCpp()
+[planning_stack.py-4] #8    Object "/opt/ros/jazzy/lib/libmoveit_cpp.so.2.12.4", at 0xffff99f29c57, in 
+[planning_stack.py-4] #7    Object "/opt/ros/jazzy/lib/libmoveit_trajectory_execution_manager.so.2.12.4", at 0xffff990958ff, in trajectory_execution_manager::TrajectoryExecutionManager::~TrajectoryExecutionManager()
+[planning_stack.py-4] #6    Object "/opt/ros/jazzy/lib/libmoveit_trajectory_execution_manager.so.2.12.4", at 0xffff990a6c4f, in 
+[planning_stack.py-4] #5    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff99ae32d3, in rclcpp::Node::~Node()
+[planning_stack.py-4] #4    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff99a7b60f, in 
+[planning_stack.py-4] #3    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff99ae1927, in 
+[planning_stack.py-4] #2    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff99ae1867, in rclcpp::node_interfaces::NodeBase::~NodeBase()
+[planning_stack.py-4] #1    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff99a7b6eb, in 
+[planning_stack.py-4] #0    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff99a800f8, in rclcpp::CallbackGroup::~CallbackGroup()
+[planning_stack.py-4] Segmentation fault (Address not mapped to object [0xffff717dddc0])
+[motion_server-5] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[planning_stack.py-4] Traceback (most recent call last):
+[planning_stack.py-4]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py", line 134, in <module>
+[planning_stack.py-4]     if __name__ == '__main__': raise SystemExit(main())
+[planning_stack.py-4]                                                 ^^^^^^
+[planning_stack.py-4]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py", line 128, in main
+[planning_stack.py-4]     try: child.wait(timeout=8)
+[planning_stack.py-4]          ^^^^^^^^^^^^^^^^^^^^^
+[planning_stack.py-4]   File "/usr/lib/python3.12/subprocess.py", line 1264, in wait
+[planning_stack.py-4]     return self._wait(timeout=timeout)
+[planning_stack.py-4]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[planning_stack.py-4]   File "/usr/lib/python3.12/subprocess.py", line 2047, in _wait
+[planning_stack.py-4]     time.sleep(delay)
+[planning_stack.py-4] KeyboardInterrupt
+[ERROR] [planning_stack.py-4]: process has died [pid 87413, exit code -2, cmd '/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py --ros-args --params-file /tmp/launch_params_4yzr8fuv'].
+[INFO] [motion_server-5]: process has finished cleanly [pid 87414]

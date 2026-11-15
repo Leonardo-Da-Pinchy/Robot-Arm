@@ -1,0 +1,17 @@
+1794709029.1205003 [INFO] [launch]: All log files can be found below /home/leo/Robot-Arm/robot_software/docs/validation/feasibility/narrow_segment/ros_logs/2026-11-14-21-17-09-118217-leo-87082
+1794709029.1208005 [INFO] [launch]: Default logging verbosity is set to INFO
+1794709029.7303331 [INFO] [robot_state_publisher-1]: process started with pid [87097]
+1794709029.7307441 [INFO] [ros2_control_node-2]: process started with pid [87098]
+1794709029.7309067 [INFO] [spawner-3]: process started with pid [87099]
+1794709029.7310433 [INFO] [planning_stack.py-4]: process started with pid [87100]
+1794709029.7311735 [INFO] [motion_server-5]: process started with pid [87101]
+1794709034.8678696 [INFO] [spawner-3]: process has finished cleanly [pid 87099]
+1794709040.5431411 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1794709040.5508938 [INFO] [motion_server-5]: sending signal 'SIGINT' to process[motion_server-5]
+1794709040.5521784 [INFO] [planning_stack.py-4]: sending signal 'SIGINT' to process[planning_stack.py-4]
+1794709040.5543127 [INFO] [ros2_control_node-2]: sending signal 'SIGINT' to process[ros2_control_node-2]
+1794709040.5551591 [INFO] [robot_state_publisher-1]: sending signal 'SIGINT' to process[robot_state_publisher-1]
+1794709040.6824522 [INFO] [robot_state_publisher-1]: process has finished cleanly [pid 87097]
+1794709040.7709746 [INFO] [ros2_control_node-2]: process has finished cleanly [pid 87098]
+1794709041.0101309 [ERROR] [planning_stack.py-4]: process has died [pid 87100, exit code -2, cmd '/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py --ros-args --params-file /tmp/launch_params_mggkrx_s'].
+1794709041.1133425 [INFO] [motion_server-5]: process has finished cleanly [pid 87101]

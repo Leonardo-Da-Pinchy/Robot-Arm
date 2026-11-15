@@ -1,0 +1,52 @@
+[INFO] [1794708599.418912764] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[INFO] [1794708599.436280705] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[INFO] [1794708599.436517418] [controller_manager]: update rate is 50 Hz
+[INFO] [1794708599.436553835] [controller_manager]: Overruns handling is : enabled
+[INFO] [1794708599.436572428] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[WARN] [1794708599.440484708] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[INFO] [1794708599.452805380] [controller_manager]: Received robot description from topic.
+[INFO] [1794708599.452954474] [controller_manager]: Enforcing command limits is disabled. Command limits from URDF will be ignored.
+[INFO] [1794708599.458569125] [controller_manager]: Loading hardware 'MockArm' 
+[INFO] [1794708599.459503465] [controller_manager]: Loaded hardware 'MockArm' from plugin 'mock_components/GenericSystem'
+[INFO] [1794708599.459671248] [controller_manager]: Initialize hardware 'MockArm' 
+[INFO] [1794708599.500995514] [controller_manager]: Successful initialization of hardware 'MockArm'
+[INFO] [1794708599.501424875] [controller_manager]: Activating component 'MockArm'.
+[INFO] [1794708599.501472653] [resource_manager]: 'configure' hardware 'MockArm' 
+[INFO] [1794708599.501501486] [resource_manager]: Successful 'configure' of hardware 'MockArm'
+[INFO] [1794708599.501515406] [resource_manager]: 'activate' hardware 'MockArm' 
+[INFO] [1794708599.501533615] [resource_manager]: Successful 'activate' of hardware 'MockArm'
+[INFO] [1794708599.501686933] [controller_manager]: Registering statistics for : MockArm
+[INFO] [1794708599.502519798] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[INFO] [1794708603.280298184] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[INFO] [1794708603.280436045] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[INFO] [1794708603.286320466] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml 
+[INFO] [1794708603.330147387] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[INFO] [1794708603.330509737] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[INFO] [1794708603.369393618] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[INFO] [1794708603.381263519] [controller_manager]: Successfully switched controllers!
+[INFO] [1794708603.409626895] [controller_manager]: Loading controller : 'arm_controller' of type 'joint_trajectory_controller/JointTrajectoryController'
+[INFO] [1794708603.409743987] [controller_manager]: Loading controller 'arm_controller'
+[INFO] [1794708603.414354759] [controller_manager]: Controller 'arm_controller' node arguments: --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml 
+[INFO] [1794708603.464654060] [controller_manager]: Configuring controller: 'arm_controller'
+[INFO] [1794708603.465095357] [arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[INFO] [1794708603.465160703] [arm_controller]: Command interfaces are [position] and state interfaces are [position].
+[INFO] [1794708603.465222018] [arm_controller]: Using 'splines' interpolation method.
+[INFO] [1794708603.479011514] [arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[INFO] [1794708603.493686805] [arm_controller]: Setting initial scaling factor to 1.000000
+[INFO] [1794708603.493858332] [arm_controller]: No scaling interface set. This controller will not read speed scaling from the hardware.
+[INFO] [1794708603.508499061] [controller_manager]: Activating controllers: [ arm_controller ]
+[INFO] [1794708603.521617268] [controller_manager]: Successfully switched controllers!
+[INFO] [1794708629.172450184] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1794708629.172675088] [controller_manager]: Shutdown request received....
+[INFO] [1794708629.172765300] [controller_manager]: Shutting down all controllers in the controller manager.
+[INFO] [1794708629.172812854] [controller_manager]: Deactivating controller 'arm_controller'
+[INFO] [1794708629.173121953] [controller_manager]: Shutting down controller 'arm_controller'
+[INFO] [1794708629.173480431] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[INFO] [1794708629.173543826] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[INFO] [1794708629.173628117] [resource_manager]: 'deactivate' hardware 'MockArm' 
+[INFO] [1794708629.173661494] [resource_manager]: Successful 'deactivate' of hardware 'MockArm'
+[INFO] [1794708629.173669399] [resource_manager]: 'shutdown' hardware 'MockArm' 
+[INFO] [1794708629.173674999] [resource_manager]: Successful 'shutdown' of hardware 'MockArm'
+[INFO] [1794708629.173743001] [controller_manager]: Shutting down the controller manager.
+[ERROR] [1794708629.173915424] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[ERROR] [1794708629.174097607] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!

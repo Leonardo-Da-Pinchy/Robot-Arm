@@ -1,0 +1,8 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-st4blmap
+test_07_live_target_edits_and_drag_feedback_do_not_plan_or_move (__main__.MockCartesian.test_07_live_target_edits_and_drag_feedback_do_not_plan_or_move) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 11.122s
+
+OK

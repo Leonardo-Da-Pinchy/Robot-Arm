@@ -1,0 +1,11 @@
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-cxavqbfd
+test_07_pose_panel_plan_preview_execute (__main__.HardwareCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 12.003s
+
+OK

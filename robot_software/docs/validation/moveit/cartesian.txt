@@ -1,0 +1,52 @@
+test_default_collision_exclusions_only_adjacent_and_live_tool (__main__.GeometryTests.test_default_collision_exclusions_only_adjacent_and_live_tool) ... ok
+test_exact_spline_extrema_retiming_and_bounds (__main__.GeometryTests.test_exact_spline_extrema_retiming_and_bounds) ... ok
+test_rpy_is_urdf_fixed_xyz_not_intrinsic_zyx (__main__.GeometryTests.test_rpy_is_urdf_fixed_xyz_not_intrinsic_zyx) ... ok
+test_rviz_keeps_the_shared_layout (__main__.GeometryTests.test_rviz_keeps_the_shared_layout) ... ok
+test_working_region_bounds_match_visible_wireframe (__main__.GeometryTests.test_working_region_bounds_match_visible_wireframe) ... ok
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-w4vt0ntc
+test_00_nonadjacent_self_collision_is_checked (__main__.HardwareCartesian.test_00_nonadjacent_self_collision_is_checked) ... ok
+test_01_plan_preview_execute_full_pose (__main__.HardwareCartesian.test_01_plan_preview_execute_full_pose) ... ok
+test_01b_explicit_orientation_modes_and_invalid_modes (__main__.HardwareCartesian.test_01b_explicit_orientation_modes_and_invalid_modes) ... ok
+test_01c_straight_lerp_slerp_path_preview_and_execute (__main__.HardwareCartesian.test_01c_straight_lerp_slerp_path_preview_and_execute) ... ok
+test_01d_blocked_straight_path_never_retains_partial_plan (__main__.HardwareCartesian.test_01d_blocked_straight_path_never_retains_partial_plan) ... ok
+test_02_unreachable_and_invalid_pose_never_moves (__main__.HardwareCartesian.test_02_unreachable_and_invalid_pose_never_moves) ... ok
+test_03_collision_rejected_without_movement (__main__.HardwareCartesian.test_03_collision_rejected_without_movement) ... ok
+test_04_scene_change_invalidates_preview (__main__.HardwareCartesian.test_04_scene_change_invalidates_preview) ... ok
+test_05_stop_retains_powered_hold_and_allows_new_plan (__main__.HardwareCartesian.test_05_stop_retains_powered_hold_and_allows_new_plan) ... ok
+test_06_action_cancel_is_canceled_and_holds (__main__.HardwareCartesian.test_06_action_cancel_is_canceled_and_holds) ... ok
+test_06_temperature_hold_recovery_preserves_power (__main__.HardwareCartesian.test_06_temperature_hold_recovery_preserves_power) ... ok
+test_07_editing_target_invalidates_old_preview (__main__.HardwareCartesian.test_07_editing_target_invalidates_old_preview) ... ok
+test_07_live_target_edits_and_drag_feedback_do_not_plan_or_move (__main__.HardwareCartesian.test_07_live_target_edits_and_drag_feedback_do_not_plan_or_move) ... ok
+test_07_pose_panel_plan_preview_execute (__main__.HardwareCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+ok
+test_08_cli_plan_then_execute (__main__.HardwareCartesian.test_08_cli_plan_then_execute) ... ok
+test_99_model_change_blocks_stale_planning_without_motor_motion (__main__.HardwareCartesian.test_99_model_change_blocks_stale_planning_without_motor_motion) ... ok
+test_late_recovery_response_cannot_resume_after_timeout (__main__.HoldProtocolTests.test_late_recovery_response_cannot_resume_after_timeout) ... ok
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-hvdmj5xx
+test_00_nonadjacent_self_collision_is_checked (__main__.MockCartesian.test_00_nonadjacent_self_collision_is_checked) ... ok
+test_01_plan_preview_execute_full_pose (__main__.MockCartesian.test_01_plan_preview_execute_full_pose) ... ok
+test_01b_explicit_orientation_modes_and_invalid_modes (__main__.MockCartesian.test_01b_explicit_orientation_modes_and_invalid_modes) ... ok
+test_01c_straight_lerp_slerp_path_preview_and_execute (__main__.MockCartesian.test_01c_straight_lerp_slerp_path_preview_and_execute) ... ok
+test_01d_blocked_straight_path_never_retains_partial_plan (__main__.MockCartesian.test_01d_blocked_straight_path_never_retains_partial_plan) ... ok
+test_02_unreachable_and_invalid_pose_never_moves (__main__.MockCartesian.test_02_unreachable_and_invalid_pose_never_moves) ... ok
+test_03_collision_rejected_without_movement (__main__.MockCartesian.test_03_collision_rejected_without_movement) ... ok
+test_04_scene_change_invalidates_preview (__main__.MockCartesian.test_04_scene_change_invalidates_preview) ... ok
+test_05_stop_retains_powered_hold_and_allows_new_plan (__main__.MockCartesian.test_05_stop_retains_powered_hold_and_allows_new_plan) ... ok
+test_06_action_cancel_is_canceled_and_holds (__main__.MockCartesian.test_06_action_cancel_is_canceled_and_holds) ... ok
+test_07_editing_target_invalidates_old_preview (__main__.MockCartesian.test_07_editing_target_invalidates_old_preview) ... ok
+test_07_live_target_edits_and_drag_feedback_do_not_plan_or_move (__main__.MockCartesian.test_07_live_target_edits_and_drag_feedback_do_not_plan_or_move) ... ok
+test_07_pose_panel_plan_preview_execute (__main__.MockCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+ok
+test_08_cli_plan_then_execute (__main__.MockCartesian.test_08_cli_plan_then_execute) ... ok
+test_99_model_change_blocks_stale_planning_without_motor_motion (__main__.MockCartesian.test_99_model_change_blocks_stale_planning_without_motor_motion) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 99.253s
+
+OK

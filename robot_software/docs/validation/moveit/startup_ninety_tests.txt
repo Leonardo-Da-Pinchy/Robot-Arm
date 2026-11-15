@@ -1,0 +1,31 @@
+test_abort_releases_only_motors_this_startup_touched (__main__.StartupTests.test_abort_releases_only_motors_this_startup_touched) ... ok
+test_brief_tracking_lag_pauses_then_recovers (__main__.StartupTests.test_brief_tracking_lag_pauses_then_recovers) ... ok
+test_cad_range_still_enforced_inside_near_zero_window (__main__.StartupTests.test_cad_range_still_enforced_inside_near_zero_window) ... ok
+test_confirmed_high_temperature_still_stops_startup (__main__.StartupTests.test_confirmed_high_temperature_still_stops_startup) ... ok
+test_current_goal_staged_before_zero_and_ram_limit_before_enable (__main__.StartupTests.test_current_goal_staged_before_zero_and_ram_limit_before_enable) ... ok
+test_default_capture_accepts_both_ninety_degree_endpoints (__main__.StartupTests.test_default_capture_accepts_both_ninety_degree_endpoints) ... ok
+test_default_window_allows_twenty_degrees_with_slow_monotonic_move (__main__.StartupTests.test_default_window_allows_twenty_degrees_with_slow_monotonic_move) ... ok
+test_existing_hold_loss_stops_next_motor_before_writes (__main__.StartupTests.test_existing_hold_loss_stops_next_motor_before_writes) ... ok
+test_higher_ros_caps_do_not_speed_up_initial_zeroing (__main__.StartupTests.test_higher_ros_caps_do_not_speed_up_initial_zeroing) ... ok
+test_hold_failure_reports_measured_error_and_torque (__main__.StartupTests.test_hold_failure_reports_measured_error_and_torque) ... ok
+test_loaded_joints_accept_existing_runtime_sized_settling_without_faking_zero (__main__.StartupTests.test_loaded_joints_accept_existing_runtime_sized_settling_without_faking_zero) ... ok
+test_missing_calibration_is_rejected (__main__.StartupTests.test_missing_calibration_is_rejected) ... ok
+test_one_at_a_time_keeps_previous_hold_and_others_free (__main__.StartupTests.test_one_at_a_time_keeps_previous_hold_and_others_free) ... ok
+test_outside_ninety_degree_window_rejected_before_any_write (__main__.StartupTests.test_outside_ninety_degree_window_rejected_before_any_write) ... ok
+test_persistent_stall_pauses_goals_and_reports_actionable_failure (__main__.StartupTests.test_persistent_stall_pauses_goals_and_reports_actionable_failure) ... ok
+test_preflight_will_not_take_over_unknown_powered_motors (__main__.StartupTests.test_preflight_will_not_take_over_unknown_powered_motors) ... ok
+test_single_small_hold_excursion_recovers_without_new_goals (__main__.StartupTests.test_single_small_hold_excursion_recovers_without_new_goals) ... ok
+test_six_tick_residual_is_accepted_without_disabling_torque (__main__.StartupTests.test_six_tick_residual_is_accepted_without_disabling_torque) ... ok
+test_small_inward_startup_can_approach_zero_from_below_operating_bound (__main__.StartupTests.test_small_inward_startup_can_approach_zero_from_below_operating_bound) ... ok
+test_temperature_spike_requires_two_cool_rechecks_and_no_alarm (__main__.StartupTests.test_temperature_spike_requires_two_cool_rechecks_and_no_alarm) ... ok
+test_torque_loss_stops_immediately_without_rechecks (__main__.StartupTests.test_torque_loss_stops_immediately_without_rechecks) ... ok
+test_wide_window_does_not_expand_saved_operating_range (__main__.StartupTests.test_wide_window_does_not_expand_saved_operating_range) ... ok
+test_large_move_restarts_the_one_second_window (__main__.CaptureTests.test_large_move_restarts_the_one_second_window) ... ok
+test_slow_continuous_movement_is_not_auto_captured (__main__.CaptureTests.test_slow_continuous_movement_is_not_auto_captured) ... ok
+test_small_zero_mean_jitter_does_not_reset_forever (__main__.CaptureTests.test_small_zero_mean_jitter_does_not_reset_forever) ... ok
+test_static_encoder_captures_without_any_wiggle (__main__.CaptureTests.test_static_encoder_captures_without_any_wiggle) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.047s
+
+OK

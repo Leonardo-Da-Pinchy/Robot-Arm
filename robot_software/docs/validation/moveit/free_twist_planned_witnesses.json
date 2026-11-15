@@ -1,0 +1,42 @@
+[
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 74.12, -61.88, 108.97 deg.",
+    "seconds": 4.255283664999297
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 80.79, -32.36, 78.07 deg.",
+    "seconds": 4.306650740996702
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 70.53, 26.71, 129.62 deg.",
+    "seconds": 6.626871974003734
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 10.56, -41.46, -160.89 deg.",
+    "seconds": 2.6009314999973867
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 49.56, -55.91, 147.70 deg.",
+    "seconds": 4.012645304996113
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 91.99, -77.78, 90.48 deg.",
+    "seconds": 2.1463386369941873
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 37.48, -49.92, 160.83 deg.",
+    "seconds": 4.003888401995937
+  },
+  {
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 86.68, -47.62, 109.67 deg. Near a kinematic singularity; speed may need limiting.",
+    "seconds": 3.754791726998519
+  }
+]

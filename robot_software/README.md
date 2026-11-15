@@ -13,6 +13,16 @@ mechanically; no separate seventh gripping servo is assumed.
 - `src/pinchy_description`: stock reference, derived six-axis arm model, meshes and source EE CAD.
 - `src/pinchy_bringup`: visualization, mock/hardware control launches and joint-target UI.
 - `src/pinchy_hardware`: calibrated Feetech STS3215 ros2_control hardware adapter.
+- `src/pinchy_moveit_config`: live-model IK/planning configuration and planning launches.
+- `src/pinchy_motion`: Cartesian XYZ/RPY planning, preview, execution and powered Stop controls.
+- `src/pinchy_motion_interfaces`: typed pose-planning service and plan-execution action.
+
+See [motion feasibility diagnostics](docs/motion_feasibility.md) for read-only
+reach, posture and singularity analysis.
+
+See [ordered Cartesian paths](docs/cartesian_paths.md) for waypoint queues and
+TCP timing, and [Cartesian pose control](docs/cartesian_control.md) for mock/physical startup,
+GUI/CLI commands and the shared bringup/planning interfaces.
 
 The display launch provides a kinematic view of the reference arm with virtual
 joint sliders. It publishes synthetic joint states for visualization and does
@@ -106,3 +116,6 @@ state source to avoid publishing conflicting states.
 - [ROS 2 package layout](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html)
 - [ROS target platforms](https://www.ros.org/reps/rep-2000.html)
 - [Reference model provenance](src/pinchy_description/THIRD_PARTY.md)
+
+IK constraints, conditioning and reproducible solver checks are described in the
+[IK guide](docs/ik_investigation.md).

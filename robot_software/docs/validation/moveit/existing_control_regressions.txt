@@ -1,0 +1,42 @@
+
+HardwarePipeline artifacts: /tmp/pinchy-ros-tests-7nacwy1r
+test_00_active_pointer_tcp_is_published (test_ros_control.HardwarePipeline.test_00_active_pointer_tcp_is_published) ... ok
+test_01_waypoints_feedback (test_ros_control.HardwarePipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (test_ros_control.HardwarePipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (test_ros_control.HardwarePipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (test_ros_control.HardwarePipeline.test_04_sliders_send_feedback) ... ok
+test_05_consecutive_slider_moves_near_velocity_limit (test_ros_control.HardwarePipeline.test_05_consecutive_slider_moves_near_velocity_limit) ... ok
+test_05_feedback_offset_does_not_jump_first_command (test_ros_control.HardwarePipeline.test_05_feedback_offset_does_not_jump_first_command) ... ok
+test_05_motion_log_records_command_and_measured_feedback (test_ros_control.HardwarePipeline.test_05_motion_log_records_command_and_measured_feedback) ... ok
+test_05_small_residual_and_controller_abort_do_not_latch_velocity_fault (test_ros_control.HardwarePipeline.test_05_small_residual_and_controller_abort_do_not_latch_velocity_fault) ... ok
+test_05_stop_holds_command_with_large_feedback_lag_and_allows_next_move (test_ros_control.HardwarePipeline.test_05_stop_holds_command_with_large_feedback_lag_and_allows_next_move) ... ok
+test_05_target_telemetry_supports_late_subscribers_without_hold (test_ros_control.HardwarePipeline.test_05_target_telemetry_supports_late_subscribers_without_hold) ... ok
+test_06_hardware_fault_prevents_success (test_ros_control.HardwarePipeline.test_06_hardware_fault_prevents_success) ... This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+ok
+test_07_bench_client_refuses_regular_robot (test_ros_control.HardwarePipeline.test_07_bench_client_refuses_regular_robot) ... ok
+
+MockPipeline artifacts: /tmp/pinchy-ros-tests-rgp_u20w
+test_00_active_pointer_tcp_is_published (test_ros_control.MockPipeline.test_00_active_pointer_tcp_is_published) ... ok
+test_01_waypoints_feedback (test_ros_control.MockPipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (test_ros_control.MockPipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (test_ros_control.MockPipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (test_ros_control.MockPipeline.test_04_sliders_send_feedback) ... ok
+test_05_cli_timeout_cancels (test_ros_control.MockPipeline.test_05_cli_timeout_cancels) ... ok
+test_06_cli_success_and_explicit_cancel (test_ros_control.MockPipeline.test_06_cli_success_and_explicit_cancel) ... ok
+test_07_slider_executable_accepts_ros_launch_arguments (test_ros_control.MockPipeline.test_07_slider_executable_accepts_ros_launch_arguments) ... ok
+test_08_bench_client_refuses_regular_robot (test_ros_control.MockPipeline.test_08_bench_client_refuses_regular_robot) ... ok
+test_09_guided_startup_refuses_existing_robot_graph (test_ros_control.MockPipeline.test_09_guided_startup_refuses_existing_robot_graph) ... ok
+test_selected_speed_and_acceleration_bound_sampled_quintic_motion (test_ros_control.MotionProfileTests.test_selected_speed_and_acceleration_bound_sampled_quintic_motion) ... ok
+
+UnloadedBenchPipeline artifacts: /tmp/pinchy-ros-tests-rrchck7y
+test_00_active_pointer_tcp_is_published (test_ros_control.UnloadedBenchPipeline.test_00_active_pointer_tcp_is_published) ... ok
+test_01_waypoints_feedback (test_ros_control.UnloadedBenchPipeline.test_01_waypoints_feedback) ... ok
+test_02_cancel (test_ros_control.UnloadedBenchPipeline.test_02_cancel) ... ok
+test_03_reject_incorrect_joint_set (test_ros_control.UnloadedBenchPipeline.test_03_reject_incorrect_joint_set) ... ok
+test_04_sliders_send_feedback (test_ros_control.UnloadedBenchPipeline.test_04_sliders_send_feedback) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 101.818s
+
+OK

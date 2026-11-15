@@ -28,19 +28,8 @@ from std_msgs.msg import String
 from std_srvs.srv import Trigger
 from trajectory_msgs.msg import JointTrajectoryPoint
 
-JOINTS = ['shoulder_pan', 'shoulder_lift', 'elbow_flex',
-          'wrist_flex', 'wrist_roll', 'pen_pitch']
-
-
-def motion_duration(distances, velocities, acceleration):
-    """Duration for a quintic profile with bounded peak speed/acceleration."""
-    if (not distances or len(distances) != len(velocities) or
-            not math.isfinite(acceleration) or acceleration <= 0 or
-            any(not math.isfinite(d) or d < 0 for d in distances) or
-            any(not math.isfinite(v) or v <= 0 for v in velocities)):
-        raise ValueError('Require finite distances, positive speeds and positive acceleration')
-    return 1.05*max(0.5, max(1.875*d/v for d, v in zip(distances, velocities)),
-                    max(math.sqrt((10/math.sqrt(3))*d/acceleration) for d in distances))
+# Shared with Cartesian execution; the commissioning launch remains unchanged.
+from pinchy_bringup.control_contract import JOINTS, motion_duration, hold_goal, model_limits, MAX_SPEED, MAX_ACCELERATION
 
 
 class Sliders(QWidget):
@@ -93,9 +82,9 @@ class Sliders(QWidget):
             self.inputs.append(spin); self.sliders.append(slider); self.labels.append(label)
             grid.addWidget(slider, row, 1); grid.addWidget(spin, row, 2); grid.addWidget(label, row, 3)
         self.speed = QDoubleSpinBox(); self.speed.setDecimals(2)
-        self.speed.setRange(0.1, 30); self.speed.setValue(30); self.speed.setSuffix(' deg/s')
+        self.speed.setRange(0.1, math.degrees(MAX_SPEED)); self.speed.setValue(30); self.speed.setSuffix(' deg/s')
         self.acceleration = QDoubleSpinBox(); self.acceleration.setDecimals(1)
-        self.acceleration.setRange(0.1, 180); self.acceleration.setValue(180); self.acceleration.setSuffix(' deg/s²')
+        self.acceleration.setRange(0.1, math.degrees(MAX_ACCELERATION)); self.acceleration.setValue(180); self.acceleration.setSuffix(' deg/s²')
         grid.addWidget(QLabel('Maximum speed'), 7, 0); grid.addWidget(self.speed, 7, 1)
         grid.addWidget(QLabel('Maximum acceleration'), 7, 2); grid.addWidget(self.acceleration, 7, 3)
         self.estimate = QLabel('Estimated move duration: waiting for controller feedback')
@@ -143,11 +132,9 @@ class Sliders(QWidget):
         if any(root.find(f"joint[@name='{name}']/limit") is None for name in JOINTS):
             self.status.setText('Model has older joint names; restart the control launch for CAD 4.'); return
         self.description = root
-        velocities = [float(root.find(f"joint[@name='{name}']/limit").get('velocity')) for name in JOINTS]
-        self.speed.setMaximum(math.degrees(min(math.radians(30), max(velocities))))
-        raw_acceleration = root.find("./ros2_control/hardware/param[@name='acceleration']")
-        if self.hardware and raw_acceleration is not None:
-            self.acceleration.setMaximum(min(180, 0.8*8.7*int(raw_acceleration.text)))
+        limits = model_limits(root)
+        self.speed.setMaximum(math.degrees(max(limit['velocity'] for limit in limits.values())))
+        self.acceleration.setMaximum(math.degrees(min(limit['acceleration'] for limit in limits.values())))
         if root.get('name') == 'pinchy_bench_hardware':
             self.setWindowTitle('Pinchy REAL unloaded bench — temporary encoder zeros')
         for name, spin, slider in zip(JOINTS, self.inputs, self.sliders):
@@ -344,14 +331,7 @@ class Sliders(QWidget):
         # actually accepted by the adapter, not an upstream target still ahead.
         self.hold_positions = (list(self.saved_hold) if self.hardware and len(self.saved_hold) == len(JOINTS)
                                else [self.commanded[name] for name in JOINTS])
-        goal = FollowJointTrajectory.Goal(); goal.trajectory.joint_names = JOINTS
-        start = JointTrajectoryPoint(positions=self.hold_positions, velocities=[0.0]*len(JOINTS))
-        end = JointTrajectoryPoint(positions=self.hold_positions, velocities=[0.0]*len(JOINTS))
-        end.time_from_start.nanosec = 250_000_000
-        goal.trajectory.points = [start, end]
-        # Completion means the command is held, not that loaded feedback has
-        # caught up. Hardware bounds/health/speed checks remain active.
-        goal.goal_tolerance = [JointTolerance(name=name, position=-1.0) for name in JOINTS]
+        goal = hold_goal(self.hold_positions)
         self.resume_hold = True
         self.dispatch(goal, hold=True)
 

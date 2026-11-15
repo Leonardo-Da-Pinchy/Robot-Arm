@@ -1,0 +1,4 @@
+[INFO] [1794709096.074650686] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[INFO] [1794709096.170756998] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[INFO] [1794709096.251366718] [spawner_joint_state_broadcaster]: Loaded arm_controller
+[INFO] [1794709096.379633869] [spawner_joint_state_broadcaster]: Configured and activated arm_controller

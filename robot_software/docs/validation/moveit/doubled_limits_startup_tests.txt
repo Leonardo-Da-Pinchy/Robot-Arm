@@ -1,0 +1,9 @@
+....Live dashboard evidence: /tmp/pinchy-dashboard-test-t41anipv
+.Continuous-hold startup evidence: /tmp/pinchy-guided-startup-test-naumsdq1
+.Live dashboard evidence: /tmp/pinchy-dashboard-test-hrygayqf
+.Live dashboard evidence: /tmp/pinchy-dashboard-test-ho38fkmq
+..........................
+----------------------------------------------------------------------
+Ran 33 tests in 129.138s
+
+OK

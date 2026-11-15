@@ -2,13 +2,40 @@
 
 > November 13: the demo checkpoint is retired. Use the
 > [final-product roadmap](implementation_roadmap.md) for current scope, full
-> status and HTTPS/AprilTag integration. This file remains the technical map
+> status and HTTPS/AprilTag integration. The [MoveIt handoff](moveit_handoff.md)
+> and [Cartesian guide](cartesian_control.md) describe the implemented pose layer. This file remains the technical map
 > of the established control stack; its checkpoint-only task list is historical.
 
 Updated November 9, 2026. Read this first, then inspect the linked code and
 repository. This file records technical decisions; the final-product roadmap
 is the authority for current statuses and ordering. It is a starting map,
 not a substitute for checking the implementation and working-tree changes.
+
+## Current handoff entry: drawing feasibility
+
+Start with the canonical [implementation roadmap](implementation_roadmap.md),
+then read [motion feasibility](motion_feasibility.md) before changing motion
+planning. Step 11 now has a bounded alternative trace search from the fixed held start,
+but robust whole-stroke/starting-configuration selection is still unresolved;
+step 12 is the drawing-feasibility gate. Keep IK/continuity ahead of other
+feature work per the current owner priority. The earlier checkpoint table below is
+historical, not the current task list.
+
+The latest investigation reproduced a continuous trace failing even though its
+exact intermediate target had collision-checked IK in another configuration.
+The diagnostic does not supply a connected path or fix runtime branch selection.
+Singularity sensitivity and joint-range concerns also remain. Full front-180°
+drawing coverage is unqualified; narrow software timing success is not physical
+qualification. Final object dimensions/placement are not yet supplied.
+
+The [investigation](motion_feasibility.md) links code, repeatable commands, plots,
+exact failure witnesses and validation results. Use its failing cases for future
+whole-stroke planner work. Preserve the shared model/controller, powered Stop,
+thermal confirmation and default speed behavior. Do not expand physical joint
+limits or automatically reposition the real arm to resolve planning failures.
+The current working tree contains substantial uncommitted work: inspect and
+preserve it. No physical motion or automatic restart occurred during the latest
+investigation.
 
 ## Objective and latest owner decisions
 
@@ -65,11 +92,11 @@ Use the existing control stack and configure MoveIt 2 for runtime IK/planning.
 | 17 | Remaining | Time continuous paths for approximately constant tool speed through intermediate points, with explicit exceptions/blending. |
 | 18 | Remaining | Demonstrate a physical pose sequence and short free-space path; verify accuracy, progress/results, invalid-path rejection and recovery. |
 
-**Practical next work:** start the MoveIt/mock planning configuration using
-the explicit `pointer_tip` proxy. Continue targeted physical qualification
+**Practical next work:** verify the implemented Cartesian pose workflow on the
+physical arm, then add continuous paths under the shared contact-speed policy. Continue targeted physical qualification
 alongside that work; do not repeatedly redo completed bench setup or block on
-an unknown future pen offset. No project MoveIt configuration or runtime
-Cartesian motion package exists yet; verify this again when picking up work.
+an unknown future pen offset. MoveIt configuration and a Cartesian pose package now exist; see the
+[MoveIt handoff](moveit_handoff.md) for implementation and pending physical checks.
 
 ## Pending hardware update (November 13)
 
@@ -165,15 +192,41 @@ Run from `robot_software/`:
 ```
 
 The terminal dashboard needs one **s** keypress to arm automatic capture.
-It visits IDs 1–6 sequentially. The selected joint must be within 25 degrees
+It visits IDs 1–6 sequentially. The selected joint must be within 90 degrees
 of its saved zero, inside its CAD bounds, and stationary for one second.
 It moves to zero and holds; earlier holds stay powered. Yellow means locking,
-green means locked. **p** pauses capture; **q** aborts/releases. `--plain`
+green means locked. The dashboard shows the selected joint’s actual capture
+interval (the intersection of the ±90° window, saved operating range and CAD bounds, with a tiny zero-settling allowance), with the reason for waiting.
+Small stationary encoder jitter is tolerated; continuous drift is not auto-captured.
+**l** captures immediately only when armed and inside that interval; it never
+bypasses bounds. **p** pauses capture; **q** aborts/releases. `--plain`
 provides the older Enter-per-joint prompts.
 
-Zeroing uses a 0.075 rad/s ramp (about 4.3 deg/s, recently increased 1.5x),
-subject to the joint velocity cap and catch-up pauses. Startup raw servo caps
-remain at most 100/5, independently of the higher ROS operating caps.
+Zeroing uses a 0.1125 rad/s ramp (about 6.45 deg/s), 1.5× the previous
+startup ramp, subject to the joint velocity cap and catch-up pauses. Startup raw
+servo caps are at most speed 150 / acceleration 8, independent of ROS operating
+caps. RAM torque allowance is set and verified before enabling a motor; the
+saved 1000 setting already permits 100%, so software cannot increase it further.
+
+The [shared startup policy](../src/pinchy_description/config/startup_policy.json)
+allows shoulder/elbow feedback to settle within 19 encoder ticks (about 1.67°,
+below the existing 0.03 rad controller arrival tolerance); other joints retain
+10 ticks. This applies consistently to Python startup, C++ adoption and ROS
+handoff acknowledgment. Commands remain at the saved calibrated zero and
+reported positions remain real feedback. It addresses the recorded 17-tick
+shoulder catch-up pause; it does not recalibrate zero or prove sufficient loaded
+torque. Excessive lag/stall, bounds, power and thermal checks remain active.
+Support the arm during startup if it cannot lift itself; physical loading,
+mechanics, supply and torque qualification still belong to roadmap step 8.
+
+The default capture window is now ±90°, reduced by each joint's saved/CAD
+range. `--max-start-degrees 25` retains a narrower window if desired. A maximum
+10-tick settling corridor around zero permits tiny inward corrections at an
+operating boundary. Both the plain prompts and dashboard use the same interval.
+A wider window does not increase speed, torque or joint limits. Startup's
+single-joint zeroing is **not MoveIt collision planning**; support the arm and
+keep the whole zeroing sweep clear before arming automatic capture.
+
 After all six holds, the script transfers serial ownership to ROS without
 releasing torque and opens RViz/sliders. Default physical ROS domain is 42.
 

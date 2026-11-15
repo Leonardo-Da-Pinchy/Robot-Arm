@@ -1,0 +1,11 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-8yqvyfr9
+test_01f_reported_direction_with_nominal_cad_ranges (__main__.MockCartesian.test_01f_reported_direction_with_nominal_cad_ranges) ... ok
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-b1rtx1kd
+test_01f_reported_direction_with_saved_calibration (__main__.HardwareCartesian.test_01f_reported_direction_with_saved_calibration) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 34.451s
+
+OK

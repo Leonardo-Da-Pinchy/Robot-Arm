@@ -1,0 +1,8 @@
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-v55cmcp8
+test_01e_free_twist_known_reachable_directions_inside_working_region (__main__.HardwareCartesian.test_01e_free_twist_known_reachable_directions_inside_working_region) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 42.315s
+
+OK

@@ -1,0 +1,22 @@
+# Ordered poses after the current held state; metres and quaternions in stamped frames.
+geometry_msgs/PoseStamped[] waypoints
+string orientation_mode
+# polyline: exact segments, stops at pen-up corners; spline: explicitly chosen smooth curve;
+# visits: free-space pose visits, with stops. No style is silently substituted.
+string style
+float64 tcp_speed
+float64 tcp_acceleration
+# One label for each current/previous -> waypoint segment. Empty means all pen-up.
+bool[] contact_segments
+float64 velocity_scaling
+float64 acceleration_scaling
+---
+bool success
+string message
+string plan_id
+float64 duration
+moveit_msgs/RobotTrajectory trajectory
+geometry_msgs/PoseStamped resolved_target
+geometry_msgs/PoseStamped[] resolved_waypoints
+float64 modeled_contact_min_speed
+float64 modeled_contact_max_speed

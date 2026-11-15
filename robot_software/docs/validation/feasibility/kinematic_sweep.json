@@ -1,0 +1,4083 @@
+{
+  "model_sha256": "9c035a11c0e5d4cc22e4288a52dc8ed4c11b73a5db8ee0b6f69a1b21f5f9057d",
+  "profile_sha256": "99a78eeb73271c97654f444674dd4b5a79d0c8fa0fb7ec407113d626459d97b9",
+  "collision_checked": false,
+  "motor_commands_sent": false,
+  "kinematic_cylinder_sweep": [
+    {
+      "cx": 0.2,
+      "z": 0.1,
+      "radius": 0.04,
+      "successes": 6,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7004139750060858,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.987614841468905,
+            "best_orientation_error_deg": 4.447849140115445,
+            "limiting_joints": [
+              "wrist_flex",
+              "wrist_roll",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 5,
+            "elapsed_s": 0.1679562880017329,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.3331366564613876e-09,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            1.0834056331870052,
+            0.2340770823008639,
+            0.05781170754633524,
+            1.113303129937217,
+            2.434209156572096,
+            1.6918001271222016
+          ]
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010795127003802918,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 7.850462293418876e-14,
+            "best_orientation_error_deg": 1.9090959104164224e-06,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            1.2673559077911007,
+            -0.026971880329532204,
+            0.4017938989836466,
+            1.113810626530804,
+            2.3615494497939653,
+            1.6263918904018875
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010762229008832946,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.508038089372916e-09,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            1.4804395721528274,
+            -0.3664710481163426,
+            0.7571324732383565,
+            1.1143669342139615,
+            2.3134529432290436,
+            1.612897293822991
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7011013539886335,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.206044697555718,
+            "best_orientation_error_deg": 1.222948798086663,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7003538129938534,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 11.981560801977468,
+            "best_orientation_error_deg": 10.424727174596978,
+            "limiting_joints": [
+              "shoulder_pan",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7008146260050125,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 25.07582408125995,
+            "best_orientation_error_deg": 19.551031270586297,
+            "limiting_joints": [
+              "shoulder_pan",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.700714878999861,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 18.083154963651218,
+            "best_orientation_error_deg": 13.64288006095557,
+            "limiting_joints": [
+              "shoulder_pan",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7004819130088435,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 3.7285379262717333,
+            "best_orientation_error_deg": 2.414450838932417,
+            "limiting_joints": [
+              "shoulder_pan",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 10,
+            "elapsed_s": 0.41646346999914385,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.8875832159447663e-13,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -1.4839754316843716,
+            -0.508371714301732,
+            0.8745562803590726,
+            0.9650594326179236,
+            -2.206463808899045,
+            1.7239885016367233
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010952858996461146,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 8.67365833041914e-09,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -1.2700968206413648,
+            -0.13573147288395487,
+            0.5266531024245017,
+            0.945680825294389,
+            -2.2548343964955175,
+            1.7290406728994936
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012653739991947077,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.3933949931651578e-10,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -1.0852882064743778,
+            0.19550935949518505,
+            0.11231527877845403,
+            1.0449113834152335,
+            -2.3336476263301256,
+            1.730157248337263
+          ]
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.7000354360061465,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.689780078054788,
+            "best_orientation_error_deg": 3.6692541970134154,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.2,
+      "z": 0.15,
+      "radius": 0.04,
+      "successes": 0,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.7002631859941175,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 13.441185147741953,
+            "best_orientation_error_deg": 8.208786262229196,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7001330710045295,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 17.97626096871144,
+            "best_orientation_error_deg": 10.369714805739987,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7001075349980965,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 17.019991333749218,
+            "best_orientation_error_deg": 7.207527566634477,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.70057218799775,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 22.103406046659256,
+            "best_orientation_error_deg": 7.1453107625001175,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7001351829967462,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 31.989081043941408,
+            "best_orientation_error_deg": 12.10241569225362,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7002686920022825,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 28.505642420017068,
+            "best_orientation_error_deg": 11.68842930032104,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 10,
+            "elapsed_s": 0.7002363380015595,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 33.09066004467938,
+            "best_orientation_error_deg": 27.526217868269136,
+            "limiting_joints": [
+              "shoulder_pan",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.701060362989665,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 28.298493738728986,
+            "best_orientation_error_deg": 11.592456591913104,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7005877090123249,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 32.21881711407778,
+            "best_orientation_error_deg": 12.075747659487513,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7008746290084673,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 22.26798424667672,
+            "best_orientation_error_deg": 7.1426063306326,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 12,
+            "elapsed_s": 0.7001156309997896,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 17.148755224493815,
+            "best_orientation_error_deg": 7.220261234144809,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 12,
+            "elapsed_s": 0.7007536020100815,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 18.076100267268735,
+            "best_orientation_error_deg": 10.389382197683906,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7003362460091012,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 13.443977039209168,
+            "best_orientation_error_deg": 8.207610231765493,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.2,
+      "z": 0.2,
+      "radius": 0.04,
+      "successes": 0,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.7007865949999541,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.492722301195761,
+            "best_orientation_error_deg": 2.7631726721942482,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.700453337005456,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 18.628196191198594,
+            "best_orientation_error_deg": 11.788493157039527,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.7004462969925953,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 32.24953114008842,
+            "best_orientation_error_deg": 21.11049868559809,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.700380246998975,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 34.00816179460467,
+            "best_orientation_error_deg": 11.430183516228317,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.7007163530070102,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 30.264575693329007,
+            "best_orientation_error_deg": 6.895573809975339,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.70133009798883,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 25.605412341750338,
+            "best_orientation_error_deg": 6.918383073958503,
+            "limiting_joints": [
+              "shoulder_pan",
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.700630237988662,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 28.331195260397404,
+            "best_orientation_error_deg": 16.790425617479045,
+            "limiting_joints": [
+              "shoulder_pan",
+              "shoulder_lift",
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7001945139927557,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 33.07086921744749,
+            "best_orientation_error_deg": 8.343973302804375,
+            "limiting_joints": [
+              "shoulder_pan",
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.700505211003474,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 32.0884667867052,
+            "best_orientation_error_deg": 4.535504077296731,
+            "limiting_joints": [
+              "shoulder_pan",
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7004291449993616,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 34.213381022745125,
+            "best_orientation_error_deg": 11.475651081874979,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.7009298310003942,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 32.24901069420006,
+            "best_orientation_error_deg": 21.10998241088329,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7004406009946251,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 18.627805221760518,
+            "best_orientation_error_deg": 11.788228700573331,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7002873809979064,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.4925000539039095,
+            "best_orientation_error_deg": 2.7630442319475956,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.25,
+      "z": 0.1,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7005065549892606,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.426478033081387,
+            "best_orientation_error_deg": 7.409302918863311,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 5,
+            "elapsed_s": 0.18632769699615892,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.0170133467375346e-12,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            0.9101978285424295,
+            0.4194707252599093,
+            -0.2087759478092381,
+            1.11516158799376,
+            2.2533498457412593,
+            1.7177720352048755
+          ]
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010904889990342781,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 8.092071311423672e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            1.038392534073047,
+            0.1172312477028137,
+            0.22245812337628162,
+            1.1151747547218707,
+            2.1313882737554155,
+            1.6277791706951161
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010769205997348763,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.777118373836212e-12,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            1.16573328035587,
+            -0.24758768889616867,
+            0.6481590067742912,
+            1.1151854499929028,
+            1.99928886711702,
+            1.5912198063898186
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.014154103002510965,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.075517269368883e-10,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            1.2902951395888334,
+            -0.9816178498952822,
+            1.1669370723824612,
+            1.115198846846007,
+            1.8540741045304354,
+            1.635110152725521
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7012136160046794,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.260057531865984,
+            "best_orientation_error_deg": 0.27345093235287765,
+            "limiting_joints": [
+              "shoulder_pan",
+              "elbow_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 10,
+            "elapsed_s": 0.7002587719907751,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 9.300708837626289,
+            "best_orientation_error_deg": 7.841938888038495,
+            "limiting_joints": [
+              "shoulder_pan",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.022738701998605393,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.0072165162792446e-11,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": [
+              "elbow_flex"
+            ]
+          },
+          "q": [
+            1.7389612631471987,
+            1.1060562586731306,
+            1.5420445274776273,
+            0.8050940408479932,
+            1.64825890967679,
+            1.6599093472620228
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 7,
+            "elapsed_s": 0.20367600499594118,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.5319549401285082e-09,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -1.2940456939422675,
+            -1.1400902336676269,
+            1.2505405190436898,
+            1.0513813122903208,
+            -1.749330894565474,
+            1.6681175119675233
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012726893997751176,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 9.309503074677274e-14,
+            "best_orientation_error_deg": 1.7075472925031877e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -1.1692791665857818,
+            -0.5137766798892603,
+            0.9181084257372867,
+            0.7499773533050441,
+            -1.8759610053696478,
+            1.7228950164788248
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012976949001313187,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.2377260456559047e-13,
+            "best_orientation_error_deg": 1.7075472925031877e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -1.0410152751594437,
+            -0.025034830152291455,
+            0.4168859650610259,
+            0.8531372232538921,
+            -2.016627041345891,
+            1.7297856897211754
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.016698528997949325,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 7.632783294297951e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -0.9117087688332225,
+            0.40282640451449364,
+            -0.1817434250728334,
+            1.0842794997088026,
+            -2.154937051320081,
+            1.7302089758558825
+          ]
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7011670869978843,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.451830911090754,
+            "best_orientation_error_deg": 7.4291596510690985,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.25,
+      "z": 0.15,
+      "radius": 0.04,
+      "successes": 0,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.7001933949941304,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 0.9684999795687707,
+            "best_orientation_error_deg": 0.4637775703925238,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.700229907000903,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 7.995179552923927,
+            "best_orientation_error_deg": 8.547793296226427,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7006330870062811,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.827432013409619,
+            "best_orientation_error_deg": 2.8481944238950767,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7000589910021517,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 0.29991345841143946,
+            "best_orientation_error_deg": 0.24937221965949632,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.700313654000638,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.9364657477979355,
+            "best_orientation_error_deg": 0.8256297427936743,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7002582919958513,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 13.913004181341991,
+            "best_orientation_error_deg": 12.63881971573478,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7004184900142718,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 27.79640324533218,
+            "best_orientation_error_deg": 26.048823028872327,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.7004595790058374,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 13.924530187507663,
+            "best_orientation_error_deg": 12.649548285158644,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 18,
+            "elapsed_s": 0.7000471179926535,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.1501448280455158,
+            "best_orientation_error_deg": 0.9148104562270477,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7007492190023186,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 0.383369451520116,
+            "best_orientation_error_deg": 0.3163903334528016,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7005124119896209,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.8868341874135766,
+            "best_orientation_error_deg": 2.8951986617564933,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7004876749997493,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 8.051693198352389,
+            "best_orientation_error_deg": 8.586924416240915,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7007452179968823,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.0039331266992968,
+            "best_orientation_error_deg": 0.4718326623642889,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.25,
+      "z": 0.2,
+      "radius": 0.04,
+      "successes": 2,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.09412094800791238,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 3.011856352177476e-10,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            0.7807466728182847,
+            1.1483327384937083,
+            -0.94083446880798,
+            -1.5507067643177983,
+            0.8517879409112199,
+            1.7302707820058936
+          ]
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.700040302996058,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.274963487373272,
+            "best_orientation_error_deg": 4.76244270577374,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7000889119954081,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 12.275316853184355,
+            "best_orientation_error_deg": 10.933179902281859,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7004691789916251,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.773769992604139,
+            "best_orientation_error_deg": 5.786256248424478,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7006140150042484,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.175669360429337,
+            "best_orientation_error_deg": 1.7979095355523393,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7002881179942051,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.680599835728897,
+            "best_orientation_error_deg": 9.717514998877494,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 12,
+            "elapsed_s": 0.7002257170097437,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 18.491302953190313,
+            "best_orientation_error_deg": 14.849747562763758,
+            "limiting_joints": [
+              "shoulder_lift",
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7002811099955579,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.696827487850975,
+            "best_orientation_error_deg": 9.732472382103511,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7005739180021919,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.409254636453112,
+            "best_orientation_error_deg": 1.8892933500002032,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 45,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 22,
+            "elapsed_s": 0.7006207039958099,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.885819896748845,
+            "best_orientation_error_deg": 5.870837101714192,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.701138798991451,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 12.39068754044596,
+            "best_orientation_error_deg": 11.004402306927934,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7010364279994974,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.274748339041491,
+            "best_orientation_error_deg": 4.762275971250382,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.02833895999356173,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.174479785625174e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.7817805847309063,
+            1.24136243144873,
+            -1.1127049058713834,
+            -1.5039781776590977,
+            -0.7499488625167401,
+            1.7080728727091687
+          ]
+        }
+      ]
+    },
+    {
+      "cx": 0.3,
+      "z": 0.1,
+      "radius": 0.04,
+      "successes": 6,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7005202209984418,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 7.606794768214788,
+            "best_orientation_error_deg": 11.143348308276117,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7001917320012581,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 0.7338103281333543,
+            "best_orientation_error_deg": 1.2516840623526717,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.07740033899608534,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 7.277480698681921e-12,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            0.8583894451073542,
+            0.11786956944753386,
+            0.2846095320967228,
+            0.6698650435290378,
+            1.9160228394026373,
+            1.7285285643245052
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.011062687000958249,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.1999084983608495e-12,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.9165792173134958,
+            -0.20010792691002025,
+            0.627796008768376,
+            0.8343108355060177,
+            1.7445180466168164,
+            1.6105601543906318
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012722829997073859,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.4220500840710912e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.9166175399607689,
+            -0.6158167248159755,
+            0.970835953354066,
+            1.034450525577728,
+            1.4910129790306736,
+            1.547312890984179
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.70048393199977,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.704669629446612,
+            "best_orientation_error_deg": 3.7923043051356284,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 4,
+            "elapsed_s": 0.700276470000972,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 19.188459446421223,
+            "best_orientation_error_deg": 11.857597721326293,
+            "limiting_joints": [
+              "elbow_flex",
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7005069410079159,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 4.713426349075577,
+            "best_orientation_error_deg": 3.7987970555260357,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.023648233007406816,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.419449386414209e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.9195377555402827,
+            -0.8567573383851045,
+            1.1768050950429974,
+            0.7727344863447317,
+            -1.4086362256040892,
+            1.5121964744066156
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012567336991196498,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 7.423022570564111e-10,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.9185932030714344,
+            -0.28997218943642245,
+            0.7548351206832015,
+            0.6421413878898383,
+            -1.6413822471522916,
+            1.6302390867186884
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012684557004831731,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.292624226552987e-13,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -0.8597021676199956,
+            0.14485174250264,
+            0.23504643046490278,
+            0.741819396809578,
+            -1.8270218790720076,
+            1.7144728619818754
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7005610220076051,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 0.7489911036073317,
+            "best_orientation_error_deg": 1.2755941003351547,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.70007364799676,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 7.628013622472463,
+            "best_orientation_error_deg": 11.16757751217087,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.3,
+      "z": 0.15,
+      "radius": 0.04,
+      "successes": 6,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7002184849989135,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.9811788498109815,
+            "best_orientation_error_deg": 8.309186224955265,
+            "limiting_joints": [
+              "shoulder_lift",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7002309009985765,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.9749310792969987,
+            "best_orientation_error_deg": 1.628331011948658,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 5,
+            "elapsed_s": 0.1614789189916337,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.399608949220818e-12,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            0.8581766220891734,
+            0.08073206381048258,
+            -0.06079131616778743,
+            1.1115321080619205,
+            1.9243046664654684,
+            1.710919275459775
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010806550999404863,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.6793489465821577e-10,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            0.9166312440660287,
+            -0.3477666858872019,
+            0.4089981268342328,
+            1.113768055740026,
+            1.7406663749756868,
+            1.6212686636871574
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012754734998452477,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 3.175834127622752e-10,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            0.9169166831889014,
+            -0.9523756361264901,
+            0.8675265943727618,
+            1.1150583601532618,
+            1.5076048825823505,
+            1.5038882055552996
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.7004941409977619,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 5.964629879637618,
+            "best_orientation_error_deg": 4.834853519731714,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7002570460026618,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 21.405089545515633,
+            "best_orientation_error_deg": 15.852577496217565,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7000715370086255,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 5.976986610999377,
+            "best_orientation_error_deg": 4.843736922550088,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.02987906799535267,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.443059973708341e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.9203669112703668,
+            -1.4708911867635517,
+            1.3459815792268073,
+            0.46856132614211593,
+            -1.4791798652872934,
+            1.4514178969744556
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.014129397997749038,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.7403066646748144e-12,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.9192153135878336,
+            -0.7317710721383757,
+            1.0266966777011475,
+            0.11696032704666877,
+            -1.5759589255293227,
+            1.6933629523133027
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.018564150013844483,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 9.602787394150765e-13,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -0.8598625275113785,
+            0.04129829797758213,
+            0.002196733928072035,
+            1.034207816129137,
+            -1.8208046145975705,
+            1.7276271154888334
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7002272530080518,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.975699827924662,
+            "best_orientation_error_deg": 1.6289756727080429,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 16,
+            "elapsed_s": 0.7005647670011967,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 6.997913936779304,
+            "best_orientation_error_deg": 8.32207987262608,
+            "limiting_joints": [
+              "shoulder_lift",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.3,
+      "z": 0.2,
+      "radius": 0.04,
+      "successes": 6,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7000363679981092,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 5.456241995576195,
+            "best_orientation_error_deg": 6.897683418795392,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 8,
+            "elapsed_s": 0.31649195500358474,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 9.020562075079397e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            0.7727620435030993,
+            1.255845602131949,
+            -1.1438537176015562,
+            -1.5824611133859703,
+            1.1106607256328827,
+            1.6197952889583633
+          ]
+        },
+        {
+          "angle_deg": -60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 20,
+            "elapsed_s": 0.7000933610106586,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.3224632436492123,
+            "best_orientation_error_deg": 3.3978299893971777,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 3,
+            "elapsed_s": 0.05634946200007107,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.4220500840710912e-13,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.9172741999114432,
+            -0.6371527536553037,
+            1.1325229981382723,
+            -0.919916400995635,
+            1.5648923076757524,
+            1.690905684866301
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012394051998853683,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.8609792490763985e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            0.9171428447193881,
+            -0.8622081314003028,
+            1.4719504866803346,
+            -1.4542820305754542,
+            1.7169552896887492,
+            1.4845665695873393
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 21,
+            "elapsed_s": 0.7000652330025332,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.329648658290487,
+            "best_orientation_error_deg": 1.8317228345110412,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 0,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7006352649914334,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.725393299625114,
+            "best_orientation_error_deg": 10.540662445946866,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 15,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.7004757410031743,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.3456217027837822,
+            "best_orientation_error_deg": 1.843512971840619,
+            "limiting_joints": [
+              "shoulder_lift",
+              "wrist_flex"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 5,
+            "elapsed_s": 0.1619818769977428,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 3.206295914454292e-09,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.9201881847482625,
+            -1.1684396667811399,
+            0.7834999858461615,
+            0.919481387919036,
+            -1.4571536619580814,
+            1.4615810470185124
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.014095094011281617,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.721958498152797e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.9191811096043617,
+            -0.7437411767766012,
+            0.6337825722685521,
+            0.567130911453707,
+            -1.5814553945640013,
+            1.6907701184071553
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.7001558909978485,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.3697775192277777,
+            "best_orientation_error_deg": 3.459253196901851,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 75,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 8,
+            "elapsed_s": 0.34758232200692873,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.4373355731765643e-09,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            -0.7739928945876461,
+            1.2513475792646442,
+            -1.1354657545772033,
+            -1.5854459002561927,
+            -1.0121130810397136,
+            1.6203448094282809
+          ]
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 13,
+            "elapsed_s": 0.7003277049952885,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 5.468374698182512,
+            "best_orientation_error_deg": 6.908591173820734,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.35,
+      "z": 0.1,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7006144009937998,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 9.854384458523528,
+            "best_orientation_error_deg": 15.405628902516796,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.7003085680044023,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.7587483521796616,
+            "best_orientation_error_deg": 3.39831257029189,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.07149268100329209,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.9247534978798253e-10,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            0.7202052133638281,
+            0.26690561568062016,
+            0.25575064457916175,
+            0.15554258806174714,
+            1.74379488262208,
+            1.7235028985797387
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010647602000972256,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.712303129776199e-11,
+            "best_orientation_error_deg": 2.091309789151873e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.7354596452940744,
+            -0.04720854428730583,
+            0.5506372022559962,
+            0.4793243119708963,
+            1.5779149832894277,
+            1.5431016480626518
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.011135072010802105,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.807015940662296e-10,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6773452689512927,
+            -0.36993244467395825,
+            0.8228314995050696,
+            0.7771646237549559,
+            1.2691438400028983,
+            1.4497027536732536
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012580074006109498,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.1491151892306092e-13,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.46045991866000613,
+            -0.7277433454072689,
+            1.0624594647665457,
+            1.0374947806773278,
+            0.7807960091215914,
+            1.4222262860793446
+          ]
+        },
+        {
+          "angle_deg": 0,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012439013997209258,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 8.886119947416683e-14,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            -0.0017560591518608706,
+            -1.0397332065144802,
+            1.2370290105718191,
+            1.112143610600117,
+            0.04686172411696075,
+            1.3094397746412325
+          ]
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012856722009018995,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.419449386414209e-14,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.4664976133729328,
+            -0.8664426230918311,
+            1.1863357614808805,
+            0.8772601541376857,
+            -0.7152455318200681,
+            1.2948995127754457
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.0124525179999182,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.546139416680337e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.6807229226353877,
+            -0.47565963746471734,
+            0.983364268416373,
+            0.506830199087762,
+            -1.2070282504633885,
+            1.3804471558090314
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012487718995544128,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.242025235105681e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.7370934878772671,
+            -0.1027047663706261,
+            0.7116432659825304,
+            0.16460895220530575,
+            -1.4883539776466048,
+            1.5362439023924435
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.015527743002166972,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 8.773682388394099e-10,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -0.7213942954407888,
+            0.28426478848494025,
+            0.18717083262169104,
+            0.2877351771150092,
+            -1.6592019608005484,
+            1.7138320176802884
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 19,
+            "elapsed_s": 0.7003358000074513,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.7736807619094113,
+            "best_orientation_error_deg": 3.4258600752975155,
+            "limiting_joints": [
+              "wrist_flex",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7008326149953064,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 9.87524535533008,
+            "best_orientation_error_deg": 15.428903964753815,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.35,
+      "z": 0.15,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7005596149974735,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 9.453253477504596,
+            "best_orientation_error_deg": 14.68694316781438,
+            "limiting_joints": [
+              "shoulder_lift",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7005174700025236,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.455832674055187,
+            "best_orientation_error_deg": 2.4504856455347697,
+            "limiting_joints": [
+              "shoulder_lift",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.22380333600449376,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.1589301260473216e-11,
+            "best_orientation_error_deg": 1.7075472925031877e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            0.7202786393198527,
+            0.1120968133200707,
+            0.1049442964130664,
+            0.4082763340695977,
+            1.7355865273873476,
+            1.7299042135555787
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010967452006298117,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.652369372045565e-12,
+            "best_orientation_error_deg": 1.7075472925031877e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.7354749456014172,
+            -0.23816686783012786,
+            0.42518643811373874,
+            0.6566033477318552,
+            1.582166688407355,
+            1.537616979073394
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010986460009007715,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.2463732470215345e-09,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.678626729869806,
+            -0.6068386624816441,
+            0.6949841195673963,
+            0.9244571047282806,
+            1.3028970219875975,
+            1.3787932660593794
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.014889259997289628,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.2412670766236365e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            0.4686894850505731,
+            -1.0461745629695551,
+            0.9540785320451068,
+            1.1137070494445955,
+            0.8585750132537308,
+            1.1714618354632604
+          ]
+        },
+        {
+          "angle_deg": 0,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.014759016004973091,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.216025217875882e-14,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.001880801372267812,
+            -1.4659304472408563,
+            1.1898294492284076,
+            1.0961834415585963,
+            0.04610731283961841,
+            0.8200840411972367
+          ]
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.01691808699979447,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.6707035249859326e-12,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.4923830570784907,
+            -1.3575944428043834,
+            1.251999455173515,
+            0.6762847656375289,
+            -1.000254511905999,
+            0.9105231874030889
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012584905998664908,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.288602614808909e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.6849341733800602,
+            -0.8495118677108924,
+            1.1019609994058532,
+            0.19066432395094768,
+            -1.3610315218476134,
+            1.244892753462361
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012608235003426671,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.938893903907228e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.7371356282714548,
+            -0.3502171161736248,
+            0.8203600234906673,
+            -0.16047065004800234,
+            -1.5073986059990898,
+            1.5248310777886664
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.023456962997443043,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.19554836610624e-10,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -0.7215657152786458,
+            0.11690765959897395,
+            0.09133702465742084,
+            0.43093568574696495,
+            -1.6412126095472186,
+            1.7293087556024003
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 17,
+            "elapsed_s": 0.7005710400117096,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.469820888270948,
+            "best_orientation_error_deg": 2.471199555262745,
+            "limiting_joints": [
+              "shoulder_lift",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7004448600055184,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 9.472956626012492,
+            "best_orientation_error_deg": 14.70861348599085,
+            "limiting_joints": [
+              "shoulder_lift",
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.35,
+      "z": 0.2,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7001022579934215,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 8.851930633241935,
+            "best_orientation_error_deg": 13.605304450638604,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7000363370025298,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.007006950859683,
+            "best_orientation_error_deg": 1.721347903780327,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.09370621699781623,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.1046031809324321e-10,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            0.7202832740731523,
+            0.26922125303129696,
+            0.3039827832354575,
+            -1.1951355403289339,
+            1.503902742487372,
+            1.7302993080715956
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010731253001722507,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 3.31349497997589e-11,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            0.7354971535400816,
+            -0.1069484622933644,
+            0.7978324663815357,
+            -1.3376808755219076,
+            1.6495637573465254,
+            1.5309803657786503
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.01253572100540623,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.4438902883526792e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6807198341229194,
+            -0.5031665351531084,
+            1.1920013035289367,
+            -1.4251866104439144,
+            1.8717512416577862,
+            1.3020793799266013
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.013876078999601305,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.7252282764012143e-09,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.4724107253663941,
+            -0.9247789535385234,
+            1.4743965929342278,
+            -1.4725400229332923,
+            2.343090461591694,
+            1.1062593641457825
+          ]
+        },
+        {
+          "angle_deg": 0,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 6,
+            "elapsed_s": 0.19386804300302174,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.955150192018233e-11,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "wrist_flex"
+            ]
+          },
+          "q": [
+            -0.0020302348627066103,
+            -1.382797630406773,
+            0.8950448003388329,
+            1.111499457825849,
+            0.04520357290583095,
+            0.6237494393913275
+          ]
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.016732930002035573,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.245004513516506e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.49884773207774585,
+            -1.2613612451083915,
+            0.9090463077947439,
+            0.7991282309386298,
+            -1.0959158792760746,
+            0.8588933634336267
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.015139252005610615,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.1688900131555367e-13,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.6855041783578962,
+            -0.8989949963460895,
+            0.8075112120471788,
+            0.43534724138003855,
+            -1.3952541031627332,
+            1.2311608187114427
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.01251828100066632,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.7755575615628914e-14,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.737143341957056,
+            -0.4754888927520612,
+            0.6444727389214499,
+            -0.025575894846506103,
+            -1.515215133928311,
+            1.5230371825154259
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.027908067000680603,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 7.850462293418876e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": [
+            -0.721571911353764,
+            0.12216806784955248,
+            -0.28581993665815886,
+            0.7983988191382471,
+            -1.6405114838934363,
+            1.7298389136359351
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 10,
+            "elapsed_s": 0.7002545499999542,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 1.0183817611970605,
+            "best_orientation_error_deg": 1.7390150831295967,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7006019210093655,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 8.867631712887041,
+            "best_orientation_error_deg": 13.623445822853244,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.4,
+      "z": 0.1,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7006720990029862,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.465909632048968,
+            "best_orientation_error_deg": 19.741351111132033,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7000980029988568,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 3.0053232348733694,
+            "best_orientation_error_deg": 6.165307789394482,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.13035805500112474,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.594365265244385e-13,
+            "best_orientation_error_deg": 1.7075472925031877e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6145012643630149,
+            0.5742615864458448,
+            -0.047184339454130655,
+            -0.1399910313459103,
+            1.6538720476579774,
+            1.6549565874360044
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010548495993134566,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 9.78388389405311e-10,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6064784005356019,
+            0.2094447736331511,
+            0.3361580000129485,
+            0.19693743541934772,
+            1.4977936303848876,
+            1.4393000960441384
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010845495999092236,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.394776273690663e-09,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.5287320879789917,
+            -0.10013922940680296,
+            0.6395454206888321,
+            0.4645179195404925,
+            1.170910371406078,
+            1.3014438370580883
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010725909000029787,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.310500096701669e-10,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.33112286479308706,
+            -0.3747654598718323,
+            0.8815644130124041,
+            0.6470392471694882,
+            0.6837651230028754,
+            1.2282830611948983
+          ]
+        },
+        {
+          "angle_deg": 0,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010832406987901777,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.0498823404134728e-09,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.0011833383491669698,
+            -0.5176128757530135,
+            1.0015706521169907,
+            0.6897676115633041,
+            0.04739634282976832,
+            1.1737256290945444
+          ]
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012496198993176222,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.1714201148076235e-13,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.3344232785656461,
+            -0.39573083476744764,
+            0.9218877849554492,
+            0.5737343174206964,
+            -0.6021332059437654,
+            1.1859528786969609
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012778863005223684,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 8.582937747229195e-14,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.5310229543484253,
+            -0.11484119954060418,
+            0.6808611336332335,
+            0.38159606868526685,
+            -1.0903017503073715,
+            1.278606479670446
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012513191992184147,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.3092278833360674e-13,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.60792853056392,
+            0.20148999223416125,
+            0.38836273706292473,
+            0.07790357428735532,
+            -1.4115078950647109,
+            1.4317273148176113
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.014141174993710592,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.2719202621569003e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.6156485736080636,
+            0.5794964014338031,
+            -0.021209816179682928,
+            -0.22269018220012535,
+            -1.5525083412190048,
+            1.657697635986951
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.7007044199999655,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 3.0225750313711433,
+            "best_orientation_error_deg": 6.199011633824213,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 15,
+            "elapsed_s": 0.7006894759979332,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.483158520136572,
+            "best_orientation_error_deg": 19.77211771610986,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.4,
+      "z": 0.15,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7005670409998856,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.556079491582622,
+            "best_orientation_error_deg": 19.39884206056435,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.70036588300718,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.896842495110664,
+            "best_orientation_error_deg": 5.8950076437510015,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.09746123700460885,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.594436429147036e-13,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6145274618411268,
+            0.40987786932960996,
+            -0.06740114749392127,
+            -0.1289971358732375,
+            1.6387910208133745,
+            1.659655333023151
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.01061771300737746,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 4.104260428577665e-12,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6067460947570443,
+            0.008689767826238861,
+            0.3228159773052449,
+            0.18170991099531061,
+            1.5310470041965794,
+            1.415361364986292
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012535977002698928,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.546139416680337e-14,
+            "best_orientation_error_deg": 1.9090959104164224e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.5319801016665018,
+            -0.34344183071360607,
+            0.6158712701414116,
+            0.452807615711096,
+            1.2601908209538837,
+            1.1931579587791348
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012388740011374466,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.4304896245381992e-13,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            0.34025546177912297,
+            -0.656524894821363,
+            0.8405641382464155,
+            0.6602329959144618,
+            0.792050095394084,
+            0.9914484479526059
+          ]
+        },
+        {
+          "angle_deg": 0,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.01235043499036692,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.206335383118183e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.0012269904363155534,
+            -0.8300894953533793,
+            0.9735988953801569,
+            0.691474197299638,
+            0.047024295741047294,
+            0.8349842264706036
+          ]
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012488647989812307,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.4985601300595604e-12,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.3460848950261591,
+            -0.6888986946003448,
+            0.9039984012170069,
+            0.5398983174725829,
+            -0.7443119797818298,
+            0.930031379710168
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012473030990804546,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.546139416680337e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.5347582600930756,
+            -0.36506721148205,
+            0.6793162239553237,
+            0.3210506588094429,
+            -1.1999130514795893,
+            1.1651167309886992
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012536169000668451,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 6.206335383118183e-14,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.608217424667183,
+            -0.00038711487649759204,
+            0.402900272181757,
+            -0.009023996341531738,
+            -1.4535710057894182,
+            1.4072834354249875
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012533417000668123,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.25196759142968e-09,
+            "best_orientation_error_deg": 1.4787793334710982e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.615677164808329,
+            0.43253204620178726,
+            -0.005232449232679464,
+            -0.3589950958907005,
+            -1.5284190288451855,
+            1.6626593442423103
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 14,
+            "elapsed_s": 0.7003356100030942,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 2.9133438463455525,
+            "best_orientation_error_deg": 5.926953835940363,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 11,
+            "elapsed_s": 0.7001585169928148,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 10.571777071022755,
+            "best_orientation_error_deg": 19.42765774677735,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    },
+    {
+      "cx": 0.4,
+      "z": 0.2,
+      "radius": 0.04,
+      "successes": 9,
+      "total": 13,
+      "samples": [
+        {
+          "angle_deg": -90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 9,
+            "elapsed_s": 0.7000500340072904,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 11.58349181131709,
+            "best_orientation_error_deg": 19.130291102660998,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 12,
+            "elapsed_s": 0.7007259400124894,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 3.0208269151361793,
+            "best_orientation_error_deg": 5.813956430825135,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": -60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 2,
+            "elapsed_s": 0.08238248999987263,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 9.614813431917819e-14,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6145319673041119,
+            0.36347931174053644,
+            -0.12861845288200877,
+            -0.4033498478737224,
+            1.6041860105340526,
+            1.6604383010933548
+          ]
+        },
+        {
+          "angle_deg": -45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010880176996579394,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.8253379971363983e-13,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.6069893600974209,
+            -0.03893647763208412,
+            0.436516525278232,
+            -0.6124979666866287,
+            1.6579145517128933,
+            1.3965345325332
+          ]
+        },
+        {
+          "angle_deg": -30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.010773070011055097,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 9.13103863515566e-12,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.5364024945993642,
+            -0.3871856739281264,
+            0.8484743390833919,
+            -0.7914459020601006,
+            1.799193683883939,
+            1.0900198426233214
+          ]
+        },
+        {
+          "angle_deg": -15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012769612003467046,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.1542323896772904e-11,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            0.3633643545909312,
+            -0.7533645275241198,
+            1.0992814353402198,
+            -0.7292542645586876,
+            2.09759404567083,
+            0.7196812588705842
+          ]
+        },
+        {
+          "angle_deg": 0,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.019692257992574014,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.7777115755220291e-12,
+            "best_orientation_error_deg": 1.9090959104164224e-06,
+            "limiting_joints": [
+              "wrist_roll"
+            ]
+          },
+          "q": [
+            0.0761054488155929,
+            -0.9940671325433585,
+            0.9857456083508027,
+            -0.07933005736613659,
+            2.4736737194000695,
+            0.11601715637231856
+          ]
+        },
+        {
+          "angle_deg": 15,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 7,
+            "elapsed_s": 0.2659021940053208,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 5.730368927622734e-10,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.3673299736626305,
+            -0.8215581435774354,
+            0.8092726885084236,
+            0.35824356457706513,
+            -1.0860917440875189,
+            0.7065056654314711
+          ]
+        },
+        {
+          "angle_deg": 30,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012574021995533258,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 7.632783294297951e-14,
+            "best_orientation_error_deg": 0.0,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.5388960660335549,
+            -0.5041434133698208,
+            0.6407116885220803,
+            0.07536982031388181,
+            -1.4054537019699072,
+            1.0749178857502568
+          ]
+        },
+        {
+          "angle_deg": 45,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012429024995071813,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 2.7755575615628914e-14,
+            "best_orientation_error_deg": 1.2074182697257333e-06,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.6083976120352976,
+            -0.0961084391189156,
+            0.3750798751911737,
+            -0.28899353488395124,
+            -1.5239094572901501,
+            1.393804706116485
+          ]
+        },
+        {
+          "angle_deg": 60,
+          "success": true,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 1,
+            "elapsed_s": 0.012474114002543502,
+            "rejected_candidates": 0,
+            "reason": "solved",
+            "best_position_error_mm": 1.9141108865630172e-10,
+            "best_orientation_error_deg": 8.537736462515939e-07,
+            "limiting_joints": []
+          },
+          "q": [
+            -0.6156757809437136,
+            0.3456311794933535,
+            -0.14700285926550044,
+            -0.2971557015377605,
+            -1.5130339425720534,
+            1.6624254586426397
+          ]
+        },
+        {
+          "angle_deg": 75,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 10,
+            "elapsed_s": 0.7001632920000702,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 3.0351562936056635,
+            "best_orientation_error_deg": 5.841676347553273,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        },
+        {
+          "angle_deg": 90,
+          "success": false,
+          "report": {
+            "mode": "tool_axis",
+            "attempts": 8,
+            "elapsed_s": 0.7009937179973349,
+            "rejected_candidates": 0,
+            "reason": "time budget",
+            "best_position_error_mm": 11.590411135479476,
+            "best_orientation_error_deg": 19.154228625261425,
+            "limiting_joints": [
+              "pen_pitch"
+            ]
+          },
+          "q": null
+        }
+      ]
+    }
+  ]
+}

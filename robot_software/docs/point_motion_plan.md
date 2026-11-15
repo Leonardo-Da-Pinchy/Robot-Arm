@@ -6,6 +6,10 @@
 > [Technical handoff](checkpoint_handoff.md) covers the working control stack.
 > Earlier status tables below are historical.
 
+> November 14: the planning/pose layer is implemented; use the
+> [MoveIt handoff](moveit_handoff.md) and [Cartesian guide](cartesian_control.md).
+> Continuous drawing paths and contact-speed behavior remain unfinished.
+
 Original assessment: November 4, 2026. Status reviewed November 8, 2026.
 
 This plan compares the October 9 design report with the code currently in this

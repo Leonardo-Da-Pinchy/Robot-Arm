@@ -1,0 +1,12 @@
+test_contact_trace_has_nonzero_speed_through_interior_waypoints (__main__.PathTests.test_contact_trace_has_nonzero_speed_through_interior_waypoints) ... ok
+test_explicit_smooth_curve_preserves_waypoints_and_contact_speed (__main__.PathTests.test_explicit_smooth_curve_preserves_waypoints_and_contact_speed) ... ok
+test_free_axis_curve_does_not_lock_pen_twist (__main__.PathTests.test_free_axis_curve_does_not_lock_pen_twist) ... ok
+test_nearby_regular_grid_sample_does_not_flatten_ik_curve (__main__.PathTests.test_nearby_regular_grid_sample_does_not_flatten_ik_curve) ... ok
+test_polyline_corners_are_explicit_and_rotation_only_trace_rejected (__main__.PathTests.test_polyline_corners_are_explicit_and_rotation_only_trace_rejected) ... ok
+test_sample_merging_prevents_nanosecond_duplicate_intervals (__main__.PathTests.test_sample_merging_prevents_nanosecond_duplicate_intervals) ... ok
+test_speed_law_constant_plateau_and_smooth_off_surface_ramps (__main__.PathTests.test_speed_law_constant_plateau_and_smooth_off_surface_ramps) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 4.583s
+
+OK

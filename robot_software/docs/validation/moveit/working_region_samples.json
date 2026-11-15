@@ -1,0 +1,30 @@
+{
+  "base_collision_aabb_m": [
+    [
+      -0.03098270000000015,
+      -0.055462507194391046,
+      -0.002399999999999954
+    ],
+    [
+      0.06463529232458132,
+      0.05546248924125123,
+      0.06959999690055853
+    ]
+  ],
+  "samples": 512,
+  "candidates": {
+    "0.1": {
+      "valid_positions_in_box": 67,
+      "colliding_positions_in_box": 4
+    },
+    "0.15": {
+      "valid_positions_in_box": 65,
+      "colliding_positions_in_box": 3
+    },
+    "0.2": {
+      "valid_positions_in_box": 57,
+      "colliding_positions_in_box": 2
+    }
+  },
+  "method": "Uniform random calibrated joint states; full modeled state collision checks; varied RPY, not a Cartesian coverage or clearance guarantee."
+}

@@ -1,0 +1,45 @@
+{
+  "frame": "base_link",
+  "minimum_m": [
+    -1.0,
+    -1.0,
+    -0.2
+  ],
+  "maximum_m": [
+    1.0,
+    1.0,
+    1.2
+  ],
+  "meaning": "Numerical planning/input bounds, NOT a guaranteed reachable or collision-free volume",
+  "sample_count": 192,
+  "design_working_region": {
+    "size_m": [
+      0.4,
+      0.4,
+      0.4
+    ],
+    "placement_in_base": {
+      "center_m": [
+        0.3,
+        0.0,
+        0.2
+      ],
+      "rpy_deg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "meaning": "Designated 0.4 m front working cube, owner-authorized placement with 0.10 m front offset selected from modeled base extent and sampled collision checks. Guidance volume, not certified reachability or a collision obstacle.",
+    "minimum_m": [
+      0.1,
+      -0.2,
+      0.0
+    ],
+    "maximum_m": [
+      0.5,
+      0.2,
+      0.4
+    ]
+  }
+}

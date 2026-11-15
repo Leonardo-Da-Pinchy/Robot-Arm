@@ -1,0 +1,86 @@
+{
+  "center_x_m": 0.4,
+  "center_y_m": 0.0,
+  "surface_height_m": 0.2,
+  "radius_m": 0.04,
+  "half_angle_deg": 60,
+  "angle_interval_deg": [
+    -60,
+    60
+  ],
+  "requested_speed_m_s": 0.01,
+  "tcp_acceleration_m_s2": 0.05,
+  "assumed_geometry": true,
+  "collision_checked": true,
+  "status": "continuation_unresolved",
+  "reason": "Cartesian trace incomplete at 52.9%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+  "last_report": {
+    "mode": "tool_axis",
+    "attempts": 4,
+    "elapsed_s": 0.16097736099618487,
+    "rejected_candidates": 0,
+    "reason": "attempt limit",
+    "best_position_error_mm": 0.032783236578731126,
+    "best_orientation_error_deg": 0.06024487601877971,
+    "limiting_joints": [
+      "pen_pitch"
+    ]
+  },
+  "failed_target_diagnostic": {
+    "distance_m": 0.04438122955071295,
+    "last_distance_m": 0.04431889636314172,
+    "previous_positions": [
+      0.04860197477160149,
+      -0.9829060355118067,
+      1.017941437343219,
+      -0.03341571910236448,
+      1.751835468536734,
+      -0.012271846303085128
+    ],
+    "target_matrix": [
+      [
+        0.0,
+        -0.062292830244852125,
+        0.998057915804532,
+        0.36007768336781876
+      ],
+      [
+        0.0,
+        -0.998057915804532,
+        -0.062292830244852125,
+        0.002491713209794085
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.2
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "broader_ik_witness": [
+      -0.15024351267034658,
+      -0.9886136625185641,
+      1.0057638311244452,
+      0.20909046800220268,
+      -0.7174598614146207,
+      0.3091887755364918
+    ],
+    "report": {
+      "mode": "tool_axis",
+      "attempts": 2,
+      "elapsed_s": 0.0768591230007587,
+      "rejected_candidates": 0,
+      "reason": "solved",
+      "best_position_error_mm": 3.860354586287585e-12,
+      "best_orientation_error_deg": 0.0,
+      "limiting_joints": []
+    },
+    "interpretation": "Broader IK exists but local continuation failed; not proof of a connected drawing path"
+  }
+}

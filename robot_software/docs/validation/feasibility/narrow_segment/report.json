@@ -1,0 +1,46 @@
+{
+  "center_x_m": 0.35,
+  "center_y_m": 0.0,
+  "surface_height_m": 0.15,
+  "radius_m": 0.04,
+  "half_angle_deg": 60,
+  "angle_interval_deg": [
+    -45,
+    -10
+  ],
+  "requested_speed_m_s": 0.005,
+  "assumed_geometry": true,
+  "status": "continuous_ik_found",
+  "samples": 14,
+  "start_q": [
+    0.7355159019516746,
+    -0.35033447033279475,
+    0.726357013246236,
+    0.085680454877048,
+    1.5972398357270412,
+    1.5261406055089872
+  ],
+  "end_q": [
+    0.3818384810839919,
+    -1.5907380770374098,
+    1.3638612670075931,
+    0.69826519521764,
+    0.9887604375989079,
+    0.7127531851836828
+  ],
+  "minimum_joint_margin_deg": 1.2722218725854067e-14,
+  "worst_task_condition_number": 19.956816395677702,
+  "sampled_speed_envelope": {
+    "sampled_constant_speed_ceiling_m_s": 0.008626477110328903,
+    "requested_speed_m_s": 0.005,
+    "requested_speed_within_sampled_envelope": true,
+    "worst_joint_velocity_rad_s": 0.3034835477459092,
+    "worst_constant_speed_joint_acceleration_rad_s2": 0.20561394767289368,
+    "requested_tcp_acceleration_m_s2": 0.05
+  },
+  "timing_assay": {
+    "success": false,
+    "reason": "Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.00; wrist_roll acceleration at 4.960000s (interval 0.020000s))",
+    "scope": "Interior 80% only; analysis ramps lie on the arc, not approved pen-up approaches. No executable plan created."
+  }
+}

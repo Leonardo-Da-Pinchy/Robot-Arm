@@ -1,0 +1,10 @@
+# Describes the existing controller. Execution is deliberately owned by the
+# Pinchy motion gateway so its powered Stop/hold and hardware gating are used.
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+moveit_simple_controller_manager:
+  controller_names: [arm_controller]
+  arm_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints: [shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll, pen_pitch]

@@ -14,7 +14,7 @@ from calibrate import (JOINTS, capture, load_profile, new_profile, read_checked,
                        run_session, save_profile, stable_sample, UnstablePosition)
 from servo_setup import MockSetupBus
 from calibrate import ROOT
-from calibrate import capture_limit, run_limits_session, TICK, adjust_zero, run_zero_adjustment
+from calibrate import capture_limit, run_limits_session, run_limit_review, TICK, adjust_zero, run_zero_adjustment
 
 
 class ReadOnlyBus(MockSetupBus):
@@ -103,6 +103,46 @@ class CalibrationTests(unittest.TestCase):
         capture_limit(self.profile, 2, 'first', self.sample(2))
         self.bus.positions[2] = 2150
         capture_limit(self.profile, 2, 'second', self.sample(2))
+
+    def review(self, moves, allow_one_sided=False):
+        steps=iter(moves);saved=[];messages=[]
+        def ask(prompt):
+            answer,position=next(steps)
+            self.bus.positions[2]=position
+            return answer
+        run_limit_review(self.bus,self.profile,[2],True,lambda p:saved.append(copy.deepcopy(p)),
+            ask=ask,output=messages.append,sleep=self.sleep,allow_one_sided=allow_one_sided)
+        return saved,messages
+
+    def test_operating_review_commits_pair_and_retains_zero_and_direction(self):
+        self.prepared_shoulder();before=copy.deepcopy(self.profile['joints']['shoulder_lift'])
+        saved,_=self.review([('p',2020),('',1800),('',2300)])
+        after=self.profile['joints']['shoulder_lift']
+        self.assertEqual(len(saved),1);self.assertEqual(after['zero_tick'],before['zero_tick'])
+        self.assertEqual(after['direction'],before['direction'])
+        self.assertAlmostEqual(after['min_radians'],-220*TICK);self.assertAlmostEqual(after['max_radians'],280*TICK)
+
+    def test_operating_review_rejects_two_positive_samples_and_keeps_old_data(self):
+        self.prepared_shoulder();before=copy.deepcopy(self.profile)
+        saved,messages=self.review([('',2100),('q',2100)])
+        self.assertFalse(saved);self.assertEqual(self.profile,before)
+        self.assertTrue(any('Expected a NEGATIVE angle' in m for m in messages))
+
+    def test_operating_review_abort_after_first_endpoint_keeps_complete_old_range(self):
+        self.prepared_shoulder();before=copy.deepcopy(self.profile)
+        saved,_=self.review([('',1800),('q',1800)])
+        self.assertFalse(saved);self.assertEqual(self.profile,before)
+
+    def test_operating_review_sorts_reversed_encoder_direction(self):
+        self.prepared_shoulder(-1)
+        saved,_=self.review([('',2240),('',1740)])
+        self.assertEqual(len(saved),1);joint=self.profile['joints']['shoulder_lift']
+        self.assertEqual(joint['min_tick'],1740);self.assertEqual(joint['max_tick'],2240)
+        self.assertAlmostEqual(joint['min_radians'],-220*TICK)
+
+    def test_operating_review_zero_boundary_must_be_explicit(self):
+        self.prepared_shoulder();saved,_=self.review([('z',2020),('',2150)],allow_one_sided=True)
+        self.assertEqual(len(saved),1);self.assertEqual(self.profile['joints']['shoulder_lift']['min_radians'],0.)
 
     def test_small_zero_correction_preserves_sign_and_physical_limits(self):
         for direction in (1, -1):

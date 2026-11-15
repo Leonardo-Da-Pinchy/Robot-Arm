@@ -1,0 +1,17 @@
+1794709094.0860741 [INFO] [launch]: All log files can be found below /home/leo/Robot-Arm/robot_software/docs/validation/feasibility/narrow_segment_slower_ramp/ros_logs/2026-11-14-21-18-14-083502-leo-87395
+1794709094.0864654 [INFO] [launch]: Default logging verbosity is set to INFO
+1794709094.7182717 [INFO] [robot_state_publisher-1]: process started with pid [87410]
+1794709094.7186723 [INFO] [ros2_control_node-2]: process started with pid [87411]
+1794709094.7188306 [INFO] [spawner-3]: process started with pid [87412]
+1794709094.7189620 [INFO] [planning_stack.py-4]: process started with pid [87413]
+1794709094.7190852 [INFO] [motion_server-5]: process started with pid [87414]
+1794709096.6786082 [INFO] [spawner-3]: process has finished cleanly [pid 87412]
+1794709104.5061438 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1794709104.5143127 [INFO] [motion_server-5]: sending signal 'SIGINT' to process[motion_server-5]
+1794709104.5152125 [INFO] [planning_stack.py-4]: sending signal 'SIGINT' to process[planning_stack.py-4]
+1794709104.5178223 [INFO] [ros2_control_node-2]: sending signal 'SIGINT' to process[ros2_control_node-2]
+1794709104.5200090 [INFO] [robot_state_publisher-1]: sending signal 'SIGINT' to process[robot_state_publisher-1]
+1794709104.5303485 [ERROR] [ros2_control_node-2]: process has died [pid 87411, exit code -2, cmd '/opt/ros/jazzy/lib/controller_manager/ros2_control_node --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml -r ~/robot_description:=/robot_description'].
+1794709104.6389546 [INFO] [robot_state_publisher-1]: process has finished cleanly [pid 87410]
+1794709104.9576502 [ERROR] [planning_stack.py-4]: process has died [pid 87413, exit code -2, cmd '/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py --ros-args --params-file /tmp/launch_params_4yzr8fuv'].
+1794709105.0553286 [INFO] [motion_server-5]: process has finished cleanly [pid 87414]

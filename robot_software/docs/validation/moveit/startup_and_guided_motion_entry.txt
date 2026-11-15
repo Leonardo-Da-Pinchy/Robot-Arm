@@ -1,0 +1,40 @@
+test_large_move_restarts_the_one_second_window (test_start_arm.CaptureTests.test_large_move_restarts_the_one_second_window) ... ok
+test_slow_continuous_movement_is_not_auto_captured (test_start_arm.CaptureTests.test_slow_continuous_movement_is_not_auto_captured) ... ok
+test_small_zero_mean_jitter_does_not_reset_forever (test_start_arm.CaptureTests.test_small_zero_mean_jitter_does_not_reset_forever) ... ok
+test_static_encoder_captures_without_any_wiggle (test_start_arm.CaptureTests.test_static_encoder_captures_without_any_wiggle) ... ok
+test_cartesian_entry_preserves_guided_holds_through_moveit_start (test_start_arm.StartupIntegrationTests.test_cartesian_entry_preserves_guided_holds_through_moveit_start) ... Live dashboard evidence: /tmp/pinchy-dashboard-test-ljw4o9yg
+ok
+test_guided_cli_keeps_holds_powered_through_ros_handoff (test_start_arm.StartupIntegrationTests.test_guided_cli_keeps_holds_powered_through_ros_handoff) ... Continuous-hold startup evidence: /tmp/pinchy-guided-startup-test-1aas6z2j
+ok
+test_live_terminal_auto_capture_and_continuous_ros_handoff (test_start_arm.StartupIntegrationTests.test_live_terminal_auto_capture_and_continuous_ros_handoff) ... Live dashboard evidence: /tmp/pinchy-dashboard-test-b_4p90o4
+ok
+test_ros_cli_keeps_terminal_input_and_powered_handoff (test_start_arm.StartupIntegrationTests.test_ros_cli_keeps_terminal_input_and_powered_handoff) ... Live dashboard evidence: /tmp/pinchy-dashboard-test-w41qcmky
+ok
+test_ros_handoff_fault_preserves_holds_until_operator_exits (test_start_arm.StartupIntegrationTests.test_ros_handoff_fault_preserves_holds_until_operator_exits) ... ok
+test_startup_fault_preserves_hold_until_operator_releases (test_start_arm.StartupIntegrationTests.test_startup_fault_preserves_hold_until_operator_releases) ... ok
+test_terminal_exit_releases_motor_held_during_walkthrough (test_start_arm.StartupIntegrationTests.test_terminal_exit_releases_motor_held_during_walkthrough) ... ok
+test_abort_releases_only_motors_this_startup_touched (test_start_arm.StartupTests.test_abort_releases_only_motors_this_startup_touched) ... ok
+test_brief_tracking_lag_pauses_then_recovers (test_start_arm.StartupTests.test_brief_tracking_lag_pauses_then_recovers) ... ok
+test_cad_range_still_enforced_inside_near_zero_window (test_start_arm.StartupTests.test_cad_range_still_enforced_inside_near_zero_window) ... ok
+test_confirmed_high_temperature_still_stops_startup (test_start_arm.StartupTests.test_confirmed_high_temperature_still_stops_startup) ... ok
+test_current_goal_staged_before_zero_and_ram_limit_before_enable (test_start_arm.StartupTests.test_current_goal_staged_before_zero_and_ram_limit_before_enable) ... ok
+test_default_window_allows_twenty_degrees_with_slow_monotonic_move (test_start_arm.StartupTests.test_default_window_allows_twenty_degrees_with_slow_monotonic_move) ... ok
+test_existing_hold_loss_stops_next_motor_before_writes (test_start_arm.StartupTests.test_existing_hold_loss_stops_next_motor_before_writes) ... ok
+test_folded_pose_rejected_before_any_write (test_start_arm.StartupTests.test_folded_pose_rejected_before_any_write) ... ok
+test_higher_ros_caps_do_not_speed_up_initial_zeroing (test_start_arm.StartupTests.test_higher_ros_caps_do_not_speed_up_initial_zeroing) ... ok
+test_hold_failure_reports_measured_error_and_torque (test_start_arm.StartupTests.test_hold_failure_reports_measured_error_and_torque) ... ok
+test_loaded_joints_accept_existing_runtime_sized_settling_without_faking_zero (test_start_arm.StartupTests.test_loaded_joints_accept_existing_runtime_sized_settling_without_faking_zero) ... ok
+test_missing_calibration_is_rejected (test_start_arm.StartupTests.test_missing_calibration_is_rejected) ... ok
+test_one_at_a_time_keeps_previous_hold_and_others_free (test_start_arm.StartupTests.test_one_at_a_time_keeps_previous_hold_and_others_free) ... ok
+test_persistent_stall_pauses_goals_and_reports_actionable_failure (test_start_arm.StartupTests.test_persistent_stall_pauses_goals_and_reports_actionable_failure) ... ok
+test_preflight_will_not_take_over_unknown_powered_motors (test_start_arm.StartupTests.test_preflight_will_not_take_over_unknown_powered_motors) ... ok
+test_single_small_hold_excursion_recovers_without_new_goals (test_start_arm.StartupTests.test_single_small_hold_excursion_recovers_without_new_goals) ... ok
+test_six_tick_residual_is_accepted_without_disabling_torque (test_start_arm.StartupTests.test_six_tick_residual_is_accepted_without_disabling_torque) ... ok
+test_small_inward_startup_can_approach_zero_from_below_operating_bound (test_start_arm.StartupTests.test_small_inward_startup_can_approach_zero_from_below_operating_bound) ... ok
+test_temperature_spike_requires_two_cool_rechecks_and_no_alarm (test_start_arm.StartupTests.test_temperature_spike_requires_two_cool_rechecks_and_no_alarm) ... ok
+test_torque_loss_stops_immediately_without_rechecks (test_start_arm.StartupTests.test_torque_loss_stops_immediately_without_rechecks) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 112.182s
+
+OK

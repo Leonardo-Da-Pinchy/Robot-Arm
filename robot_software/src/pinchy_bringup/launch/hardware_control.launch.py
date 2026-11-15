@@ -1,6 +1,7 @@
 """Explicit Feetech bringup. Requires a reviewed external calibration file."""
 from pathlib import Path
 import xml.etree.ElementTree as ET
+import json
 import yaml
 
 from ament_index_python.packages import get_package_share_directory
@@ -41,6 +42,7 @@ def setup(context):
                          'is not migrated automatically.')
     description = Path(get_package_share_directory('pinchy_description'))
     bringup = Path(get_package_share_directory('pinchy_bringup'))
+    startup_policy = json.loads((description/'config/startup_policy.json').read_text())
     root = ET.parse(description / 'urdf/pinchy_arm.urdf').getroot()
     root.set('name', 'pinchy_bench_hardware' if bench else 'pinchy_hardware')
     control = ET.SubElement(root, 'ros2_control', name='FeetechArm', type='system')
@@ -66,12 +68,17 @@ def setup(context):
         limits = root.find(f"joint[@name='{name}']/limit")
         if not float(limits.get('lower')) <= values['min_radians'] < values['max_radians'] <= float(limits.get('upper')):
             raise ValueError(f'{name}: calibration exceeds model joint limits')
+        nominal_lower,nominal_upper=limits.get('lower'),limits.get('upper')
         limits.set('lower', str(values['min_radians']))
         limits.set('upper', str(values['max_radians']))
         limits.set('velocity', str(values['max_velocity']))
         joint = ET.SubElement(control, 'joint', name=name)
+        ET.SubElement(joint,'param',name='nominal_model_lower').text=nominal_lower
+        ET.SubElement(joint,'param',name='nominal_model_upper').text=nominal_upper
         ET.SubElement(joint, 'command_interface', name='position')
         ET.SubElement(joint, 'state_interface', name='position')
+        tolerance=startup_policy['joint_zero_tolerance_ticks'].get(name,startup_policy['default_zero_tolerance_ticks'])
+        ET.SubElement(joint,'param',name='startup_tolerance_ticks').text=str(tolerance)
         for key, value in values.items():
             ET.SubElement(joint, 'param', name=key).text = str(value)
     model = ET.tostring(root, encoding='unicode')

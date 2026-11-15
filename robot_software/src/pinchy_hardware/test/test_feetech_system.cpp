@@ -149,6 +149,17 @@ TEST(Hardware, ExplicitCalibrationAndUniqueIDs)
   h = info("/does/not/exist"); h.joints[1].parameters["servo_id"] = "1";
   FeetechSystem third; EXPECT_EQ(third.on_init(h), CallbackReturn::ERROR);
 }
+TEST(Hardware, DoubledOperatingEnvelopeAccepted)
+{
+  Bus bus; auto h = info(bus.path);
+  h.hardware_parameters["speed"] = "1000";
+  h.hardware_parameters["acceleration"] = "64";
+  for (auto & joint : h.joints) joint.parameters["max_velocity"] = "1.0471975511965976";
+  FeetechSystem hw; EXPECT_EQ(hw.on_init(h), CallbackReturn::SUCCESS);
+  Calibration c{1, 2048, 1, 1024, 3072, -1, 1, 1.0471975511965976};
+  EXPECT_NO_THROW(c.validate()); c.max_velocity = 1.05;
+  EXPECT_THROW(c.validate(), std::runtime_error);
+}
 TEST(Hardware, StartupAtActualPositionSyncAndRelease)
 {
   Bus bus; FeetechSystem hw;
@@ -416,6 +427,32 @@ TEST(Hardware, AdoptPoweredZeroHoldsWithoutTorqueGap)
   EXPECT_EQ(hw.read(now, period), return_type::OK);
   EXPECT_EQ(hw.on_deactivate(state), CallbackReturn::SUCCESS);
   EXPECT_EQ(bus.torque_off_writes, 6);
+}
+
+TEST(Hardware, AdoptLoadedJointSettlingKeepsTrueFeedbackAndZeroGoal)
+{
+  Bus bus; FeetechSystem hw; auto h = info(bus.path);
+  h.hardware_parameters["adopt_zero_hold"] = "true";
+  for (auto & joint : h.joints) {
+    const int id = std::stoi(joint.parameters.at("servo_id"));
+    joint.parameters["startup_tolerance_ticks"] = (id == 2 || id == 3) ? "19" : "10";
+    bus.set(id, 40, 1); bus.set(id, 42, 0); bus.set(id, 43, 8);
+    bus.set(id, 48, 44); bus.set(id, 49, 1);
+    const int measured = (id == 2 || id == 3) ? 2065 : 2048;
+    bus.set(id, 56, measured & 255); bus.set(id, 57, measured >> 8);
+  }
+  ASSERT_EQ(hw.on_init(h), CallbackReturn::SUCCESS);
+  auto commands = hw.export_command_interfaces();
+  ASSERT_EQ(hw.on_configure(state), CallbackReturn::SUCCESS);
+  ASSERT_EQ(hw.on_activate(state), CallbackReturn::SUCCESS);
+  for (const auto & command : commands) EXPECT_DOUBLE_EQ(command.get_optional().value(), 0);
+  EXPECT_EQ(bus.torque_off_writes, 0);
+  ASSERT_EQ(hw.read(now, period), return_type::OK);
+  auto feedback = hw.export_state_interfaces();
+  for (const auto & value : feedback) {
+    if (value.get_name() == "shoulder_lift/position" || value.get_name() == "elbow_flex/position")
+      EXPECT_NEAR(value.get_optional().value(), 17*6.283185307179586/4096, 1e-12);
+  }
 }
 
 TEST(Hardware, AdoptRejectsUnknownGoalsWithoutDisablingExternalHolds)

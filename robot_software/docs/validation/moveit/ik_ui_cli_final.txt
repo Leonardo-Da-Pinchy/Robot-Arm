@@ -1,0 +1,21 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-_7cj7yv5
+test_07_pose_panel_plan_preview_execute (__main__.MockCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+This plugin does not support propagateSizeHints()
+ok
+test_08_cli_plan_then_execute (__main__.MockCartesian.test_08_cli_plan_then_execute) ... ok
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-yiaodm4x
+test_07_pose_panel_plan_preview_execute (__main__.HardwareCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+This plugin does not support propagateSizeHints()
+ok
+test_08_cli_plan_then_execute (__main__.HardwareCartesian.test_08_cli_plan_then_execute) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 52.923s
+
+OK

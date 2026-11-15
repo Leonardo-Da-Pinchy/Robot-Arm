@@ -1,0 +1,330 @@
+{
+  "updated_utc": "2026-11-14T23:42:16.181209+00:00",
+  "status": "PASS",
+  "ros_distro": "jazzy",
+  "packages_built": [
+    "pinchy_description",
+    "pinchy_hardware",
+    "pinchy_bringup",
+    "pinchy_motion_interfaces",
+    "pinchy_motion",
+    "pinchy_moveit_config"
+  ],
+  "versions": {
+    "moveit_core": "2.12.4",
+    "moveit_kinematics": "2.12.4",
+    "moveit_planners_ompl": "2.12.4",
+    "moveit_msgs": "2.6.0"
+  },
+  "tests": {
+    "cartesian": {
+      "status": "PASS",
+      "count": 37,
+      "log": "cartesian.txt",
+      "scope_note": "37-case baseline before the latest native free-twist and default-mode changes; current targeted results below."
+    },
+    "existing_control_regressions": {
+      "status": "PASS",
+      "count": 29,
+      "log": "existing_control_regressions.txt"
+    },
+    "startup_and_guided_motion_entry": {
+      "status": "PASS",
+      "count": 31,
+      "log": "startup_and_guided_motion_entry.txt"
+    },
+    "final_display_and_recovery_checks": {
+      "status": "PASS",
+      "count": 5,
+      "log": "final_display_and_recovery_checks.txt"
+    },
+    "hardware_cpp": {
+      "status": "PASS",
+      "count": 29,
+      "log": "hardware_cpp.txt"
+    },
+    "model": {
+      "status": "PASS",
+      "count": 9,
+      "log": "model.txt"
+    },
+    "live_panel_and_limits": {
+      "status": "PASS after isolated retry",
+      "mock_count": 1,
+      "emulated_hardware_count": 1,
+      "logs": [
+        "panel_checks_initial.txt",
+        "panel_hardware_retry.txt"
+      ],
+      "note": "Initial concurrent run: hardware fixture latched stale-feedback HOLD after a 334 ms emulator read cycle, before UI tests. Isolated hardware retry passed; safety timing guard unchanged."
+    },
+    "rviz_namespace_and_layout": {
+      "status": "PASS",
+      "count": 4,
+      "log": "rviz_namespace_and_layout.txt",
+      "note": "Verified installed RViz namespace property name and live server pose_goal with seven controls. Read-only live inspection; no motor commands. Display uses Interactive Markers Namespace, not Update Topic."
+    },
+    "working_region": {
+      "status": "PASS",
+      "geometry_checks": 5,
+      "mock_integration": 1,
+      "logs": [
+        "working_region_tests.txt",
+        "working_region_integration.txt"
+      ],
+      "sample_evidence": "working_region_samples.json"
+    },
+    "ik_unit": {
+      "status": "PASS",
+      "count": 8,
+      "known_pose_subcases": 40,
+      "log": "ik_unit.txt"
+    },
+    "ik_known_reachable_benchmarks": {
+      "status": "PASS",
+      "native_kdl_successes": 160,
+      "bounded_successes": 160,
+      "count": 160,
+      "logs": [
+        "ik_benchmark.json",
+        "ik_stress_benchmark.json"
+      ],
+      "note": "Known collision-valid poses within saved calibration; MoveIt FK ground truth, no witness seeds. Not an exhaustive completeness or path-existence proof."
+    },
+    "ik_final_ui_cli": {
+      "status": "PASS",
+      "count": 4,
+      "log": "ik_ui_cli_final.txt"
+    },
+    "operator_example_plans": {
+      "status": "PASS",
+      "log": "ik_operator_probes.json",
+      "note": "Exact requests retained rejection after bounded search; example one position-only and example two pen-direction produced checked plans on calibrated mock, never executed."
+    },
+    "ik_full_workspace_build": {
+      "status": "PASS",
+      "packages": 6,
+      "log": "build.txt"
+    },
+    "measured_boundary_regression": {
+      "status": "PASS",
+      "unit_count": 3,
+      "emulated_hardware_case": 1,
+      "logs": [
+        "feedback_boundary_unit.txt",
+        "feedback_boundary_integration.txt"
+      ],
+      "note": "Actual saved bounds on fake bus; zero accepted hold, -1 tick wrist-roll feedback, XYZ-only plan and execution. Raw measured collision checks remain; command limits stay strict."
+    },
+    "free_twist_direction_plans": {
+      "status": "PASS",
+      "checked_plans": 8,
+      "profile": "saved physical bounds, real C++ adapter on fake bus",
+      "log": "free_twist_direction_plans.txt",
+      "cases": "free_twist_planned_witnesses.json"
+    },
+    "free_twist_geometry": {
+      "status": "PASS",
+      "count": 96,
+      "log": "free_twist_geometry_witnesses.json",
+      "scope": "Geometry-only valid direction witnesses; arbitrary input twist, fresh searches."
+    },
+    "free_twist_unit": {
+      "status": "PASS",
+      "count": 10,
+      "log": "free_twist_unit.txt"
+    },
+    "free_twist_reported_pose_comparison": {
+      "status": "PASS",
+      "log": "free_twist_range_comparison.txt",
+      "nominal_cad": "Checked directed plan found.",
+      "saved_physical_ranges": "No directed plan found. Diagnostic candidate exceeds saved wrist limits; no token or motion."
+    },
+    "free_twist_final_checks": {
+      "status": "PASS",
+      "count": 2,
+      "log": "free_twist_final_checks.txt",
+      "scope": "Saved-profile blocked request/range-review isolation, free-twist GUI and straight-path controls."
+    },
+    "operating_limit_review": {
+      "status": "PASS",
+      "count": 27,
+      "log": "operating_limit_review_tests.txt",
+      "scope": "Read-only calibration, atomic negative/positive review, same-side rejection, abort preservation, reversed encoder sign and explicit zero-boundary handling."
+    },
+    "motor5_recapture": {
+      "status": "Three recent logged requests plan successfully; older screenshot still range-blocked by joint 6",
+      "log": "motor5_recapture_pose_checks.json",
+      "motor5_old_deg": [
+        0,
+        131.484375
+      ],
+      "motor5_new_deg": [
+        -143.96484375,
+        141.767578125
+      ],
+      "zeros_and_directions_changed": false,
+      "physical_motion_commanded": false
+    },
+    "motor6_recapture": {
+      "status": "PASS",
+      "log": "motor6_recapture_pose_checks.json",
+      "joint6_old_deg": [
+        -1.669921875,
+        90.3515625
+      ],
+      "joint6_new_deg": [
+        -0.703125,
+        99.140625
+      ],
+      "zero_direction_changed": false,
+      "physical_motion_commanded": false
+    },
+    "startup_ninety_window": {
+      "status": "PASS",
+      "count": 26,
+      "log": "startup_ninety_tests.txt",
+      "scope": "Both +/-90 endpoints, monotonic zeroing, saved/CAD bounds, feedback margin and existing startup protections; no physical motor commands."
+    },
+    "both_wrist_recaptures": {
+      "status": "PASS",
+      "directed_pose_plans": 4,
+      "log": "both_wrist_recapture_checks.json",
+      "scope": "All four exact previously reported targets, free twist, complete timed collision-checked plans using current saved ranges; mock only."
+    }
+  },
+  "physical_motor_commands_sent": false,
+  "physical_tip_accuracy_measured": false,
+  "runtime_model_sha256": "c7b733cad79739f23981ddc5813eaaaae77c74d2c83cdf5677aa6297105c2786",
+  "rviz": {
+    "real_plugin_loaded": true,
+    "trajectory_subscription_confirmed": true,
+    "shared_layout_test_passed": true,
+    "screenshot_available": false,
+    "reason": "Desktop locked; no lock-screen screenshot retained"
+  },
+  "limitations": [
+    "Temporary pointer_tip proxy is not physically calibrated",
+    "Example floor only; pending base wings/fixture/camera geometry not modeled",
+    "Physical pose sequence and loaded qualification remain pending",
+    "Tabletop plane/edges relative to base_link are unmeasured; example floor deliberately unchanged",
+    "Ordered paths and modeled contact timing are implemented; physical contact qualification remains.",
+    "Finite multi-start IK cannot guarantee mathematical completeness; a valid endpoint may lack a connecting route",
+    "Blue working cube includes geometrically unreachable far corners; geometric upper-bound analysis is not loaded physical reach qualification",
+    "Earlier reported directions planned after owner wrist range recapture; latest distinct failures include floor collisions and remaining direction/range difficulty. See latest_session_numeric_ik.json and latest_session_collision_checks.json."
+  ],
+  "changes_2026_11_14": [
+    "Live synchronized RViz/XYZ-RPY target editing without planning or motor commands; edits invalidate previews",
+    "Visible numerical input bounds and unfiltered variable-orientation FK samples, optional collision overlay, joint-limit window",
+    "Full-pose IK diagnostics log XYZ/RPY, report known bounds/collision rejections; no orientation relaxation or limit expansion",
+    "Startup 1.5x faster with explicit capture interval/reasons and stable-noise capture; shared shoulder/elbow settling policy below existing runtime goal tolerance",
+    "RAM torque allowance already 100%; loaded physical lifting is not established by emulation",
+    "Correct RViz Interactive Markers Namespace to /pinchy_motion/goal",
+    "Remove floating debug text, hide broad input-bounds/FK display by default; record report 0.4 m front working cube separately with unmeasured placement",
+    "Native KDL plus bounded full-range multi-start with analytic Jacobians, collision validation and alternate route branch retry",
+    "Explicit full/pen-axis/position endpoint modes, resolved target reporting and near-singularity diagnostic",
+    "Optional checked straight TCP transit via MoveIt GetCartesianPath: position LERP plus orientation SLERP; reject partial/jumping/off-shape results",
+    "Optional calibrated mock launch reuses physical profile bounds without opening its port"
+  ],
+  "runtime_model_sha256_note": "Baseline from earlier live-model validation; not a hash of the physical attachment or new startup-only ros2_control parameters.",
+  "startup_policy_sha256": "f2a1df15a21e21dc4175192c7b956d8dd4c738714bae24e021295917cc59abdf",
+  "current_orientation_default": "tool_axis",
+  "live_xyz_check": "live_xyz_check.json",
+  "ordered_paths": {
+    "status": "Focused validation passed; physical contact qualification pending",
+    "guide": "../../cartesian_paths.md",
+    "physical_motors_moved": false,
+    "physical_contact_qualified": false,
+    "planning_speed_tolerance_fraction": 0.05,
+    "latest_session_numeric_ik": "latest_session_numeric_ik.json",
+    "latest_session_collision_checks": "latest_session_collision_checks.json",
+    "tests": {
+      "path_unit": "ordered_paths_unit.txt",
+      "ik_regression": "ordered_paths_ik_regression.txt",
+      "mock_and_emulator": "ordered_paths_mock_and_saved_ranges_emulator.txt",
+      "safety_and_style_initial": "ordered_paths_safety_and_style_initial.txt",
+      "near_knot_reproduction": "ordered_paths_near_knot_reproduction.txt",
+      "build": "ordered_paths_build.txt",
+      "style_final": "ordered_paths_style_final.txt"
+    },
+    "profile_bounds": "ordered_paths_profile_bounds.json",
+    "scope": "No real motors were commanded. Contact timing tested in mock; saved physical angular ranges tested on the C++ adapter with a PTY emulator. Physical contact speed/accuracy remain unqualified.",
+    "validation_counts": {
+      "path_unit": 7,
+      "ik_regression": 10,
+      "mock_and_saved_range_emulator": 6,
+      "geometry_and_collision_stop_regressions": 8,
+      "style_retry": 1
+    },
+    "resolved_validation_failures": [
+      "Near-duplicate IK sample flattened the joint curve: retain fixed waypoints and remove nearby redundant grid samples; C2 joint interpolation with unchanged extrema/geometry checks.",
+      "Pose-visit leg boundaries had incompatible acceleration fields: explicitly stop with matching zero velocity/acceleration, retime each leg and revalidate combined interpolation.",
+      "Execution test deadline did not include planned duration plus validation/settling overhead: timeout now derives from plan duration."
+    ]
+  },
+  "nearby_goal_direction_screenshot": {
+    "goal_xyz_m": [
+      0.471461,
+      -0.003679,
+      0.23928
+    ],
+    "goal_rpy_deg": [
+      -130.083,
+      -86.586,
+      4.025
+    ],
+    "distance_from_displayed_current_mm": 16.52,
+    "direction_change_deg": 53.90148,
+    "independent_numerical_check": "nearby_goal_direction_global_check.json",
+    "panel_regressions": "nearby_goal_direction_panel_tests.txt",
+    "ik_regressions": "nearby_goal_direction_ik_regressions.txt",
+    "saved_range_mock_transit": "nearby_goal_direction_transit.txt",
+    "saved_range_mock_straight_transit": "nearby_goal_direction_straight_transit.txt",
+    "result": "Original direction remains unsolved; same XYZ with current direction plans in saved-range mock, including straight TCP transit. No automatic constraint relaxation.",
+    "physical_motors_commanded": false,
+    "speed_caps_changed": false
+  },
+  "doubled_selectable_limits": {
+    "joint_caps_deg": [
+      60,
+      360
+    ],
+    "joint_defaults_deg": [
+      30,
+      180
+    ],
+    "tcp_caps_mm": [
+      400,
+      2000
+    ],
+    "tcp_defaults_mm": [
+      20,
+      50
+    ],
+    "raw_profile_speed": 1000,
+    "raw_profile_acceleration": 64,
+    "zeroing_unchanged": true,
+    "position_calibration_unchanged": true,
+    "physical_motors_commanded": false,
+    "driver_tests": "doubled_limits_driver_tests.txt",
+    "panel_tests": "doubled_limits_panel_tests.txt",
+    "build": "doubled_limits_build.txt",
+    "startup_tests": "doubled_limits_startup_tests.txt",
+    "result": "Build, driver tests (31 reported), panel regression tests (3), startup tests (33), and saved-profile/model validation passed. No real motor commands or automatic process restart."
+  },
+  "motion_feasibility_investigation": {
+    "guide": "../../motion_feasibility.md",
+    "report": "../feasibility/current_model/report.json",
+    "plot": "../feasibility/current_model/feasibility.png",
+    "findings": "Posture-dependent nearby failures, genuine poor conditioning, joint6 side-normal range concern, broad-arc timing/interpolation failures; narrower steady-speed software assay passed. Full drawing coverage remains unqualified.",
+    "physical_motor_commands": false,
+    "calibration_or_position_limits_changed": false,
+    "collision_scope": "Robot and example floor only; object/fixture unknown",
+    "tests": {
+      "diagnostics": "../feasibility/unit_tests.txt",
+      "panel": "../feasibility/panel_tests.txt",
+      "path_regressions": "../feasibility/path_regressions.txt",
+      "ros_regressions": "../feasibility/ros_regressions.txt"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-8opmrcal
+test_07_pose_panel_plan_preview_execute (__main__.MockCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+ok
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-t8vfy8k5
+setUpClass (__main__.HardwareCartesian) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.HardwareCartesian)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/leo/Robot-Arm/robot_software/tools/test_cartesian.py", line 150, in setUpClass
+    cls.tearDownClass();raise RuntimeError('Planning stack failed; inspect '+str(cls.folder))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Planning stack failed; inspect /tmp/pinchy-cartesian-tests-t8vfy8k5
+
+----------------------------------------------------------------------
+Ran 1 test in 65.752s
+
+FAILED (errors=1)

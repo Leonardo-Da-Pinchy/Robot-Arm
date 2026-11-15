@@ -1,0 +1,9 @@
+test_default_collision_exclusions_only_adjacent_and_live_tool (__main__.GeometryTests.test_default_collision_exclusions_only_adjacent_and_live_tool) ... ok
+test_exact_spline_extrema_retiming_and_bounds (__main__.GeometryTests.test_exact_spline_extrema_retiming_and_bounds) ... ok
+test_rpy_is_urdf_fixed_xyz_not_intrinsic_zyx (__main__.GeometryTests.test_rpy_is_urdf_fixed_xyz_not_intrinsic_zyx) ... ok
+test_rviz_keeps_the_shared_layout (__main__.GeometryTests.test_rviz_keeps_the_shared_layout) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.070s
+
+OK

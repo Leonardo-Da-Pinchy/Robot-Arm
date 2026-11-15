@@ -1,0 +1,8 @@
+Starting >>> pinchy_bringup
+Finished <<< pinchy_bringup [1.40s]
+Starting >>> pinchy_motion
+Finished <<< pinchy_motion [1.35s]
+Starting >>> pinchy_moveit_config
+Finished <<< pinchy_moveit_config [0.25s]
+
+Summary: 3 packages finished [3.49s]

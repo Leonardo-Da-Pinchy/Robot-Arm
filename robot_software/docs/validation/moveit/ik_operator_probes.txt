@@ -1,0 +1,5 @@
+1 native True bounded True
+operator example full False No valid IK found for exact XYZ + RPY after native/bounded search. Best numerical residual: 13.20 mm / 13.97 deg; nearby bounds: wrist_roll. This is not proof of impossibility. Check saved ranges, orientation and collisions; Exact RPY is never relaxed automatically.
+operator example full False No valid IK found for exact XYZ + RPY after native/bounded search. Best numerical residual: 1.05 mm / 0.89 deg; nearby bounds: wrist_flex, wrist_roll. This is not proof of impossibility. Check saved ranges, orientation and collisions; Exact RPY is never relaxed automatically.
+operator example position True Plan ready; no motion sent. position / joint; resolved RPY -179.98, -67.49, -9.32 deg. Near a kinematic singularity; speed may need limiting.
+operator example tool_axis True Plan ready; no motion sent. tool_axis / joint; resolved RPY 0.37, -62.51, 179.78 deg. Near a kinematic singularity; speed may need limiting.

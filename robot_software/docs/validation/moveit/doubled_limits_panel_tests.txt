@@ -1,0 +1,8 @@
+test_copy_direction_preserves_xyz_updates_marker_input_and_never_plans (__main__.GoalDirectionTests.test_copy_direction_preserves_xyz_updates_marker_input_and_never_plans) ... ok
+test_difference_ignores_rotation_about_pen_axis (__main__.GoalDirectionTests.test_difference_ignores_rotation_about_pen_axis) ... ok
+test_screenshot_is_nearby_in_xyz_but_large_direction_change (__main__.GoalDirectionTests.test_screenshot_is_nearby_in_xyz_but_large_direction_change) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.599s
+
+OK

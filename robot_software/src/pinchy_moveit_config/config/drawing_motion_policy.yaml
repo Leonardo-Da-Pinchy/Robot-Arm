@@ -1,0 +1,28 @@
+# Product requirement, not a claim that pose-transit timing implements drawing.
+# Ordered-path timing is software validated; physical contact remains disabled.
+version: 1
+contact_motion_implemented: false
+contact_timing_planning_implemented: true
+planning_speed_variation_fraction: 0.05
+physical_contact_qualified: false
+speed_frame: active_tcp
+speed_units: mm/s
+contact:
+  approximately_constant_linear_speed: true
+  requested_speed_mm_s: null  # Determine through physical qualification.
+  minimum_useful_speed_mm_s: null
+  allowed_speed_variation_fraction: null
+  stop_at_sampled_waypoints: false
+  accelerate_or_decelerate_in_contact_by_default: false
+ramps:
+  preferred_location: pen_up_off_surface
+  reach_contact_speed_before_marking: true
+  lift_before_terminal_deceleration_where_feasible: true
+exceptions:
+  - safety_stop
+  - explicitly_requested_pause
+  - unavoidable_contact_transition
+  - sharp_corner_with_explicitly_approved_slowdown
+corner_policy: preserve_geometry_or_lift_or_explicitly_approved_blend
+unachievable_contact_speed: reject_or_request_explicit_alternative_before_execution
+geometry_and_joint_limits_take_priority: true

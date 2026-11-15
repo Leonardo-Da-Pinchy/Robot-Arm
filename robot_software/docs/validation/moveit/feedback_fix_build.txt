@@ -1,0 +1,10 @@
+Starting >>> pinchy_motion_interfaces
+Starting >>> pinchy_bringup
+Finished <<< pinchy_bringup [1.45s]
+Finished <<< pinchy_motion_interfaces [16.5s]
+Starting >>> pinchy_motion
+Finished <<< pinchy_motion [1.35s]
+Starting >>> pinchy_moveit_config
+Finished <<< pinchy_moveit_config [0.19s]
+
+Summary: 4 packages finished [18.6s]

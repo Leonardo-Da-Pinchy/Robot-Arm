@@ -1,0 +1,6 @@
+Neighbourhood zero 11
+Neighbourhood bent wrist 21
+Neighbourhood wrist near limit 11
+Neighbourhood poor conditioning 15
+Neighbourhood requested posture 11
+Report: /tmp/pinchy-feasibility-cli-check/report.json

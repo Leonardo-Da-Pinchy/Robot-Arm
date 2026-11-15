@@ -1,0 +1,158 @@
+[INFO] [launch]: All log files can be found below /tmp/pinchy-cartesian-tests-638tna2r/ros_logs/2026-11-14-19-51-44-291267-leo-81488
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [planning_stack.py-1]: process started with pid [81497]
+[INFO] [motion_server-2]: process started with pid [81498]
+[planning_stack.py-1] [INFO] [1794703906.306269877] [pinchy_planning_stack]: MoveIt uses the live calibrated model; execution stays in the powered-hold gateway
+[planning_stack.py-1] [INFO] [1794703906.884620497] [move_group.moveit.moveit.ros.rdf_loader]: Loaded robot model in 0.00874427 seconds
+[planning_stack.py-1] [INFO] [1794703906.884908058] [move_group.moveit.moveit.core.robot_model]: Loading robot model 'pinchy_hardware'...
+[planning_stack.py-1] [INFO] [1794703906.884949659] [move_group.moveit.moveit.core.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[planning_stack.py-1] [WARN] [1794703907.411296748] [move_group.moveit.moveit.core.robot_model]: Link pointer_tip has visual geometry but no collision geometry. Collision geometry will be left empty. Fix your URDF file by explicitly specifying collision geometry.
+[planning_stack.py-1] [WARN] [1794703907.511486158] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[planning_stack.py-1] [INFO] [1794703907.511738230] [move_group.moveit.moveit.kinematics.kdl_kinematics_plugin]: Joint weights for group 'arm': 1 1 1 1 1 1
+[planning_stack.py-1] [INFO] [1794703909.298460137] [move_group.moveit.moveit.ros.planning_scene_monitor]: Publishing maintained planning scene on 'monitored_planning_scene'
+[planning_stack.py-1] [INFO] [1794703909.298877813] [move_group.moveit.moveit.ros.moveit_cpp]: Listening to 'joint_states' for joint states
+[planning_stack.py-1] [INFO] [1794703909.300939028] [move_group.moveit.moveit.ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[planning_stack.py-1] [INFO] [1794703909.302481731] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to '/attached_collision_object' for attached collision objects
+[planning_stack.py-1] [INFO] [1794703909.302566661] [move_group.moveit.moveit.ros.planning_scene_monitor]: Stopping existing planning scene publisher.
+[planning_stack.py-1] [INFO] [1794703909.303533923] [move_group.moveit.moveit.ros.planning_scene_monitor]: Stopped publishing maintained planning scene.
+[planning_stack.py-1] [INFO] [1794703909.305625698] [move_group.moveit.moveit.ros.planning_scene_monitor]: Publishing maintained planning scene on 'monitored_planning_scene'
+[planning_stack.py-1] [INFO] [1794703909.305865289] [move_group.moveit.moveit.ros.planning_scene_monitor]: Starting planning scene monitor
+[planning_stack.py-1] [INFO] [1794703909.308688127] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to '/planning_scene'
+[planning_stack.py-1] [INFO] [1794703909.308770242] [move_group.moveit.moveit.ros.planning_scene_monitor]: Starting world geometry update monitor for collision objects, attached objects, octomap updates.
+[planning_stack.py-1] [INFO] [1794703909.309923269] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to 'collision_object'
+[planning_stack.py-1] [INFO] [1794703909.310957316] [move_group.moveit.moveit.ros.planning_scene_monitor]: Listening to 'planning_scene_world' for planning scene world geometry
+[planning_stack.py-1] [ERROR] [1794703909.311363568] [move_group.moveit.moveit.ros.occupancy_map_monitor]: No 3D sensor plugin(s) defined for octomap updates
+[planning_stack.py-1] [INFO] [1794703911.156094499] [move_group.moveit.moveit.ros.planning_pipeline]: Successfully loaded planner 'OMPL'
+[planning_stack.py-1] [INFO] [1794703911.157850776] [move_group]: Try loading adapter 'default_planning_request_adapters/ResolveConstraintFrames'
+[planning_stack.py-1] [INFO] [1794703911.159747089] [move_group]: Loaded adapter 'default_planning_request_adapters/ResolveConstraintFrames'
+[planning_stack.py-1] [INFO] [1794703911.159825812] [move_group]: Try loading adapter 'default_planning_request_adapters/ValidateWorkspaceBounds'
+[planning_stack.py-1] [INFO] [1794703911.160481096] [move_group]: Loaded adapter 'default_planning_request_adapters/ValidateWorkspaceBounds'
+[planning_stack.py-1] [INFO] [1794703911.160539114] [move_group]: Try loading adapter 'default_planning_request_adapters/CheckStartStateBounds'
+[planning_stack.py-1] [INFO] [1794703911.160621676] [move_group]: Loaded adapter 'default_planning_request_adapters/CheckStartStateBounds'
+[planning_stack.py-1] [INFO] [1794703911.160640013] [move_group]: Try loading adapter 'default_planning_request_adapters/CheckStartStateCollision'
+[planning_stack.py-1] [INFO] [1794703911.160671342] [move_group]: Loaded adapter 'default_planning_request_adapters/CheckStartStateCollision'
+[planning_stack.py-1] [INFO] [1794703911.162266174] [move_group]: Try loading adapter 'default_planning_response_adapters/AddTimeOptimalParameterization'
+[planning_stack.py-1] [INFO] [1794703911.166884970] [move_group]: Loaded adapter 'default_planning_response_adapters/AddTimeOptimalParameterization'
+[planning_stack.py-1] [INFO] [1794703911.166954220] [move_group]: Try loading adapter 'default_planning_response_adapters/ValidateSolution'
+[planning_stack.py-1] [INFO] [1794703911.172370513] [move_group]: Loaded adapter 'default_planning_response_adapters/ValidateSolution'
+[planning_stack.py-1] [INFO] [1794703911.172479156] [move_group]: Try loading adapter 'default_planning_response_adapters/DisplayMotionPath'
+[planning_stack.py-1] [INFO] [1794703911.174220041] [move_group]: Loaded adapter 'default_planning_response_adapters/DisplayMotionPath'
+[planning_stack.py-1] [INFO] [1794703911.241877135] [move_group.moveit.moveit.plugins.simple_controller_manager]: Added FollowJointTrajectory controller for arm_controller
+[planning_stack.py-1] [INFO] [1794703911.242358526] [move_group.moveit.moveit.plugins.simple_controller_manager]: Returned 1 controllers in list
+[planning_stack.py-1] [INFO] [1794703911.242666119] [move_group.moveit.moveit.plugins.simple_controller_manager]: Returned 1 controllers in list
+[planning_stack.py-1] [INFO] [1794703911.244133492] [move_group.moveit.moveit.ros.trajectory_execution_manager]: Trajectory execution is not managing controllers
+[planning_stack.py-1] [INFO] [1794703911.244241815] [move_group]: MoveGroup debug mode is ON
+[planning_stack.py-1] [INFO] [1794703911.282574019] [move_group.moveit.moveit.ros.move_group.executable]: 
+[planning_stack.py-1] 
+[planning_stack.py-1] ********************************************************
+[planning_stack.py-1] * MoveGroup using: 
+[planning_stack.py-1] *     - apply_planning_scene_service
+[planning_stack.py-1] *     - clear_octomap_service
+[planning_stack.py-1] *     - get_group_urdf
+[planning_stack.py-1] *     - load_geometry_from_file
+[planning_stack.py-1] *     - CartesianPathService
+[planning_stack.py-1] *     - get_planning_scene_service
+[planning_stack.py-1] *     - kinematics_service
+[planning_stack.py-1] *     - motion_plan_service
+[planning_stack.py-1] *     - query_planners_service
+[planning_stack.py-1] *     - state_validation_service
+[planning_stack.py-1] *     - save_geometry_to_file
+[planning_stack.py-1] ********************************************************
+[planning_stack.py-1] 
+[planning_stack.py-1] [INFO] [1794703911.282963695] [move_group.moveit.moveit.ros.move_group.context]: MoveGroup context using pipeline ompl
+[planning_stack.py-1] [INFO] [1794703911.283039473] [move_group.moveit.moveit.ros.move_group.context]: MoveGroup context initialization complete
+[planning_stack.py-1] [96mLoading 'move_group/ApplyPlanningSceneService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/ClearOctomapService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/GetUrdfService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/LoadGeometryFromFileService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/MoveGroupCartesianPathService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/MoveGroupGetPlanningSceneService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/MoveGroupKinematicsService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/MoveGroupPlanService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/MoveGroupQueryPlannersService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/MoveGroupStateValidationService'...[0m
+[planning_stack.py-1] [96mLoading 'move_group/SaveGeometryToFileService'...[0m
+[planning_stack.py-1] 
+[planning_stack.py-1] [92mYou can start planning now![0m
+[planning_stack.py-1] 
+[motion_server-2] [INFO] [1794703912.202773610] [pinchy_motion]: Pose request base_link XYZ=[0.42299893282650336, -0.011668853781146418, 0.27770672103757715] RPY_deg=[43.265405241496815, -59.86007456767393, 135.12612015501298]
+[motion_server-2] [INFO] [1794703912.210688442] [pinchy_motion]: PLAN_EVENT {"event": "request", "request_id": "62571f8464e7443d92059b723588f71e", "orientation_mode": "full", "path_mode": "joint", "xyz": [0.42299893282650336, -0.011668853781146418, 0.27770672103757715], "quaternion": [0.5506286251529344, 0.11828750676518902, 0.8148142893338296, 0.13745492644089088], "commanded_start": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "measured_start": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "model_sha256": "6b47e5f0c390947120903ecb385b6c660233955c60cf1a304ce9893b652a9166"}
+[planning_stack.py-1] [INFO] [1794703912.259022294] [move_group.moveit.moveit.ros.move_group.plan_service]: Received new planning service request...
+[planning_stack.py-1] [INFO] [1794703912.259273469] [move_group.moveit.moveit.ros.move_group.capability]: Using planning pipeline 'ompl'
+[planning_stack.py-1] [INFO] [1794703912.259700746] [move_group]: Calling PlanningRequestAdapter 'ResolveConstraintFrames'
+[planning_stack.py-1] [INFO] [1794703912.259823502] [move_group]: Calling PlanningRequestAdapter 'ValidateWorkspaceBounds'
+[planning_stack.py-1] [INFO] [1794703912.259881072] [move_group]: Calling PlanningRequestAdapter 'CheckStartStateBounds'
+[planning_stack.py-1] [INFO] [1794703912.259991955] [move_group]: Calling PlanningRequestAdapter 'CheckStartStateCollision'
+[planning_stack.py-1] [INFO] [1794703912.261973071] [move_group.moveit.moveit.planners.ompl.model_based_planning_context]: Planner configuration 'arm[RRTConnectkConfigDefault]' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[planning_stack.py-1] [INFO] [1794703912.262543457] [move_group]: Calling Planner 'OMPL'
+[planning_stack.py-1] [INFO] [1794703912.317563687] [move_group]: Calling PlanningResponseAdapter 'AddTimeOptimalParameterization'
+[planning_stack.py-1] [INFO] [1794703912.327102537] [move_group]: Calling PlanningResponseAdapter 'ValidateSolution'
+[planning_stack.py-1] [INFO] [1794703912.328478515] [move_group]: Calling PlanningResponseAdapter 'DisplayMotionPath'
+[motion_server-2] [INFO] [1794703913.295820272] [pinchy_motion]: PLAN_EVENT {"event": "planned", "request_id": "62571f8464e7443d92059b723588f71e", "plan_id": "3c9263dd911a4f4eba87af95151feac5", "duration": 2.314357189, "ik_report": {"source": "MoveIt KDL", "mode": "full", "native_queries": 1, "conditioning": {"mode": "full", "task_dimensions": 6, "smallest_singular_value": 0.0759147620405343, "condition_number": 32.10379819493726, "near_singular": false, "translation_scale_m": 0.4}}, "endpoint": [0.10000351476099875, -0.24999265441992688, 0.5000047927525263, -0.2500110711868064, 0.3999892322160842, 0.4000030796770437]}
+[motion_server-2] [INFO] [1794703916.618871796] [pinchy_motion]: PLAN_EVENT {"event": "path_request", "request_id": "d1479a57ce6f46cab43e552564edf04c", "style": "polyline", "mode": "tool_axis", "start": [0.10000351476099875, -0.24999265441992688, 0.5000047927525263, -0.2500110711868064, 0.3999892322160842, 0.4000030796770437], "waypoints": [{"xyz": [0.42299893282650336, -0.001668853781146418, 0.27770672103757715], "quaternion": [0.5506286251529344, 0.11828750676518902, 0.8148142893338296, 0.13745492644089088]}, {"xyz": [0.42299893282650336, 0.01833114621885358, 0.27770672103757715], "quaternion": [0.5506286251529344, 0.11828750676518902, 0.8148142893338296, 0.13745492644089088]}, {"xyz": [0.42299893282650336, 0.028331146218853583, 0.27770672103757715], "quaternion": [0.5506286251529344, 0.11828750676518902, 0.8148142893338296, 0.13745492644089088]}], "contacts": [false, false, false], "tcp_speed": 0.01}
+[motion_server-2] [INFO] [1794703934.445593920] [pinchy_motion]: PLAN_EVENT {"event": "path_planned", "request_id": "d1479a57ce6f46cab43e552564edf04c", "plan_id": "cae89bec22bf4828903f87f5b9b13de8", "duration": 4.530080715, "points": 220, "timing": [{"requested_tcp_speed_m_s": 0.01, "modeled_peak_tcp_speed_m_s": 0.009536072235177962, "modeled_contact_min_m_s": 0.0, "modeled_contact_max_m_s": 0.0, "transit_time_scale": 1.0500000000445782, "physical_speed_qualified": false}]}
+[motion_server-2] [WARN] [1794703945.138611393] [pinchy_motion]: Contact-tagged paths are mock-only until physical pen/contact qualification; pen-up paths remain available
+[motion_server-2] [INFO] [1794703945.144321486] [pinchy_motion]: PLAN_EVENT {"event": "path_rejected", "request_id": "d8dcf968610f445cab06fed1e81da8bf", "message": "Contact-tagged paths are mock-only until physical pen/contact qualification; pen-up paths remain available"}
+[motion_server-2] [INFO] [1794703945.373325363] [pinchy_motion]: PLAN_EVENT {"event": "path_request", "request_id": "101081d0cbd34e4d995d4bd0fdcb4064", "style": "polyline", "mode": "tool_axis", "start": [-0.10385495771930227, -0.23485822252877617, 0.5099284382464191, -0.3027382161467518, -0.11244266244838831, 0.3514372150623143], "waypoints": [{"xyz": [0.423029, 0.030547, 0.277742], "quaternion": [-0.5621245999613323, 0.035886418615646176, -0.8213796859649743, 0.08979705207485736]}, {"xyz": [0.423029, 0.032547, 0.277742], "quaternion": [-0.5621245999613323, 0.035886418615646176, -0.8213796859649743, 0.08979705207485736]}], "contacts": [false, false], "tcp_speed": 0.02}
+[motion_server-2] [INFO] [1794703949.729348292] [pinchy_motion]: PLAN_EVENT {"event": "path_planned", "request_id": "101081d0cbd34e4d995d4bd0fdcb4064", "plan_id": "ea736d921e7541ab97e103a9fe2894df", "duration": 1.080523226, "points": 56, "timing": [{"requested_tcp_speed_m_s": 0.02, "modeled_peak_tcp_speed_m_s": 0.007999616146496458, "modeled_contact_min_m_s": 0.0, "modeled_contact_max_m_s": 0.0, "transit_time_scale": 1.0500000004412884, "physical_speed_qualified": false}, {"requested_tcp_speed_m_s": 0.02, "modeled_peak_tcp_speed_m_s": 0.0075986708214204075, "modeled_contact_min_m_s": 0.0, "modeled_contact_max_m_s": 0.0, "transit_time_scale": 1.0500000006532482, "physical_speed_qualified": false}]}
+[motion_server-2] [INFO] [1794703951.972955342] [pinchy_motion]: PLAN_EVENT {"event": "path_request", "request_id": "cc924dd6740a40259ebcba74857c9515", "style": "polyline", "mode": "tool_axis", "start": [-0.10385495771930227, -0.23485822252877617, 0.5099284382464191, -0.3027382161467518, -0.11244266244838831, 0.3514372150623143], "waypoints": [{"xyz": [0.42302859288511896, 0.03054696494404477, 0.2777420580765119], "quaternion": [-0.562121653096163, 0.03588650388385542, -0.8213814927211665, 0.08979893860497166]}, {"xyz": [0.42302859288511896, 0.03254696494404477, 0.2777420580765119], "quaternion": [-0.562121653096163, 0.03588650388385542, -0.8213814927211665, 0.08979893860497166]}], "contacts": [false, false], "tcp_speed": 0.01}
+[motion_server-2] [INFO] [1794703956.760566163] [pinchy_motion]: PLAN_EVENT {"event": "path_planned", "request_id": "cc924dd6740a40259ebcba74857c9515", "plan_id": "695825ab73fb4d97b1bc21e6fcd39728", "duration": 1.0805182740000001, "points": 56, "timing": [{"requested_tcp_speed_m_s": 0.01, "modeled_peak_tcp_speed_m_s": 0.00799954268526013, "modeled_contact_min_m_s": 0.0, "modeled_contact_max_m_s": 0.0, "transit_time_scale": 1.0499999995253588, "physical_speed_qualified": false}, {"requested_tcp_speed_m_s": 0.01, "modeled_peak_tcp_speed_m_s": 0.007598996245140669, "modeled_contact_min_m_s": 0.0, "modeled_contact_max_m_s": 0.0, "transit_time_scale": 1.0500000006532475, "physical_speed_qualified": false}]}
+[motion_server-2] [INFO] [1794703957.339069506] [pinchy_motion]: Pose request base_link XYZ=[0.42299893282650336, -0.011668853781146418, 0.27770672103757715] RPY_deg=[43.265405241496815, -59.86007456767393, 135.12612015501298]
+[motion_server-2] [INFO] [1794703957.342009051] [pinchy_motion]: PLAN_EVENT {"event": "request", "request_id": "86ebd295b9694bf4b2fe5ff400ba1153", "orientation_mode": "full", "path_mode": "joint", "xyz": [0.42299893282650336, -0.011668853781146418, 0.27770672103757715], "quaternion": [0.5506286251529344, 0.11828750676518902, 0.8148142893338296, 0.13745492644089088], "commanded_start": [-0.10385495771930227, -0.23485822252877617, 0.5099284382464191, -0.3027382161467518, -0.11244266244838831, 0.3514372150623143], "measured_start": [-0.1043106935762236, -0.2346990605465031, 0.5092816215780329, -0.3021942152134713, -0.1119805975156518, 0.3512816004258118], "model_sha256": "6b47e5f0c390947120903ecb385b6c660233955c60cf1a304ce9893b652a9166"}
+[planning_stack.py-1] [INFO] [1794703957.422410530] [move_group.moveit.moveit.ros.move_group.plan_service]: Received new planning service request...
+[planning_stack.py-1] [INFO] [1794703957.422685354] [move_group.moveit.moveit.ros.move_group.capability]: Using planning pipeline 'ompl'
+[planning_stack.py-1] [INFO] [1794703957.422975987] [move_group]: Calling PlanningRequestAdapter 'ResolveConstraintFrames'
+[planning_stack.py-1] [INFO] [1794703957.423109591] [move_group]: Calling PlanningRequestAdapter 'ValidateWorkspaceBounds'
+[planning_stack.py-1] [INFO] [1794703957.423191930] [move_group]: Calling PlanningRequestAdapter 'CheckStartStateBounds'
+[planning_stack.py-1] [INFO] [1794703957.423328734] [move_group]: Calling PlanningRequestAdapter 'CheckStartStateCollision'
+[planning_stack.py-1] [INFO] [1794703957.425060338] [move_group.moveit.moveit.planners.ompl.model_based_planning_context]: Planner configuration 'arm[RRTConnectkConfigDefault]' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[planning_stack.py-1] [INFO] [1794703957.425439006] [move_group]: Calling Planner 'OMPL'
+[planning_stack.py-1] [INFO] [1794703957.465158675] [move_group]: Calling PlanningResponseAdapter 'AddTimeOptimalParameterization'
+[planning_stack.py-1] [INFO] [1794703957.473979935] [move_group]: Calling PlanningResponseAdapter 'ValidateSolution'
+[planning_stack.py-1] [INFO] [1794703957.476236195] [move_group]: Calling PlanningResponseAdapter 'DisplayMotionPath'
+[motion_server-2] [INFO] [1794703959.341444492] [pinchy_motion]: PLAN_EVENT {"event": "planned", "request_id": "86ebd295b9694bf4b2fe5ff400ba1153", "plan_id": "360cd0cdaf1842d7bb65908d0ef274bd", "duration": 2.367259884, "ik_report": {"source": "MoveIt KDL", "mode": "full", "native_queries": 1, "conditioning": {"mode": "full", "task_dimensions": 6, "smallest_singular_value": 0.07591523334778429, "condition_number": 32.103571128602844, "near_singular": false, "translation_scale_m": 0.4}}, "endpoint": [0.09999570709367703, -0.24999934959064618, 0.5000263718581325, -0.25004526112183667, 0.39999329907943537, 0.399989395298647]}
+[motion_server-2] [INFO] [1794703963.229851408] [pinchy_motion]: Pose request base_link XYZ=[0.42299893282650336, -0.003668853781146418, 0.27770672103757715] RPY_deg=[43.265405241496815, -59.86007456767393, 135.12612015501298]
+[motion_server-2] [INFO] [1794703963.231116726] [pinchy_motion]: PLAN_EVENT {"event": "request", "request_id": "557ae9d2cc7540fea3d192a1781504f4", "orientation_mode": "tool_axis", "path_mode": "cartesian", "xyz": [0.42299893282650336, -0.003668853781146418, 0.27770672103757715], "quaternion": [0.5506286251529344, 0.11828750676518902, 0.8148142893338296, 0.13745492644089088], "commanded_start": [0.09999570709367703, -0.24999934959064618, 0.5000263718581325, -0.25004526112183667, 0.39999329907943537, 0.399989395298647], "measured_start": [0.09970875121256667, -0.2500388684253595, 0.500077736850719, -0.2500388684253595, 0.4003689856381523, 0.4003689856381523], "model_sha256": "6b47e5f0c390947120903ecb385b6c660233955c60cf1a304ce9893b652a9166"}
+[motion_server-2] [INFO] [1794703967.835265119] [pinchy_motion]: PLAN_EVENT {"event": "planned", "request_id": "557ae9d2cc7540fea3d192a1781504f4", "plan_id": "4e92b266772f4455ba06c3c0bf62c2b0", "duration": 1.105367644, "ik_report": {"source": "MoveIt KDL free-twist", "mode": "tool_axis", "native_queries": 1, "conditioning": {"mode": "tool_axis", "task_dimensions": 5, "smallest_singular_value": 0.12324203681513231, "condition_number": 19.734084554808575, "near_singular": false, "translation_scale_m": 0.4}}, "endpoint": [0.06145275882789898, -0.24758646504694953, 0.5109388941942434, -0.27843469876938554, 0.3215871518527025, 0.3737891427376328]}
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [motion_server-2]: sending signal 'SIGINT' to process[motion_server-2]
+[INFO] [planning_stack.py-1]: sending signal 'SIGINT' to process[planning_stack.py-1]
+[planning_stack.py-1] [INFO] [1794703970.992834746] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planning_stack.py-1] [INFO] [1794703971.046998341] [move_group.moveit.moveit.ros.moveit_cpp]: Deleting MoveItCpp
+[planning_stack.py-1] Stack trace (most recent call last):
+[planning_stack.py-1] #15   Object "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1", at 0xffffffffffffffff, in 
+[planning_stack.py-1] #14   Object "/opt/ros/jazzy/lib/moveit_ros_move_group/move_group", at 0xaaaae75b1d6f, in _start
+[motion_server-2] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[motion_server-2] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[motion_server-2] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[motion_server-2] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[planning_stack.py-1] #13   Source "../csu/libc-start.c", line 360, in __libc_start_main_impl [0xffff85ff8597]
+[planning_stack.py-1] #12   Source "../sysdeps/nptl/libc_start_call_main.h", line 58, in __aarch64_ldadd4_relax [0xffff85ff84c3]
+[planning_stack.py-1] #11   Object "/opt/ros/jazzy/lib/moveit_ros_move_group/move_group", at 0xaaaae75b0a67, in main
+[planning_stack.py-1] #10   Object "/opt/ros/jazzy/lib/moveit_ros_move_group/move_group", at 0xaaaae75b36f7, in 
+[planning_stack.py-1] #9    Object "/opt/ros/jazzy/lib/libmoveit_cpp.so.2.12.4", at 0xffff86a79e5f, in moveit_cpp::MoveItCpp::~MoveItCpp()
+[planning_stack.py-1] #8    Object "/opt/ros/jazzy/lib/libmoveit_cpp.so.2.12.4", at 0xffff86a79c57, in 
+[planning_stack.py-1] #7    Object "/opt/ros/jazzy/lib/libmoveit_trajectory_execution_manager.so.2.12.4", at 0xffff85be58ff, in trajectory_execution_manager::TrajectoryExecutionManager::~TrajectoryExecutionManager()
+[planning_stack.py-1] #6    Object "/opt/ros/jazzy/lib/libmoveit_trajectory_execution_manager.so.2.12.4", at 0xffff85bf6c4f, in 
+[planning_stack.py-1] #5    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff866332d3, in rclcpp::Node::~Node()
+[planning_stack.py-1] #4    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff865cb60f, in 
+[planning_stack.py-1] #3    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff86631927, in 
+[planning_stack.py-1] #2    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff86631867, in rclcpp::node_interfaces::NodeBase::~NodeBase()
+[planning_stack.py-1] #1    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff865cb6eb, in 
+[planning_stack.py-1] #0    Object "/opt/ros/jazzy/lib/librclcpp.so", at 0xffff865d00f8, in rclcpp::CallbackGroup::~CallbackGroup()
+[planning_stack.py-1] Segmentation fault (Address not mapped to object [0xffff4e29ddc0])
+[planning_stack.py-1] Traceback (most recent call last):
+[planning_stack.py-1]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py", line 134, in <module>
+[planning_stack.py-1]     if __name__ == '__main__': raise SystemExit(main())
+[planning_stack.py-1]                                                 ^^^^^^
+[planning_stack.py-1]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py", line 128, in main
+[planning_stack.py-1]     try: child.wait(timeout=8)
+[planning_stack.py-1]          ^^^^^^^^^^^^^^^^^^^^^
+[planning_stack.py-1]   File "/usr/lib/python3.12/subprocess.py", line 1264, in wait
+[planning_stack.py-1]     return self._wait(timeout=timeout)
+[planning_stack.py-1]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[planning_stack.py-1]   File "/usr/lib/python3.12/subprocess.py", line 2047, in _wait
+[planning_stack.py-1]     time.sleep(delay)
+[planning_stack.py-1] KeyboardInterrupt
+[ERROR] [planning_stack.py-1]: process has died [pid 81497, exit code -2, cmd '/home/leo/Robot-Arm/robot_software/install/pinchy_moveit_config/lib/pinchy_moveit_config/planning_stack.py --ros-args --params-file /tmp/launch_params_33t21jue'].
+[INFO] [motion_server-2]: process has finished cleanly [pid 81498]

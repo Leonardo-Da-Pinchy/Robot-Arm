@@ -1,0 +1,5 @@
+{
+  "default_zero_tolerance_ticks": 10,
+  "joint_zero_tolerance_ticks": {"shoulder_lift": 19, "elbow_flex": 19},
+  "reason": "Loaded shoulder/elbow settling aligned below the existing 0.03 rad joint arrival tolerance; commands remain at calibrated zero and actual feedback is preserved."
+}

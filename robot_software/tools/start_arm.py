@@ -29,7 +29,10 @@ from servo_setup import SetupBus
 from servo_bench import error_text
 from servo_diagnostics import temperature_spike_unconfirmed
 
-ZERO_TOLERANCE = 10 # Encoder ticks: approximately 0.88 degrees
+STARTUP_RAMP_RAD_S = 0.1125  # ~6.45 deg/s, 1.5x the previous zeroing ramp.
+STARTUP_SERVO_SPEED = 150
+STARTUP_SERVO_ACCELERATION = 8
+STARTUP_POLICY = json.loads((ROOT/'src/pinchy_description/config/startup_policy.json').read_text())
 
 
 def validate_profile(profile):
@@ -63,19 +66,19 @@ def validate_profile(profile):
         delta = observation['positive_direction'].get('encoder_delta', 0)
         if not 8 <= abs(delta) <= 1024 or (1 if delta > 0 else -1) != j['direction']:
             raise ValueError(f'ID {servo_id}: direction evidence disagrees with calibration')
-    if not (1 <= profile['speed'] <= 600 and 1 <= profile['acceleration'] <= 40 and
+    if not (1 <= profile['speed'] <= 1000 and 1 <= profile['acceleration'] <= 80 and
             1 <= profile['torque_limit'] <= 1000):
-        raise ValueError('Require raw speed <=600, acceleration <=40 and torque limit in 1..1000; startup uses caps 100/5')
+        raise ValueError('Require raw speed <=1000, acceleration <=80 and torque limit in 1..1000; startup uses caps 150/8')
     return model
 
 
 class GuidedStartup:
-    def __init__(self, bus, profile, max_start_degrees=25, log=lambda *a, **k: None,
+    def __init__(self, bus, profile, max_start_degrees=90, log=lambda *a, **k: None,
                  clock=time.monotonic, sleep=time.sleep):
         self.bus, self.profile = bus, profile
         self.model = validate_profile(profile)
-        if not 0 < max_start_degrees <= 25:
-            raise ValueError('Near-zero startup window must be in (0, 25] degrees')
+        if not 0 < max_start_degrees <= 90:
+            raise ValueError('Startup capture window must be in (0, 90] degrees')
         self.max_start = math.radians(max_start_degrees)
         self.log, self.clock, self.sleep = log, clock, sleep
         self.held = []; self.touched = set()
@@ -125,11 +128,15 @@ class GuidedStartup:
             preflight_settings(state, servo_id)
             self.log('preflight', id=servo_id, ticks=state['position'])
 
+    def zero_tolerance(self,servo_id):
+        return STARTUP_POLICY['joint_zero_tolerance_ticks'].get(JOINTS[servo_id],STARTUP_POLICY['default_zero_tolerance_ticks'])
+
     def monitor(self):
         for servo_id in self.held:
             state = self.state(servo_id)
             zero = self.profile['joints'][JOINTS[servo_id]]['zero_tick']
-            if state['torque'] == 1 and ZERO_TOLERANCE < abs(state['position']-zero) <= 32:
+            tolerance = self.zero_tolerance(servo_id)
+            if state['torque'] == 1 and tolerance < abs(state['position']-zero) <= 32:
                 # Confirm small excursions rather than dropping every hold on
                 # one noisy reading. No new motor goals are sent during rechecks.
                 self.log('hold_recheck', id=servo_id, target=zero, position=state['position'])
@@ -137,11 +144,11 @@ class GuidedStartup:
                     self.sleep(0.05)
                     state = self.state(servo_id)
                     if state['torque'] != 1 or abs(state['position']-zero) > 32: break
-                    if abs(state['position']-zero) <= ZERO_TOLERANCE: break
-            if state['torque'] != 1 or abs(state['position']-zero) > ZERO_TOLERANCE:
+                    if abs(state['position']-zero) <= tolerance: break
+            if state['torque'] != 1 or abs(state['position']-zero) > tolerance:
                 raise RuntimeError(f'ID {servo_id}: lost zero hold; '
                                    f"target={zero}, position={state['position']}, "
-                                   f"error={state['position']-zero:+d} ticks (allowed +/-{ZERO_TOLERANCE}), "
+                                   f"error={state['position']-zero:+d} ticks (allowed +/-{tolerance}), "
                                    f"torque={state['torque']}; support arm and inspect load/feedback")
 
     def describe(self, servo_id):
@@ -150,47 +157,59 @@ class GuidedStartup:
               f"zero tick={self.profile['joints'][JOINTS[servo_id]]['zero_tick']}. "
               f"Holding IDs: {self.held}", flush=True)
 
+    def capture_interval(self,servo_id):
+        joint=self.profile['joints'][JOINTS[servo_id]]
+        limit=self.model.find(f"joint[@name='{JOINTS[servo_id]}']/limit")
+        # A tiny settling allowance near zero retains inward capture at an
+        # operating boundary, without authorizing broad unmeasured travel.
+        settling=10*TICK
+        return (max(-self.max_start,float(limit.get('lower')),min(joint['min_radians'],-settling)),
+                min(self.max_start,float(limit.get('upper')),max(joint['max_radians'],settling)))
+
     def lock_motor(self, servo_id):
         self.monitor()
         state = self.state(servo_id, full=True)
         preflight_settings(state, servo_id)
         name = JOINTS[servo_id]; j = self.profile['joints'][name]
+        tolerance = self.zero_tolerance(servo_id)
         start = state['position']; angle = self.angle(servo_id, start)
-        limit = self.model.find(f"joint[@name='{name}']/limit")
-        if abs(angle) > self.max_start or not float(limit.get('lower')) <= angle <= float(limit.get('upper')):
-            raise ValueError(f'ID {servo_id}: {math.degrees(angle):+.2f} degrees is not near zero. '
+        low,high=self.capture_interval(servo_id)
+        if not low-1e-12 <= angle <= high+1e-12:
+            raise ValueError(f'ID {servo_id}: {math.degrees(angle):+.2f} degrees is outside startup interval [{math.degrees(low):+.2f}, {math.degrees(high):+.2f}]. '
                              'Manually support/position this joint near zero, then try again; no motor write sent.')
         # This explicit operator-approved startup path only moves inward to zero
-        # within the small CAD-bounded corridor, even if the free joint drifted
-        # slightly beyond an operational bound at zero. ROS retains normal limits.
+        # within the saved/CAD-bounded corridor, with only a tiny feedback
+        # allowance beyond an operational bound at zero. ROS retains normal limits.
         self.touched.add(servo_id)
         self.log('locking', id=servo_id, from_ticks=start, to_ticks=j['zero_tick'])
         self.call(servo_id, 'set_torque_limit', self.profile['torque_limit'])
-        self.call(servo_id, 'move', start, min(100, self.profile['speed']), min(5, self.profile['acceleration']))
+        self.log('torque_limit_verified', id=servo_id, torque_limit_raw=self.call(servo_id, 'word', 48), voltage_raw=state['voltage_raw'])
+        self.call(servo_id, 'move', start, min(STARTUP_SERVO_SPEED, self.profile['speed']), min(STARTUP_SERVO_ACCELERATION, self.profile['acceleration']))
         if self.call(servo_id, 'word', 42) != start: raise RuntimeError('Current-pose staging readback failed')
         self.call(servo_id, 'enable')
         current = self.state(servo_id)
         if current['torque'] != 1 or abs(current['position']-start) > 5:
             raise RuntimeError('Unexpected movement during current-pose hold')
-        duration = max(0.5, abs(angle)/min(0.075, j['max_velocity']))
+        duration = max(0.35, abs(angle)/min(STARTUP_RAMP_RAD_S, j['max_velocity']))
         began = self.clock(); last = start
         while True:
             fraction = min(1.0, (self.clock()-began)/duration)
             target = round(start+(j['zero_tick']-start)*fraction)
             if target != last:
-                self.call(servo_id, 'move', target, min(100, self.profile['speed']), min(5, self.profile['acceleration']))
+                self.call(servo_id, 'move', target, min(STARTUP_SERVO_SPEED, self.profile['speed']), min(STARTUP_SERVO_ACCELERATION, self.profile['acceleration']))
                 last = target
             self.monitor(); current = self.state(servo_id)
             if current['torque'] != 1:
                 raise RuntimeError(f'ID {servo_id} ({name}): motor torque switched off while moving to zero')
-            if abs(current['position']-target) > 16:
+            if abs(current['position']-target) > max(16,tolerance+5):
                 # Freeze the commanded pose and trajectory clock while the servo
                 # catches up. Never accumulate more motion against a stalled joint.
                 paused = self.clock(); deadline = paused+3
                 print(f'ID {servo_id} ({name}): pausing motion to let motor catch up '
-                      f"({abs(current['position']-target)*TICK*180/math.pi:.2f} degrees behind target).", flush=True)
+                      f"({abs(current['position']-target)*TICK*180/math.pi:.2f} degrees behind target; "
+                      f"torque allowance {self.profile['torque_limit']/10:g}%, supply {current['voltage_raw']/10:.1f} V).", flush=True)
                 self.log('catch_up', id=servo_id, target=target, position=current['position'])
-                while abs(current['position']-target) > 8:
+                while abs(current['position']-target) > (tolerance if tolerance>10 else 8):
                     if current['torque'] != 1:
                         raise RuntimeError(f'ID {servo_id} ({name}): torque switched off during catch-up')
                     if abs(current['position']-target) > 64 or self.clock() >= deadline:
@@ -208,16 +227,16 @@ class GuidedStartup:
         deadline = self.clock()+3
         while True:
             self.monitor(); current = self.state(servo_id)
-            if current['torque'] == 1 and abs(current['position']-j['zero_tick']) <= ZERO_TOLERANCE: break
+            if current['torque'] == 1 and abs(current['position']-j['zero_tick']) <= tolerance: break
             if self.clock() >= deadline:
                 raise TimeoutError(f'ID {servo_id}: zero not reached after 3 s settling; '
                                    f"target={j['zero_tick']}, position={current['position']}, "
-                                   f"error={current['position']-j['zero_tick']:+d} ticks (allowed +/-{ZERO_TOLERANCE}), "
+                                   f"error={current['position']-j['zero_tick']:+d} ticks (allowed +/-{tolerance}), "
                                    f"torque={current['torque']}")
             self.sleep(0.05)
         self.held.append(servo_id); self.monitor()
         self.log('locked', id=servo_id, measured_ticks=current['position'])
-        print(f'ID {servo_id} locked at calibrated zero (feedback within {ZERO_TOLERANCE} ticks). Holding IDs: {self.held}', flush=True)
+        print(f'ID {servo_id} locked at calibrated zero (feedback within {tolerance} ticks). Holding IDs: {self.held}', flush=True)
 
     def release(self):
         errors = []
@@ -268,10 +287,10 @@ def walkthrough(startup, ask):
             # rejection can be retried without dropping the earlier zero holds.
             state = startup.state(servo_id, full=True)
             angle = startup.angle(servo_id, state['position'])
-            limit = startup.model.find(f"joint[@name='{JOINTS[servo_id]}']/limit")
-            if abs(angle) > startup.max_start or not float(limit.get('lower')) <= angle <= float(limit.get('upper')):
+            low,high=startup.capture_interval(servo_id)
+            if not low-1e-12 <= angle <= high+1e-12:
                 print(f'Not locked: {math.degrees(angle):+.2f} degrees. Position this joint within '
-                      f'{math.degrees(startup.max_start):.1f} degrees of zero and inside its CAD range, then retry.', flush=True)
+                      f'[{math.degrees(low):+.2f}, {math.degrees(high):+.2f}] degrees, then retry.', flush=True)
                 continue
             startup.lock_motor(servo_id); break
     return True
@@ -301,10 +320,11 @@ def main():
     parser.add_argument('--calibration', type=Path, default=ROOT/'calibration/arm.json')
     parser.add_argument('--domain', type=int, default=42)
     parser.add_argument('--ros-distro', default=os.environ.get('ROS_DISTRO', 'jazzy'))
+    parser.add_argument('--motion', action='store_true', help='After the same guided startup, open MoveIt and Cartesian pose controls instead of joint sliders')
     parser.add_argument('--no-gui', action='store_true', help='Start ROS after zero holds, without RViz/sliders')
     parser.add_argument('--wizard-only', action='store_true', help='Keep prompted holds without starting ROS; q releases')
-    parser.add_argument('--max-start-degrees', type=float, default=25,
-                        help='Maximum starting distance from zero in degrees (default: 25; CAD limits still apply)')
+    parser.add_argument('--max-start-degrees', type=float, default=90,
+                        help='Maximum starting distance from zero in degrees (default: 90; saved/CAD limits still apply)')
     parser.add_argument('--log', type=Path, default=Path('/tmp/pinchy-arm-startup.jsonl'))
     args = parser.parse_args()
     def interrupted(signum, frame):
@@ -313,8 +333,13 @@ def main():
     signal.signal(signal.SIGHUP, interrupted)
     if not args.hardware: parser.error('Add --hardware only when ready for the prompted physical zero-and-hold steps')
     if not 0 <= args.domain <= 232: parser.error('ROS domain must be in 0..232')
-    if not math.isfinite(args.max_start_degrees) or not 0 < args.max_start_degrees <= 25:
-        parser.error('--max-start-degrees must be in (0, 25]')
+    if not math.isfinite(args.max_start_degrees) or not 0 < args.max_start_degrees <= 90:
+        parser.error('--max-start-degrees must be in (0, 90]')
+    if args.motion:
+        available = subprocess.run(ros_command(args, 'ros2', 'pkg', 'prefix', 'pinchy_moveit_config'),
+            capture_output=True, text=True, timeout=10)
+        if available.returncode != 0:
+            raise RuntimeError('MoveIt application is not built; build the workspace before physical startup')
     raw = json.loads(args.calibration.read_text())
     profile = load_profile(args.calibration, True, raw['port'])
     validate_profile(profile)
@@ -375,12 +400,18 @@ def main():
             result = ready.returncode
             if result not in (0, 2) or process.poll() is not None: raise RuntimeError('ROS did not adopt the zero holds')
             record('ros_ready' if result == 0 else 'ros_safety_hold')
-            if not args.no_gui:
-                for command in [('ros2', 'run', 'rviz2', 'rviz2', '-d', ROOT/'src/pinchy_bringup/config/arm.rviz'),
-                                ('ros2', 'run', 'pinchy_bringup', 'joint_sliders.py', '--hardware')]:
-                    processes.append(subprocess.Popen(ros_command(args, *command), env=env, start_new_session=True))
+            if args.motion:
+                processes.append(subprocess.Popen(ros_command(args, 'ros2', 'launch',
+                    'pinchy_moveit_config', 'planning.launch.py', 'hardware:=true',
+                    f'rviz:={str(not args.no_gui).lower()}', f'panel:={str(not args.no_gui).lower()}'),
+                    env=env, start_new_session=True))
+            else:
+                if not args.no_gui:
+                    for command in [('ros2', 'run', 'rviz2', 'rviz2', '-d', ROOT/'src/pinchy_bringup/config/arm.rviz'),
+                                    ('ros2', 'run', 'pinchy_bringup', 'joint_sliders.py', '--hardware')]:
+                        processes.append(subprocess.Popen(ros_command(args, *command), env=env, start_new_session=True))
             if result == 0:
-                print('READY: ROS owns the arm. Use sliders. Keep this terminal open; Ctrl+C stops ROS and releases torque.', flush=True)
+                print('READY: ROS owns the arm. '+('Use the Cartesian pose panel; Plan previews, Execute moves.' if args.motion else 'Use sliders.')+' Keep this terminal open; Ctrl+C stops ROS and releases torque.', flush=True)
             else:
                 print('SAFETY HOLD: movement is blocked; torque remains on. Inspect/support the arm. Ctrl+C explicitly releases torque.', flush=True)
             while process.poll() is None: time.sleep(0.2)

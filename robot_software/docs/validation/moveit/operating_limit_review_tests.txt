@@ -1,0 +1,32 @@
+test_guided_real_sdk_capture_on_virtual_bus_sends_no_writes (test_calibrate.CLIIntegrationTests.test_guided_real_sdk_capture_on_virtual_bus_sends_no_writes) ... ok
+test_all_six_sequential_captures_read_only (test_calibrate.CalibrationTests.test_all_six_sequential_captures_read_only) ... ok
+test_atomic_save_backup_and_backend_separation (test_calibrate.CalibrationTests.test_atomic_save_backup_and_backend_separation) ... ok
+test_configuration_change_requires_new_zero (test_calibrate.CalibrationTests.test_configuration_change_requires_new_zero) ... ok
+test_direction_in_both_encoder_senses (test_calibrate.CalibrationTests.test_direction_in_both_encoder_senses) ... ok
+test_direction_recapture_invalidates_endpoint_observations (test_calibrate.CalibrationTests.test_direction_recapture_invalidates_endpoint_observations) ... ok
+test_direction_rejects_wrap_and_tiny_motion (test_calibrate.CalibrationTests.test_direction_rejects_wrap_and_tiny_motion) ... ok
+test_large_zero_correction_is_rejected_without_mutation (test_calibrate.CalibrationTests.test_large_zero_correction_is_rejected_without_mutation) ... ok
+test_legacy_partial_endpoint_resumes_as_first_safe_position (test_calibrate.CalibrationTests.test_legacy_partial_endpoint_resumes_as_first_safe_position) ... ok
+test_limits_in_both_encoder_directions (test_calibrate.CalibrationTests.test_limits_in_both_encoder_directions) ... ok
+test_limits_resume_after_lower_capture (test_calibrate.CalibrationTests.test_limits_resume_after_lower_capture) ... ok
+test_moving_joint_not_captured (test_calibrate.CalibrationTests.test_moving_joint_not_captured) ... ok
+test_operating_review_abort_after_first_endpoint_keeps_complete_old_range (test_calibrate.CalibrationTests.test_operating_review_abort_after_first_endpoint_keeps_complete_old_range) ... ok
+test_operating_review_commits_pair_and_retains_zero_and_direction (test_calibrate.CalibrationTests.test_operating_review_commits_pair_and_retains_zero_and_direction) ... ok
+test_operating_review_rejects_two_positive_samples_and_keeps_old_data (test_calibrate.CalibrationTests.test_operating_review_rejects_two_positive_samples_and_keeps_old_data) ... ok
+test_operating_review_sorts_reversed_encoder_direction (test_calibrate.CalibrationTests.test_operating_review_sorts_reversed_encoder_direction) ... ok
+test_operating_review_zero_boundary_must_be_explicit (test_calibrate.CalibrationTests.test_operating_review_zero_boundary_must_be_explicit) ... ok
+test_pen_pitch_limit_does_not_expand_cad_range (test_calibrate.CalibrationTests.test_pen_pitch_limit_does_not_expand_cad_range) ... ok
+test_recapture_invalidates_only_affected_joint (test_calibrate.CalibrationTests.test_recapture_invalidates_only_affected_joint) ... ok
+test_resume_skips_completed_and_quit_keeps_progress (test_calibrate.CalibrationTests.test_resume_skips_completed_and_quit_keeps_progress) ... ok
+test_safe_positions_sort_in_any_order_and_include_zero (test_calibrate.CalibrationTests.test_safe_positions_sort_in_any_order_and_include_zero) ... ok
+test_second_position_requires_first_but_first_can_be_positive (test_calibrate.CalibrationTests.test_second_position_requires_first_but_first_can_be_positive) ... ok
+test_select_one_without_touching_other_captures (test_calibrate.CalibrationTests.test_select_one_without_touching_other_captures) ... ok
+test_small_zero_correction_preserves_sign_and_physical_limits (test_calibrate.CalibrationTests.test_small_zero_correction_preserves_sign_and_physical_limits) ... ok
+test_torque_enabled_refused_without_releasing_it (test_calibrate.CalibrationTests.test_torque_enabled_refused_without_releasing_it) ... ok
+test_zero_adjustment_session_is_read_only_and_saves_only_on_enter (test_calibrate.CalibrationTests.test_zero_adjustment_session_is_read_only_and_saves_only_on_enter) ... ok
+test_zero_correction_tightens_travel_when_new_reference_would_exceed_cad (test_calibrate.CalibrationTests.test_zero_correction_tightens_travel_when_new_reference_would_exceed_cad) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 2.685s
+
+OK

@@ -54,8 +54,9 @@ void Calibration::validate() const
   require(minimum >= 0 && maximum <= 4095 && minimum < maximum && zero >= minimum && zero <= maximum,
           "Invalid calibrated encoder range/zero; wrapping is unsupported");
   require(std::isfinite(lower) && std::isfinite(upper) && lower < upper &&
-          std::isfinite(max_velocity) && max_velocity > 0 && max_velocity <= 1,
-          "Invalid calibrated radian limits/velocity (maximum 1 rad/s)");
+          std::isfinite(max_velocity) && max_velocity > 0 && max_velocity <= 1.0471975511965976,
+          "Invalid calibrated radian limits/velocity (maximum 60 deg/s)");
+  require(startup_tolerance_ticks >= 1 && startup_tolerance_ticks <= 19, "Invalid startup settling tolerance");
   to_ticks(lower); to_ticks(upper);
 }
 
@@ -163,7 +164,7 @@ CallbackReturn FeetechSystem::on_init(const hardware_interface::HardwareInfo & i
     torque_limit_ = integer(p.at("torque_limit"));
     max_feedback_age_ = real(p.at("max_feedback_age"));
     require(timeout_ms_ >= 1 && timeout_ms_ <= 100 && speed_ >= 1 && speed_ <= 1000 &&
-            acceleration_ >= 1 && acceleration_ <= 40 && torque_limit_ >= 1 && torque_limit_ <= 1000 &&
+            acceleration_ >= 1 && acceleration_ <= 80 && torque_limit_ >= 1 && torque_limit_ <= 1000 &&
             std::isfinite(max_feedback_age_) && max_feedback_age_ >= 0.05 && max_feedback_age_ <= 1,
             "Invalid timing/speed/acceleration/torque settings");
     require(!info_.joints.empty() && info_.joints.size() <= 6, "Expected 1 to 6 joints");
@@ -176,6 +177,8 @@ CallbackReturn FeetechSystem::on_init(const hardware_interface::HardwareInfo & i
       Calibration c{integer(j.at("servo_id")), integer(j.at("zero_tick")),
         integer(j.at("direction")), integer(j.at("min_tick")), integer(j.at("max_tick")),
         real(j.at("min_radians")), real(j.at("max_radians")), real(j.at("max_velocity"))};
+      auto tolerance = j.find("startup_tolerance_ticks");
+      if (tolerance != j.end()) c.startup_tolerance_ticks = integer(tolerance->second);
       c.validate(); require(ids.insert(c.id).second, "Duplicate servo ID");
       calibration_.push_back(c);
     }
@@ -308,7 +311,7 @@ void FeetechSystem::verify_zero_hold()
   for (size_t i = 0; i < calibration_.size(); ++i) {
     const auto & c = calibration_[i];
     c.to_ticks(0.0);
-    require(std::abs(ticks_[i] - c.zero) <= 10 && port_->word(c.id, 42) == c.zero,
+    require(std::abs(ticks_[i] - c.zero) <= c.startup_tolerance_ticks && port_->word(c.id, 42) == c.zero,
             "Zero-hold handoff requires each measured position near zero and goal at its calibrated zero");
     require(port_->word(c.id, 48) == torque_limit_, "Zero-hold handoff torque limit mismatch");
   }

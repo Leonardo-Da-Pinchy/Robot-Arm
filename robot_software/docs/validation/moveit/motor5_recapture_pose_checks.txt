@@ -1,0 +1,5 @@
+1 native True bounded True
+operator example tool_axis True Plan ready; no motion sent. tool_axis / joint; resolved RPY -91.38, -27.20, -89.28 deg.
+operator example tool_axis True Plan ready; no motion sent. tool_axis / joint; resolved RPY -91.66, -42.20, -88.80 deg.
+operator example tool_axis True Plan ready; no motion sent. tool_axis / joint; resolved RPY -53.47, -51.05, -119.86 deg.
+operator example tool_axis False MoveIt found no pen-direction solution within the saved ranges. A diagnostic model-range solution exists but exceeds: pen_pitch +95.1 deg vs saved [-1.7, +90.4]. It is NOT an executable plan. Physical range verification is required; no limits were changed and no motion sent.

@@ -35,11 +35,14 @@ def main():
             return 0
         finally:
             node.destroy_node(); rclpy.shutdown()
-    state = dict(model=False, positions={}, stamp=0.0, safety='')
+    state = dict(model=False, positions={}, stamp=0.0, safety='', tolerances={name: 10 for name in JOINTS})
 
     def model(message):
         root = ET.fromstring(message.data)
         param = root.find("./ros2_control/hardware/param[@name='handoff_token']")
+        for name in JOINTS:
+            tolerance = root.find(f"./ros2_control/joint[@name='{name}']/param[@name='startup_tolerance_ticks']")
+            state['tolerances'][name] = int(tolerance.text) if tolerance is not None else 10
         state['model'] = (root.get('name') == 'pinchy_hardware' and param is not None and param.text == args.token)
 
     def positions(message):
@@ -67,7 +70,7 @@ def main():
                     controllers.get('arm_controller') == 'active' and
                     controllers.get('joint_state_broadcaster') == 'active' and
                     all(name in values and math.isfinite(values[name]) and
-                        abs(values[name]) <= 10*2*math.pi/4096+1e-12 for name in JOINTS)):
+                        abs(values[name]) <= state['tolerances'][name]*2*math.pi/4096+1e-12 for name in JOINTS)):
                     print('ROS adopted all six powered zero holds; controllers and feedback ready.', flush=True)
                     return 0
                 future = None

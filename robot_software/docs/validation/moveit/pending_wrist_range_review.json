@@ -1,0 +1,25 @@
+{
+  "kind": "joint-range-review-not-an-active-calibration",
+  "active_profile_unchanged": true,
+  "reason": "A directed solution exists in nominal CAD geometry but is excluded by conservative saved wrist ranges. Physical travel confirmation is pending.",
+  "candidate_angles_deg": {
+    "wrist_roll_minimum": -100.0,
+    "pen_pitch_maximum": 98.0
+  },
+  "changes": [
+    {
+      "joint": "wrist_roll",
+      "old_angle_deg": 0.0,
+      "proposed_angle_deg": -100.0,
+      "encoder_tick": 610,
+      "within_encoder_0_4095": true
+    },
+    {
+      "joint": "pen_pitch",
+      "old_angle_deg": 90.3515625,
+      "proposed_angle_deg": 98.0,
+      "encoder_tick": 2403,
+      "within_encoder_0_4095": true
+    }
+  ]
+}

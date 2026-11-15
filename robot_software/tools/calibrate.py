@@ -7,6 +7,7 @@ is valid YAML for the hardware launch, but remains unconfirmed until limits
 and physical calibration have been reviewed separately.
 """
 import argparse
+import copy
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -288,6 +289,61 @@ def run_limits_session(bus, profile, ids, hardware, save, redo=False, single=Fal
             if answer == 's': break
 
 
+def run_limit_review(bus, profile, ids, hardware, save, allow_one_sided=False,
+                     ask=input, output=print, sleep=time.sleep):
+    """Read-only operating-range review; commit both endpoints together."""
+    model=ET.parse(ROOT/'src/pinchy_description/urdf/pinchy_arm.urdf').getroot()
+    for servo_id in ids:
+        name=JOINTS[servo_id];joint=profile['joints'][name]
+        if joint['zero_tick'] is None or joint['direction'] not in (-1,1):
+            output(f'ID {servo_id}: zero/direction missing; finish those first.');continue
+        state=read_checked(bus,servo_id,hardware)
+        observed=profile['observations'].get(name,{})
+        if 'zero' not in observed or 'positive_direction' not in observed:
+            output(f'ID {servo_id}: missing zero/direction observations; finish those first.');continue
+        limit=model.find(f"joint[@name='{name}']/limit")
+        raw_angles=[joint['direction']*(tick-joint['zero_tick'])*TICK for tick in
+                    (state['min_position_raw'],state['max_position_raw'])]
+        allowed=(max(float(limit.get('lower')),min(raw_angles)),min(float(limit.get('upper')),max(raw_angles)))
+        output(f'\nID {servo_id} ({name}) — OPERATING RANGE REVIEW; zero and direction stay unchanged.')
+        if joint['min_radians'] is not None:
+            output(f"Saved range: [{math.degrees(joint['min_radians']):+.2f}, {math.degrees(joint['max_radians']):+.2f}] deg")
+        output(f'Model/encoder envelope: [{math.degrees(allowed[0]):+.2f}, {math.degrees(allowed[1]):+.2f}] deg; not a clearance guarantee.')
+        output('Manually choose clear usable travel on BOTH sides of zero, before contact/stops. Never force or cross encoder wrap.')
+        output('These endpoints become the actual operating limits: small +/-5 deg samples would restrict all plans to +/-5 deg. Choose the clear travel you intend to use; never chase an angle through contact.')
+        trial=copy.deepcopy(profile);skip=False
+        for side,sign,label in [('first',-1,'NEGATIVE'),('second',1,'POSITIVE')]:
+            output(f'Position this joint on the {label} side of zero and hold still.')
+            while True:
+                suffix='; z = declare saved zero as this boundary' if allow_one_sided else ''
+                answer=ask('Enter = capture, p = read angle, s = keep old range/skip, q = quit'+suffix+': ').strip().lower()
+                if answer=='q':output('Existing range for this joint kept; unfinished pair was not saved.');return
+                if answer=='s':skip=True;break
+                if answer=='p':
+                    current=read_checked(bus,servo_id,hardware)
+                    angle=joint['direction']*(current['position']-joint['zero_tick'])*TICK
+                    output(f"ID {servo_id}: {math.degrees(angle):+.2f} deg; encoder={current['position']}; awaiting {label} side")
+                    continue
+                if answer and not (answer=='z' and allow_one_sided):
+                    output('Use Enter, p, s or q. Zero-as-boundary needs --allow-one-sided.');continue
+                try:
+                    sample=(copy.deepcopy(observed['zero']) if answer=='z' else stable_sample(bus,servo_id,hardware,sleep))
+                    angle=joint['direction']*(sample['position']-joint['zero_tick'])*TICK
+                    if answer!='z' and sign*angle<8*TICK-1e-12:
+                        raise ValueError(f'Expected a {label} angle at least about 0.7 deg from zero. Two positive samples would forbid negative travel. Use p to check; do not force the joint.')
+                    capture_limit(trial,servo_id,side,sample)
+                except ValueError as exc:output('NOT SAVED: '+str(exc));continue
+                output(f'{label} endpoint staged: {math.degrees(angle):+.2f} deg; existing file unchanged until the pair is complete.')
+                break
+            if skip:break
+        if skip:output('Existing range kept.');continue
+        trial['observations'][name]['operating_range_review']=dict(captured_at=now(),
+            method='negative and positive manual endpoints; saved zero/direction retained',zero_boundary_explicitly_allowed=allow_one_sided)
+        profile.clear();profile.update(trial);save(profile)
+        updated=profile['joints'][name]
+        output(f"SAVED ID {servo_id}: [{math.degrees(updated['min_radians']):+.2f}, {math.degrees(updated['max_radians']):+.2f}] deg. No motor writes. Restart bringup to load it.")
+
+
 def show_status(profile, output=print):
     output(f"Capture backend: {profile['capture_backend']}; assembled-arm calibration confirmed: {profile['calibration_confirmed']}")
     output('ID  Joint           Zero tick    Direction    Limits')
@@ -298,6 +354,10 @@ def show_status(profile, output=print):
         observed = profile['observations'].get(name, {})
         partial = 'safe_position_1' in observed or 'limit_lower' in observed
         limits = ('position 2 pending' if partial else 'pending') if joint['min_tick'] is None else 'recorded; review required'
+        if joint['min_radians'] is not None:
+            limits+=f" [{math.degrees(joint['min_radians']):+.2f}, {math.degrees(joint['max_radians']):+.2f}] deg"
+            if joint['min_radians']>=0:limits+=' — ONE-SIDED: no negative travel saved'
+            if joint['max_radians']<=0:limits+=' — ONE-SIDED: no positive travel saved'
         output(f'{servo_id:<3} {name:<15} {zero:<12} {direction:<12} {limits}')
     if profile.get('calibration_confirmed'):
         output('This file is marked confirmed. This command does not enable motors; recapture clears confirmation.')
@@ -349,12 +409,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--hardware', action='store_true', help='Use real servo reads; default mock')
     parser.add_argument('--port', default=PORT)
-    parser.add_argument('--id', type=int, choices=JOINTS, help='Visit only this motor, including an existing capture')
-    parser.add_argument('--step', choices=['zero', 'direction', 'limits', 'adjust-zero'], default='zero')
+    selection=parser.add_mutually_exclusive_group()
+    selection.add_argument('--id', type=int, choices=JOINTS, help='Visit only this motor, including an existing capture')
+    selection.add_argument('--ids',nargs='+',type=int,choices=JOINTS,help='Visit these motors in order')
+    parser.add_argument('--step', choices=['zero', 'direction', 'limits', 'review-limits', 'adjust-zero'], default='zero')
     parser.add_argument('--redo', action='store_true', help='Revisit completed entries in an all-motor run')
+    parser.add_argument('--allow-one-sided',action='store_true',help='review-limits only: explicitly permit saved zero as a physical operating boundary')
     parser.add_argument('--status', action='store_true', help='Show saved progress without opening the bus')
     parser.add_argument('--output', type=Path, default=ROOT/'calibration/arm.json')
     args = parser.parse_args()
+    if args.allow_one_sided and args.step!='review-limits':parser.error('--allow-one-sided is only for --step review-limits')
     if args.step == 'adjust-zero' and args.id is None:
         parser.error('--step adjust-zero requires --id to select one calibrated joint')
     profile = load_profile(args.output, args.hardware, args.port, args.status)
@@ -367,10 +431,15 @@ def main():
     # Opening the SDK with no ID does not command or ping an unselected motor.
     bus = SetupBus(args.port, 1_000_000, None) if args.hardware else MockSetupBus()
     try:
-        selected = [args.id] if args.id else list(JOINTS)
+        selected = [args.id] if args.id else list(dict.fromkeys(args.ids)) if args.ids else list(JOINTS)
         options = dict(redo=args.redo, single=args.id is not None)
         save = lambda value: save_profile(args.output, value)
-        if args.step == 'adjust-zero':
+        if args.step == 'review-limits':
+            if args.output.exists():
+                backup=args.output.with_name(args.output.name+'.review-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.bak')
+                shutil.copyfile(args.output,backup);print(f'Original session backup: {backup}')
+            run_limit_review(bus,profile,selected,args.hardware,save,allow_one_sided=args.allow_one_sided)
+        elif args.step == 'adjust-zero':
             run_zero_adjustment(bus, profile, args.id, args.hardware, save)
         elif args.step == 'limits':
             run_limits_session(bus, profile, selected, args.hardware, save, **options)

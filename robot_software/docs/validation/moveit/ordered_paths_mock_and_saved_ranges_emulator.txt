@@ -1,0 +1,17 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-bjee7r_v
+test_01h_ordered_free_twist_path_and_contact_timing (__main__.MockCartesian.test_01h_ordered_free_twist_path_and_contact_timing) ... ok
+test_01i_queued_path_gui_and_cli (__main__.MockCartesian.test_01i_queued_path_gui_and_cli) ... This plugin does not support propagateSizeHints()
+ok
+test_01j_free_twist_straight_transit (__main__.MockCartesian.test_01j_free_twist_straight_transit) ... ok
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-638tna2r
+test_01h_ordered_free_twist_path_and_contact_timing (__main__.HardwareCartesian.test_01h_ordered_free_twist_path_and_contact_timing) ... ok
+test_01i_queued_path_gui_and_cli (__main__.HardwareCartesian.test_01i_queued_path_gui_and_cli) ... This plugin does not support propagateSizeHints()
+ok
+test_01j_free_twist_straight_transit (__main__.HardwareCartesian.test_01j_free_twist_straight_transit) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 138.205s
+
+OK

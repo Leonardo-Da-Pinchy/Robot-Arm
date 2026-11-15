@@ -1,0 +1,112 @@
+{
+  "count": 1,
+  "stress": false,
+  "domain": 213,
+  "artifacts": "/tmp/pinchy-ik-benchmark-jclh9_9r",
+  "native_fastpath_successes": 1,
+  "bounded_successes": 1,
+  "known_reachable": [
+    {
+      "index": 0,
+      "inside_design_region": false,
+      "native_fastpath": true,
+      "native_time_s": 0.007148278000386199,
+      "bounded_success": true,
+      "bounded_time_s": 0.04256271600024775,
+      "witness_joint_radians": [
+        1.8485419413129092,
+        0.10404124365108958,
+        -0.09392506108848431,
+        -0.4115982262965283,
+        1.521843871242032,
+        0.06200820500220505
+      ],
+      "report": {
+        "mode": "full",
+        "attempts": 1,
+        "elapsed_s": 0.04242735200023162,
+        "rejected_candidates": 0,
+        "reason": "solved",
+        "best_position_error_mm": 1.8742782373041329e-10,
+        "best_orientation_error_deg": 8.076203120229781e-11,
+        "limiting_joints": []
+      }
+    }
+  ],
+  "operator_examples": [
+    {
+      "xyz": [
+        0.395763,
+        -0.058652,
+        0.129172
+      ],
+      "rpy": [
+        -120.927,
+        -86.75,
+        -85.681
+      ],
+      "mode": "full",
+      "success": false,
+      "message": "No valid IK found for exact XYZ + RPY after native/bounded search. Best numerical residual: 13.20 mm / 13.97 deg; nearby bounds: wrist_roll. This is not proof of impossibility. Check saved ranges, orientation and collisions; Exact RPY is never relaxed automatically."
+    },
+    {
+      "xyz": [
+        0.333508,
+        0.000154,
+        0.125493
+      ],
+      "rpy": [
+        -5.159,
+        -62.39,
+        -173.985
+      ],
+      "mode": "full",
+      "success": false,
+      "message": "No valid IK found for exact XYZ + RPY after native/bounded search. Best numerical residual: 1.05 mm / 0.89 deg; nearby bounds: wrist_flex, wrist_roll. This is not proof of impossibility. Check saved ranges, orientation and collisions; Exact RPY is never relaxed automatically."
+    },
+    {
+      "xyz": [
+        0.395763,
+        -0.058652,
+        0.129172
+      ],
+      "rpy": [
+        -120.927,
+        -86.75,
+        -85.681
+      ],
+      "mode": "position",
+      "success": true,
+      "message": "Plan ready; no motion sent. position / joint; resolved RPY -179.98, -67.49, -9.32 deg. Near a kinematic singularity; speed may need limiting."
+    },
+    {
+      "xyz": [
+        0.333508,
+        0.000154,
+        0.125493
+      ],
+      "rpy": [
+        -5.159,
+        -62.39,
+        -173.985
+      ],
+      "mode": "tool_axis",
+      "success": true,
+      "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 0.37, -62.51, 179.78 deg. Near a kinematic singularity; speed may need limiting."
+    }
+  ],
+  "zero_conditioning": {
+    "smallest_singular_value": 0.011899691343663286,
+    "condition_number": 209.3726438163612,
+    "near_singular": true,
+    "translation_scale_m": 0.4
+  },
+  "bent_conditioning": {
+    "smallest_singular_value": 0.11032375719081018,
+    "condition_number": 21.765426275113903,
+    "near_singular": false,
+    "translation_scale_m": 0.4
+  },
+  "method": "Fresh searches from zero/midpoint; valid target witnesses generated in calibrated bounds and checked by MoveIt; target poses independently returned by MoveIt FK. Native is the fast phase, not an exhaustive proof. No physical port or execute action.",
+  "motor_commands_sent": false
+}

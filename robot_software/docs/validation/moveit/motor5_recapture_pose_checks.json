@@ -1,0 +1,167 @@
+{
+  "count": 1,
+  "stress": false,
+  "domain": 214,
+  "artifacts": "/tmp/pinchy-ik-benchmark-dzdwf43d",
+  "native_fastpath_successes": 1,
+  "bounded_successes": 1,
+  "known_reachable": [
+    {
+      "index": 0,
+      "inside_design_region": false,
+      "native_fastpath": true,
+      "native_time_s": 0.009472806996200234,
+      "bounded_success": true,
+      "bounded_time_s": 0.03857454500393942,
+      "witness_joint_radians": [
+        1.8485419413129092,
+        0.10404124365108958,
+        -0.09392506108848431,
+        -0.4115982262965283,
+        0.7945015185127349,
+        0.06200820500220505
+      ],
+      "report": {
+        "mode": "full",
+        "attempts": 1,
+        "elapsed_s": 0.03840340500755701,
+        "rejected_candidates": 0,
+        "reason": "solved",
+        "best_position_error_mm": 1.2085123128486688e-11,
+        "best_orientation_error_deg": 5.489265558668708e-12,
+        "limiting_joints": []
+      }
+    }
+  ],
+  "operator_examples": [
+    {
+      "xyz": [
+        0.464938,
+        0.137252,
+        0.246784
+      ],
+      "rpy": [
+        -114.504,
+        -87.032,
+        -65.441
+      ],
+      "mode": "tool_axis",
+      "success": true,
+      "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY -91.38, -27.20, -89.28 deg."
+    },
+    {
+      "xyz": [
+        0.38014,
+        0.137252,
+        0.246784
+      ],
+      "rpy": [
+        -114.504,
+        -87.032,
+        -65.441
+      ],
+      "mode": "tool_axis",
+      "success": true,
+      "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY -91.66, -42.20, -88.80 deg."
+    },
+    {
+      "xyz": [
+        0.38014,
+        0.137252,
+        0.246784
+      ],
+      "rpy": [
+        -6.575,
+        -67.874,
+        -172.817
+      ],
+      "mode": "tool_axis",
+      "success": true,
+      "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY -53.47, -51.05, -119.86 deg."
+    },
+    {
+      "xyz": [
+        0.329988,
+        0.124285,
+        0.155302
+      ],
+      "rpy": [
+        -113.168,
+        -86.871,
+        -108.553
+      ],
+      "mode": "tool_axis",
+      "success": false,
+      "message": "MoveIt found no pen-direction solution within the saved ranges. A diagnostic model-range solution exists but exceeds: pen_pitch +95.1 deg vs saved [-1.7, +90.4]. It is NOT an executable plan. Physical range verification is required; no limits were changed and no motion sent."
+    }
+  ],
+  "zero_conditioning": {
+    "mode": "full",
+    "task_dimensions": 6,
+    "smallest_singular_value": 0.011899691343663286,
+    "condition_number": 209.3726438163612,
+    "near_singular": true,
+    "translation_scale_m": 0.4
+  },
+  "bent_conditioning": {
+    "mode": "full",
+    "task_dimensions": 6,
+    "smallest_singular_value": 0.11032375719081018,
+    "condition_number": 21.765426275113903,
+    "near_singular": false,
+    "translation_scale_m": 0.4
+  },
+  "method": "Fresh searches from zero/midpoint; valid target witnesses generated in calibrated bounds and checked by MoveIt; target poses independently returned by MoveIt FK. Native is the fast phase, not an exhaustive proof. No physical port or execute action.",
+  "motor_commands_sent": false,
+  "calibration_sha256": "6e49aec140bca4f5b6bb8ab5f456abb794633d8c8998136b5a13eeecc8738202",
+  "profile_snapshot": {
+    "shoulder_pan": {
+      "zero_tick": 2197,
+      "direction": 1,
+      "min_radians": -1.6873788666742053,
+      "max_radians": 1.9006021961903095,
+      "min_tick": 1097,
+      "max_tick": 3436
+    },
+    "shoulder_lift": {
+      "zero_tick": 1904,
+      "direction": 1,
+      "min_radians": -1.59073807703741,
+      "max_radians": 1.5293788455219843,
+      "min_tick": 867,
+      "max_tick": 2901
+    },
+    "elbow_flex": {
+      "zero_tick": 2249,
+      "direction": 1,
+      "min_radians": -1.4848934026733007,
+      "max_radians": 1.543184672612955,
+      "min_tick": 1281,
+      "max_tick": 3255
+    },
+    "wrist_flex": {
+      "zero_tick": 2198,
+      "direction": 1,
+      "min_radians": -1.586136134673753,
+      "max_radians": 1.1152040327928612,
+      "min_tick": 1164,
+      "max_tick": 2925
+    },
+    "wrist_roll": {
+      "zero_tick": 1748,
+      "direction": 1,
+      "min_radians": -2.5126605305566803,
+      "max_radians": 2.474311010859539,
+      "min_tick": 110,
+      "max_tick": 3361
+    },
+    "pen_pitch": {
+      "zero_tick": 1288,
+      "direction": 1,
+      "min_radians": -0.02914563496982718,
+      "max_radians": 1.576932249946439,
+      "min_tick": 1269,
+      "max_tick": 2316
+    }
+  }
+}

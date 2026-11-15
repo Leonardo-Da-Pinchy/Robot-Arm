@@ -1,0 +1,8 @@
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-daoksnyg
+test_00_feedback_below_zero_with_zero_hold_can_plan_and_execute_xyz (__main__.HardwareCartesian.test_00_feedback_below_zero_with_zero_hold_can_plan_and_execute_xyz) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 14.417s
+
+OK

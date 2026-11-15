@@ -1,0 +1,4 @@
+Starting >>> pinchy_motion
+Finished <<< pinchy_motion [1.39s]
+
+Summary: 1 package finished [1.95s]

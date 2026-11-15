@@ -1,0 +1,7 @@
+#!/usr/bin/python3
+"""Enter existing physical startup, selecting the Cartesian application afterwards."""
+import os
+import sys
+from rclpy.utilities import remove_ros_args
+if __name__ == '__main__':
+    os.execvp('ros2',['ros2','run','pinchy_bringup','start_arm','--motion',*remove_ros_args(sys.argv)[1:]])

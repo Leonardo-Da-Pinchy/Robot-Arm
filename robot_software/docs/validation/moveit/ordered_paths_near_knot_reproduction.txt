@@ -1,0 +1,4 @@
+samples 21 min spacing 0.001998875097295731
+q differences [0.01059684 0.00133216 0.00298143 0.00714043 0.03000807 0.0066862 ]
+0.005 ok {'requested_tcp_speed_m_s': 0.005, 'modeled_peak_tcp_speed_m_s': 0.005006760499050092, 'modeled_contact_min_m_s': 0.00499994428960908, 'modeled_contact_max_m_s': 0.005000054733356569, 'transit_time_scale': 0.9999999999995801, 'physical_speed_qualified': False}
+0.01 ok {'requested_tcp_speed_m_s': 0.01, 'modeled_peak_tcp_speed_m_s': 0.010013511177334294, 'modeled_contact_min_m_s': 0.00999988857668806, 'modeled_contact_max_m_s': 0.01000010885720832, 'transit_time_scale': 1.0000000001110456, 'physical_speed_qualified': False}

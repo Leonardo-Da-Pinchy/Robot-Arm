@@ -1,0 +1,25 @@
+test_default_collision_exclusions_only_adjacent_and_live_tool (__main__.GeometryTests.test_default_collision_exclusions_only_adjacent_and_live_tool) ... ok
+test_exact_spline_extrema_retiming_and_bounds (__main__.GeometryTests.test_exact_spline_extrema_retiming_and_bounds) ... ok
+test_rpy_is_urdf_fixed_xyz_not_intrinsic_zyx (__main__.GeometryTests.test_rpy_is_urdf_fixed_xyz_not_intrinsic_zyx) ... ok
+test_rviz_keeps_the_shared_layout (__main__.GeometryTests.test_rviz_keeps_the_shared_layout) ... ok
+test_working_region_bounds_match_visible_wireframe (__main__.GeometryTests.test_working_region_bounds_match_visible_wireframe) ... ok
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-maj15q6e
+test_01k_spline_and_visit_path_previews (__main__.MockCartesian.test_01k_spline_and_visit_path_previews) ... FAIL
+test_01d_blocked_straight_path_never_retains_partial_plan (__main__.MockCartesian.test_01d_blocked_straight_path_never_retains_partial_plan) ... ok
+test_03_collision_rejected_without_movement (__main__.MockCartesian.test_03_collision_rejected_without_movement) ... ok
+test_05_stop_retains_powered_hold_and_allows_new_plan (__main__.MockCartesian.test_05_stop_retains_powered_hold_and_allows_new_plan) ... ok
+
+======================================================================
+FAIL: test_01k_spline_and_visit_path_previews (__main__.MockCartesian.test_01k_spline_and_visit_path_previews)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/leo/Robot-Arm/robot_software/tools/test_cartesian.py", line 383, in test_01k_spline_and_visit_path_previews
+    self.assertTrue(result.success,result.message);self.assertEqual(len(result.resolved_waypoints),2)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.21; wrist_flex acceleration at 0.381383s (interval 0.113507s))
+
+----------------------------------------------------------------------
+Ran 9 tests in 49.921s
+
+FAILED (failures=1)

@@ -1,0 +1,109 @@
+[INFO] [launch]: All log files can be found below /tmp/pinchy-cartesian-tests-638tna2r/ros_logs/2026-11-14-19-51-44-301100-leo-81487
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [robot_state_publisher-1]: process started with pid [81499]
+[INFO] [ros2_control_node-2]: process started with pid [81500]
+[INFO] [spawner-3]: process started with pid [81503]
+[INFO] [motion_monitor.py-4]: process started with pid [81504]
+[robot_state_publisher-1] [WARN] [1794703904.765425674] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-1] [INFO] [1794703904.765715603] [robot_state_publisher]: Robot initialized
+[ros2_control_node-2] [INFO] [1794703904.775678690] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[ros2_control_node-2] [INFO] [1794703904.794611777] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[ros2_control_node-2] [INFO] [1794703904.795936809] [controller_manager]: update rate is 50 Hz
+[ros2_control_node-2] [INFO] [1794703904.796568668] [controller_manager]: Overruns handling is : enabled
+[ros2_control_node-2] [INFO] [1794703904.796597341] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[ros2_control_node-2] [WARN] [1794703904.797095276] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[ros2_control_node-2] [INFO] [1794703905.068764391] [controller_manager]: Received robot description from topic.
+[ros2_control_node-2] [INFO] [1794703905.068921548] [controller_manager]: Enforcing command limits is disabled. Command limits from URDF will be ignored.
+[ros2_control_node-2] [INFO] [1794703905.079178627] [controller_manager]: Loading hardware 'FeetechArm' 
+[ros2_control_node-2] [INFO] [1794703905.091432887] [controller_manager]: Loaded hardware 'FeetechArm' from plugin 'pinchy_hardware/FeetechSystem'
+[ros2_control_node-2] [INFO] [1794703905.093055561] [controller_manager]: Initialize hardware 'FeetechArm' 
+[ros2_control_node-2] [INFO] [1794703905.173517076] [controller_manager]: Successful initialization of hardware 'FeetechArm'
+[ros2_control_node-2] [INFO] [1794703905.175630772] [controller_manager]: Activating component 'FeetechArm'.
+[ros2_control_node-2] [INFO] [1794703905.175781817] [resource_manager]: 'configure' hardware 'FeetechArm' 
+[ros2_control_node-2] [INFO] [1794703905.180534569] [resource_manager]: Successful 'configure' of hardware 'FeetechArm'
+[ros2_control_node-2] [INFO] [1794703905.180602955] [resource_manager]: 'activate' hardware 'FeetechArm' 
+[ros2_control_node-2] [INFO] [1794703905.194223529] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+[ros2_control_node-2] [INFO] [1794703905.194300523] [resource_manager]: Successful 'activate' of hardware 'FeetechArm'
+[ros2_control_node-2] [INFO] [1794703905.194470256] [controller_manager]: Registering statistics for : FeetechArm
+[ros2_control_node-2] [INFO] [1794703905.194694967] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[ros2_control_node-2] [INFO] [1794703905.808817010] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[ros2_control_node-2] [INFO] [1794703905.808947190] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794703905.813624196] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml --params-file /tmp/launch_params_uanpb1ss 
+[spawner-3] [INFO] [1794703905.910208121] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1794703905.997193291] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794703905.998489202] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[motion_monitor.py-4] [INFO] [1794703906.019369964] [pinchy_motion_monitor]: Motion diagnostics: /tmp/pinchy-cartesian-tests-638tna2r/ros_logs/pinchy-motion-81504.jsonl (30 MiB maximum with rotation)
+[ros2_control_node-2] [INFO] [1794703906.028087413] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1794703906.042150464] [controller_manager]: Successfully switched controllers!
+[spawner-3] [INFO] [1794703906.065673515] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1794703906.070020143] [controller_manager]: Loading controller : 'arm_controller' of type 'joint_trajectory_controller/JointTrajectoryController'
+[ros2_control_node-2] [INFO] [1794703906.070136882] [controller_manager]: Loading controller 'arm_controller'
+[ros2_control_node-2] [INFO] [1794703906.075811902] [controller_manager]: Controller 'arm_controller' node arguments: --ros-args --params-file /home/leo/Robot-Arm/robot_software/install/pinchy_bringup/share/pinchy_bringup/config/arm_controllers.yaml --params-file /tmp/launch_params_uanpb1ss 
+[spawner-3] [INFO] [1794703906.144937266] [spawner_joint_state_broadcaster]: Loaded arm_controller
+[ros2_control_node-2] [INFO] [1794703906.146697095] [controller_manager]: Configuring controller: 'arm_controller'
+[ros2_control_node-2] [INFO] [1794703906.147227415] [arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[ros2_control_node-2] [INFO] [1794703906.147307578] [arm_controller]: Command interfaces are [position] and state interfaces are [position].
+[ros2_control_node-2] [INFO] [1794703906.147371772] [arm_controller]: Using 'splines' interpolation method.
+[ros2_control_node-2] [INFO] [1794703906.155513011] [arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[ros2_control_node-2] [INFO] [1794703906.175610869] [arm_controller]: Setting initial scaling factor to 1.000000
+[ros2_control_node-2] [INFO] [1794703906.175707896] [arm_controller]: No scaling interface set. This controller will not read speed scaling from the hardware.
+[ros2_control_node-2] [INFO] [1794703906.184436161] [controller_manager]: Activating controllers: [ arm_controller ]
+[ros2_control_node-2] [INFO] [1794703906.202238590] [controller_manager]: Successfully switched controllers!
+[spawner-3] [INFO] [1794703906.224918159] [spawner_joint_state_broadcaster]: Configured and activated arm_controller
+[INFO] [spawner-3]: process has finished cleanly [pid 81503]
+[ros2_control_node-2] [INFO] [1794703914.148346446] [arm_controller]: Received new action goal
+[ros2_control_node-2] [INFO] [1794703914.148528244] [arm_controller]: Accepted new action goal
+[ros2_control_node-2] [INFO] [1794703916.462906356] [arm_controller]: Goal reached, success!
+[ros2_control_node-2] [INFO] [1794703940.477891909] [arm_controller]: Received new action goal
+[ros2_control_node-2] [INFO] [1794703940.478026537] [arm_controller]: Accepted new action goal
+[ros2_control_node-2] [INFO] [1794703945.003456347] [arm_controller]: Goal reached, success!
+[ros2_control_node-2] [INFO] [1794703960.733350045] [arm_controller]: Received new action goal
+[ros2_control_node-2] [INFO] [1794703960.733571139] [arm_controller]: Accepted new action goal
+[ros2_control_node-2] [INFO] [1794703963.102534266] [arm_controller]: Goal reached, success!
+[ros2_control_node-2] [INFO] [1794703969.815688963] [arm_controller]: Received new action goal
+[ros2_control_node-2] [INFO] [1794703969.816088304] [arm_controller]: Accepted new action goal
+[ros2_control_node-2] [INFO] [1794703970.922743853] [arm_controller]: Goal reached, success!
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [motion_monitor.py-4]: sending signal 'SIGINT' to process[motion_monitor.py-4]
+[INFO] [ros2_control_node-2]: sending signal 'SIGINT' to process[ros2_control_node-2]
+[INFO] [robot_state_publisher-1]: sending signal 'SIGINT' to process[robot_state_publisher-1]
+[ros2_control_node-2] [INFO] [1794703971.767066356] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros2_control_node-2] [INFO] [1794703971.767734921] [controller_manager]: Shutdown request received....
+[ros2_control_node-2] [INFO] [1794703971.768018961] [controller_manager]: Shutting down all controllers in the controller manager.
+[ros2_control_node-2] [INFO] [1794703971.768172406] [controller_manager]: Deactivating controller 'arm_controller'
+[ros2_control_node-2] [INFO] [1794703971.768894220] [controller_manager]: Shutting down controller 'arm_controller'
+[ros2_control_node-2] [INFO] [1794703971.769708933] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794703971.769861353] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1794703971.770067919] [resource_manager]: 'deactivate' hardware 'FeetechArm' 
+[robot_state_publisher-1] [INFO] [1794703971.767066868] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros2_control_node-2] [INFO] [1794703971.774718268] [resource_manager]: Successful 'deactivate' of hardware 'FeetechArm'
+[ros2_control_node-2] [INFO] [1794703971.774874433] [resource_manager]: 'shutdown' hardware 'FeetechArm' 
+[ros2_control_node-2] [INFO] [1794703971.774902690] [resource_manager]: Successful 'shutdown' of hardware 'FeetechArm'
+[ros2_control_node-2] [INFO] [1794703971.775225964] [controller_manager]: Shutting down the controller manager.
+[ros2_control_node-2] [ERROR] [1794703971.776114567] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[ros2_control_node-2] [ERROR] [1794703971.776826236] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[motion_monitor.py-4] Traceback (most recent call last):
+[motion_monitor.py-4]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/motion_monitor.py", line 60, in <module>
+[motion_monitor.py-4]     if __name__ == '__main__': main()
+[motion_monitor.py-4]                                ^^^^^^
+[motion_monitor.py-4]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/motion_monitor.py", line 56, in main
+[motion_monitor.py-4]     node.destroy_node()
+[motion_monitor.py-4]   File "/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/motion_monitor.py", line 45, in destroy_node
+[motion_monitor.py-4]     return super().destroy_node()
+[motion_monitor.py-4]            ^^^^^^^^^^^^^^^^^^^^^^
+[motion_monitor.py-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1962, in destroy_node
+[robot_state_publisher-1] [INFO] [1794703971.788822696] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[motion_monitor.py-4]     self.destroy_service(self._services[0])
+[motion_monitor.py-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1886, in destroy_service
+[motion_monitor.py-4]     service.destroy()
+[motion_monitor.py-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/service.py", line 123, in destroy
+[motion_monitor.py-4]     self.__service.destroy_when_not_in_use()
+[ros2_control_node-2] [INFO] [1794703971.792549817] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros2_control_node-2] [INFO] [1794703971.793736477] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1794703971.793806879] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[motion_monitor.py-4] KeyboardInterrupt
+[ros2_control_node-2] [INFO] [1794703971.803276095] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1794703971.803363073] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 81499]
+[ERROR] [motion_monitor.py-4]: process has died [pid 81504, exit code -2, cmd '/home/leo/Robot-Arm/robot_software/install/pinchy_bringup/lib/pinchy_bringup/motion_monitor.py --ros-args'].
+[INFO] [ros2_control_node-2]: process has finished cleanly [pid 81500]

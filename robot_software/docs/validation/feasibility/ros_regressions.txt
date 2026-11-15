@@ -1,0 +1,11 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-5oxnkrdr
+test_01i_queued_path_gui_and_cli (__main__.MockCartesian.test_01i_queued_path_gui_and_cli) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+ok
+test_01j_free_twist_straight_transit (__main__.MockCartesian.test_01j_free_twist_straight_transit) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 23.563s
+
+OK

@@ -1,6 +1,6 @@
 # Final-product roadmap
 
-Updated November 13, 2026. This is the current ordered plan through the finished
+Updated November 14, 2026. This is the current ordered plan through the finished
 product, superseding the older checkpoint-only task list. The owner reports
 that the assembled arm, startup, ROS control and sliders worked well for the
 demos. This confirms demonstrated operation; it does not establish measured
@@ -8,7 +8,10 @@ Cartesian accuracy or continuous-duty qualification.
 
 Use the [technical handoff](checkpoint_handoff.md) for hardware details,
 calibration, commands, code locations and the existing runtime safety contract.
-Use the [point/path plan](point_motion_plan.md) for Cartesian planning detail.
+Use the [Cartesian guide](cartesian_control.md) and [MoveIt handoff](moveit_handoff.md)
+for the implemented planning/pose layer. The [point/path plan](point_motion_plan.md)
+retains background for continuous paths. Read [motion feasibility](motion_feasibility.md)
+for the current priority findings, exact regression cases and remaining planner work.
 Older status tables in those documents are historical; this roadmap governs
 current scope and ordering. Check the code before assuming external components
 have arrived.
@@ -44,7 +47,13 @@ must be checked against the actual assembled arm's reachable poses.
 | Robot software | HTTPS client on Jetson; validation and job lifecycle; ROS adapter for tag output and frame calibration; drawing geometry, planning, execution, progress and Stop/recovery integration. |
 | Shared hardware/integration | Fixture geometry/seating, camera-to-base registration, final pen calibration, operating limits and measured product acceptance. |
 
-## Bringup complete; next layer is planning
+Pending owner measurements include the actual tabletop plane and edges in
+`base_link`, alongside the new base-wing/camera transforms and installed tool
+geometry. The example floor stays at its recorded location until those values
+are supplied. Loaded shoulder/elbow lifting must also be checked physically;
+startup’s verified 100% RAM torque allowance is not proof of adequate torque.
+
+## Bringup complete; planning/pose layer added
 
 **Steps 1–4 are complete for moving on to MoveIt: working and demo-tested.**
 This closes the bringup foundation, not the full product or measured hardware
@@ -52,17 +61,18 @@ qualification. Accuracy, loaded duty and broader fault testing remain in steps
 8 and 23. The pending base/camera geometry can require integration changes,
 without reopening the completed motor bench work.
 
-The current sliders are a joint commissioning tool. The normal product will
-have a separate top-level entry point using the same startup and hardware stack;
-sliders will be optional. Do not create a second servo-control path.
+The current sliders are a joint commissioning tool. The Cartesian application now has a separate entry point, `ros2 run
+pinchy_motion start_motion`, using the same startup and hardware stack without
+automatically opening joint sliders. The complete drawing/job application is
+still future work. Do not create a second servo-control path.
 
 | Layer | Responsibility / code boundary |
 | --- | --- |
 | Bringup | Guided startup/zeroing, driver/controllers, measured joint states and transforms. `pinchy_bringup` assembles launches; the driver remains in `pinchy_hardware`. |
-| MoveIt configuration | Planned `pinchy_moveit_config`: planning group, IK solver, limits, collision setup and execution-controller mapping. |
-| Motion application | Planned separate motion package: pose/path requests, plan/preview/execute, progress/results and Stop. |
+| MoveIt configuration | `pinchy_moveit_config`: live-model planning group, full-pose IK, limits, collision setup and execution-controller mapping. |
+| Motion application | `pinchy_motion` plus typed interfaces: XYZ/RPY pose plan/preview/execute, progress/results and powered Stop/recovery. Ordered path requests are implemented in step 11. |
 | Drawing/job application | Separate application logic for HTTPS jobs, AprilTag registration, artwork mapping and job lifecycle; exact package split remains to be implemented. |
-| Product launch | A future normal-operation command starts the required components together. It may live in `pinchy_bringup`; planning/drawing logic stays in its own packages. No new product launch command exists yet. |
+| Product launch | `mock_motion.launch.py` starts the mock pose workflow; `start_motion` enters the existing physical startup then opens planning. A future complete drawing-job launch can assemble additional components; application logic stays separate from bringup. |
 
 Execution remains: **pose/path → MoveIt planning and IK → timed joint trajectory
 → existing ROS trajectory controller → existing motor driver**. Collision
@@ -96,6 +106,20 @@ can proceed with this explicit proxy while the base redesign is pending.
 Reconcile the new base geometry and transforms before physical planning around
 the wings or camera registration.
 
+## Required contact-speed behavior
+
+During drawing contact, maintain approximately constant tool-tip speed along
+the surface. Put acceleration/deceleration in pen-up motion off the object
+wherever feasible: reach marking speed before contact and lift before terminal
+braking. Do not stop at sampled contact waypoints. If a corner/short stroke
+cannot meet this, plan a lift or obtain explicit approval for blending/slowdown
+rather than silently changing the drawing. Safety stops remain exceptions.
+The [versioned drawing policy](../src/pinchy_moveit_config/config/drawing_motion_policy.yaml)
+records this requirement. Qualified speed/variation are TBD; the implemented
+ordered-path interface validates modeled contact timing in mock, while physical
+contact execution remains disabled pending qualification. Steps 8 and 12–17 must
+establish measured drawing behavior. See [ordered paths](cartesian_paths.md).
+
 ## Ordered work through completion
 
 ✅ **Complete** · 🟨 **Partial** · ⬜ **Remaining** · 🔜 **Next**
@@ -110,15 +134,15 @@ about their implementation progress.
 | 1 | ✅ **Complete** | Hardware inventory and six unique motor IDs; individual and chained motor tests, labels and power-cycle checks. |
 | 2 | ✅ **Complete** | Assemble the arm, integrate CAD 4, and record joint order, zeros, directions and initial bounds. Model/TCP accuracy still needs measurement in later steps. |
 | 3 | ✅ **Complete** | Real and mock ros2_control; measured joint states, trajectory action, RViz and six-joint sliders. Owner successfully used the physical workflow in demos; bringup is complete for starting MoveIt. |
-| 4 | ✅ **Complete** | Guided sequential zero/hold startup, operating speed/acceleration controls, live readouts, planned/measured graphs, recording, Stop/hold and explicit runtime fault recovery. Finite command-rate excesses are limited without a safety latch; defaults are 30 deg/s and 180 deg/s². Live target telemetry uses a nonblocking worker and stamped updates. Physical fault/duty qualification remains in steps 8 and 23. |
+| 4 | ✅ **Complete** | Guided sequential zero/hold startup, operating speed/acceleration controls, live readouts, planned/measured graphs, recording, Stop/hold and explicit runtime fault recovery. Finite command-rate excesses are limited without a safety latch; defaults are 30 deg/s and 180 deg/s², with selectable caps of 60 deg/s and 360 deg/s². Live target telemetry uses a nonblocking worker and stamped updates. Physical fault/duty qualification remains in steps 8 and 23. |
 | 5 | ⬜ **Remaining** | Confirm final scope and measurable acceptance: supported object/region, pen, artwork limits, placement/shape accuracy, speed and runtime. Treat report targets as targets until measured or explicitly revised. |
 | 6 | ⬜ **Remaining — coordinate now** | Agree both integration contracts with the server and AprilTag teammates. Obtain example payloads and recorded pose samples so development can proceed with fakes. |
 | 7 | ✅ **Software complete — RViz proxy** | Defined `pointer_tip` at the modeled pointer endpoint, with an active-tool profile, visible marker, geometry/FK checks and mock/emulated ROS TF validation. Owner authorized this temporary proxy; physical endpoint/model agreement remains unmeasured in step 8, and actual pen calibration is step 13. See [tool frames](tool_frames.md). |
-| 8 | 🟨 **Partial** | Qualify assembled operation: usable joint ranges, loaded holding, speed/acceleration, temperature/current, tracking error, Stop and recovery. Measure useful tool speed and low-speed stepping; selectable GUI limits are not certified operating limits. |
-| 9 | 🔜 **Next** | Configure MoveIt 2: six-joint group, active tool/base frames, IK, joint limits, controller connection, self-collision review and planning-scene geometry for the table/fixture. Updated base wings/holder geometry and mounting transforms are pending from the owner; reconcile them before physical planning near those parts. Use the current ROS stack rather than rewriting IK/dynamics. |
-| 10 | ⬜ **Remaining** | Add plan/preview/execute for a Cartesian pose in a named frame. Validate orientation, reach, collision and fresh robot state; reject invalid requests before movement. Test mock first, then nearby physical moves with the temporary pointer proxy explicitly distinguished from the unmeasured attachment tip. |
-| 11 | ⬜ **Remaining** | Add ordered Cartesian paths with continuous IK and full-path validation. Distinguish visiting poses from tracing a path; reject incomplete paths and joint jumps. Keep approximately constant tool speed through intermediate samples, with measured minimum useful speed, stated tolerance and explicit corner/start/end exceptions. |
-| 12 | ⬜ **Remaining — geometry pending** | Establish a known fixed cylinder and fixture model: radius, height, frame, seating, drawing region and clearances. Prove all drawing and lift/travel poses are reachable. This fixed-frame setup allows drawing development before tags arrive. |
+| 8 | 🟨 **Partial** | Qualify assembled operation: usable joint ranges, loaded holding, speed/acceleration, temperature/current, tracking error, Stop and recovery. Startup is faster with explicit capture-window feedback and shared shoulder/elbow settling tolerance; loaded lifting still needs physical verification. Measure useful tool speed and low-speed stepping; selectable GUI limits are not certified operating limits. |
+| 9 | ✅ **Software complete — current model** | Added `pinchy_moveit_config`: live calibrated model/limits, six-joint `arm` group, KDL plus bounded multi-start IK with explicit exact-pose/pen-direction/position modes, OMPL planning, reviewed adjacent-only self-collision exclusions, example floor and existing-controller mapping. Live goal handles, numerical input bounds, approximate reach samples and optional collision geometry are visible; floor placement remains unmeasured. Shared RViz view and hardware protections retained. Final base-wing/fixture geometry remains pending from the owner; reconcile it before physical planning near those parts. See [MoveIt handoff](moveit_handoff.md). |
+| 10 | 🟨 **Software complete — physical tests pending** | Implemented synchronized live XYZ/RPY fields/RViz handles and CLI plus typed plan/execute interfaces: explicit IK constraints, preview-only planning, optional straight TCP LERP/SLERP transit with partial-path rejection, checked timed paths, explicit execution, current pose/progress, powered Stop/cancel and recovery. Mock/emulated validation covers rejection and execution; the new guided entry preserves holds through planner startup on a fake bus. Nearby physical pose/orientation/repeatability checks await the operator, using the temporary pointer proxy with its unmeasured attachment offset. See [Cartesian guide](cartesian_control.md). |
+| 11 | 🟨 **Software implemented — qualification pending** | Ordered waypoint queue, typed PlanPath service and JSON CLI; continuous free-twist IK, polyline/explicit spline traces and OMPL visits, full collision/trajectory validation, preview and existing powered execution. Mock contact timing holds modeled TCP speed through samples with explicit pen-up ramps; sharp contact corners, incomplete paths and infeasible speed are rejected. Physical contact remains disabled until pen/surface qualification; measured speed/variation and loaded operation remain pending. Added bounded whole-stroke alternative configuration search from the fixed held start, with complete-candidate timing/interpolation/collision checks. The recorded broad arcs still fail; robust starting-posture selection and collision-planned pen-up repositioning remain unresolved. Keep IK/continuity as the priority before other feature work; see step 12. See [ordered paths](cartesian_paths.md). |
+| 12 | 🔜 **Next — feasibility gate / geometry pending** | Prioritize continuous drawing feasibility before job integrations. A current-model study found posture-dependent nearby failures, a continuation failure with a valid broader IK witness, singularity sensitivity, side-normal range concerns and broad-arc timing failures; front-180° coverage is not established. Read [motion feasibility](motion_feasibility.md), verify the real TCP/wrist ranges, then establish cylinder radius, height, frame, seating and fixture clearances. Check alternative starting postures and complete drawing/lift paths at useful speed. A narrower software timing example is not product qualification. |
 | 13 | ⬜ **Remaining — pen needed** | Install the actual pen, calibrate tip/axis and holder compression/contact offset, update active tool visuals/collision geometry and check compliance. Prove repeatable contact without bottoming out. Encoder position is not a force measurement. |
 | 14 | ⬜ **Remaining** | Generate surface-following poses from simple 2D lines/curves using cylinder arc length and surface normals. Add approach, contact, pen-up travel, stroke transitions and retract. Allow only intended pen-tip contact; keep holder/arm/fixture collision checks. |
 | 15 | ⬜ **Remaining** | Parse the supported SVG subset, units/viewBox/transforms and artwork placement; sample native curves to an explicit geometric tolerance, preserve stroke boundaries/corners, and validate unsupported elements and input limits. Reject invalid jobs with clear reasons. |
@@ -205,14 +229,48 @@ integration step, not completion of the web/AprilTag product.
 ## Parallel work and immediate next actions
 
 The numbered list is the dependency spine, not a requirement that every task
-wait for the previous row. Agree server/tag contracts and build their fake
-inputs now; implement the HTTPS adapter alongside motion work. The AprilTag
+wait for the previous row. Server/tag contract discussions can proceed separately; the current owner
+priority is to resolve IK/posture-dependent routing and drawing continuity
+before implementing other product features. The AprilTag
 teammate can provide recorded detections while the web teammate supplies sample
 job/status exchanges. Use a known fixed object frame to develop mapping/contact
 before their live components are available.
 
-The next robot implementation is **steps 9–11**: MoveIt setup using the explicit
-`pointer_tip` proxy, Cartesian poses and continuous paths. Step 7 software is
-implemented; the real attachment/TCP comparison remains unmeasured. Measure
-step 8 alongside that work. Install/calibrate the actual pen before contact
-drawing and final accuracy tests. Do not repeat completed motor bench setup as a prerequisite.
+The report’s 0.4 m cube is the designated front working region, separate from
+broad pose-input bounds. The owner-authorized blue box spans X [0.10, 0.50],
+Y [-0.20, 0.20], Z [0.00, 0.40] m in base_link; its 0.10 m front offset is
+provisional and not a certified collision-free reach envelope. Drawing IK must preserve the pen normal while
+allowing axial pen rotation as described in report sections IV.B and VI.F.
+
+Current directed point-to-point operation defaults to pen direction with free twist.
+MoveIt searches twist variants before continuous bounded search; position-only
+is explicit and never a fallback execution for failed direction requests.
+Measured-state boundary settling is distinct from strict command limits; the
+one-tick wrist-roll regression and live read-only XYZ/route checks are recorded.
+The reported direction plans under CAD ranges but not the saved profile; physical
+wrist-range review uses `calibrate --step review-limits --ids 4 5 6`, preserving
+zeros/directions and requiring negative/positive endpoints. No saved bounds have
+been expanded automatically.
+
+See the [IK investigation](ik_investigation.md) for the calibrated-model benchmark,
+condition warnings and explicit orientation/path modes. The blue cube is not an
+arbitrary-pose reach guarantee; its far upper corners exceed the modeled chain
+length even before considering collisions.
+
+The owner recaptured motor 5 to [-143.96,+141.77]° and motor 6 to
+[-0.70,+99.14]°, with both zeros/directions unchanged. All four previously reported
+directed goals now plan in calibrated mock; physical execution and
+repeatability still need operator checks. Guided startup has a ±90° outer
+capture window clipped to saved/CAD ranges, with the same bounded ramp and
+powered-hold monitoring. See the IK investigation for the recapture evidence.
+
+The immediate software priority remains **steps 11–12**: qualify IK routing and
+whole-stroke continuity under the contact-speed policy before other feature work.
+The bounded alternative search is an initial implementation, not closure of
+the saved broad-arc failures or full drawing coverage. Steps 9–10 now provide the software pose
+workflow; the returning operator must first verify the nearby physical poses,
+orientation and Stop behavior described in [the MoveIt handoff](moveit_handoff.md).
+Step 7 uses an explicit proxy; physical tip/model agreement remains unmeasured.
+Measure step 8 alongside this work. Install/calibrate the actual pen before
+contact drawing and final accuracy tests. Do not repeat completed motor bench
+setup as a prerequisite.

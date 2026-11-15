@@ -1,0 +1,37 @@
+{
+  "source_profile_sha256": "4bfed5d9ad885b7f605126566fe7e914cde8ce420751abda75145212bba2969c",
+  "physical_profile_modified": false,
+  "emulator_encoder_zeros_synthetic": true,
+  "bounds": {
+    "shoulder_pan": {
+      "min_radians": -1.6873788666742053,
+      "max_radians": 1.9006021961903095,
+      "direction": 1
+    },
+    "shoulder_lift": {
+      "min_radians": -1.59073807703741,
+      "max_radians": 1.5293788455219843,
+      "direction": 1
+    },
+    "elbow_flex": {
+      "min_radians": -1.4848934026733007,
+      "max_radians": 1.543184672612955,
+      "direction": 1
+    },
+    "wrist_flex": {
+      "min_radians": -1.586136134673753,
+      "max_radians": 1.1152040327928612,
+      "direction": 1
+    },
+    "wrist_roll": {
+      "min_radians": -2.5126605305566803,
+      "max_radians": 2.474311010859539,
+      "direction": 1
+    },
+    "pen_pitch": {
+      "min_radians": -0.01227184630308513,
+      "max_radians": 1.7303303287350031,
+      "direction": 1
+    }
+  }
+}

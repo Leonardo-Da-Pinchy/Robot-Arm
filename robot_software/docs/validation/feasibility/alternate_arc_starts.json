@@ -1,0 +1,127 @@
+[
+  {
+    "index": 0,
+    "q": [
+      0.7198061624826992,
+      0.29994200302549456,
+      -0.3013878153907497,
+      0.965338311569845,
+      1.7813166432438048,
+      1.6822123889057439
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.001573097066413926,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  },
+  {
+    "index": 1,
+    "q": [
+      0.7199118518044255,
+      0.24376674247721605,
+      -0.19259737537572505,
+      0.8345051300168568,
+      1.7722723637735442,
+      1.6945359577680852
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.0015730970670279358,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  },
+  {
+    "index": 2,
+    "q": [
+      0.7197134312385339,
+      0.3607020718749868,
+      -0.4143756617272602,
+      1.0905859611525746,
+      1.7888581061786897,
+      1.6701199483478655
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.0015730970659523673,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  },
+  {
+    "index": 3,
+    "q": [
+      0.7200282150104806,
+      0.19302379757466387,
+      -0.08826066151194058,
+      0.6980962554257886,
+      1.76165637990262,
+      1.7067895073426231
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.0015730970668966428,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  },
+  {
+    "index": 4,
+    "q": [
+      0.7201519291412151,
+      0.14873326688871372,
+      0.011156667694218053,
+      0.5560451360071639,
+      1.749429047256754,
+      1.7186770581188813
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.0015730970676820573,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  },
+  {
+    "index": 5,
+    "q": [
+      0.7201724374559897,
+      0.6021907007428986,
+      0.27056620679238613,
+      -1.5742118871006465,
+      1.4916619790635635,
+      1.720553623059354
+    ],
+    "continuous": false,
+    "reason": "Cartesian trace incomplete at 32.3%: no continuous collision-free IK step within saved limits; no partial plan retained"
+  },
+  {
+    "index": 6,
+    "q": [
+      0.7202786393198527,
+      0.1120968133200707,
+      0.1049442964130664,
+      0.4082763340695977,
+      1.7355865273873476,
+      1.7299042135555787
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.0015730970675007791,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  },
+  {
+    "index": 7,
+    "q": [
+      0.7196963709675246,
+      0.373471130319992,
+      -0.43770488272247193,
+      1.1152040324252546,
+      1.7902074467183189,
+      1.6677324211361781
+    ],
+    "continuous": true,
+    "margin": 1.2722218725854067e-14,
+    "capacity": 0.0015730970670346013,
+    "timing_success": false,
+    "timing": "Interpolated trajectory exceeds wrist_flex bounds"
+  }
+]

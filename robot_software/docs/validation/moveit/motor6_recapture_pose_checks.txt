@@ -1,0 +1,2 @@
+1 native True bounded True
+operator example tool_axis True Plan ready; no motion sent. tool_axis / joint; resolved RPY -91.68, -42.91, -130.55 deg.

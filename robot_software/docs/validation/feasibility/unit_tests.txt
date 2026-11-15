@@ -1,0 +1,14 @@
+test_alternative_twist_has_real_joint_reserve (__main__.FeasibilityTests.test_alternative_twist_has_real_joint_reserve) ... ok
+test_arc_parameter_is_true_surface_arc_length (__main__.FeasibilityTests.test_arc_parameter_is_true_surface_arc_length) ... ok
+test_cylinder_front_is_near_side_and_pen_points_inward (__main__.FeasibilityTests.test_cylinder_front_is_near_side_and_pen_points_inward) ... ok
+test_direction_frame_is_right_handed_and_normalized (__main__.FeasibilityTests.test_direction_frame_is_right_handed_and_normalized) ... ok
+test_fixed_task_twist_family_preserves_task_and_bounds (__main__.FeasibilityTests.test_fixed_task_twist_family_preserves_task_and_bounds) ... ok
+test_incomplete_trace_exposes_exact_target_for_independent_check (__main__.FeasibilityTests.test_incomplete_trace_exposes_exact_target_for_independent_check) ... ok
+test_runtime_trace_diagnostic_distinguishes_other_configuration (__main__.FeasibilityTests.test_runtime_trace_diagnostic_distinguishes_other_configuration) ... ok
+test_sampled_speed_capacity_matches_linear_joint_path (__main__.FeasibilityTests.test_sampled_speed_capacity_matches_linear_joint_path) ... ok
+test_trajectory_reserve_includes_between_waypoint_extrema (__main__.FeasibilityTests.test_trajectory_reserve_includes_between_waypoint_extrema) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.390s
+
+OK

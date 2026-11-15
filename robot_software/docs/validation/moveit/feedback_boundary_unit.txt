@@ -1,0 +1,8 @@
+test_measured_allowance_never_bypasses_collision_failure (__main__.FeedbackBoundaryTests.test_measured_allowance_never_bypasses_collision_failure) ... ok
+test_more_than_feedback_margin_is_rejected (__main__.FeedbackBoundaryTests.test_more_than_feedback_margin_is_rejected) ... ok
+test_one_tick_negative_measurement_is_checked_for_collisions_without_clamping (__main__.FeedbackBoundaryTests.test_one_tick_negative_measurement_is_checked_for_collisions_without_clamping) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK

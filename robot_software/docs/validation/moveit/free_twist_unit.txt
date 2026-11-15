@@ -1,0 +1,15 @@
+test_analytic_jacobian_matches_finite_difference_in_all_modes (__main__.IKTests.test_analytic_jacobian_matches_finite_difference_in_all_modes) ... ok
+test_cached_chain_matches_existing_full_tree_fk (__main__.IKTests.test_cached_chain_matches_existing_full_tree_fk) ... ok
+test_collision_filter_cannot_be_bypassed_by_exact_fk_seed (__main__.IKTests.test_collision_filter_cannot_be_bypassed_by_exact_fk_seed) ... ok
+test_conditioning_uses_the_selected_task_dimension (__main__.IKTests.test_conditioning_uses_the_selected_task_dimension) ... ok
+test_moveit_twist_candidates_preserve_axis_and_ignore_input_twist (__main__.IKTests.test_moveit_twist_candidates_preserve_axis_and_ignore_input_twist) ... ok
+test_near_zero_has_poorer_conditioning_than_bent_wrist (__main__.IKTests.test_near_zero_has_poorer_conditioning_than_bent_wrist) ... ok
+test_operator_second_example_succeeds_with_pen_axis_freedom (__main__.IKTests.test_operator_second_example_succeeds_with_pen_axis_freedom) ... ok
+test_position_only_does_not_require_requested_orientation (__main__.IKTests.test_position_only_does_not_require_requested_orientation) ... ok
+test_stop_and_budget_bound_the_search (__main__.IKTests.test_stop_and_budget_bound_the_search) ... ok
+test_uncached_known_reachable_full_poses_including_joint_boundaries (__main__.IKTests.test_uncached_known_reachable_full_poses_including_joint_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 3.799s
+
+OK

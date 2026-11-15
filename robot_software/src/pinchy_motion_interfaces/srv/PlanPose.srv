@@ -1,0 +1,13 @@
+geometry_msgs/PoseStamped target
+float64 velocity_scaling
+float64 acceleration_scaling
+# Empty strings select pen direction with free twist / free-space transit. Request full or position explicitly for other constraints.
+string orientation_mode
+string path_mode
+---
+bool success
+string message
+string plan_id
+float64 duration
+moveit_msgs/RobotTrajectory trajectory
+geometry_msgs/PoseStamped resolved_target

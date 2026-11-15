@@ -2,6 +2,7 @@
 from contextlib import redirect_stdout
 import curses
 import math
+from collections import deque
 
 from calibrate import JOINTS
 
@@ -9,22 +10,30 @@ CAPTURE_DWELL_SECONDS = 1.0
 
 
 class CaptureWindow:
-    """Require a stationary joint, not merely a pass through the capture window."""
+    """One second of low-trend samples; tolerate a few encoder ticks of jitter."""
     def __init__(self, dwell=CAPTURE_DWELL_SECONDS):
-        self.dwell = dwell
-        self.reset()
+        self.dwell=dwell;self.reset()
 
     def reset(self):
-        self.since = None
-        self.anchor = None
+        self.since=None;self.samples=deque();self.reason='Waiting inside the capture window'
 
-    def update(self, now, ticks, eligible):
-        if not eligible:
-            self.reset()
-            return 0.0
-        if self.since is None or abs(ticks-self.anchor) > 3:
-            self.since, self.anchor = now, ticks
-        return min(1.0, max(0.0, (now-self.since)/self.dwell))
+    def update(self,now,ticks,eligible):
+        if not eligible:self.reset();return 0.0
+        if self.since is None:self.since=now
+        self.samples.append((now,ticks))
+        while len(self.samples)>2 and now-self.samples[1][0]>=self.dwell:self.samples.popleft()
+        values=[value for _,value in self.samples]
+        if max(values)-min(values)>8:
+            self.samples=deque([(now,ticks)]);self.since=now;self.reason='Joint moved; waiting to settle';return 0.0
+        elapsed=now-self.since;progress=min(1.,max(0.,(elapsed+1e-9)/self.dwell))
+        times=[stamp-self.samples[0][0] for stamp,_ in self.samples]
+        mean_time=sum(times)/len(times);mean_value=sum(values)/len(values)
+        denominator=sum((stamp-mean_time)**2 for stamp in times)
+        slope=sum((stamp-mean_time)*(value-mean_value) for stamp,value in zip(times,values))/denominator if denominator else 0.
+        if progress>=1. and abs(slope)>2.:
+            self.reason='Still moving; settle or press l to capture explicitly';return .9
+        self.reason='Stable samples; no wiggle required' if progress>=1. else 'Waiting for stable samples'
+        return progress
 
 
 class Dashboard:
@@ -35,6 +44,8 @@ class Dashboard:
         self.armed = False
         self.locking = False
         self.progress = 0.0
+        self.capture_reason = ''
+        self.manual_capture = False
         self.message = 'Support the arm, clear joint travel, and keep the power disconnect reachable.'
         self.last_draw = -math.inf
         self.screen.nodelay(True)
@@ -60,6 +71,8 @@ class Dashboard:
         if key in (ord('q'), ord('Q'), 27): raise KeyboardInterrupt()
         if key in (ord('s'), ord('S')) and not self.locking:
             self.armed = True
+        if key in (ord('l'), ord('L')) and not self.locking and self.armed:
+            self.manual_capture = True
         if key in (ord('p'), ord('P')) and not self.locking:
             self.armed = False
             self.progress = 0.0
@@ -82,7 +95,7 @@ class Dashboard:
         self.screen.erase()
         self.line(0, 'PHYSICAL ARM STARTUP | sequential zero + hold', curses.A_BOLD)
         self.line(1, f"Torque limit: {self.startup.profile['torque_limit']/10:g}% | "
-                     f"Capture window: +/-{math.degrees(self.startup.max_start):g} deg, inside CAD bounds")
+                     f"Capture window: +/-{math.degrees(self.startup.max_start):g} deg, inside saved/CAD limits")
         self.line(3, ' ID  Joint              Current    Target    To move    Temp   Torque  State')
         for row, (servo_id, name) in enumerate(JOINTS.items(), 4):
             state = self.states.get(servo_id)
@@ -102,10 +115,11 @@ class Dashboard:
                 text = (f" {servo_id:2}  {name:<18} {angle:+8.2f}   {0:7.2f}   {-angle:+8.2f}   "
                         f"{state['temperature_raw']:3}C   {'ON' if state['torque'] else 'OFF':<4}  {label}")
             self.line(row, text, style)
-        self.line(11, 's = start/resume automatic capture | p = pause capture | q = abort and release')
+        self.line(11, 's = start/resume | p = pause | l = capture selected joint now (within window) | q = release/abort')
         self.line(12, f'Bring the highlighted joint into the capture window and hold it still for {CAPTURE_DWELL_SECONDS:g} second.')
-        self.line(13, 'It then moves to exact zero automatically. Earlier joints remain powered and held.')
+        self.line(13, 'It commands calibrated zero with bounded feedback settling. Earlier joints remain powered and held.')
         self.line(14, 'During LOCKING: q aborts; pause applies while positioning, before movement.')
+        self.line(15, self.capture_reason)
         self.line(16, self.message)
         self.screen.refresh()
 
@@ -115,6 +129,7 @@ class Dashboard:
         gate = CaptureWindow()
         for servo_id, name in JOINTS.items():
             self.active = servo_id
+            self.manual_capture = False
             gate.reset()
             self.progress = 0.0
             self.message = f'Position ID {servo_id} ({name}). Press s once when ready for automatic locking.' if not self.armed else f'Position ID {servo_id} ({name}); capture is active.'
@@ -126,10 +141,14 @@ class Dashboard:
                 if state['torque'] != 0:
                     raise RuntimeError(f'ID {servo_id}: torque unexpectedly enabled before capture')
                 angle = startup.angle(servo_id, state['position'])
-                limit = startup.model.find(f"joint[@name='{name}']/limit")
-                eligible = (self.armed and abs(angle) <= startup.max_start and
-                            float(limit.get('lower')) <= angle <= float(limit.get('upper')))
+                low,high=startup.capture_interval(servo_id)
+                eligible = self.armed and low-1e-12<=angle<=high+1e-12
                 self.progress = gate.update(startup.clock(), state['position'], eligible)
+                self.capture_reason=(f'ID {servo_id} capture interval [{math.degrees(low):+.2f}, {math.degrees(high):+.2f}] deg; '
+                    + (gate.reason if eligible else ('press s to arm' if not self.armed else 'OUTSIDE WINDOW — position joint inside this interval')))
+                manual=self.manual_capture and eligible
+                self.manual_capture=False
+                if manual:self.progress=1.0
                 self.draw(force=True)
                 if self.progress >= 1.0: break
                 startup.sleep(0.1)

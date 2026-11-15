@@ -18,6 +18,7 @@ struct Calibration
 {
   int id, zero, direction, minimum, maximum;
   double lower, upper, max_velocity;
+  int startup_tolerance_ticks = 10;
   double to_radians(int ticks, int feedback_tolerance = 0) const;
   int to_ticks(double radians) const;
   void validate() const;

@@ -1,0 +1,14 @@
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-67vc8189
+test_01f_reported_direction_with_saved_calibration (__main__.HardwareCartesian.test_01f_reported_direction_with_saved_calibration) ... ok
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-seae4lfk
+test_07_pose_panel_plan_preview_execute (__main__.MockCartesian.test_07_pose_panel_plan_preview_execute) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 33.922s
+
+OK

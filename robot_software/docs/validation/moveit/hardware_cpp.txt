@@ -1,0 +1,176 @@
+Starting >>> pinchy_hardware
+UpdateCTestConfiguration  from :/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini
+Parse Config file:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini
+   Site: leo
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261114-0826 - Experimental
+UpdateCTestConfiguration  from :/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini
+Parse Config file:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/CTestConfiguration.ini
+Test project /home/leo/Robot-Arm/robot_software/build/pinchy_hardware
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_feetech_system
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml" "--package-name" "pinchy_hardware" "--output-file" "/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/ament_cmake_gtest/test_feetech_system.txt" "--command" "/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_feetech_system" "--gtest_output=xml:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml"
+1: Working Directory: /home/leo/Robot-Arm/robot_software/build/pinchy_hardware
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware':
+1:  - /home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_feetech_system --gtest_output=xml:/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml
+1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 29 tests from 4 test suites.
+1: [----------] Global test environment set-up.
+1: [----------] 2 tests from Calibration
+1: [ RUN      ] Calibration.DirectionRoundTripAndLimits
+1: [       OK ] Calibration.DirectionRoundTripAndLimits (0 ms)
+1: [ RUN      ] Calibration.FeedbackAllowanceDoesNotExpandCommands
+1: [       OK ] Calibration.FeedbackAllowanceDoesNotExpandCommands (0 ms)
+1: [----------] 2 tests from Calibration (0 ms total)
+1: 
+1: [----------] 17 tests from Hardware
+1: [ RUN      ] Hardware.ExplicitCalibrationAndUniqueIDs
+1: [ERROR] [1794644812.190974316] [pinchy_hardware]: Configuration rejected: Hardware requires reviewed calibration and explicit motion_enabled=true
+1: [ERROR] [1794644812.191151794] [pinchy_hardware]: Configuration rejected: Hardware requires reviewed calibration and explicit motion_enabled=true
+1: [ERROR] [1794644812.191489500] [pinchy_hardware]: Configuration rejected: Duplicate servo ID
+1: [       OK ] Hardware.ExplicitCalibrationAndUniqueIDs (1 ms)
+1: [ RUN      ] Hardware.StartupAtActualPositionSyncAndRelease
+1: [INFO] [1794644812.210385507] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [       OK ] Hardware.StartupAtActualPositionSyncAndRelease (30 ms)
+1: [ RUN      ] Hardware.PortOwnershipAndReadOnlyConfigureFailure
+1: [ERROR] [1794644812.223580729] [pinchy_hardware]: Configure failed: Servo port is owned by another process
+1: [       OK ] Hardware.PortOwnershipAndReadOnlyConfigureFailure (12 ms)
+1: [ RUN      ] Hardware.FeedbackSweepUsesSixTransactionsAndHeldGoalsAreNotResent
+1: [INFO] [1794644812.237767151] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [       OK ] Hardware.FeedbackSweepUsesSixTransactionsAndHeldGoalsAreNotResent (14 ms)
+1: [ RUN      ] Hardware.DroppedGroupedGoalIsRetriedUntilReadbackConfirmsIt
+1: [INFO] [1794644812.251983301] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [       OK ] Hardware.DroppedGroupedGoalIsRetriedUntilReadbackConfirmsIt (14 ms)
+1: [ RUN      ] Hardware.IsolatedTemperatureSpikeNeedsTwoAgreeingCoolRechecks
+1: [INFO] [1794644812.267234651] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [WARN] [1794644812.267854638] [pinchy_hardware]: ID 6 temperature check 0/4: initial=65 C, direct=33 C, block=33 C, status=0x00; isolated high sample, rechecks cool
+1: [WARN] [1794644812.268371934] [pinchy_hardware]: ID 6 temperature check 1/4: initial=65 C, direct=40 C, block=33 C, status=0x00; suspect reading
+1: [       OK ] Hardware.IsolatedTemperatureSpikeNeedsTwoAgreeingCoolRechecks (15 ms)
+1: [ RUN      ] Hardware.FourHotCyclesLatchHoldWithoutTorqueReleaseOrAutomaticRecovery
+1: [INFO] [1794644812.282843548] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [WARN] [1794644812.283416430] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.283946878] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.284608403] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.285098850] [pinchy_hardware]: ID 6 temperature check 4/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [ERROR] [1794644812.285199013] [pinchy_hardware]: Safety HOLD: ID 6: four consecutive suspect temperature checks; initial=70, direct=70, block=70, status=0. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Hardware.FourHotCyclesLatchHoldWithoutTorqueReleaseOrAutomaticRecovery (17 ms)
+1: [ RUN      ] Hardware.CoolSampleResetsConsecutiveHighCounter
+1: [INFO] [1794644812.303326932] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [WARN] [1794644812.304613275] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.305341106] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.306078472] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.307271885] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.308018468] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [WARN] [1794644812.308774428] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=70 C, status=0x00; suspect reading
+1: [       OK ] Hardware.CoolSampleResetsConsecutiveHighCounter (24 ms)
+1: [ RUN      ] Hardware.FourConflicting706036ChecksLatchHoldOnFourthCycle
+1: [INFO] [1794644812.325141460] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [WARN] [1794644812.327508637] [pinchy_hardware]: ID 6 temperature check 1/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading
+1: [WARN] [1794644812.329114287] [pinchy_hardware]: ID 6 temperature check 2/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading
+1: [WARN] [1794644812.330683295] [pinchy_hardware]: ID 6 temperature check 3/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading
+1: [WARN] [1794644812.332241935] [pinchy_hardware]: ID 6 temperature check 4/4: initial=70 C, direct=70 C, block=36 C, status=0x00; suspect reading
+1: [ERROR] [1794644812.332320817] [pinchy_hardware]: Safety HOLD: ID 6: four consecutive suspect temperature checks; initial=70, direct=70, block=36, status=0. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Hardware.FourConflicting706036ChecksLatchHoldOnFourthCycle (22 ms)
+1: [ RUN      ] Hardware.RejectNaNAndPositionLimitsBeforeGroupWrite
+1: [INFO] [1794644812.349253883] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.349338846] [pinchy_hardware]: Safety HOLD: Command outside calibrated joint bounds. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [INFO] [1794644812.365430990] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.365542834] [pinchy_hardware]: Safety HOLD: Command outside calibrated joint bounds. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Hardware.RejectNaNAndPositionLimitsBeforeGroupWrite (33 ms)
+1: [ RUN      ] Hardware.OversizedStepsAreRateLimitedAndContinueWithoutFault
+1: [INFO] [1794644812.385205296] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [WARN] [1794644812.385261297] [pinchy_hardware]: Limiting command step to configured joint speeds (fraction 0.050); continuing with torque on
+1: [       OK ] Hardware.OversizedStepsAreRateLimitedAndContinueWithoutFault (34 ms)
+1: [ RUN      ] Hardware.StaleFeedbackStopsWithoutWrite
+1: [INFO] [1794644812.416066695] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.481285890] [pinchy_hardware]: Safety HOLD: Measured feedback is stale. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Hardware.StaleFeedbackStopsWithoutWrite (83 ms)
+1: [ RUN      ] Hardware.SpeedGuardUsesActualWriteIntervalAfterSchedulingDelay
+1: [INFO] [1794644812.498989379] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [       OK ] Hardware.SpeedGuardUsesActualWriteIntervalAfterSchedulingDelay (60 ms)
+1: [ RUN      ] Hardware.AdoptPoweredZeroHoldsWithoutTorqueGap
+1: [INFO] [1794644812.560750099] [pinchy_hardware]: Adopted six calibrated zero holds without disabling torque
+1: [       OK ] Hardware.AdoptPoweredZeroHoldsWithoutTorqueGap (17 ms)
+1: [ RUN      ] Hardware.AdoptLoadedJointSettlingKeepsTrueFeedbackAndZeroGoal
+1: [INFO] [1794644812.576913414] [pinchy_hardware]: Adopted six calibrated zero holds without disabling torque
+1: [       OK ] Hardware.AdoptLoadedJointSettlingKeepsTrueFeedbackAndZeroGoal (15 ms)
+1: [ RUN      ] Hardware.AdoptRejectsUnknownGoalsWithoutDisablingExternalHolds
+1: [ERROR] [1794644812.592123226] [pinchy_hardware]: Configure failed: Zero-hold handoff requires each measured position near zero and goal at its calibrated zero
+1: [       OK ] Hardware.AdoptRejectsUnknownGoalsWithoutDisablingExternalHolds (14 ms)
+1: [ RUN      ] Hardware.AdoptRejectsTorqueOffBeforeAnyGoalWrite
+1: [ERROR] [1794644812.605294256] [pinchy_hardware]: Configure failed: Unexpected servo torque state
+1: [       OK ] Hardware.AdoptRejectsTorqueOffBeforeAnyGoalWrite (13 ms)
+1: [----------] 17 tests from Hardware (425 ms total)
+1: 
+1: [----------] 5 tests from Checks/PacketFault
+1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/0
+1: [INFO] [1794644812.624547170] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.624742568] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=2, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/0 (20 ms)
+1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/1
+1: [INFO] [1794644812.643152319] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.643418664] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=3, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/1 (18 ms)
+1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/2
+1: [INFO] [1794644812.660700316] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.660874722] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=4, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/2 (16 ms)
+1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/3
+1: [INFO] [1794644812.676319678] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.695571375] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=1, status=0). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/3 (34 ms)
+1: [ RUN      ] Checks/PacketFault.LatchMovementAndPreserveTorque/4
+1: [INFO] [1794644812.710568702] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.710705570] [pinchy_hardware]: Safety HOLD: ID 1: SDK communication/status fault (communication=0, status=4). Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/PacketFault.LatchMovementAndPreserveTorque/4 (14 ms)
+1: [----------] 5 tests from Checks/PacketFault (105 ms total)
+1: 
+1: [----------] 5 tests from Checks/HealthFault
+1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/0
+1: [INFO] [1794644812.726823635] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.727202686] [pinchy_hardware]: Safety HOLD: Servo supply outside 10..13 V. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/0 (16 ms)
+1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/1
+1: [INFO] [1794644812.742001735] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.742263503] [pinchy_hardware]: Safety HOLD: Servo supply outside 10..13 V. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/1 (14 ms)
+1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/2
+1: [INFO] [1794644812.756758990] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.757011253] [pinchy_hardware]: Safety HOLD: ID 3: servo alarm register nonzero. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/2 (14 ms)
+1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/3
+1: [INFO] [1794644812.771550070] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.771801853] [pinchy_hardware]: Safety HOLD: Unexpected servo torque state. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/3 (14 ms)
+1: [ RUN      ] Checks/HealthFault.RejectUnsafeFeedback/4
+1: [INFO] [1794644812.785608103] [pinchy_hardware]: Hardware active at measured pose; no automatic home movement
+1: [ERROR] [1794644812.785785772] [pinchy_hardware]: Safety HOLD: Measured ticks outside calibrated bounds. Movement latched off; leaving torque and existing servo goals unchanged. Correct the cause, then press Stop / hold to recover.
+1: [       OK ] Checks/HealthFault.RejectUnsafeFeedback/4 (3 ms)
+1: [----------] 5 tests from Checks/HealthFault (64 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 29 tests from 4 test suites ran. (596 ms total)
+1: [  PASSED  ] 29 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml'
+1: -- run_test.py: verify result file '/home/leo/Robot-Arm/robot_software/build/pinchy_hardware/test_results/pinchy_hardware/test_feetech_system.gtest.xml'
+1/1 Test #1: test_feetech_system ..............   Passed    0.79 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+gtest    =   0.79 sec*proc (1 test)
+
+Total Test time (real) =   0.79 sec
+Finished <<< pinchy_hardware [0.86s]
+
+Summary: 1 package finished [1.38s]
