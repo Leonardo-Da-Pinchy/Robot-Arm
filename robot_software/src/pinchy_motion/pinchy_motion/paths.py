@@ -136,6 +136,17 @@ def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
         check()  # cancellation/model changes are never treated as branch failures
         original=error
 
+    # A complete branch may fail timing or overshoot between IK samples. Move
+    # its configurations jointly before exploring more local branches.
+    if 'positions' in locals() and hasattr(solver,'errors'):
+        from .stroke_search import smooth_trace
+        try:
+            optimized_distances,optimized_positions,report=smooth_trace(curve,mode,distances,positions,solver,valid,stop)
+            result=finish(optimized_distances,optimized_positions)
+            check()
+            return optimized_distances,optimized_positions,result,report
+        except (ValueError,RuntimeError):check()
+
     # Score entire histories for travel, derivative changes and worst reserve.
     # Retain endpoint diversity so a cheap nearest branch cannot evict every
     # configuration that provides headroom later in the stroke.
@@ -196,15 +207,18 @@ def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
     raise original
 
 
-def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,contacts,velocity_scale=1.,acceleration_scale=1.):
+def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,contacts,velocity_scale=1.,acceleration_scale=1.,allow_contact_ramps=False):
     law=SpeedLaw(curve.length,speed,acceleration)
     if law.duration>110:raise ValueError('Path would exceed 110 seconds; split it or choose a feasible higher speed')
     contact_intervals=[(curve.waypoint_distances[i],curve.waypoint_distances[i+1]) for i,c in enumerate(contacts) if c]
-    if contact_intervals and any(a<law.ramp_distance-1e-8 or b>curve.length-law.ramp_distance+1e-8 for a,b in contact_intervals):
+    if not allow_contact_ramps and contact_intervals and any(a<law.ramp_distance-1e-8 or b>curve.length-law.ramp_distance+1e-8 for a,b in contact_intervals):
         raise ValueError('Contact includes acceleration/braking: add pen-up lead-in/out or reduce the requested contact speed')
     # C2 continuity prevents acceleration jumps at IK knots from being
     # amplified by short-interval JTC quintics. Check bounds and geometry below.
-    spline=CubicSpline(distances,positions,axis=0,bc_type='natural')
+    # Zero joint curvature at a Cartesian endpoint is generally inconsistent
+    # with the requested surface curve. Not-a-knot preserves the fitted local
+    # curvature instead of biasing endpoint TCP speed during contact ramps.
+    spline=CubicSpline(distances,positions,axis=0)
     times=separated(np.r_[np.arange(0,law.duration,.02),[law.duration,law.ramp_time,law.ramp_time+law.plateau_time],
                             [law.time_at(s) for s in curve.waypoint_distances]],.001)
     times[-1]=law.duration
@@ -219,7 +233,7 @@ def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,
     # A contact request must not be silently slowed to satisfy joint limits.
     trajectory=prepare_trajectory(trajectory,limits,velocity_scale,acceleration_scale,rescale=not bool(contact_intervals))
     factor=seconds(trajectory.joint_trajectory.points[-1])/law.duration
-    contact_speeds=[];peak=0.
+    contact_speeds=[];steady_contact_speeds=[];peak=0.;ramp_error=0.
     for first,last in zip(trajectory.joint_trajectory.points,trajectory.joint_trajectory.points[1:]):
         duration,coeff=segment_coefficients(first,last)
         for local in np.linspace(0,duration,max(2,math.ceil(duration/.02)+1)):
@@ -230,11 +244,22 @@ def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,
             angle=Rotation.from_matrix(expected[:3,:3].T@actual[:3,:3]).magnitude() if mode=='full' else math.acos(float(np.clip(actual[:3,2]@expected[:3,2],-1,1))) if mode=='tool_axis' else 0.
             if distance>.001 or angle>.01:raise ValueError(f'Timed trace leaves requested geometry ({distance*1000:.2f} mm / {math.degrees(angle):.2f} deg); refine waypoints or choose another route')
             linear=float(np.linalg.norm(jp@qdot));peak=max(peak,linear)
-            if any(a-1e-9<=s<=b+1e-9 for a,b in contact_intervals):contact_speeds.append(linear)
-    if contact_speeds and max(abs(v-speed) for v in contact_speeds)>speed*.05:
+            if any(a-1e-9<=s<=b+1e-9 for a,b in contact_intervals):
+                contact_speeds.append(linear)
+                expected_speed=law.at(absolute/factor)[1]/factor
+                ramp_error=max(ramp_error,abs(linear-expected_speed))
+                if law.plateau_time>1e-6 and law.ramp_distance-1e-9<=s<=curve.length-law.ramp_distance+1e-9:steady_contact_speeds.append(linear)
+    checked_speeds=steady_contact_speeds if allow_contact_ramps else contact_speeds
+    if checked_speeds and max(abs(v-speed) for v in checked_speeds)>speed*.05:
         raise ValueError('Commanded contact TCP speed varies more than the 5% planning tolerance; no plan retained')
+    if contact_speeds and allow_contact_ramps and ramp_error>speed*.05:
+        raise ValueError('Contact ramp TCP speed differs from its smooth speed law by more than 5%; no plan retained')
     return trajectory,dict(requested_tcp_speed_m_s=speed,modeled_peak_tcp_speed_m_s=peak,
         modeled_contact_min_m_s=min(contact_speeds) if contact_speeds else 0.,modeled_contact_max_m_s=max(contact_speeds) if contact_speeds else 0.,
+        modeled_steady_contact_min_m_s=min(steady_contact_speeds) if steady_contact_speeds else 0.,
+        modeled_steady_contact_max_m_s=max(steady_contact_speeds) if steady_contact_speeds else 0.,
+        contact_ramps_allowed=allow_contact_ramps,contact_has_constant_speed_plateau=bool(steady_contact_speeds and law.plateau_time>1e-6),
+        ramp_only=bool(contact_intervals and law.plateau_time<=1e-6),
         transit_time_scale=factor,physical_speed_qualified=False)
 
 

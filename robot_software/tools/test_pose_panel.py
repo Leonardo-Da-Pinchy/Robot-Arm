@@ -8,6 +8,7 @@ from scipy.spatial.transform import Rotation
 import rclpy
 from rclpy.context import Context
 from python_qt_binding.QtWidgets import QApplication
+from python_qt_binding.QtCore import Qt
 from pinchy_motion.panel import PosePanel
 from pinchy_motion.geometry import goal_difference
 
@@ -15,6 +16,29 @@ CURRENT=[.4745,-.0017,.2554,-95.21,32.38,-92.76]
 GOAL=[.471461,-.003679,.239280,-130.083,-86.586,4.025]
 
 class GoalDirectionTests(unittest.TestCase):
+    def test_pen_up_queue_default_and_stale_failure_invalidation(self):
+        from types import SimpleNamespace
+        app=QApplication.instance() or QApplication([])
+        context=Context();rclpy.init(context=context,domain_id=221)
+        node=rclpy.create_node('pose_queue_default_test',context=context);window=PosePanel(node)
+        try:
+            window.timer.stop();self.assertEqual(window.path_style.currentData(),'visits')
+            window.planned(SimpleNamespace(result=lambda:SimpleNamespace(success=False,plan_id='',message='old trace failure')))
+            self.assertIn('old trace failure',window.notice.text())
+            window.inputs[0].setValue(.35)
+            self.assertNotIn('old trace failure',window.notice.text())
+            self.assertIn('Inputs changed',window.notice.text());self.assertFalse(window.plan_id)
+            self.assertFalse(window.execute_button.isEnabled())
+            window.add_waypoint();window.queue.item(0,6).setCheckState(Qt.Checked)
+            window.inputs[0].setValue(.370924)
+            self.assertEqual(float(window.queue.item(0,0).text()),.35)
+            window.update_waypoint();self.assertEqual(float(window.queue.item(0,0).text()),.370924)
+            self.assertEqual(window.queue.item(0,6).checkState(),Qt.Checked)
+            window.busy=True;window.inputs[0].setValue(.4);window.update_waypoint();window.clear_waypoints()
+            self.assertEqual(window.queue.rowCount(),1);self.assertEqual(float(window.queue.item(0,0).text()),.370924)
+        finally:
+            window.target_timer.stop();window.executor.shutdown();window.close();app.processEvents();node.destroy_node();context.shutdown()
+
     def test_screenshot_is_nearby_in_xyz_but_large_direction_change(self):
         distance,angle=goal_difference(CURRENT,GOAL)
         self.assertAlmostEqual(distance*1000,16.52,delta=.1)

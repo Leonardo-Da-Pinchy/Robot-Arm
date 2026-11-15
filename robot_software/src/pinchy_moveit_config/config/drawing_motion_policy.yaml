@@ -1,6 +1,6 @@
 # Product requirement, not a claim that pose-transit timing implements drawing.
 # Ordered-path timing is software validated; physical contact remains disabled.
-version: 1
+version: 2
 contact_motion_implemented: false
 contact_timing_planning_implemented: true
 planning_speed_variation_fraction: 0.05
@@ -14,6 +14,16 @@ contact:
   allowed_speed_variation_fraction: null
   stop_at_sampled_waypoints: false
   accelerate_or_decelerate_in_contact_by_default: false
+  endpoint_ramps_permitted_when_explicitly_requested: true
+  endpoint_ramp_request_field: allow_contact_ramps
+  short_ramp_only_strokes_must_be_reported: true
+stroke:
+  one_continuous_motion_per_svg_pen_down_subpath: true
+  select_configurations_for_complete_stroke_before_execution: true
+  axial_tool_twist_free_when_preserving_normal: true
+  pen_up_start_configuration_search_requires_explicit_request: true
+  pen_up_start_request_field: plan_pen_up_approach
+  incomplete_strokes: reject_without_partial_execution
 ramps:
   preferred_location: pen_up_off_surface
   reach_contact_speed_before_marking: true
@@ -22,6 +32,7 @@ exceptions:
   - safety_stop
   - explicitly_requested_pause
   - unavoidable_contact_transition
+  - explicitly_requested_contact_endpoint_ramps
   - sharp_corner_with_explicitly_approved_slowdown
 corner_policy: preserve_geometry_or_lift_or_explicitly_approved_blend
 unachievable_contact_speed: reject_or_request_explicit_alternative_before_execution

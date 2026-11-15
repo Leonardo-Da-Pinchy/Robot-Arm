@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "name": "Captured session: 7 points (Nov 15)",
+  "frame": "base_link",
+  "tcp_frame": "pointer_tip",
+  "units": {
+    "position": "m",
+    "orientation": "deg"
+  },
+  "orientation_mode": "tool_axis",
+  "style": "visits",
+  "waypoints": [
+    {
+      "xyz": [
+        0.405899,
+        0.049812,
+        0.246919
+      ],
+      "rpy_deg": [
+        -112.28999999999976,
+        -86.986,
+        -67.74200000000026
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.405899,
+        0.105772,
+        0.246919
+      ],
+      "rpy_deg": [
+        -112.28999999999992,
+        -86.986,
+        -83.7040000000001
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.413339,
+        0.105772,
+        0.246919
+      ],
+      "rpy_deg": [
+        -112.28999999999967,
+        -86.986,
+        -105.85700000000034
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.340563,
+        0.105772,
+        0.246919
+      ],
+      "rpy_deg": [
+        -112.28999999999978,
+        -86.98599999999999,
+        -101.30700000000023
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.37079,
+        0.122193,
+        0.157282
+      ],
+      "rpy_deg": [
+        -112.28999999999986,
+        -86.986,
+        -120.09700000000018
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.328032,
+        0.007273,
+        0.157282
+      ],
+      "rpy_deg": [
+        -112.29000000000009,
+        -86.986,
+        -74.25099999999995
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.455855,
+        -0.00124,
+        0.247397
+      ],
+      "rpy_deg": [
+        102.57400000000003,
+        -86.41,
+        74.11099999999998
+      ],
+      "contact": false
+    }
+  ],
+  "allow_contact_ramps": false,
+  "plan_pen_up_approach": false,
+  "joint_speed_deg_s": 30.0,
+  "joint_acceleration_deg_s2": 180.0,
+  "tcp_speed_m_s": 0.4,
+  "tcp_acceleration_m_s2": 0.05,
+  "notes": "Recovered pose coordinates/orientations/contact labels exactly from the submitted queue. Joint/TCP acceleration settings were not logged; shared defaults are recorded. This file has no execution token and must be replanned.",
+  "source": {
+    "log": "/home/leo/.ros/log/python3_104539_1794721073634.log",
+    "request_id": "77d804fd544c4c9d8475e2cffc04c6a4",
+    "recovery": "Latest submitted queue; unsent UI edits are not observable from the log"
+  }
+}

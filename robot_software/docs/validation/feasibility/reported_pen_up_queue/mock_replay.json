@@ -1,0 +1,72 @@
+[
+  {
+    "kind": "pose",
+    "xyz": [
+      0.428247,
+      0.142794,
+      0.239279
+    ],
+    "success": false,
+    "message": "XYZ alone is reachable; no solution was found for XYZ plus the requested pen direction within saved limits. Goal is 149.5 mm from the held tip, but changes its direction by 35.2 deg. Best numerical residual: 3.30 mm / 2.71 deg. This is not proof of impossibility. Use Copy current direction to deliberately keep your XYZ with the current pointing direction, or edit the goal direction. No motion sent; constraints were not relaxed."
+  },
+  {
+    "kind": "queue",
+    "xyz": [
+      0.428247,
+      0.142794,
+      0.239279
+    ],
+    "success": false,
+    "message": "XYZ alone is reachable; no solution was found for XYZ plus the requested pen direction within saved limits. Goal is 149.5 mm from the held tip, but changes its direction by 35.2 deg. Best numerical residual: 3.30 mm / 2.71 deg. This is not proof of impossibility. Use Copy current direction to deliberately keep your XYZ with the current pointing direction, or edit the goal direction. No motion sent; constraints were not relaxed."
+  },
+  {
+    "kind": "explicit_position_only",
+    "xyz": [
+      0.428247,
+      0.142794,
+      0.239279
+    ],
+    "success": true,
+    "message": "Ordered visits path ready; 1 waypoints, no motion sent. Pen-up timing; ramps and joint limits may lower TCP speed. Low joint travel reserve: pen_pitch 0.70 deg along this plan; validate the next segment too."
+  },
+  {
+    "kind": "pose",
+    "xyz": [
+      0.359299,
+      -0.073879,
+      0.16414
+    ],
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY 100.28, -77.60, 77.52 deg. Low joint travel reserve: pen_pitch 0.70 deg along this plan; a later move may need another posture."
+  },
+  {
+    "kind": "queue",
+    "xyz": [
+      0.359299,
+      -0.073879,
+      0.16414
+    ],
+    "success": true,
+    "message": "Ordered visits path ready; 1 waypoints, no motion sent. Pen-up timing; ramps and joint limits may lower TCP speed. Low joint travel reserve: pen_pitch 0.70 deg along this plan; validate the next segment too."
+  },
+  {
+    "kind": "pose",
+    "xyz": [
+      0.370924,
+      0.076653,
+      0.239279
+    ],
+    "success": true,
+    "message": "Plan ready; no motion sent. tool_axis / joint; resolved RPY -92.48, -27.70, -124.00 deg. Low joint travel reserve: pen_pitch 0.70 deg along this plan; a later move may need another posture."
+  },
+  {
+    "kind": "queue",
+    "xyz": [
+      0.370924,
+      0.076653,
+      0.239279
+    ],
+    "success": true,
+    "message": "Ordered visits path ready; 1 waypoints, no motion sent. Pen-up timing; ramps and joint limits may lower TCP speed. Low joint travel reserve: pen_pitch 0.70 deg along this plan; validate the next segment too."
+  }
+]

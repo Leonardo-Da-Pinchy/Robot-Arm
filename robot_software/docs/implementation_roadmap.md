@@ -1,6 +1,6 @@
 # Final-product roadmap
 
-Updated November 14, 2026. This is the current ordered plan through the finished
+Updated November 15, 2026. This is the current ordered plan through the finished
 product, superseding the older checkpoint-only task list. The owner reports
 that the assembled arm, startup, ROS control and sliders worked well for the
 demos. This confirms demonstrated operation; it does not establish measured
@@ -28,16 +28,18 @@ not require a gratuitous file edit.
 The product accepts SVG artwork through the team's website, with drawing scale
 and placement settings. The Jetson retrieves approved jobs over **HTTPS**, gets
 a validated object/platform pose from the teammate's AprilTag subsystem, checks
-the complete motion, and draws the artwork on a known stationary cylinder or
-cylindrical mug. It reports preview, progress, completion and clear failures;
+the complete motion, and draws the artwork on a known stationary surface. The owner-selected
+nominal geometries are a flat panel, cylinder/cylindrical mug and concave quarter
+pipe; dimensions and scope decisions are in [nominal geometries](nominal_geometries.md). It reports preview, progress, completion and clear failures;
 software Stop holds the arm. Start with one color and a manually loaded pen.
 Preserve separate strokes and keep the pen approximately normal to the surface.
 
 The current robot has **six positioning motors and no separate gripper motor**.
 Automatic pen pickup, extra actuators, arbitrary surface reconstruction and
 multi-color tool changes are extensions, not dependencies for this product.
-Initial geometry is a known constant-radius surface, with handles and fixtures
-excluded from the drawing region. The report's front-180-degree drawing region
+The design report initially specified a cylinder/cylindrical mug; the owner
+has now added the flat panel and concave quarter pipe as nominal geometries.
+Handles and fixtures remain excluded from the drawing region. The report's front-180-degree drawing region
 must be checked against the actual assembled arm's reachable poses.
 
 | Owner | Deliverable and boundary |
@@ -113,7 +115,11 @@ the surface. Put acceleration/deceleration in pen-up motion off the object
 wherever feasible: reach marking speed before contact and lift before terminal
 braking. Do not stop at sampled contact waypoints. If a corner/short stroke
 cannot meet this, plan a lift or obtain explicit approval for blending/slowdown
-rather than silently changing the drawing. Safety stops remain exceptions.
+rather than silently changing the drawing. The owner also permits smooth acceleration/braking on the surface at stroke
+ends; the explicit `allow_contact_ramps` option reports these exceptions and
+short ramp-only strokes. Interior contact cruise speed remains checked. Each
+SVG pen-down subpath is intended as one continuous motion; see the
+[stroke contract](stroke_planning.md). Safety stops remain exceptions.
 The [versioned drawing policy](../src/pinchy_moveit_config/config/drawing_motion_policy.yaml)
 records this requirement. Qualified speed/variation are TBD; the implemented
 ordered-path interface validates modeled contact timing in mock, while physical
@@ -127,34 +133,39 @@ establish measured drawing behavior. See [ordered paths](cartesian_paths.md).
 Complete means demonstrated or implemented at the stated level. Step 7 is
 software-complete using the authorized proxy, with physical agreement still
 unmeasured. External integration identifies a teammate dependency, not a claim
-about their implementation progress.
+about their implementation progress. Expanded caveats and pending inputs are
+retained in [implementation notes](roadmap_task_notes.md) and the linked guides.
+The owner accepted steps 8 and 10 as complete for moving forward on November 15.
+Outstanding accuracy, repeatability, load, speed, thermal and safety measurements
+are retained in verification steps 23–24; acceptance does not claim those
+measurements have already passed.
 
 | # | Status | Task |
 | --- | --- | --- |
-| 1 | ✅ **Complete** | Hardware inventory and six unique motor IDs; individual and chained motor tests, labels and power-cycle checks. |
-| 2 | ✅ **Complete** | Assemble the arm, integrate CAD 4, and record joint order, zeros, directions and initial bounds. Model/TCP accuracy still needs measurement in later steps. |
-| 3 | ✅ **Complete** | Real and mock ros2_control; measured joint states, trajectory action, RViz and six-joint sliders. Owner successfully used the physical workflow in demos; bringup is complete for starting MoveIt. |
-| 4 | ✅ **Complete** | Guided sequential zero/hold startup, operating speed/acceleration controls, live readouts, planned/measured graphs, recording, Stop/hold and explicit runtime fault recovery. Finite command-rate excesses are limited without a safety latch; defaults are 30 deg/s and 180 deg/s², with selectable caps of 60 deg/s and 360 deg/s². Live target telemetry uses a nonblocking worker and stamped updates. Physical fault/duty qualification remains in steps 8 and 23. |
-| 5 | ⬜ **Remaining** | Confirm final scope and measurable acceptance: supported object/region, pen, artwork limits, placement/shape accuracy, speed and runtime. Treat report targets as targets until measured or explicitly revised. |
-| 6 | ⬜ **Remaining — coordinate now** | Agree both integration contracts with the server and AprilTag teammates. Obtain example payloads and recorded pose samples so development can proceed with fakes. |
-| 7 | ✅ **Software complete — RViz proxy** | Defined `pointer_tip` at the modeled pointer endpoint, with an active-tool profile, visible marker, geometry/FK checks and mock/emulated ROS TF validation. Owner authorized this temporary proxy; physical endpoint/model agreement remains unmeasured in step 8, and actual pen calibration is step 13. See [tool frames](tool_frames.md). |
-| 8 | 🟨 **Partial** | Qualify assembled operation: usable joint ranges, loaded holding, speed/acceleration, temperature/current, tracking error, Stop and recovery. Startup is faster with explicit capture-window feedback and shared shoulder/elbow settling tolerance; loaded lifting still needs physical verification. Measure useful tool speed and low-speed stepping; selectable GUI limits are not certified operating limits. |
-| 9 | ✅ **Software complete — current model** | Added `pinchy_moveit_config`: live calibrated model/limits, six-joint `arm` group, KDL plus bounded multi-start IK with explicit exact-pose/pen-direction/position modes, OMPL planning, reviewed adjacent-only self-collision exclusions, example floor and existing-controller mapping. Live goal handles, numerical input bounds, approximate reach samples and optional collision geometry are visible; floor placement remains unmeasured. Shared RViz view and hardware protections retained. Final base-wing/fixture geometry remains pending from the owner; reconcile it before physical planning near those parts. See [MoveIt handoff](moveit_handoff.md). |
-| 10 | 🟨 **Software complete — physical tests pending** | Implemented synchronized live XYZ/RPY fields/RViz handles and CLI plus typed plan/execute interfaces: explicit IK constraints, preview-only planning, optional straight TCP LERP/SLERP transit with partial-path rejection, checked timed paths, explicit execution, current pose/progress, powered Stop/cancel and recovery. Mock/emulated validation covers rejection and execution; the new guided entry preserves holds through planner startup on a fake bus. Nearby physical pose/orientation/repeatability checks await the operator, using the temporary pointer proxy with its unmeasured attachment offset. See [Cartesian guide](cartesian_control.md). |
-| 11 | 🟨 **Software implemented — qualification pending** | Ordered waypoint queue, typed PlanPath service and JSON CLI; continuous free-twist IK, polyline/explicit spline traces and OMPL visits, full collision/trajectory validation, preview and existing powered execution. Mock contact timing holds modeled TCP speed through samples with explicit pen-up ramps; sharp contact corners, incomplete paths and infeasible speed are rejected. Physical contact remains disabled until pen/surface qualification; measured speed/variation and loaded operation remain pending. Added bounded whole-stroke alternative configuration search from the fixed held start, with complete-candidate timing/interpolation/collision checks. The recorded broad arcs still fail; robust starting-posture selection and collision-planned pen-up repositioning remain unresolved. Keep IK/continuity as the priority before other feature work; see step 12. See [ordered paths](cartesian_paths.md). |
-| 12 | 🔜 **Next — feasibility gate / geometry pending** | Prioritize continuous drawing feasibility before job integrations. A current-model study found posture-dependent nearby failures, a continuation failure with a valid broader IK witness, singularity sensitivity, side-normal range concerns and broad-arc timing failures; front-180° coverage is not established. Read [motion feasibility](motion_feasibility.md), verify the real TCP/wrist ranges, then establish cylinder radius, height, frame, seating and fixture clearances. Check alternative starting postures and complete drawing/lift paths at useful speed. A narrower software timing example is not product qualification. |
-| 13 | ⬜ **Remaining — pen needed** | Install the actual pen, calibrate tip/axis and holder compression/contact offset, update active tool visuals/collision geometry and check compliance. Prove repeatable contact without bottoming out. Encoder position is not a force measurement. |
-| 14 | ⬜ **Remaining** | Generate surface-following poses from simple 2D lines/curves using cylinder arc length and surface normals. Add approach, contact, pen-up travel, stroke transitions and retract. Allow only intended pen-tip contact; keep holder/arm/fixture collision checks. |
-| 15 | ⬜ **Remaining** | Parse the supported SVG subset, units/viewBox/transforms and artwork placement; sample native curves to an explicit geometric tolerance, preserve stroke boundaries/corners, and validate unsupported elements and input limits. Reject invalid jobs with clear reasons. |
-| 16 | ⬜ **Remaining** | Build the robot job executor: validate → register → map → plan/preview → wait for Start → execute → complete/hold/fail. One active job; track measured progress and results. Honor hardware safety holds and discard interrupted motion on recovery; never silently resume an old drawing. |
-| 17 | ⬜ **Remaining** | Draw from a local file on the fixed cylinder: start with dry runs, then single lines, curves and multiple separated strokes. Measure the marks and tune TCP, contact, mapping and operating speed. |
-| 18 | ⬜ **Remaining — external integration** | Consume teammate AprilTag output through the agreed ROS adapter. Establish camera/base/platform/object transforms using the pending base-wing camera mount geometry and verified optical-frame offset, check timestamps/quality, reject stale or missing registration, and associate the approved plan with the specific object pose. Detection implementation belongs to the teammate. |
-| 19 | ⬜ **Remaining — shared validation** | Verify registration against independent physical references over several placements and reseatings. Define behavior for occlusion, stale updates and detected movement during a job. A changed pose invalidates a preview/plan; never change the drawing frame underneath an executing trajectory. |
-| 20 | ⬜ **Remaining — external integration** | Implement the Jetson HTTPS bridge: retrieve/claim a job, download artwork/settings, validate and stage locally, report preview/readiness/progress/results, and consume Start/Stop/cancel requests. Protect against duplicate execution, reconnect/retry errors, partial downloads and stale jobs. Use a fake server until real endpoints are ready. |
-| 21 | 🟨 **Partial — external integration** | Connect the finished browser/server workflow: upload, object selection, scale/placement, preview, explicit Start, status/progress, Stop and rejection details. Existing canvas/SVG submission is a starting point. A browser Stop must reach the existing ROS hold mechanism. |
-| 22 | ⬜ **Remaining** | Complete the end-to-end path: browser → HTTPS server → Jetson job → AprilTag registration → validated drawing trajectory → real motors, with status/results back to the server/browser. Demonstrate an entire job without terminal commands per stroke. |
-| 23 | ⬜ **Remaining** | Validate failures and repeatability: invalid/oversized artwork, unreachable/colliding paths, tag loss/movement, HTTP disconnects/duplicates, servo faults, Stop, power loss and process restart. Establish supported stop/recovery behavior and verify interrupted jobs do not auto-run again. |
-| 24 | ⬜ **Remaining** | Final measured acceptance and handoff: repeated drawings across placements, accuracy/speed/contact/duty results, documented limits, one normal operator entry point, dependency/config versioning, persistent job records and a reproducible final demo/runbook. |
+| 1 | ✅ **Complete** | **Motor setup** — Inventory, IDs, bench tests and power-cycle checks. |
+| 2 | ✅ **Complete** | **Assembly and calibration** — Model, zeros, directions and bounds recorded; physical accuracy still needs measurement. |
+| 3 | ✅ **Complete** | **ROS control** — Real/mock control, feedback, RViz and sliders demonstrated. |
+| 4 | ✅ **Complete** | **Startup and safety** — Guided zero/hold, motion controls, recordings and Stop/recovery implemented; physical qualification remains. |
+| 5 | 🟨 **Partial — nominal geometries selected** | **Scope and objects** — Panel 100 × 100 mm; cylinder Ø80 × 100 mm; quarter pipe R100 × L100 mm, 90°. Placement/acceptance pending. [Details](nominal_geometries.md). |
+| 6 | ⬜ **Remaining — coordinate now** | **Team interfaces** — Agree HTTPS and AprilTag contracts; obtain sample payloads and recordings. |
+| 7 | ✅ **Software complete — RViz proxy** | **TCP definition** — `pointer_tip` proxy implemented; physical tip agreement unmeasured. |
+| 8 | ✅ **Complete — owner accepted** | **Hardware qualification** — Accepted for moving forward; remaining measurements carried into verification steps 23–24. |
+| 9 | ✅ **Software complete — current model** | **MoveIt setup** — IK, collision planning and controller integration implemented; final scene geometry pending. |
+| 10 | ✅ **Complete — owner accepted** | **Poses and saved points** — Functional workflow accepted for moving forward; refinements and physical measurements continue through steps 23–24. [Usage](point_sets.md). |
+| 11 | 🟨 **Software implemented — qualification pending** | **Continuous strokes** — Whole-stroke configuration search and speed/normal checks implemented; two broad arcs pass at 3 mm/s in mock. Physical contact/coverage unqualified. |
+| 12 | 🔜 **Next — feasibility gate / geometry pending** | **Drawing feasibility** — Add objects/fixtures, choose placement and validate complete strokes/lifts across the three geometries. Full coverage remains unqualified. |
+| 13 | ⬜ **Remaining — pen needed** | **Pen calibration** — Install pen; measure tip, axis and compliance; update the tool model. |
+| 14 | ⬜ **Remaining** | **Surface mapping** — Map lines/curves onto the plane, cylinder and quarter pipe, including normals and pen-up transitions. |
+| 15 | ⬜ **Remaining** | **SVG import** — Handle units, transforms and curves; preserve strokes and reject unsupported input. |
+| 16 | ⬜ **Remaining** | **Job executor** — Validate, preview, Start, execute and report results; one active job with explicit Stop/recovery. |
+| 17 | ⬜ **Remaining** | **Physical drawing** — Local-file dry runs, then lines, curves and separate strokes; measure the marks. |
+| 18 | ⬜ **Remaining — external integration** | **AprilTag integration** — Consume teammate poses through verified camera/base transforms; reject stale registration. |
+| 19 | ⬜ **Remaining — shared validation** | **Registration testing** — Measure placement/reseating error; invalidate plans when the object moves. |
+| 20 | ⬜ **Remaining — external integration** | **HTTPS client** — Retrieve/claim jobs and report status; handle duplicates, downloads and reconnects. |
+| 21 | 🟨 **Partial — external integration** | **Browser workflow** — Connect upload, placement, preview, Start, Stop and progress; prototype exists. |
+| 22 | ⬜ **Remaining** | **End-to-end integration** — Browser → HTTPS → registration → checked trajectory → drawing, without per-stroke terminal commands. |
+| 23 | ⬜ **Remaining** | **Verification** — Check accuracy/repeatability, loads, speeds, temperatures, faults and recovery; prevent unintended replay. |
+| 24 | ⬜ **Remaining** | **Final acceptance** — Measure quality, speed, accuracy and duty; deliver the reproducible operator workflow. |
 
 ## Interface contracts to agree early (step 6)
 
@@ -266,8 +277,9 @@ powered-hold monitoring. See the IK investigation for the recapture evidence.
 
 The immediate software priority remains **steps 11–12**: qualify IK routing and
 whole-stroke continuity under the contact-speed policy before other feature work.
-The bounded alternative search is an initial implementation, not closure of
-the saved broad-arc failures or full drawing coverage. Steps 9–10 now provide the software pose
+Whole-stroke optimization and explicit start selection now resolve the two
+recorded broad cases at 3 mm/s with gentler ramps; they do not establish full
+drawing coverage or physical qualification. Steps 9–10 now provide the software pose
 workflow; the returning operator must first verify the nearby physical poses,
 orientation and Stop behavior described in [the MoveIt handoff](moveit_handoff.md).
 Step 7 uses an explicit proxy; physical tip/model agreement remains unmeasured.

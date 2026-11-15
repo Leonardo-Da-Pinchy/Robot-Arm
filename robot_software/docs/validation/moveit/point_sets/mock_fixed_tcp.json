@@ -1,0 +1,6 @@
+{
+  "message": "Ordered fixed_tcp path ready; 7 waypoints, no motion sent. Includes a pen-up approach to point 1; subsequent rotations have modeled TCP drift at most 0.066 mm. Physical TCP accuracy is unmeasured. Pen-up timing; ramps and joint limits may lower TCP speed. Low joint travel reserve: pen_pitch 0.70 deg along this plan; validate the next segment too.",
+  "maximum_sampled_position_error_m": 6.557458784411668e-05,
+  "maximum_orientation_change_rad": 0.05235991454731431,
+  "duration": 34.911754153
+}

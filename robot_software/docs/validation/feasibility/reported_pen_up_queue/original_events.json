@@ -1,0 +1,188 @@
+[
+  {
+    "event": "path_request",
+    "request_id": "0d564d07ee9b4d78b87604a2fcaa4a07",
+    "style": "polyline",
+    "mode": "tool_axis",
+    "start": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "waypoints": [
+      {
+        "xyz": [
+          0.428247,
+          0.142794,
+          0.239279
+        ],
+        "quaternion": [
+          -0.6815802620347066,
+          0.23370210541832073,
+          -0.6658017981340734,
+          -0.19375148497283684
+        ]
+      }
+    ],
+    "contacts": [
+      false
+    ],
+    "tcp_speed": 0.02
+  },
+  {
+    "event": "trace_configuration_rejected",
+    "request_id": "0d564d07ee9b4d78b87604a2fcaa4a07",
+    "method": "whole_stroke_beam",
+    "beam_width": 4,
+    "complete_candidates": 0,
+    "rejections": [],
+    "extension_failure_distance_m": 0.00909532146156811
+  },
+  {
+    "event": "trace_failure_diagnostic",
+    "request_id": "0d564d07ee9b4d78b87604a2fcaa4a07",
+    "distance_m": 0.00909532146156811,
+    "target_matrix": [
+      [
+        0.0006673911761479779,
+        -0.037370301982672716,
+        0.9993012634429829,
+        0.4633600937499994
+      ],
+      [
+        -0.048672741219743874,
+        -0.9981183070439753,
+        -0.037293557162388954,
+        0.007596499884842888
+      ],
+      [
+        0.9988145567877822,
+        -0.04861384240514605,
+        -0.0024850503885792204,
+        0.25361733132540093
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "broader_ik_found": true,
+    "executable": false,
+    "report": {
+      "mode": "tool_axis",
+      "attempts": 1,
+      "elapsed_s": 0.19366605899995193,
+      "rejected_candidates": 0,
+      "reason": "solved",
+      "best_position_error_mm": 0.0013337827740862427,
+      "best_orientation_error_deg": 0.003241772464164631,
+      "limiting_joints": [
+        "pen_pitch"
+      ]
+    }
+  },
+  {
+    "event": "path_rejected",
+    "request_id": "0d564d07ee9b4d78b87604a2fcaa4a07",
+    "message": "Cartesian trace incomplete at 6.0%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained Bounded whole-stroke alternatives also failed; this finite search does not prove the stroke unreachable. No partial plan retained The failed intermediate pose DOES have collision-checked IK in another configuration (up to 6.4 deg from the stalled configuration). No continuous connection was found from this starting posture; this is not an unreachable-point result. Plan a different pen-up approach/posture before tracing.",
+    "selection": {}
+  },
+  {
+    "event": "path_request",
+    "request_id": "3b1984ae156a4d0c84bcc281db063507",
+    "style": "polyline",
+    "mode": "tool_axis",
+    "start": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "waypoints": [
+      {
+        "xyz": [
+          0.359299,
+          -0.073879,
+          0.16414
+        ],
+        "quaternion": [
+          -0.7198100734753331,
+          0.03227670670453764,
+          -0.693418395741209,
+          0.0016126919832649689
+        ]
+      }
+    ],
+    "contacts": [
+      false
+    ],
+    "tcp_speed": 0.02
+  },
+  {
+    "event": "trace_configuration_rejected",
+    "request_id": "3b1984ae156a4d0c84bcc281db063507",
+    "method": "whole_stroke_beam",
+    "beam_width": 4,
+    "complete_candidates": 0,
+    "rejections": [],
+    "extension_failure_distance_m": 0.06181893552157161
+  },
+  {
+    "event": "trace_failure_diagnostic",
+    "request_id": "3b1984ae156a4d0c84bcc281db063507",
+    "distance_m": 0.06175668080302018,
+    "target_matrix": [
+      [
+        0.014221821906074546,
+        -0.01737432210676505,
+        0.9997479045804509,
+        0.4239079113924048
+      ],
+      [
+        -0.048778786468109854,
+        -0.9986706252158246,
+        -0.016661702245938333,
+        -0.029695757816012514
+      ],
+      [
+        0.9987083507072376,
+        -0.0485295297974763,
+        -0.015050414122721635,
+        0.219070275609528
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "broader_ik_found": true,
+    "executable": false,
+    "report": {
+      "mode": "tool_axis",
+      "attempts": 1,
+      "elapsed_s": 0.09321491600712761,
+      "rejected_candidates": 0,
+      "reason": "solved",
+      "best_position_error_mm": 3.136008807314911e-10,
+      "best_orientation_error_deg": 0.0,
+      "limiting_joints": [
+        "pen_pitch"
+      ]
+    }
+  },
+  {
+    "event": "path_rejected",
+    "request_id": "3b1984ae156a4d0c84bcc281db063507",
+    "message": "Cartesian trace incomplete at 39.2%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained Bounded whole-stroke alternatives also failed; this finite search does not prove the stroke unreachable. No partial plan retained The failed intermediate pose DOES have collision-checked IK in another configuration (up to 1.7 deg from the stalled configuration). No continuous connection was found from this starting posture; this is not an unreachable-point result. Plan a different pen-up approach/posture before tracing.",
+    "selection": {}
+  }
+]
