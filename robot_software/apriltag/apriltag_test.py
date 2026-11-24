@@ -4,8 +4,73 @@ import numpy as np
 import pyrealsense2 as rs
 from pyapriltags import Detector
 
-TAG_SIZE = 0.05  # Tag size in meters (5 cm)
+# ==========================================
+# CONFIGURATION
+# ==========================================
+
+WIDTH = 640
+HEIGHT = 480
+FPS = 30
+
+TAG_SIZE = 0.05  # Physical tag size in meters
 AXIS_LENGTH = TAG_SIZE / 2
+
+# Camera position relative to robot origin
+CAMERA_X = 0.1016  # 4 inches
+CAMERA_Y = 0.0
+CAMERA_Z = 0.0     # TODO: Measure camera height
+
+# Camera orientation
+# Heading is measured CCW from robot +X
+CAMERA_HEADING = 120.0
+CAMERA_PITCH = 0.0  # Positive if pointing upward
+
+# ==========================================
+# CAMERA-TO-ROBOT TRANSFORMATION
+# ==========================================
+
+theta = np.radians(CAMERA_HEADING - 90.0)
+pitch = np.radians(CAMERA_PITCH)
+
+# Convert optical frame into robot frame
+R_0 = np.array([
+    [1,  0, 0],
+    [0,  0, 1],
+    [0, -1, 0]
+])
+
+# Horizontal rotation
+R_z = np.array([
+    [np.cos(theta), -np.sin(theta), 0],
+    [np.sin(theta),  np.cos(theta), 0],
+    [0, 0, 1]
+])
+
+# Vertical camera tilt
+R_x = np.array([
+    [1, 0, 0],
+    [0, np.cos(pitch), -np.sin(pitch)],
+    [0, np.sin(pitch),  np.cos(pitch)]
+])
+
+# Combined rotation
+R_robot_camera = R_z @ R_x @ R_0
+
+# Translation from robot origin to camera
+t_robot_camera = np.array([
+    CAMERA_X,
+    CAMERA_Y,
+    CAMERA_Z
+])
+
+
+def camera_to_robot(position):
+    return R_robot_camera @ position + t_robot_camera
+
+
+# ==========================================
+# INITIALIZE APRILTAG DETECTOR
+# ==========================================
 
 detector = Detector(
     families="tag36h11",
@@ -14,11 +79,19 @@ detector = Detector(
     refine_edges=1
 )
 
-# Initialize RealSense
+# ==========================================
+# INITIALIZE REALSENSE CAMERA
+# ==========================================
+
 pipeline = rs.pipeline()
 config = rs.config()
+
 config.enable_stream(
-    rs.stream.color, 640, 480, rs.format.bgr8, 30
+    rs.stream.color,
+    WIDTH,
+    HEIGHT,
+    rs.format.bgr8,
+    FPS
 )
 
 started = False
@@ -27,34 +100,39 @@ try:
     profile = pipeline.start(config)
     started = True
 
-    # Get actual camera intrinsics
-    stream = profile.get_stream(
+    color_profile = profile.get_stream(
         rs.stream.color
     ).as_video_stream_profile()
 
-    intr = stream.get_intrinsics()
-
-    fx, fy = intr.fx, intr.fy
-    cx, cy = intr.ppx, intr.ppy
+    intr = color_profile.get_intrinsics()
 
     camera_matrix = np.array([
-        [fx, 0, cx],
-        [0, fy, cy],
+        [intr.fx, 0, intr.ppx],
+        [0, intr.fy, intr.ppy],
         [0, 0, 1]
     ], dtype=np.float64)
 
-    camera_params = (fx, fy, cx, cy)
+    camera_params = (
+        intr.fx,
+        intr.fy,
+        intr.ppx,
+        intr.ppy
+    )
 
-    # Undistort Brown-Conrady color frames if needed
-    #use_undistort = intr.model in (
-    #    rs.distortion.brown_conrady,
-    #    rs.distortion.modified_brown_conrady
-    #)
-    use_undistort = 0
-    dist = np.array(intr.coeffs, dtype=np.float64)
-    dist_coeffs = np.zeros(5, dtype=np.float64)
+    # Lens distortion correction
+    use_undistort = intr.model in (
+        rs.distortion.brown_conrady,
+        rs.distortion.modified_brown_conrady
+    )
 
-    print("RealSense camera started")
+    distortion = np.array(intr.coeffs)
+    zero_distortion = np.zeros(5)
+
+    print("Camera started")
+
+    # ======================================
+    # DETECTION LOOP
+    # ======================================
 
     while True:
         frames = pipeline.wait_for_frames()
@@ -67,15 +145,12 @@ try:
 
         if use_undistort:
             frame = cv2.undistort(
-                frame, camera_matrix, dist
+                frame, camera_matrix, distortion
             )
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        display = frame.copy()
 
-        # Grayscale background with colored axes
-        display = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
-
-        # Detect tags and estimate 3D pose
         tags = detector.detect(
             gray,
             estimate_tag_pose=True,
@@ -83,54 +158,96 @@ try:
             tag_size=TAG_SIZE
         )
 
-        for tag in tags:
-            R = tag.pose_R
-            t = tag.pose_t
-
-            if R is None or t is None:
+        for i in range(3):
+            tag = tags[i]
+            if tag.pose_t is None or tag.pose_R is None:
                 continue
 
-            # Convert pose into OpenCV format
-            rvec, _ = cv2.Rodrigues(R)
-            tvec = t.reshape(3, 1)
+            # Position relative to camera (meters)
+            p_camera = tag.pose_t.flatten()
 
-            # Draw colored 3D axes
+            # Distance from camera
+            distance_camera = np.linalg.norm(p_camera)
+
+            # Position relative to robot
+            p_robot = camera_to_robot(p_camera)
+
+            x_robot, y_robot, z_robot = p_robot
+
+            # Distance from robot origin
+            distance_robot = np.linalg.norm(p_robot)
+
+            # Horizontal distance from robot origin
+            distance_xy = np.hypot(x_robot, y_robot)
+
+            # Tag orientation relative to robot
+            R_robot_tag = R_robot_camera @ tag.pose_R
+
+            # Outward-facing surface normal
+            normal = -R_robot_tag[:, 2]
+
+            # Surface normal angle measured from robot +X
+            surface_angle = np.degrees(
+                np.arctan2(normal[1], normal[0])
+            )
+
+            # Draw 3D coordinate axes
+            rvec, _ = cv2.Rodrigues(tag.pose_R)
+
             cv2.drawFrameAxes(
                 display,
                 camera_matrix,
-                dist_coeffs,
+                zero_distortion,
                 rvec,
-                tvec,
+                tag.pose_t.reshape(3, 1),
                 AXIS_LENGTH,
                 2
             )
 
-            # Draw tag border
+            # Draw tag outline
             corners = tag.corners.astype(np.int32)
-            cv2.polylines(
-                display, [corners], True, (255, 255, 255), 1
-            )
 
-            # Calculate horizontal surface angle
-            normal = R[:, 2]
-            angle = np.degrees(
-                np.arctan2(normal[0], normal[2])
+            cv2.polylines(
+                display, [corners], True,
+                (0, 255, 0), 2
             )
 
             center = tag.center.astype(int)
 
-            # Display tag ID and angle
-            cv2.putText(
-                display,
-                f"ID {tag.tag_id}: {angle:.1f} deg",
-                (int(center[0]), int(center[1]) - 25),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.5,
-                (255, 255, 0),
-                2
+            # Information displayed on camera feed
+            lines = [
+                f"ID: {tag.tag_id}",
+                f"Cam dist: {distance_camera * 100:.1f} cm",
+                f"Robot dist: {distance_robot * 100:.1f} cm",
+                f"X: {x_robot * 100:.1f} cm",
+                f"Y: {y_robot * 100:.1f} cm",
+                f"Z: {z_robot * 100:.1f} cm",
+                f"Surface: {surface_angle:.1f} deg"
+            ]
+
+            text_x = max(0, min(center[0] + 15, WIDTH - 210))
+            text_y = max(20, min(center[1] - 40, HEIGHT - 135))
+
+            for i, line in enumerate(lines):
+                cv2.putText(
+                    display,
+                    line,
+                    (text_x, text_y + i * 18),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.45,
+                    (0, 255, 255),
+                    1
+                )
+
+            print(
+                f"ID: {tag.tag_id} | "
+                f"Camera distance: {distance_camera:.4f} m | "
+                f"Robot XYZ: {p_robot.round(4)} | "
+                f"XY distance: {distance_xy:.4f} m | "
+                f"Surface angle: {surface_angle:.1f} deg"
             )
 
-        cv2.imshow("AprilTag 3D Pose", display)
+        cv2.imshow("AprilTag Robot Localization", display)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -138,5 +255,5 @@ try:
 finally:
     if started:
         pipeline.stop()
-    cv2.destroyAllWindows()
 
+    cv2.destroyAllWindows()
