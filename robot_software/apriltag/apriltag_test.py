@@ -158,94 +158,95 @@ try:
             tag_size=TAG_SIZE
         )
 
-        for i in range(3):
+        for i in range(len(tags)):
             tag = tags[i]
-            if tag.pose_t is None or tag.pose_R is None:
-                continue
+            if i < 5:
+                if tag.pose_t is None or tag.pose_R is None:
+                    continue
 
-            # Position relative to camera (meters)
-            p_camera = tag.pose_t.flatten()
+                # Position relative to camera (meters)
+                p_camera = tag.pose_t.flatten()
 
-            # Distance from camera
-            distance_camera = np.linalg.norm(p_camera)
+                # Distance from camera
+                distance_camera = np.linalg.norm(p_camera)
 
-            # Position relative to robot
-            p_robot = camera_to_robot(p_camera)
+                # Position relative to robot
+                p_robot = camera_to_robot(p_camera)
 
-            x_robot, y_robot, z_robot = p_robot
+                x_robot, y_robot, z_robot = p_robot
 
-            # Distance from robot origin
-            distance_robot = np.linalg.norm(p_robot)
+                # Distance from robot origin
+                distance_robot = np.linalg.norm(p_robot)
 
-            # Horizontal distance from robot origin
-            distance_xy = np.hypot(x_robot, y_robot)
+                # Horizontal distance from robot origin
+                distance_xy = np.hypot(x_robot, y_robot)
 
-            # Tag orientation relative to robot
-            R_robot_tag = R_robot_camera @ tag.pose_R
+                # Tag orientation relative to robot
+                R_robot_tag = R_robot_camera @ tag.pose_R
 
-            # Outward-facing surface normal
-            normal = -R_robot_tag[:, 2]
+                # Outward-facing surface normal
+                normal = -R_robot_tag[:, 2]
 
-            # Surface normal angle measured from robot +X
-            surface_angle = np.degrees(
-                np.arctan2(normal[1], normal[0])
-            )
-
-            # Draw 3D coordinate axes
-            rvec, _ = cv2.Rodrigues(tag.pose_R)
-
-            cv2.drawFrameAxes(
-                display,
-                camera_matrix,
-                zero_distortion,
-                rvec,
-                tag.pose_t.reshape(3, 1),
-                AXIS_LENGTH,
-                2
-            )
-
-            # Draw tag outline
-            corners = tag.corners.astype(np.int32)
-
-            cv2.polylines(
-                display, [corners], True,
-                (0, 255, 0), 2
-            )
-
-            center = tag.center.astype(int)
-
-            # Information displayed on camera feed
-            lines = [
-                f"ID: {tag.tag_id}",
-                f"Cam dist: {distance_camera * 100:.1f} cm",
-                f"Robot dist: {distance_robot * 100:.1f} cm",
-                f"X: {x_robot * 100:.1f} cm",
-                f"Y: {y_robot * 100:.1f} cm",
-                f"Z: {z_robot * 100:.1f} cm",
-                f"Surface: {surface_angle:.1f} deg"
-            ]
-
-            text_x = max(0, min(center[0] + 15, WIDTH - 210))
-            text_y = max(20, min(center[1] - 40, HEIGHT - 135))
-
-            for i, line in enumerate(lines):
-                cv2.putText(
-                    display,
-                    line,
-                    (text_x, text_y + i * 18),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
-                    (0, 255, 255),
-                    1
+                # Surface normal angle measured from robot +X
+                surface_angle = np.degrees(
+                    np.arctan2(normal[1], normal[0])
                 )
 
-            print(
-                f"ID: {tag.tag_id} | "
-                f"Camera distance: {distance_camera:.4f} m | "
-                f"Robot XYZ: {p_robot.round(4)} | "
-                f"XY distance: {distance_xy:.4f} m | "
-                f"Surface angle: {surface_angle:.1f} deg"
-            )
+                # Draw 3D coordinate axes
+                rvec, _ = cv2.Rodrigues(tag.pose_R)
+
+                cv2.drawFrameAxes(
+                    display,
+                    camera_matrix,
+                    zero_distortion,
+                    rvec,
+                    tag.pose_t.reshape(3, 1),
+                    AXIS_LENGTH,
+                    2
+                )
+
+                # Draw tag outline
+                corners = tag.corners.astype(np.int32)
+
+                cv2.polylines(
+                    display, [corners], True,
+                    (0, 255, 0), 2
+                )
+
+                center = tag.center.astype(int)
+
+                # Information displayed on camera feed
+                lines = [
+                    f"ID: {tag.tag_id}",
+                    f"Cam dist: {distance_camera * 100:.1f} cm",
+                    f"Robot dist: {distance_robot * 100:.1f} cm",
+                    f"X: {x_robot * 100:.1f} cm",
+                    f"Y: {y_robot * 100:.1f} cm",
+                    f"Z: {z_robot * 100:.1f} cm",
+                    f"Surface: {surface_angle:.1f} deg"
+                ]
+
+                text_x = max(0, min(center[0] + 15, WIDTH - 210))
+                text_y = max(20, min(center[1] - 40, HEIGHT - 135))
+
+                for i, line in enumerate(lines):
+                    cv2.putText(
+                        display,
+                        line,
+                        (text_x, text_y + i * 18),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.45,
+                        (0, 255, 255),
+                        1
+                    )
+
+                print(
+                    f"ID: {tag.tag_id} | "
+                    f"Camera distance: {distance_camera:.4f} m | "
+                    f"Robot XYZ: {p_robot.round(4)} | "
+                    f"XY distance: {distance_xy:.4f} m | "
+                    f"Surface angle: {surface_angle:.1f} deg"
+                )
 
         cv2.imshow("AprilTag Robot Localization", display)
 
