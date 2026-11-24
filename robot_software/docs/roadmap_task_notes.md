@@ -83,6 +83,14 @@ cylinder requests passed real panel/mock service checks. See
 
 ## Step 12: Drawing feasibility
 
+The current ordered follow-up is the [complete-stroke reliability work plan](complete_stroke_reliability.md).
+It connects measured geometry (13/13a), whole-stroke selection/optimization and
+full-operation validation (11–12/16), then representative SVG and physical
+acceptance (15/17/23–24). The November 24 updated-wrist/normal-tilt analysis is
+recorded there. Optional normal tolerance remains deferred; no implementation
+or physical motion is authorized by the analysis. Earlier coverage studies
+below retain their stated scope and do not close this work.
+
 Prioritize continuous drawing feasibility before job integrations. A current-model study found posture-dependent nearby failures, a continuation failure with a valid broader IK witness, singularity sensitivity, side-normal range concerns and broad-arc timing failures; front-180° coverage is not established. Read [motion feasibility](motion_feasibility.md), use the selected [nominal geometries](nominal_geometries.md), verify the real TCP/wrist ranges, and establish object frames/placement, seating, solid collision geometry and fixture clearances. Two historical broad-arc regressions now pass whole-stroke selection at 3 mm/s with 20 mm/s² ramps and default joint caps; full-region coverage and a physically useful speed remain unqualified. Extend checks across the selected geometries, placements, alternate starts and complete drawing/lift paths. See the [stroke contract](stroke_planning.md).
 
 Added opt-in nominal collision scenes: upright panel, solid cylinder and a
@@ -122,6 +130,42 @@ moved; original uncommitted work and baseline scenes are retained.
 ## Step 13: Pen calibration
 
 Install the actual pen, calibrate tip/axis and holder compression/contact offset, update active tool visuals/collision geometry and check compliance. Prove repeatable contact without bottoming out. Encoder position is not a force measurement.
+
+## Step 13a: Base and end-effector updates
+
+November 24 owner update: base and end-effector changes are under development.
+Incorporate the supplied CAD/meshes, collision geometry, camera mounting/optical
+TF chain, pen-holder geometry and pen locations relative to the relevant holder
+datums into the shared robot/tool/scene model. Owner-provided geometry and
+transforms are pending; do not invent offsets. Confirm frame names, units and
+orientation conventions, then reconcile TCP calibration, collision clearances
+and camera registration before physical use. Preserve joint calibration unless
+the actual assembly changes its reference mapping. This extends the earlier
+base-wing/marker-holder follow-up and feeds steps 7, 9, 12, 13 and 18–19.
+
+## Step 13b: Grabber servo programming
+
+The owner has started developing a grabber with a small blue Fitec FS90 PWM
+servo. Add its control program and configure the Jetson GPIO pin multiplexing
+and PWM output. Before implementation, confirm the Jetson/carrier model, exact
+servo variant, selected pin, electrical interface/power and usable travel;
+record calibrated open/closed positions and define startup, Stop and fault
+behavior with the shared control workflow. No pin, PWM range or travel is
+assumed here. Keep the six-joint arm controller and its existing safety behavior;
+this is an additional grabber actuator, not another arm servo writer. Physical
+actuation requires authorization. Programming does not by itself include
+automatic pen pickup or multi-color job sequencing.
+
+## Step 13c: Optional force-sensor ADC
+
+After pen calibration and grabber servo programming, assess whether the purchased
+ADC/force-sensor setup is needed. If retained, integrate its I2C interface on the
+Jetson and expose calibrated force readings. Exact ADC model/address, sensor,
+wiring, voltage compatibility and sampling needs are pending. Include zero/load
+calibration and missing/invalid-read handling. Sensor acquisition is optional;
+closed-loop contact-force control is a separate decision, not assumed by adding
+the ADC. Do not make the existing drawing workflow depend on it until its role
+is confirmed.
 
 ## Step 14: Surface mapping
 
@@ -278,3 +322,23 @@ These are conditional nominal performance estimates, not a physically qualified
 safe envelope. See [method and bounds](estimated_operating_limits.md).
 No physical motor moved or live hardware process restarted. Step 12 coverage,
 physical line quality/speed and the recorded halfway tracking pause remain open.
+
+## November 24: exact tabletop files and live TCP speed
+
+The owner requests horizontal 100 mm circle/square outlines centered on letter
+paper, 139.7 mm beyond the front feet, using a 4–18 mm/s drawing-speed band.
+Current shared CAD gives a front-foot X of 64.635 mm, hence center X=204.335 mm,
+Y=0. The table height is an explicit CAD-underside assumption, not measured.
+The pen points down, opposite the plane's upward normal. The owner selected four
+straight square sides with separate lifts and chose to retain this exact
+placement for a later wrist review. Circle, side and lift files plus an opt-in
+collision scene are saved, but current saved-limit full previews have not
+passed. No limits, calibration, base height or existing scenes were changed.
+See [placement and use](tabletop_paper_examples.md). This remains step-12 work,
+not contact qualification or full coverage.
+
+Current and controller-reference TCP speeds are now displayed in mm/s using
+the shared model. Real position-only feedback uses a 0.2-second slope window;
+stale/missing values remain unavailable. Read-only mock and real-driver/PTY
+telemetry checks pass; no physical motors moved. See
+[readout contract](cartesian_control.md#live-tcp-speed-readout).

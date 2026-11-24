@@ -1,0 +1,42 @@
+[
+  {
+    "height_added_mm": 0.0,
+    "axial_tip_offset_mm": 144.0,
+    "tilt_deg": 0,
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 37.1%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 2.086036677006632
+  },
+  {
+    "height_added_mm": 0.0,
+    "axial_tip_offset_mm": 139.0,
+    "tilt_deg": 0,
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 40.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 1.7559607879957184
+  },
+  {
+    "height_added_mm": 38.1,
+    "axial_tip_offset_mm": 109.0,
+    "tilt_deg": 0,
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 34.7%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 1.3729269710602239
+  },
+  {
+    "height_added_mm": 50.8,
+    "axial_tip_offset_mm": 89.0,
+    "tilt_deg": 0,
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 40.2%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 1.7672523320652544
+  }
+]

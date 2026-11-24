@@ -1,0 +1,7 @@
+
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-kb95941e
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 25.236s
+
+OK

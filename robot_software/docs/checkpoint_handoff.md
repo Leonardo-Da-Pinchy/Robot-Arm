@@ -6,10 +6,36 @@
 > and [Cartesian guide](cartesian_control.md) describe the implemented pose layer. This file remains the technical map
 > of the established control stack; its checkpoint-only task list is historical.
 
-Updated November 22, 2026. Read this first, then inspect the linked code and
+Updated November 24, 2026. Read this first, then inspect the linked code and
 repository. This file records technical decisions; the final-product roadmap
 is the authority for current statuses and ordering. It is a starting map,
 not a substitute for checking the implementation and working-tree changes.
+
+## November 24: horizontal paper targets and speed readout
+
+Latest follow-up: the owner recaptured wrist flex at −93.96° to +91.23°.
+Fresh strict-normal circle/square previews still fail to connect full paths.
+A fixed 5°-tilted circle passes full mock planning at 4–18 mm/s, with only
+0.16° wrist-flex reserve; square tilt witnesses are numerical only. No physical
+execution or normal-cone feature implementation occurred. The seven-step
+[complete-stroke reliability work plan](complete_stroke_reliability.md) is linked
+from roadmap step 12 and is the current priority before general SVG readiness.
+The earlier statements below about deferring wrist review describe the prior
+checkpoint; current saved bounds and new analysis supersede that part.
+
+[Paper examples](tabletop_paper_examples.md) preserve the owner's exact 100 mm
+circle/square targets at X=204.335 mm, Y=0 (139.7 mm beyond current CAD front
+feet), using 4–18 mm/s. The square uses four straight sides and separate 10 mm
+lifts, per owner preference. Current saved wrist limits have not admitted these
+tabletop previews. The owner chose to retain placement and review wrist travel
+later; do not widen limits, raise the base or substitute an easier target.
+All files are 5 mm air traces, not contact qualification. Table height and feet
+remain CAD assumptions pending actual measurements/new base geometry.
+
+The panel now shows [current and commanded TCP speed](cartesian_control.md#live-tcp-speed-readout)
+from read-only feedback/reference telemetry. Position-only encoder estimates
+use a 0.2-second window; stale data is unavailable. Mock and real-driver/PTY
+tests pass. No physical motor moved or live hardware process restarted.
 
 ## November 22: TCP range implemented and estimated operating caps
 

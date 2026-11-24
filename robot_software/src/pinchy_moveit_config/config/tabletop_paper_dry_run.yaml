@@ -1,0 +1,26 @@
+description: Explicit unmeasured tabletop paper patch at current CAD foot underside.
+  Surface normal +Z; no physical contact qualification. Original example floor retained.
+  Exact requested XY placement is not admitted by current saved wrist limits.
+objects:
+- id: example_floor
+  frame: base_link
+  type: box
+  size:
+  - 1.2
+  - 1.2
+  - 0.04
+  center:
+  - 0.0
+  - 0.0
+  - -0.04
+- id: paper_surface
+  frame: base_link
+  type: box
+  size:
+  - 0.2794
+  - 0.2159
+  - 0.001
+  center:
+  - 0.2043352923245813
+  - 0.0
+  - -0.002899999999999954

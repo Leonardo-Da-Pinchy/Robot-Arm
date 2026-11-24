@@ -153,3 +153,11 @@ optional range mode with the same lower imaginary placement/scene as 07.
 `tcp_min_speed_m_s` zero/absent preserves fixed timing; a positive value explicitly
 sets the interior floor, with `tcp_speed_m_s` as the ceiling. The band and mode
 round-trip through save/load, panel requests and CLI. See [usage and bounds](bounded_speed_proposal.md).
+
+## Horizontal paper examples
+
+Examples 09 and 10 add a 100 mm circle and four exact 100 mm square sides with
+separate lifts, using the owner's 4–18 mm/s drawing-speed band. Centers are
+204.335 mm along +X from `base_link`, or 139.7 mm beyond current CAD front feet.
+They preserve the requested tabletop placement but are **not qualified under
+current saved wrist limits**. See [placement, file order and status](tabletop_paper_examples.md).

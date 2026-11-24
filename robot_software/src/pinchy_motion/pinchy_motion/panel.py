@@ -370,8 +370,8 @@ class PosePanel(QWidget):
         if self.status_data.get('hardware')!=self.hardware:
             self.status_data['ready']=False;self.notice.setText('Panel mode does not match running server');return
         pose=self.status_data.get('current_pose_xyz_rpy_deg')
+        self.update_current_display()
         if pose:
-            self.update_current_display()
             if not self.initialized:self.copy_current();self.initialized=True
         self.speed.setMaximum(self.status_data.get('max_speed_deg_s',30.))
         self.acceleration.setMaximum(self.status_data.get('max_acceleration_deg_s2',180.))
@@ -383,10 +383,16 @@ class PosePanel(QWidget):
     def update_current_display(self,*args):
         if not hasattr(self,'current'):return
         pose=self.status_data.get('current_pose_xyz_rpy_deg')
-        if not pose:return
+        if not pose:
+            self.current.setText('Current TCP (encoder/model): unavailable\nTCP speed (encoder/model): unavailable; commanded: unavailable')
+            return
         from .geometry import goal_difference
         distance,angle=goal_difference(pose,[box.value() for box in self.inputs])
         text='Current TCP (encoder/model):\nXYZ '+', '.join(f'{v:+.4f}' for v in pose[:3])+' m\nRPY '+', '.join(f'{v:+.2f}' for v in pose[3:])+' deg'
+        actual_speed=self.status_data.get('current_tcp_speed_m_s');commanded_speed=self.status_data.get('commanded_tcp_speed_m_s')
+        def speed_text(value):
+            return f'{value*1000:.1f} mm/s' if isinstance(value,(int,float)) and math.isfinite(value) and value>=0 else 'unavailable'
+        text+='\nTCP speed (encoder/model): '+speed_text(actual_speed)+'; commanded: '+speed_text(commanded_speed)
         text+=f'\nGoal: {distance*1000:.1f} mm away'
         if self.orientation_mode.currentData()!='position':text+=f'; pen direction differs {math.degrees(angle):.1f}°'
         if self.status_data.get('current_conditioning_modes',{}).get(self.orientation_mode.currentData(),self.status_data.get('current_conditioning',{})).get('near_singular'):

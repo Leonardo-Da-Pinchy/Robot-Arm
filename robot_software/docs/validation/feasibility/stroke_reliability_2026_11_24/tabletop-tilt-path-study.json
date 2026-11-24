@@ -1,0 +1,366 @@
+[
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 0,
+    "case": "circle",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 17.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 2.731258724932559
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 180,
+    "case": "circle",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "No start IK in finite search",
+    "seconds": 1.5004274550592527
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 90,
+    "case": "circle",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 91.5%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 3.2549078720621765
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 270,
+    "case": "circle",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 217,
+    "minimum_joint_reserve_deg": 0.15640438968790285,
+    "timing_passed": true,
+    "summary": {
+      "requested_tcp_speed_m_s": 0.018,
+      "modeled_peak_tcp_speed_m_s": 0.01792027467424226,
+      "modeled_contact_min_m_s": 0.0,
+      "modeled_contact_max_m_s": 0.0,
+      "modeled_steady_contact_min_m_s": 0.0,
+      "modeled_steady_contact_max_m_s": 0.0,
+      "contact_ramps_allowed": false,
+      "contact_has_constant_speed_plateau": false,
+      "ramp_only": false,
+      "enforced_tcp_speed": true,
+      "speed_range": {
+        "enabled": true,
+        "minimum_m_s": 0.004,
+        "maximum_m_s": 0.018,
+        "length_m": 0.31415639694156555,
+        "modeled_mean_m_s": 0.017394480308062704,
+        "timing_solver_seconds": 0.062087997095659375,
+        "planned_mean_m_s": 0.017394402083645986,
+        "slowdown_distance_fraction": 0.03249442497610704,
+        "slowdown_intervals_m": [
+          [
+            0.00019226547039969538,
+            0.005191817191253203
+          ],
+          [
+            0.30896457975031233,
+            0.31396413147116586
+          ]
+        ],
+        "modeled_peak_tangential_acceleration_m_s2": 0.06799402005676802
+      },
+      "modeled_cruise_min_m_s": 0.004078798227428715,
+      "modeled_cruise_max_m_s": 0.01792027467424226,
+      "trace_start_s": 0.0,
+      "trace_end_s": 18.22716481,
+      "cruise_start_s": 0.09424777960807504,
+      "cruise_end_s": 18.132917030391926,
+      "transit_time_scale": 1.000000000004045,
+      "physical_speed_qualified": false
+    },
+    "seconds": 10.903176371008158
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 270,
+    "case": "square_side_1",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 51,
+    "minimum_joint_reserve_deg": 1.2351973216576142,
+    "timing_passed": true,
+    "summary": {
+      "requested_tcp_speed_m_s": 0.018,
+      "modeled_peak_tcp_speed_m_s": 0.017920021973194346,
+      "modeled_contact_min_m_s": 0.0,
+      "modeled_contact_max_m_s": 0.0,
+      "modeled_steady_contact_min_m_s": 0.0,
+      "modeled_steady_contact_max_m_s": 0.0,
+      "contact_ramps_allowed": false,
+      "contact_has_constant_speed_plateau": false,
+      "ramp_only": false,
+      "enforced_tcp_speed": true,
+      "speed_range": {
+        "enabled": true,
+        "minimum_m_s": 0.004,
+        "maximum_m_s": 0.018,
+        "length_m": 0.09999999999999998,
+        "modeled_mean_m_s": 0.01635809140288621,
+        "timing_solver_seconds": 0.013361320015974343,
+        "planned_mean_m_s": 0.016358064395220712,
+        "slowdown_distance_fraction": 0.10220440881763528,
+        "slowdown_intervals_m": [
+          [
+            0.00019226547039969538,
+            0.005188026205565222
+          ],
+          [
+            0.09481197379443476,
+            0.09980773452960029
+          ]
+        ],
+        "modeled_peak_tangential_acceleration_m_s2": 0.06798929233629135
+      },
+      "modeled_cruise_min_m_s": 0.004079844335786329,
+      "modeled_cruise_max_m_s": 0.017920021973194346,
+      "trace_start_s": 0.0,
+      "trace_end_s": 6.278181151,
+      "cruise_start_s": 0.09424777960572979,
+      "cruise_end_s": 6.183933371394271,
+      "transit_time_scale": 0.9999999999791611,
+      "physical_speed_qualified": false
+    },
+    "seconds": 3.6564541260013357
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 270,
+    "case": "square_side_2",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "Cartesian trace incomplete at 76.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "seconds": 0.8852963810786605
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 270,
+    "case": "square_side_3",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "No start IK in finite search",
+    "seconds": 1.5008033510530367
+  },
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 270,
+    "case": "square_side_4",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 51,
+    "minimum_joint_reserve_deg": 2.943213765513231,
+    "timing_passed": true,
+    "summary": {
+      "requested_tcp_speed_m_s": 0.018,
+      "modeled_peak_tcp_speed_m_s": 0.01792000403197993,
+      "modeled_contact_min_m_s": 0.0,
+      "modeled_contact_max_m_s": 0.0,
+      "modeled_steady_contact_min_m_s": 0.0,
+      "modeled_steady_contact_max_m_s": 0.0,
+      "contact_ramps_allowed": false,
+      "contact_has_constant_speed_plateau": false,
+      "ramp_only": false,
+      "enforced_tcp_speed": true,
+      "speed_range": {
+        "enabled": true,
+        "minimum_m_s": 0.004,
+        "maximum_m_s": 0.018,
+        "length_m": 0.1,
+        "modeled_mean_m_s": 0.016358091140452335,
+        "timing_solver_seconds": 0.013261764077469707,
+        "planned_mean_m_s": 0.016358064395220712,
+        "slowdown_distance_fraction": 0.10220440881763528,
+        "slowdown_intervals_m": [
+          [
+            0.00019226547039969538,
+            0.005188026205565223
+          ],
+          [
+            0.09481197379443479,
+            0.09980773452960032
+          ]
+        ],
+        "modeled_peak_tangential_acceleration_m_s2": 0.06798906876570714
+      },
+      "modeled_cruise_min_m_s": 0.004079985506654643,
+      "modeled_cruise_max_m_s": 0.01792000403197993,
+      "trace_start_s": 0.0,
+      "trace_end_s": 6.278181151,
+      "cruise_start_s": 0.09424777960572975,
+      "cruise_end_s": 6.183933371394271,
+      "transit_time_scale": 0.9999999999791608,
+      "physical_speed_qualified": false
+    },
+    "seconds": 3.6172052199253812
+  },
+  {
+    "tilt_deg": 2.5,
+    "azimuth_deg": 0,
+    "case": "circle",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 217,
+    "minimum_joint_reserve_deg": 9.93923337957349e-17,
+    "timing_passed": false,
+    "error": "Interpolated trajectory exceeds pen_pitch bounds",
+    "seconds": 3.8951818940695375
+  },
+  {
+    "tilt_deg": 2.5,
+    "azimuth_deg": 0,
+    "case": "square_side_1",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 51,
+    "minimum_joint_reserve_deg": 1.1018545624170274e-05,
+    "timing_passed": true,
+    "summary": {
+      "requested_tcp_speed_m_s": 0.018,
+      "modeled_peak_tcp_speed_m_s": 0.017920003612542708,
+      "modeled_contact_min_m_s": 0.0,
+      "modeled_contact_max_m_s": 0.0,
+      "modeled_steady_contact_min_m_s": 0.0,
+      "modeled_steady_contact_max_m_s": 0.0,
+      "contact_ramps_allowed": false,
+      "contact_has_constant_speed_plateau": false,
+      "ramp_only": false,
+      "enforced_tcp_speed": true,
+      "speed_range": {
+        "enabled": true,
+        "minimum_m_s": 0.004,
+        "maximum_m_s": 0.018,
+        "length_m": 0.09999999999999998,
+        "modeled_mean_m_s": 0.01635809063843178,
+        "timing_solver_seconds": 0.013119103037752211,
+        "planned_mean_m_s": 0.016358064395220712,
+        "slowdown_distance_fraction": 0.10220440881763528,
+        "slowdown_intervals_m": [
+          [
+            0.00019226547039969538,
+            0.005188026205565222
+          ],
+          [
+            0.09481197379443476,
+            0.09980773452960029
+          ]
+        ],
+        "modeled_peak_tangential_acceleration_m_s2": 0.06798927288426565
+      },
+      "modeled_cruise_min_m_s": 0.004079976306538878,
+      "modeled_cruise_max_m_s": 0.017920003612542708,
+      "trace_start_s": 0.0,
+      "trace_end_s": 6.278181151,
+      "cruise_start_s": 0.09424777960572979,
+      "cruise_end_s": 6.183933371394271,
+      "transit_time_scale": 0.9999999999791611,
+      "physical_speed_qualified": false
+    },
+    "seconds": 3.907689348096028
+  },
+  {
+    "tilt_deg": 2.5,
+    "azimuth_deg": 0,
+    "case": "square_side_2",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 51,
+    "minimum_joint_reserve_deg": 0.014469038152447595,
+    "timing_passed": true,
+    "summary": {
+      "requested_tcp_speed_m_s": 0.018,
+      "modeled_peak_tcp_speed_m_s": 0.017920002319856968,
+      "modeled_contact_min_m_s": 0.0,
+      "modeled_contact_max_m_s": 0.0,
+      "modeled_steady_contact_min_m_s": 0.0,
+      "modeled_steady_contact_max_m_s": 0.0,
+      "contact_ramps_allowed": false,
+      "contact_has_constant_speed_plateau": false,
+      "ramp_only": false,
+      "enforced_tcp_speed": true,
+      "speed_range": {
+        "enabled": true,
+        "minimum_m_s": 0.004,
+        "maximum_m_s": 0.018,
+        "length_m": 0.1,
+        "modeled_mean_m_s": 0.01635809109045945,
+        "timing_solver_seconds": 0.013117310940288007,
+        "planned_mean_m_s": 0.016358064395220712,
+        "slowdown_distance_fraction": 0.10220440881763528,
+        "slowdown_intervals_m": [
+          [
+            0.00019226547039969538,
+            0.005188026205565223
+          ],
+          [
+            0.09481197379443479,
+            0.09980773452960032
+          ]
+        ],
+        "modeled_peak_tangential_acceleration_m_s2": 0.06798928218517185
+      },
+      "modeled_cruise_min_m_s": 0.004079996357779495,
+      "modeled_cruise_max_m_s": 0.017920002319856968,
+      "trace_start_s": 0.0,
+      "trace_end_s": 6.278181151,
+      "cruise_start_s": 0.09424777960572975,
+      "cruise_end_s": 6.183933371394271,
+      "transit_time_scale": 0.9999999999791608,
+      "physical_speed_qualified": false
+    },
+    "seconds": 3.6222974399570376
+  },
+  {
+    "tilt_deg": 2.5,
+    "azimuth_deg": 0,
+    "case": "square_side_3",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 51,
+    "minimum_joint_reserve_deg": 9.93923337957349e-17,
+    "timing_passed": false,
+    "error": "Interpolated trajectory exceeds pen_pitch bounds",
+    "seconds": 1.2187996560242027
+  },
+  {
+    "tilt_deg": 2.5,
+    "azimuth_deg": 0,
+    "case": "square_side_4",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "states": 51,
+    "minimum_joint_reserve_deg": 9.282385226757645e-10,
+    "timing_passed": false,
+    "error": "Interpolated trajectory exceeds wrist_flex bounds",
+    "seconds": 0.9691428559599444
+  },
+  {
+    "tilt_deg": 2.5,
+    "azimuth_deg": 180,
+    "case": "circle",
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "timing_passed": false,
+    "error": "No start IK in finite search",
+    "seconds": 1.5008574440144002
+  }
+]

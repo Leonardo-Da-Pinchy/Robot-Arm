@@ -92,5 +92,48 @@ class NominalPathTests(unittest.TestCase):
             self.assertAlmostEqual(p['xyz'][0],.355)
             np.testing.assert_allclose(Rotation.from_euler('xyz',p['rpy_deg'],degrees=True).as_matrix()[:,2],[1,0,0],atol=1e-12)
 
+    def test_tabletop_circle_datum_diameter_normal_and_continuous_curve(self):
+        from pinchy_motion.nominal_paths import paper_plane_loop,surface_measurement
+        from pinchy_motion.paths import CartesianCurve
+        from pinchy_motion.feasibility import axis_frame
+        from inspect_paper_placement import inspect
+        measured=inspect();data=normalize(paper_plane_loop());center=np.array(data['source']['center_m'])
+        np.testing.assert_allclose(center,measured['center_m'],atol=1e-12)
+        self.assertAlmostEqual(center[0]-measured['front_foot_x_m'],.1397,places=12)
+        xyz=np.array([p['xyz'] for p in data['waypoints']]);np.testing.assert_allclose(np.ptp(xyz,axis=0),[.1,.1,0.],atol=1e-12)
+        curve=CartesianCurve([axis_frame(p['xyz'],[0,0,-1]) for p in data['waypoints']],data['style'])
+        for distance in np.linspace(0,curve.length,501):
+            t=curve.evaluate(distance,'tool_axis');axis,gap=surface_measurement('tabletop',center,t[:3,3])
+            np.testing.assert_allclose(t[:3,2],axis,atol=1e-12);self.assertAlmostEqual(gap,.005,places=12)
+            self.assertLess(abs(np.linalg.norm(t[:2,3]-center[:2])-.05),.0001)
+        self.assertEqual(data['tcp_min_speed_m_s'],.004);self.assertEqual(data['tcp_speed_m_s'],.018)
+        self.assertFalse(data['source']['saved_limits_qualified']);self.assertFalse(any(p['contact'] for p in data['waypoints']))
+
+    def test_tabletop_square_has_four_exact_sides_and_separate_lifts(self):
+        from pinchy_motion.nominal_paths import paper_square_strokes
+        from pinchy_motion.paths import CartesianCurve,corner_indices
+        from pinchy_motion.feasibility import axis_frame
+        sequence=[normalize(p) for p in paper_square_strokes()];self.assertEqual(len(sequence),8)
+        sides=sequence[::2];lifts=sequence[1::2]
+        for i,(side,lift) in enumerate(zip(sides,lifts)):
+            xyz=np.array([p['xyz'] for p in side['waypoints']]);self.assertAlmostEqual(np.linalg.norm(xyz[-1]-xyz[0]),.1,places=12)
+            self.assertEqual(side['style'],'polyline');self.assertEqual(side['tcp_min_speed_m_s'],.004)
+            transforms=[axis_frame(p,[0,0,-1]) for p in xyz];self.assertFalse(corner_indices(transforms))
+            self.assertAlmostEqual(CartesianCurve(transforms).length,.1,places=12)
+            np.testing.assert_allclose(lift['waypoints'][0]['xyz'],xyz[-1],atol=1e-12)
+            np.testing.assert_allclose(np.array(lift['waypoints'][1]['xyz'])-xyz[-1],[0,0,.01],atol=1e-12)
+            np.testing.assert_allclose(sides[(i+1)%4]['waypoints'][0]['xyz'],xyz[-1],atol=1e-12)
+            self.assertFalse(lift['plan_pen_up_approach']);self.assertTrue(side['plan_pen_up_approach'])
+        vertices=np.array([s['waypoints'][0]['xyz'] for s in sides]);np.testing.assert_allclose(np.ptp(vertices,axis=0),[.1,.1,0.],atol=1e-12)
+
+    def test_packaged_tabletop_files_preserve_requested_settings(self):
+        from pinchy_motion.nominal_paths import paper_plane_loop,paper_square_strokes
+        from pinchy_motion.point_sets import read
+        root=Path(__file__).resolve().parents[1]/'src/pinchy_motion/examples/point_sets'
+        expected=[paper_plane_loop(),*paper_square_strokes()]
+        saved=[root/'09_tabletop_circle_100mm.json',*sorted(root.glob('10_tabletop_square_*.json'))]
+        self.assertEqual(len(expected),len(saved))
+        for source,path in zip(expected,saved):self.assertEqual(normalize(source),read(path))
+
 
 if __name__=='__main__':unittest.main(verbosity=2)

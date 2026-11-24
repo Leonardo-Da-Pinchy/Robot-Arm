@@ -1,0 +1,11 @@
+{
+  "src/pinchy_motion/pinchy_motion/tcp_telemetry.py": "f1376ec8c3709b37dbedbc74b132750edfa9f83eb3bb9b1903e64f9b1b5a0ce2",
+  "src/pinchy_motion/pinchy_motion/server.py": "b0d9d07c3217794c0a162b1e0c009b1eeca0610d43c6672ab71c30a8d2fda9d0",
+  "src/pinchy_motion/pinchy_motion/panel.py": "456cd974c4562dc085369813d603b29c36a3b685938d33619c9c9e36d11a74e0",
+  "src/pinchy_motion/pinchy_motion/ik.py": "b77dea6274561043d8b3b494e3a0e3279e4a3659aacf82eede57a8e27e814259",
+  "tools/test_tcp_telemetry.py": "ea78483680c53e61f10d8211e23e48014bac9eb62cbd7d6bae182194911dff32",
+  "tools/test_tcp_telemetry_system.py": "ce7ecc9e0a453a2dbcc94f5ca500e7f04588972659678795e77bad8dd44294f0",
+  "tools/test_pose_panel.py": "494134de5462c2e6c14c2dfe697cf2102bba426f8278506319586a3c8557bd12",
+  "src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+  "calibration/arm.json": "785a791dc9586cf62ad27a86cca14614c243e25f92a64196f1ee0530a7a42b49"
+}

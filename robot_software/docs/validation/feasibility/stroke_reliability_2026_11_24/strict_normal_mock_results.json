@@ -1,0 +1,20 @@
+[
+  {
+    "file": "09_tabletop_circle_100mm.json",
+    "success": false,
+    "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: Cartesian trace incomplete at 47.4%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "elapsed_s": 104.49207267991733,
+    "plan_retained": false,
+    "duration_s": 0.0,
+    "executed": false
+  },
+  {
+    "file": "10_tabletop_square_1a_side.json",
+    "success": false,
+    "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: Cartesian trace incomplete at 95.9%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+    "elapsed_s": 125.21717217704281,
+    "plan_retained": false,
+    "duration_s": 0.0,
+    "executed": false
+  }
+]

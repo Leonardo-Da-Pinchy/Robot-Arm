@@ -1,6 +1,6 @@
 # Final-product roadmap
 
-Updated November 22, 2026. This is the current ordered plan through the finished
+Updated November 24, 2026. This is the current ordered plan through the finished
 product, superseding the older checkpoint-only task list. The owner reports
 that the assembled arm, startup, ROS control and sliders worked well for the
 demos. This confirms demonstrated operation; it does not establish measured
@@ -34,9 +34,13 @@ pipe; dimensions and scope decisions are in [nominal geometries](nominal_geometr
 software Stop holds the arm. Start with one color and a manually loaded pen.
 Preserve separate strokes and keep the pen approximately normal to the surface.
 
-The current robot has **six positioning motors and no separate gripper motor**.
-Automatic pen pickup, extra actuators, arbitrary surface reconstruction and
-multi-color tool changes are extensions, not dependencies for this product.
+The arm has **six positioning motors**. The owner is also developing a grabber
+using a small blue **Fitec FS90 PWM servo**; Jetson GPIO/PWM configuration and
+grabber programming are now planned under step 13. Automatic pen pickup and
+multi-color tool changes are not implied by this addition. An optional I2C ADC
+for a purchased force-sensor setup follows pen calibration and servo programming;
+its necessity and exact hardware remain to be confirmed. Arbitrary surface
+reconstruction remains an extension.
 The design report initially specified a cylinder/cylindrical mug; the owner
 has now added the flat panel and concave quarter pipe as nominal geometries.
 Handles and fixtures remain excluded from the drawing region. The report's front-180-degree drawing region
@@ -88,7 +92,10 @@ integrate a **marker holder and camera holder**. The owner will return with the
 updated geometry and exact mounting transforms. These transforms are pending;
 do not invent offsets or treat the current base/camera mounting model as final.
 Keep the owner's term "marker holder" until its role/datum is confirmed; do not
-assume it changes the moving sixth-joint pen holder or requires automatic pickup.
+assume it requires automatic pickup. November 24: the owner also confirms ongoing
+end-effector/pen-holder updates and will provide camera TF information and pen
+locations relative to the holders. Track these explicitly in step 13a; supplied
+geometry and measured transforms are required before updating the shared model.
 
 When available, incorporate the updated base/wing meshes and collision geometry,
 confirm whether the arm's mounting frame changed, and add the supplied transforms
@@ -152,9 +159,12 @@ measurements have already passed.
 | 8 | ✅ **Complete — owner accepted** | **Hardware qualification** — Accepted for moving forward; remaining measurements carried into verification steps 23–24. |
 | 9 | ✅ **Software complete — current model** | **MoveIt setup** — IK, collision planning and controller integration implemented; final scene geometry pending. |
 | 10 | ✅ **Complete — owner accepted** | **Poses and saved points** — Functional workflow accepted for moving forward; refinements and physical measurements continue through steps 23–24. [Usage](point_sets.md). |
-| 11 | ✅ **Software complete — dry-run tested** | **Continuous strokes** — Fixed-speed and explicit TCP speed ranges pass mock/PTY tests; physical drawing/tracking remain unqualified. [Timing](bounded_speed_proposal.md). |
-| 12 | 🟨 **Partial — setup/coverage decision pending** | **Drawing feasibility** — Proposed supports, nine complete paths and six system executions pass; current cylinder placement cannot cover 180°. [Results](validation/feasibility/surface_gate/validation.md). |
+| 11 | ✅ **Software complete — dry-run tested** | **Continuous strokes** — Fixed-speed/range timing and execution pass mock/PTY tests; broader reliability remains in step 12. [Timing](bounded_speed_proposal.md). |
+| 12 | 🟨 **Partial — reliability/coverage work remaining** | **Drawing feasibility and reliability** — Improve complete-stroke configuration selection, joint reserve and qualified drawing regions. [Work plan](complete_stroke_reliability.md). |
 | 13 | ⬜ **Remaining — pen needed** | **Pen calibration** — Install pen; measure tip, axis and compliance; update the tool model. |
+| 13a | ⬜ **Remaining — owner geometry/TF pending** | **Base and end-effector updates** — Incorporate revised geometry, camera TF, pen holder and pen-location frames. [Details](roadmap_task_notes.md#step-13a-base-and-end-effector-updates). |
+| 13b | ⬜ **Remaining — grabber in development** | **Grabber servo programming** — Configure Jetson GPIO/PWM and control the Fitec FS90 grabber. [Details](roadmap_task_notes.md#step-13b-grabber-servo-programming). |
+| 13c | ⬜ **Optional — after calibration and servo programming** | **Force-sensor ADC** — Integrate the purchased I2C ADC and sensor if needed; hardware details pending. [Details](roadmap_task_notes.md#step-13c-optional-force-sensor-adc). |
 | 14 | ⬜ **Remaining** | **Surface mapping** — Map lines/curves onto the plane, cylinder and quarter pipe, including normals and pen-up transitions. |
 | 15 | ⬜ **Remaining** | **SVG import** — Handle units, transforms and curves; preserve strokes and reject unsupported input. |
 | 16 | ⬜ **Remaining** | **Job executor** — Validate, preview, Start, execute and report results; one active job with explicit Stop/recovery. |
@@ -166,6 +176,18 @@ measurements have already passed.
 | 22 | ⬜ **Remaining** | **End-to-end integration** — Browser → HTTPS → registration → checked trajectory → drawing, without per-stroke terminal commands. |
 | 23 | ⬜ **Remaining** | **Verification** — Check accuracy/repeatability, loads, speeds, temperatures, faults and recovery; prevent unintended replay. |
 | 24 | ⬜ **Remaining** | **Final acceptance** — Measure quality, speed, accuracy and duty; deliver the reproducible operator workflow. |
+
+November 24 step-12 follow-up: the requested horizontal 100 mm circle and exact
+four-stroke square at the paper center are saved with 4–18 mm/s drawing timing.
+After the owner's wrist-flex recapture, strict-normal circle/square previews
+still fail to connect complete paths. A 5°-tilted circle passes a full mock
+preview but has only about 0.16° wrist-flex reserve; square tilt witnesses are
+numerical only. The optional normal cone remains analysis-only, not implemented.
+The [complete-stroke work plan](complete_stroke_reliability.md) is now the active
+step-12 follow-up, with geometry/calibration dependencies in 13/13a and physical
+acceptance in 23–24. Existing [surface coverage results](validation/feasibility/surface_gate/validation.md)
+remain valid at their documented scope; full cylinder 180° coverage and physical
+contact remain unresolved. See [paper placement and files](tabletop_paper_examples.md).
 
 ## Interface contracts to agree early (step 6)
 

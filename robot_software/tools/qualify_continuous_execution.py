@@ -99,7 +99,7 @@ class Runner(CartesianFixture,unittest.TestCase):
             # geometry only, with no assertion of physical speed or nib accuracy.
             measured=np.array([solver.evaluate(r['feedback'])[0][:3,3] for r in cruise])
             expected_span=np.ptp(np.array([p['xyz'] for p in data['waypoints']]),axis=0)
-            for axis in (1,2):
+            for axis in (0,1,2):
                 if expected_span[axis]>.001:self.assertGreater(float(np.ptp(measured[:,axis])),expected_span[axis]*.85)
             self.node.destroy_subscription(controller);controller=None
             retract_report=None
@@ -138,13 +138,14 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--emulated',action='store_true')
     parser.add_argument('--emulated-max-joint-speed',type=float,default=30.,help='Mock servo-profile cap only, deg/s')
-    parser.add_argument('--surfaces',nargs='+',choices=['cylinder','plane','quarter_pipe'],default=['cylinder'])
+    parser.add_argument('--surfaces',nargs='+',choices=['cylinder','plane','quarter_pipe','tabletop'],default=['cylinder'])
     parser.add_argument('--support',choices=['original','pedestal'],default='original')
     parser.add_argument('--scene',type=Path,help='Explicit collision scene for the isolated test stack')
     parser.add_argument('--points',type=Path,help='Explicit point set for one selected surface')
     parser.add_argument('--retract',action='store_true',help='Also plan and execute a separate 10 mm normal pen-up retract')
     args=parser.parse_args()
     if args.points and len(args.surfaces)!=1:parser.error('Explicit points require one surface')
+    if 'tabletop' in args.surfaces and (not args.points or not args.scene):parser.error('Tabletop qualification requires explicit --points and --scene')
     if not .1<=args.emulated_max_joint_speed<=np.rad2deg(MAX_SPEED):parser.error('Emulated speed outside supported joint envelope')
     Runner.emulated_max_velocity=float(np.deg2rad(args.emulated_max_joint_speed))
     Runner.hardware=args.emulated;Runner.point_file=args.points;Runner.retract=args.retract

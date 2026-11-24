@@ -1,0 +1,190 @@
+{
+  "placement": {
+    "frame": "base_link",
+    "assumption": "Paper near edge touches current CAD front feet; 11-inch length along +X, centered at Y=0. Table height inferred from CAD underside, not measured.",
+    "front_foot_x_m": 0.06463529232458132,
+    "center_from_front_foot_m": 0.1397,
+    "center_m": [
+      0.2043352923245813,
+      0.0,
+      -0.002399999999999954
+    ],
+    "table_surface_z_m": -0.002399999999999954,
+    "dry_run_tcp_z_m": 0.0026000000000000463,
+    "paper_size_xy_m": [
+      0.2794,
+      0.2159
+    ],
+    "base_mesh_bounds": [
+      {
+        "mesh": "base_motor_holder_so101_v1.stl",
+        "minimum_m": [
+          -0.027164710056624346,
+          -0.022449441617557027,
+          0.035700000470876486
+        ],
+        "maximum_m": [
+          0.053035289678135165,
+          0.025197991737893725,
+          0.06709999928474433
+        ]
+      },
+      {
+        "mesh": "base_so101_v2.stl",
+        "minimum_m": [
+          -0.022364710759959355,
+          -0.055462507194391046,
+          -0.002399999999999954
+        ],
+        "maximum_m": [
+          0.06463529232458132,
+          0.05546248924125123,
+          0.06959999690055853
+        ]
+      },
+      {
+        "mesh": "sts3215_03a_v1.stl",
+        "minimum_m": [
+          0.0036352994456767852,
+          -0.012400009332707785,
+          0.02429999942779541
+        ],
+        "maximum_m": [
+          0.04903530055432321,
+          0.012399991379567786,
+          0.06389999921321869
+        ]
+      },
+      {
+        "mesh": "waveshare_mounting_plate_so101_v2.stl",
+        "minimum_m": [
+          -0.03098270000000015,
+          -0.025699440523162843,
+          0.026400000283122046
+        ],
+        "maximum_m": [
+          -0.023382699871849946,
+          0.025300558523162854,
+          0.06839999971687794
+        ]
+      }
+    ],
+    "input_sha256": {
+      "src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+      "src/pinchy_description/meshes/base_motor_holder_so101_v1.stl": "8cd2f241037ea377af1191fffe0dd9d9006beea6dcc48543660ed41647072424",
+      "src/pinchy_description/meshes/base_so101_v2.stl": "bb12b7026575e1f70ccc7240051f9d943553bf34e5128537de6cd86fae33924d",
+      "src/pinchy_description/meshes/sts3215_03a_v1.stl": "a37c871fb502483ab96c256baf457d36f2e97afc9205313d9c5ab275ef941cd0",
+      "src/pinchy_description/meshes/waveshare_mounting_plate_so101_v2.stl": "e197e24005a07d01bbc06a8c42311664eaeda415bf859f68fa247884d0f1a6e9"
+    },
+    "physical_measurement": false,
+    "motor_commands_sent": false
+  },
+  "physical_motors_moved": false,
+  "execution_client_created": false,
+  "cases": [
+    {
+      "file": "09_tabletop_circle_100mm.json",
+      "sha256": "a4afd0ab2b163112a1042a5cf69ea12d024f8130d4c9c8042124b0e9f42e631f",
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found",
+      "elapsed_s": 40.24056582595222,
+      "plan_retained": false,
+      "executed": false
+    },
+    {
+      "file": "10_tabletop_square_1a_side.json",
+      "sha256": "fc39e5a9c6a309ec18e265aa6633bcbd87ff373e3737df8ce4148164bf161c0f",
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found",
+      "elapsed_s": 40.187045876984484,
+      "plan_retained": false,
+      "executed": false
+    },
+    {
+      "file": "10_tabletop_square_2a_side.json",
+      "sha256": "b16cbbcc37542941b7484b3977c3429ad598feaa8910f1bec437446e6f6e5181",
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found",
+      "elapsed_s": 40.15136783197522,
+      "plan_retained": false,
+      "executed": false
+    },
+    {
+      "file": "10_tabletop_square_3a_side.json",
+      "sha256": "05ba75154fb86076b220e4b73e54a3b5a6db4231205d11680fdf53e37dddd793",
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found",
+      "elapsed_s": 40.108233398990706,
+      "plan_retained": false,
+      "executed": false
+    },
+    {
+      "file": "10_tabletop_square_4a_side.json",
+      "sha256": "01d6ff8cfedf120b350b9858110f99c7ac08a939b15d69fb4e5a68bfeed5dba7",
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found",
+      "elapsed_s": 40.17925706296228,
+      "plan_retained": false,
+      "executed": false
+    }
+  ],
+  "zero_collision_free": true,
+  "input_sha256": {
+    "calibration/arm.json": "785a791dc9586cf62ad27a86cca14614c243e25f92a64196f1ee0530a7a42b49",
+    "src/pinchy_moveit_config/config/tabletop_paper_dry_run.yaml": "cd85ec200c0fd65ebb1664479b025349aafd046dd2d78ff864dda4336319b795"
+  },
+  "loaded_model_sha256": "2f17bbebb361e72f305e14cdc3b0518ab13d631ffae8d9257a48279549731736",
+  "center_ik_witnesses": {
+    "saved": {
+      "solved": false,
+      "diagnostic": {
+        "mode": "tool_axis",
+        "attempts": 64,
+        "elapsed_s": 2.79500037105754,
+        "rejected_candidates": 0,
+        "reason": "attempt limit",
+        "best_position_error_mm": 8.684689548170109,
+        "best_orientation_error_deg": 12.102737173852939,
+        "limiting_joints": [
+          "wrist_flex",
+          "wrist_roll"
+        ]
+      },
+      "q_deg": null,
+      "collision_checked": false
+    },
+    "CAD": {
+      "solved": true,
+      "diagnostic": {
+        "mode": "tool_axis",
+        "attempts": 1,
+        "elapsed_s": 0.026185796014033258,
+        "rejected_candidates": 0,
+        "reason": "solved",
+        "best_position_error_mm": 3.048973910715497e-13,
+        "best_orientation_error_deg": 8.537736462515939e-07,
+        "limiting_joints": [
+          "pen_pitch"
+        ]
+      },
+      "q_deg": [
+        -0.06155713805883021,
+        -25.932735453326746,
+        26.038433894586884,
+        87.1385031618862,
+        2.789130749864211,
+        -2.755801400772717
+      ],
+      "collision_checked": false,
+      "outside_saved_joints": [
+        "wrist_flex",
+        "pen_pitch"
+      ]
+    }
+  },
+  "status_tcp_speed": {
+    "current_tcp_speed_m_s": 0.0,
+    "commanded_tcp_speed_m_s": 0.0,
+    "tcp_speed_source": "encoder_position_window"
+  }
+}

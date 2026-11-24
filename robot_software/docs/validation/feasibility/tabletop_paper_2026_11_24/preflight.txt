@@ -1,0 +1,20 @@
+Preflight: 09_tabletop_circle_100mm.json
+  planning 15 seconds
+  planning 30 seconds
+{"file": "09_tabletop_circle_100mm.json", "sha256": "a4afd0ab2b163112a1042a5cf69ea12d024f8130d4c9c8042124b0e9f42e631f", "success": false, "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found", "elapsed_s": 40.24056582595222, "plan_retained": false, "executed": false}
+Preflight: 10_tabletop_square_1a_side.json
+  planning 15 seconds
+  planning 30 seconds
+{"file": "10_tabletop_square_1a_side.json", "sha256": "fc39e5a9c6a309ec18e265aa6633bcbd87ff373e3737df8ce4148164bf161c0f", "success": false, "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found", "elapsed_s": 40.187045876984484, "plan_retained": false, "executed": false}
+Preflight: 10_tabletop_square_2a_side.json
+  planning 15 seconds
+  planning 30 seconds
+{"file": "10_tabletop_square_2a_side.json", "sha256": "b16cbbcc37542941b7484b3977c3429ad598feaa8910f1bec437446e6f6e5181", "success": false, "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found", "elapsed_s": 40.15136783197522, "plan_retained": false, "executed": false}
+Preflight: 10_tabletop_square_3a_side.json
+  planning 15 seconds
+  planning 30 seconds
+{"file": "10_tabletop_square_3a_side.json", "sha256": "05ba75154fb86076b220e4b73e54a3b5a6db4231205d11680fdf53e37dddd793", "success": false, "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found", "elapsed_s": 40.108233398990706, "plan_retained": false, "executed": false}
+Preflight: 10_tabletop_square_4a_side.json
+  planning 15 seconds
+  planning 30 seconds
+{"file": "10_tabletop_square_4a_side.json", "sha256": "01d6ff8cfedf120b350b9858110f99c7ac08a939b15d69fb4e5a68bfeed5dba7", "success": false, "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found", "elapsed_s": 40.17925706296228, "plan_retained": false, "executed": false}

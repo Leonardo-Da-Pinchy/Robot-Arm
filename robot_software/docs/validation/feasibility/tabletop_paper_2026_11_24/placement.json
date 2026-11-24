@@ -1,0 +1,80 @@
+{
+  "frame": "base_link",
+  "assumption": "Paper near edge touches current CAD front feet; 11-inch length along +X, centered at Y=0. Table height inferred from CAD underside, not measured.",
+  "front_foot_x_m": 0.06463529232458132,
+  "center_from_front_foot_m": 0.1397,
+  "center_m": [
+    0.2043352923245813,
+    0.0,
+    -0.002399999999999954
+  ],
+  "table_surface_z_m": -0.002399999999999954,
+  "dry_run_tcp_z_m": 0.0026000000000000463,
+  "paper_size_xy_m": [
+    0.2794,
+    0.2159
+  ],
+  "base_mesh_bounds": [
+    {
+      "mesh": "base_motor_holder_so101_v1.stl",
+      "minimum_m": [
+        -0.027164710056624346,
+        -0.022449441617557027,
+        0.035700000470876486
+      ],
+      "maximum_m": [
+        0.053035289678135165,
+        0.025197991737893725,
+        0.06709999928474433
+      ]
+    },
+    {
+      "mesh": "base_so101_v2.stl",
+      "minimum_m": [
+        -0.022364710759959355,
+        -0.055462507194391046,
+        -0.002399999999999954
+      ],
+      "maximum_m": [
+        0.06463529232458132,
+        0.05546248924125123,
+        0.06959999690055853
+      ]
+    },
+    {
+      "mesh": "sts3215_03a_v1.stl",
+      "minimum_m": [
+        0.0036352994456767852,
+        -0.012400009332707785,
+        0.02429999942779541
+      ],
+      "maximum_m": [
+        0.04903530055432321,
+        0.012399991379567786,
+        0.06389999921321869
+      ]
+    },
+    {
+      "mesh": "waveshare_mounting_plate_so101_v2.stl",
+      "minimum_m": [
+        -0.03098270000000015,
+        -0.025699440523162843,
+        0.026400000283122046
+      ],
+      "maximum_m": [
+        -0.023382699871849946,
+        0.025300558523162854,
+        0.06839999971687794
+      ]
+    }
+  ],
+  "input_sha256": {
+    "src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+    "src/pinchy_description/meshes/base_motor_holder_so101_v1.stl": "8cd2f241037ea377af1191fffe0dd9d9006beea6dcc48543660ed41647072424",
+    "src/pinchy_description/meshes/base_so101_v2.stl": "bb12b7026575e1f70ccc7240051f9d943553bf34e5128537de6cd86fae33924d",
+    "src/pinchy_description/meshes/sts3215_03a_v1.stl": "a37c871fb502483ab96c256baf457d36f2e97afc9205313d9c5ab275ef941cd0",
+    "src/pinchy_description/meshes/waveshare_mounting_plate_so101_v2.stl": "e197e24005a07d01bbc06a8c42311664eaeda415bf859f68fa247884d0f1a6e9"
+  },
+  "physical_measurement": false,
+  "motor_commands_sent": false
+}

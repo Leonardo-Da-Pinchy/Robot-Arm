@@ -1,0 +1,1204 @@
+{
+  "success": true,
+  "hardware": "PTY emulator",
+  "physical_motors_moved": false,
+  "peak_current_m_s": 0.00604226207563697,
+  "peak_reference_m_s": 0.00548310092819402,
+  "source": "encoder_position_window",
+  "final": {
+    "current_tcp_speed_m_s": 6.55209298477301e-17,
+    "commanded_tcp_speed_m_s": 1.1871877487790632e-18
+  },
+  "samples": [
+    {
+      "current_tcp_speed_m_s": 0.0,
+      "commanded_tcp_speed_m_s": 0.0,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0,
+      "commanded_tcp_speed_m_s": 0.0,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0,
+      "commanded_tcp_speed_m_s": 0.0,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0,
+      "commanded_tcp_speed_m_s": 0.0,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0,
+      "commanded_tcp_speed_m_s": 0.0,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0,
+      "commanded_tcp_speed_m_s": 0.0,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0008959839070889618,
+      "commanded_tcp_speed_m_s": 0.003661498459550875,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00493961688335754,
+      "commanded_tcp_speed_m_s": 0.005362074818775313,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00493961688335754,
+      "commanded_tcp_speed_m_s": 0.005362074818775313,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00493961688335754,
+      "commanded_tcp_speed_m_s": 0.005362074818775313,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00493961688335754,
+      "commanded_tcp_speed_m_s": 0.005362074818775313,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00493961688335754,
+      "commanded_tcp_speed_m_s": 0.005362074818775313,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00604226207563697,
+      "commanded_tcp_speed_m_s": 0.0053059795529854245,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004749114158005123,
+      "commanded_tcp_speed_m_s": 0.005252041009089299,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003763759894728303,
+      "commanded_tcp_speed_m_s": 0.00520013758768285,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0028824495310709078,
+      "commanded_tcp_speed_m_s": 0.005156762442590679,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0033096169247315605,
+      "commanded_tcp_speed_m_s": 0.005107612325560737,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004445099746190241,
+      "commanded_tcp_speed_m_s": 0.005065998805201247,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004445099746190241,
+      "commanded_tcp_speed_m_s": 0.005065998805201247,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004445099746190241,
+      "commanded_tcp_speed_m_s": 0.005065998805201247,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004445099746190241,
+      "commanded_tcp_speed_m_s": 0.005065998805201247,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004445099746190241,
+      "commanded_tcp_speed_m_s": 0.005065998805201247,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004445099746190241,
+      "commanded_tcp_speed_m_s": 0.005065998805201247,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005001483091893489,
+      "commanded_tcp_speed_m_s": 0.005027749715373836,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005001483091893489,
+      "commanded_tcp_speed_m_s": 0.005027749715373836,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005001483091893489,
+      "commanded_tcp_speed_m_s": 0.005027749715373836,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005001483091893489,
+      "commanded_tcp_speed_m_s": 0.005027749715373836,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005001483091893489,
+      "commanded_tcp_speed_m_s": 0.005027749715373836,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005928532348093382,
+      "commanded_tcp_speed_m_s": 0.004992668519883763,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004043320520785005,
+      "commanded_tcp_speed_m_s": 0.0049621554499942955,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004466999332405184,
+      "commanded_tcp_speed_m_s": 0.0049350406766629495,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004032321645456324,
+      "commanded_tcp_speed_m_s": 0.004913258400848567,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003910100881316604,
+      "commanded_tcp_speed_m_s": 0.004892842599168439,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003910100881316604,
+      "commanded_tcp_speed_m_s": 0.004892842599168439,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003910100881316604,
+      "commanded_tcp_speed_m_s": 0.004892842599168439,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003910100881316604,
+      "commanded_tcp_speed_m_s": 0.004892842599168439,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003910100881316604,
+      "commanded_tcp_speed_m_s": 0.004892842599168439,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003910100881316604,
+      "commanded_tcp_speed_m_s": 0.004892842599168439,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004003977568365464,
+      "commanded_tcp_speed_m_s": 0.004878822239165921,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004003977568365464,
+      "commanded_tcp_speed_m_s": 0.004878822239165921,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004003977568365464,
+      "commanded_tcp_speed_m_s": 0.004878822239165921,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004003977568365464,
+      "commanded_tcp_speed_m_s": 0.004878822239165921,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004003977568365464,
+      "commanded_tcp_speed_m_s": 0.004878822239165921,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004003977568365464,
+      "commanded_tcp_speed_m_s": 0.004878822239165921,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004486273204423765,
+      "commanded_tcp_speed_m_s": 0.004867352952686929,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.003835150583510653,
+      "commanded_tcp_speed_m_s": 0.0048610908927499185,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00554633885384946,
+      "commanded_tcp_speed_m_s": 0.0048592312246830945,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00554633885384946,
+      "commanded_tcp_speed_m_s": 0.0048592312246830945,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00554633885384946,
+      "commanded_tcp_speed_m_s": 0.0048592312246830945,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00554633885384946,
+      "commanded_tcp_speed_m_s": 0.0048592312246830945,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00554633885384946,
+      "commanded_tcp_speed_m_s": 0.0048592312246830945,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00554633885384946,
+      "commanded_tcp_speed_m_s": 0.0048592312246830945,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004820512734273159,
+      "commanded_tcp_speed_m_s": 0.004861787294263953,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006008576031335259,
+      "commanded_tcp_speed_m_s": 0.004868861758627972,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0036999268110756243,
+      "commanded_tcp_speed_m_s": 0.00488151230127198,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004541881570017265,
+      "commanded_tcp_speed_m_s": null,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004541881570017265,
+      "commanded_tcp_speed_m_s": null,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004541881570017265,
+      "commanded_tcp_speed_m_s": null,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004541881570017265,
+      "commanded_tcp_speed_m_s": null,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004541881570017265,
+      "commanded_tcp_speed_m_s": null,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004541881570017265,
+      "commanded_tcp_speed_m_s": null,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": null,
+      "commanded_tcp_speed_m_s": 0.004918311786626115,
+      "tcp_speed_source": null
+    },
+    {
+      "current_tcp_speed_m_s": null,
+      "commanded_tcp_speed_m_s": 0.004918311786626115,
+      "tcp_speed_source": null
+    },
+    {
+      "current_tcp_speed_m_s": null,
+      "commanded_tcp_speed_m_s": 0.004918311786626115,
+      "tcp_speed_source": null
+    },
+    {
+      "current_tcp_speed_m_s": null,
+      "commanded_tcp_speed_m_s": 0.004918311786626115,
+      "tcp_speed_source": null
+    },
+    {
+      "current_tcp_speed_m_s": null,
+      "commanded_tcp_speed_m_s": 0.004918311786626115,
+      "tcp_speed_source": null
+    },
+    {
+      "current_tcp_speed_m_s": null,
+      "commanded_tcp_speed_m_s": 0.004918311786626115,
+      "tcp_speed_source": null
+    },
+    {
+      "current_tcp_speed_m_s": 0.004621757258128924,
+      "commanded_tcp_speed_m_s": 0.004941412942737242,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004621757258128924,
+      "commanded_tcp_speed_m_s": 0.004941412942737242,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004621757258128924,
+      "commanded_tcp_speed_m_s": 0.004941412942737242,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004621757258128924,
+      "commanded_tcp_speed_m_s": 0.004941412942737242,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004621757258128924,
+      "commanded_tcp_speed_m_s": 0.004941412942737242,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004621757258128924,
+      "commanded_tcp_speed_m_s": 0.004941412942737242,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004685213155708912,
+      "commanded_tcp_speed_m_s": 0.004970942525878518,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0040419003945786035,
+      "commanded_tcp_speed_m_s": 0.005004444116582415,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0040419003945786035,
+      "commanded_tcp_speed_m_s": 0.005004444116582415,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0040419003945786035,
+      "commanded_tcp_speed_m_s": 0.005004444116582415,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0040419003945786035,
+      "commanded_tcp_speed_m_s": 0.005004444116582415,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0040419003945786035,
+      "commanded_tcp_speed_m_s": 0.005004444116582415,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.0040419003945786035,
+      "commanded_tcp_speed_m_s": 0.005004444116582415,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004822232830913005,
+      "commanded_tcp_speed_m_s": 0.005041778265911488,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005787336922350068,
+      "commanded_tcp_speed_m_s": 0.005083766801331658,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005787336922350068,
+      "commanded_tcp_speed_m_s": 0.005083766801331658,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005787336922350068,
+      "commanded_tcp_speed_m_s": 0.005083766801331658,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005787336922350068,
+      "commanded_tcp_speed_m_s": 0.005083766801331658,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005787336922350068,
+      "commanded_tcp_speed_m_s": 0.005083766801331658,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005787336922350068,
+      "commanded_tcp_speed_m_s": 0.005083766801331658,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004255826905130349,
+      "commanded_tcp_speed_m_s": 0.005129838103259404,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.005014189000587874,
+      "commanded_tcp_speed_m_s": 0.005179350569672249,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006031568361045646,
+      "commanded_tcp_speed_m_s": 0.005233402218139402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006031568361045646,
+      "commanded_tcp_speed_m_s": 0.005233402218139402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006031568361045646,
+      "commanded_tcp_speed_m_s": 0.005233402218139402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006031568361045646,
+      "commanded_tcp_speed_m_s": 0.005233402218139402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006031568361045646,
+      "commanded_tcp_speed_m_s": 0.005233402218139402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.006031568361045646,
+      "commanded_tcp_speed_m_s": 0.005233402218139402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004531061278512549,
+      "commanded_tcp_speed_m_s": 0.0052904141768509005,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00511023040284556,
+      "commanded_tcp_speed_m_s": 0.005347202448570698,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00511023040284556,
+      "commanded_tcp_speed_m_s": 0.005347202448570698,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00511023040284556,
+      "commanded_tcp_speed_m_s": 0.005347202448570698,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00511023040284556,
+      "commanded_tcp_speed_m_s": 0.005347202448570698,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00511023040284556,
+      "commanded_tcp_speed_m_s": 0.005347202448570698,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00511023040284556,
+      "commanded_tcp_speed_m_s": 0.005347202448570698,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004970188873138535,
+      "commanded_tcp_speed_m_s": 0.005415944974424383,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004970188873138535,
+      "commanded_tcp_speed_m_s": 0.005415944974424383,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004970188873138535,
+      "commanded_tcp_speed_m_s": 0.005415944974424383,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004970188873138535,
+      "commanded_tcp_speed_m_s": 0.005415944974424383,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004970188873138535,
+      "commanded_tcp_speed_m_s": 0.005415944974424383,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004970188873138535,
+      "commanded_tcp_speed_m_s": 0.005415944974424383,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004796369197920395,
+      "commanded_tcp_speed_m_s": 0.00548310092819402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004796369197920395,
+      "commanded_tcp_speed_m_s": 0.00548310092819402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004796369197920395,
+      "commanded_tcp_speed_m_s": 0.00548310092819402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004796369197920395,
+      "commanded_tcp_speed_m_s": 0.00548310092819402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004796369197920395,
+      "commanded_tcp_speed_m_s": 0.00548310092819402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.004796369197920395,
+      "commanded_tcp_speed_m_s": 0.00548310092819402,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00451526663563494,
+      "commanded_tcp_speed_m_s": 0.0007703508121589572,
+      "tcp_speed_source": "encoder_position_window"
+    },
+    {
+      "current_tcp_speed_m_s": 0.00451526663563494,
+      "commanded_tcp_speed_m_s": 0.0007703508121589572,
+      "tcp_speed_source": "encoder_position_window"
+    }
+  ]
+}

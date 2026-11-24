@@ -52,6 +52,7 @@ def surface_measurement(kind,center,position):
     if center.shape!=(3,) or position.shape!=(3,) or not np.isfinite(np.r_[center,position]).all():
         raise ValueError('Finite XYZ surface center and TCP required')
     if kind=='plane':return np.array([1.,0.,0.]),float(center[0]-position[0])
+    if kind=='tabletop':return np.array([0.,0.,-1.]),float(position[2]-center[2])
     if kind not in ('cylinder','quarter_pipe'):raise ValueError('Unknown nominal surface')
     radial=np.r_[position[:2]-center[:2],0.];radius=np.linalg.norm(radial)
     if radius<1e-9:raise ValueError('Surface normal undefined on axis')
@@ -107,3 +108,54 @@ def bounded_cylinder_loop():
     data['source']=dict(data['source'],timing_mode='bounded_tcp_speed',generator='nominal_paths.bounded_cylinder_loop')
     data['notes']+=' Explicit smooth interior speed range 4–18 mm/s, with endpoint ramps outside the band. Joint caps remain 30 deg/s and 180 deg/s². This does not repair unqualified physical tracking.'
     return data
+
+
+def paper_plane_loop(foot_front=.06463529232458132,table_z=-.0024):
+    """Owner's 100 mm circle, 5.5 inches beyond the current CAD front feet.
+
+    Surface normal is +Z; the pen's +Z points down into the surface. This is
+    an explicit 5 mm air trace, not qualified contact drawing. Current saved
+    wrist limits have not yielded this tabletop placement; never bypass them.
+    """
+    if not all(math.isfinite(v) for v in (foot_front,table_z)):raise ValueError('Finite paper placement required')
+    center=[foot_front+.1397,0.,table_z]
+    points=[dict(xyz=[center[0]+.05*math.cos(a),.05*math.sin(a),table_z+.005],direction=[0.,0.,-1.],contact=False)
+            for a in np.linspace(0,2*math.pi,65)]
+    return dict(schema_version=1,name='Tabletop: 100 mm circle, TCP range 4–18 mm/s',frame='base_link',tcp_frame='pointer_tip',
+        orientation_mode='tool_axis',style='spline_axis',waypoints=points,joint_speed_deg_s=30.,joint_acceleration_deg_s2=180.,
+        tcp_min_speed_m_s=.004,tcp_speed_m_s=.018,tcp_acceleration_m_s2=.08,plan_pen_up_approach=True,
+        allow_contact_ramps=False,enforce_tcp_speed=True,
+        notes='Requested horizontal paper placement, not a passing saved-limit trajectory or contact qualification. '
+              'Surface normal up (+Z), pen axis down (-Z), 5 mm air gap. Center is 139.7 mm beyond current CAD front feet; '
+              'letter paper has its 11-inch length along +X and 8.5-inch width along Y. '
+              'Current saved wrist limits have not admitted this placement. Confirm actual feet/table/TCP and review feasibility before physical use.',
+        source=dict(generator='nominal_paths.paper_plane_loop',surface='tabletop',shape='circle',center_m=center,
+            surface_span_m=[.1,.1],stand_off_m=.005,normal_outward=[0.,0.,1.],front_foot_x_m=foot_front,
+            center_from_front_foot_m=.1397,paper_size_xy_m=[.2794,.2159],
+            scene='tabletop_paper_dry_run.yaml',hypothetical_placement=True,physical_contact_qualified=False,
+            saved_limits_qualified=False))
+
+
+def paper_square_strokes(foot_front=.06463529232458132,table_z=-.0024):
+    """Four exact straight sides, each followed by a separate 10 mm lift.
+
+    Separate plan/preview/execute operations retain the existing gateway. No
+    square corner is rounded or traversed with an impossible positive speed.
+    The next side's checked pen-up approach returns from the lift to its start.
+    """
+    import copy
+    base=paper_plane_loop(foot_front,table_z);center=np.array(base['source']['center_m'])
+    corners=np.array([[-.05,-.05],[.05,-.05],[.05,.05],[-.05,.05],[-.05,-.05]])
+    output=[]
+    for i,(first,last) in enumerate(zip(corners,corners[1:]),1):
+        side=copy.deepcopy(base);side.update(name=f'Tabletop square {i}/4: straight 100 mm side, TCP range 4–18 mm/s',style='polyline')
+        side['waypoints']=[dict(xyz=[center[0]+float(x),float(y),table_z+.005],direction=[0.,0.,-1.],contact=False)
+                           for x,y in np.linspace(first,last,11)]
+        side['source'].update(generator='nominal_paths.paper_square_strokes',shape='square',side_index=i,operation='side')
+        side['notes']+=' Exact square: execute this straight side, then its matching lift, before loading the next side. No corner blending.'
+        lift=copy.deepcopy(side);end=copy.deepcopy(side['waypoints'][-1]);above=copy.deepcopy(end);above['xyz'][2]+=.010
+        lift.update(name=f'Tabletop square {i}/4: 10 mm pen-up lift',waypoints=[end,above],tcp_min_speed_m_s=0.,plan_pen_up_approach=False)
+        lift['source'].update(operation='lift',lift_m=.010)
+        lift['notes']='Separate pen-up retract from the preceding side endpoint, with the pen axis down. Current saved-limit tabletop placement is unqualified. Plan and execute only after the matching side; then load the next side with its checked approach. Lift ramps start/end at rest; the 4–18 mm/s band applies to the drawing sides.'
+        output.extend([side,lift])
+    return output

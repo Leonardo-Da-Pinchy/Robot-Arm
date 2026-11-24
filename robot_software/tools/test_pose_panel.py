@@ -16,6 +16,20 @@ CURRENT=[.4745,-.0017,.2554,-95.21,32.38,-92.76]
 GOAL=[.471461,-.003679,.239280,-130.083,-86.586,4.025]
 
 class GoalDirectionTests(unittest.TestCase):
+    def test_current_tcp_speed_labels_distinguish_feedback_reference_and_unknown(self):
+        app=QApplication.instance() or QApplication([])
+        context=Context();rclpy.init(context=context,domain_id=221)
+        node=rclpy.create_node('tcp_speed_ui_test',context=context);window=PosePanel(node)
+        try:
+            window.timer.stop();window.status_data={'current_pose_xyz_rpy_deg':CURRENT,'current_tcp_speed_m_s':.0123,'commanded_tcp_speed_m_s':.018}
+            window.update_current_display();self.assertIn('encoder/model): 12.3 mm/s; commanded: 18.0 mm/s',window.current.text())
+            window.status_data.update(current_tcp_speed_m_s=None,commanded_tcp_speed_m_s=None)
+            window.update_current_display();self.assertIn('encoder/model): unavailable; commanded: unavailable',window.current.text())
+            window.status_data['current_pose_xyz_rpy_deg']=None
+            window.update_current_display();self.assertNotIn('12.3',window.current.text());self.assertIn('Current TCP (encoder/model): unavailable',window.current.text())
+        finally:
+            window.target_timer.stop();window.queue_timer.stop();window.executor.shutdown();window.close();app.processEvents();node.destroy_node();context.shutdown()
+
     def test_pen_up_queue_default_and_stale_failure_invalidation(self):
         from types import SimpleNamespace
         app=QApplication.instance() or QApplication([])

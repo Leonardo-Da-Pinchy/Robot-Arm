@@ -35,6 +35,7 @@ from moveit_msgs.msg import (RobotState, Constraints, JointConstraint, DisplayTr
 from moveit_msgs.srv import (GetPositionIK, GetPositionFK, GetMotionPlan,
     GetStateValidity, GetPlanningScene, ApplyPlanningScene, GetCartesianPath)
 from control_msgs.action import FollowJointTrajectory
+from control_msgs.msg import JointTrajectoryControllerState
 from tf2_ros import Buffer, TransformListener
 from pinchy_motion_interfaces.srv import PlanPose,PlanPath
 from pinchy_motion_interfaces.action import ExecutePlan
@@ -49,6 +50,7 @@ from .geometry import (trajectory_reserve, model_limits, quaternion_from_rpy, po
 
 
 from .planning_progress import PlanningProgress
+from .tcp_telemetry import TCPSpeedTelemetry
 
 
 class MotionServer(Node):
@@ -63,12 +65,14 @@ class MotionServer(Node):
         self.scene_ready=False; self.scene_pending=False; self.scene_error='Waiting for MoveIt'
         self.stage='waiting'; self.active=False; self.stop_requested=False
         self.planning_progress=PlanningProgress()
+        self.tcp_telemetry=TCPSpeedTelemetry()
         self.controller_goal=None; self.goal_dispatched=False; self.stop_future=None; self.stopping=False; self.active_id=''
         self.hold=PoweredHold(self,self.hardware,self.group)
         self.tf=Buffer(); self.listener=TransformListener(self.tf,self)
         qos=QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL)
         self.create_subscription(String,'/robot_description',self.description,qos,callback_group=self.group)
         self.create_subscription(JointState,'/joint_states',self.joints,10,callback_group=self.group)
+        self.create_subscription(JointTrajectoryControllerState,CONTROLLER_STATE,self.tcp_reference,10,callback_group=self.group)
         self.status=self.create_publisher(String,'/pinchy_motion/status',qos)
         self.preview=self.create_publisher(DisplayTrajectory,'/display_planned_path',qos)
         self.workspace_pub=self.create_publisher(MarkerArray,'/pinchy_motion/workspace_markers',qos)
@@ -109,9 +113,14 @@ class MotionServer(Node):
         except Exception as error: self.model=None; self.scene_error=str(error)
 
     def joints(self,message):
+        stamp=message.header.stamp.sec+message.header.stamp.nanosec*1e-9
+        self.tcp_telemetry.add_feedback(message.name,message.position,message.velocity,stamp=stamp)
         values=dict(zip(message.name,message.position))
         if all(name in values and math.isfinite(values[name]) for name in JOINTS):
             self.actual={name:values[name] for name in JOINTS}; self.actual_at=time.monotonic()
+
+    def tcp_reference(self,message):
+        self.tcp_telemetry.add_reference(message.joint_names,message.reference.positions,message.reference.velocities)
 
     def robot_state(self,positions):
         state=RobotState(); state.joint_state=JointState(name=JOINTS,position=list(positions)); return state
@@ -961,6 +970,7 @@ class MotionServer(Node):
             max_acceleration_deg_s2=math.degrees(min(v['acceleration'] for v in self.limits.values())) if self.limits else 180.,
             scene='Example floor; final base wings/fixture not yet modeled')
         message['planning_progress']=self.planning_progress.snapshot()
+        message.update(self.tcp_telemetry.snapshot(self.ik_solver if self.model and not self.model_changed else None))
         message['ik_attempts']=self.ik_attempt_count
         message['ik_report']=self.last_ik_report
         if self.ik_solver is not None and self.actual:

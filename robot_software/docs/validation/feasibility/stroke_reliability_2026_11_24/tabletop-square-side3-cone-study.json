@@ -1,0 +1,55 @@
+[
+  {
+    "tilt_deg": 5,
+    "azimuth_deg": 90,
+    "case": "square_side_3",
+    "attempt": 0,
+    "collision_checked": false,
+    "physical_motors_moved": false,
+    "geometric_path": true,
+    "minimum_joint_reserve_deg": 2.5367701099463775e-06,
+    "timing_passed": true,
+    "summary": {
+      "requested_tcp_speed_m_s": 0.018,
+      "modeled_peak_tcp_speed_m_s": 0.017920032039277885,
+      "modeled_contact_min_m_s": 0.0,
+      "modeled_contact_max_m_s": 0.0,
+      "modeled_steady_contact_min_m_s": 0.0,
+      "modeled_steady_contact_max_m_s": 0.0,
+      "contact_ramps_allowed": false,
+      "contact_has_constant_speed_plateau": false,
+      "ramp_only": false,
+      "enforced_tcp_speed": true,
+      "speed_range": {
+        "enabled": true,
+        "minimum_m_s": 0.004,
+        "maximum_m_s": 0.018,
+        "length_m": 0.09999999999999998,
+        "modeled_mean_m_s": 0.01635809288914265,
+        "timing_solver_seconds": 0.017246101051568985,
+        "planned_mean_m_s": 0.016358064395220712,
+        "slowdown_distance_fraction": 0.10220440881763528,
+        "slowdown_intervals_m": [
+          [
+            0.00019226547039969538,
+            0.005188026205565222
+          ],
+          [
+            0.09481197379443476,
+            0.09980773452960029
+          ]
+        ],
+        "modeled_peak_tangential_acceleration_m_s2": 0.06798462697376284
+      },
+      "modeled_cruise_min_m_s": 0.004079771416704889,
+      "modeled_cruise_max_m_s": 0.017920032039277885,
+      "trace_start_s": 0.0,
+      "trace_end_s": 6.278181151,
+      "cruise_start_s": 0.09424777960572979,
+      "cruise_end_s": 6.183933371394271,
+      "transit_time_scale": 0.9999999999791611,
+      "physical_speed_qualified": false
+    },
+    "seconds": 3.5815014970721677
+  }
+]

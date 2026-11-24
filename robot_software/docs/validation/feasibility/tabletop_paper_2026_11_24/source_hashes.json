@@ -1,0 +1,17 @@
+{
+  "src/pinchy_motion/pinchy_motion/nominal_paths.py": "4c43e330e9c8d715320e8583dcbda33ff0f21db152513cd4af9c6be196242d9e",
+  "tools/inspect_paper_placement.py": "95d6cbdb8d350776c37f7598347e5bdd875b52ae735de1a1d1745b6c18a06d37",
+  "tools/check_paper_plane.py": "c390e061c41619a8060f6559f1884ad23d300bfda5f8e3767c4032ff141d063e",
+  "src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+  "calibration/arm.json": "785a791dc9586cf62ad27a86cca14614c243e25f92a64196f1ee0530a7a42b49",
+  "src/pinchy_moveit_config/config/tabletop_paper_dry_run.yaml": "cd85ec200c0fd65ebb1664479b025349aafd046dd2d78ff864dda4336319b795",
+  "src/pinchy_motion/examples/point_sets/09_tabletop_circle_100mm.json": "a4afd0ab2b163112a1042a5cf69ea12d024f8130d4c9c8042124b0e9f42e631f",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_1a_side.json": "fc39e5a9c6a309ec18e265aa6633bcbd87ff373e3737df8ce4148164bf161c0f",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_4a_side.json": "01d6ff8cfedf120b350b9858110f99c7ac08a939b15d69fb4e5a68bfeed5dba7",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_2b_lift.json": "2428fd90d656f19ad98f88b9e1c624165f6f6f86262e652ddc473d9d3d6f04fb",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_2a_side.json": "b16cbbcc37542941b7484b3977c3429ad598feaa8910f1bec437446e6f6e5181",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_3b_lift.json": "b43e9288e7518adc2b9b7425a2aa3b8bd6bd23d9b7e9bd5681e2b351c3619364",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_4b_lift.json": "a9e9ebbd1129bd559bf267fde163cb92d49485e053330ece4c17f64ced222fac",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_1b_lift.json": "5151a845856e58b4b96d90b1fc2f856424449d49c9beea9954f8106b2adb501d",
+  "src/pinchy_motion/examples/point_sets/10_tabletop_square_3a_side.json": "05ba75154fb86076b220e4b73e54a3b5a6db4231205d11680fdf53e37dddd793"
+}

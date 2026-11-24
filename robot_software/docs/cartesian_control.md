@@ -433,3 +433,26 @@ November 22: an explicitly enabled [TCP range](bounded_speed_proposal.md) adds
 minimum/maximum interior timing without changing old fixed-speed point sets.
 The [joint ceilings](estimated_operating_limits.md) now follow the owner's
 coupled estimate-minus-10 rule; they are not measured physical safe limits.
+
+## Live TCP speed readout
+
+The current-pose area now shows **TCP speed (encoder/model)** and **commanded**
+speed in mm/s. Both use the active shared `pointer_tip` model's translational
+Jacobian, `speed = |J_position(q) qdot|`. Commanded means the JTC's sampled
+controller reference, not motor applied-goal registers or the requested upper
+speed setting. This also distinguishes stationary-tip rotations from translation.
+
+Where joint velocities are available they are used directly. The real driver
+exports position feedback, so current speed normally fits joint-position slopes
+over the latest 0.2 seconds of timestamped samples. At least three samples and
+50 ms are needed; this smooths quantization and adds some lag during transitions.
+The panel receives updates on the existing approximately 0.3-second status cycle.
+Absent/incomplete data or feedback older than 0.5 seconds reads **unavailable**,
+not a false zero. Neither value is independent physical pen-tip metrology.
+
+The existing `/pinchy_motion/status` JSON adds `current_tcp_speed_m_s`,
+`commanded_tcp_speed_m_s`, `tcp_speed_source` and
+`tcp_speed_estimation_window_s`. Missing speeds are null; existing consumers
+remain compatible. This read-only display adds no motor I/O or controller writes.
+Reopen the planner/panel to load the code; no physical bringup restart is needed
+for this telemetry addition. See [validation](validation/moveit/tcp_speed_2026_11_24/validation.md).

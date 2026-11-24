@@ -1,0 +1,39 @@
+{
+  "analysis_only": true,
+  "normal_tolerance_feature_implemented": false,
+  "physical_motors_moved": false,
+  "executed": false,
+  "fixed_pen_tilt_deg": 5,
+  "tilt_azimuth_deg": 270,
+  "success": true,
+  "message": "Ordered spline_axis path ready; 65 waypoints, no motion sent. TCP range 4.00\u201318.00 mm/s; modeled interior 4.079\u201317.920 mm/s. Smooth endpoint ramps are outside the interior band; no interior stops. Timing means 17.39 mm/s. Slower sections: 0\u20132%, 98\u2013100%. Includes an explicitly requested pen-up route to a whole-stroke-selected starting configuration. Low joint travel reserve: wrist_flex 0.16 deg along this plan; validate the next segment too.",
+  "elapsed_s": 157.87244314397685,
+  "duration_s": 24.307084627,
+  "range_report": [
+    {
+      "enabled": true,
+      "minimum_m_s": 0.004,
+      "maximum_m_s": 0.018,
+      "length_m": 0.31415639694156555,
+      "modeled_mean_m_s": 0.01739448030806271,
+      "timing_solver_seconds": 0.38063239795155823,
+      "planned_mean_m_s": 0.017394402083645986,
+      "slowdown_distance_fraction": 0.03249442497610704,
+      "slowdown_intervals_m": [
+        [
+          0.00019226547039969538,
+          0.005191817191253203
+        ],
+        [
+          0.30896457975031233,
+          0.31396413147116586
+        ]
+      ],
+      "modeled_peak_tangential_acceleration_m_s2": 0.06799402005673943
+    }
+  ],
+  "modeled_speed_m_s": [
+    0.004078798227428522,
+    0.017920274674264734
+  ]
+}

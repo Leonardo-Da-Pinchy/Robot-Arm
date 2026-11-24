@@ -1,0 +1,7 @@
+
+TCPTelemetrySystem artifacts: /tmp/pinchy-cartesian-tests-uzq9zi6j
+.
+----------------------------------------------------------------------
+Ran 1 test in 41.789s
+
+OK
