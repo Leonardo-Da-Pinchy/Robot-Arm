@@ -94,8 +94,10 @@ class Dashboard:
         self.last_draw = now
         self.screen.erase()
         self.line(0, 'PHYSICAL ARM STARTUP | sequential zero + hold', curses.A_BOLD)
-        self.line(1, f"Torque limit: {self.startup.profile['torque_limit']/10:g}% | "
-                     f"Capture window: +/-{math.degrees(self.startup.max_start):g} deg, inside saved/CAD limits")
+        window=(f'+/-{math.degrees(self.startup.max_start):g} deg, inside saved/CAD limits'
+                if math.isfinite(self.startup.max_start) else 'saved/CAD limits only; no extra angle window')
+        self.line(1, f"Torque limit: {self.startup.profile['torque_limit']/10:g}% | Capture window: {window}")
+        self.line(2, f'Zeroing ramp: up to {math.degrees(self.startup.ramp_rad_s):.1f} deg/s, capped by each joint’s configured speed')
         self.line(3, ' ID  Joint              Current    Target    To move    Temp   Torque  State')
         for row, (servo_id, name) in enumerate(JOINTS.items(), 4):
             state = self.states.get(servo_id)
@@ -116,7 +118,7 @@ class Dashboard:
                         f"{state['temperature_raw']:3}C   {'ON' if state['torque'] else 'OFF':<4}  {label}")
             self.line(row, text, style)
         self.line(11, 's = start/resume | p = pause | l = capture selected joint now (within window) | q = release/abort')
-        self.line(12, f'Bring the highlighted joint into the capture window and hold it still for {CAPTURE_DWELL_SECONDS:g} second.')
+        self.line(12, f'Hold the highlighted joint still for {CAPTURE_DWELL_SECONDS:g} second inside its saved/CAD limits.')
         self.line(13, 'It commands calibrated zero with bounded feedback settling. Earlier joints remain powered and held.')
         self.line(14, 'During LOCKING: q aborts; pause applies while positioning, before movement.')
         self.line(15, self.capture_reason)

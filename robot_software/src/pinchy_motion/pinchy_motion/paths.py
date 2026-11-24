@@ -33,7 +33,10 @@ class CartesianCurve:
         if np.any(lengths<1e-5):raise ValueError('Ordered traces need distinct XYZ points; use pose transit for rotation-only moves')
         self.knots=np.r_[0.,np.cumsum(lengths)]
         self.positions=positions;self.rotations=Slerp(self.knots,Rotation.from_matrix(np.array([t[:3,:3] for t in transforms])))
-        self.spline=CubicSpline(self.knots,positions,axis=0,bc_type='natural') if style=='spline' else None
+        self.spline=CubicSpline(self.knots,positions,axis=0,bc_type='natural') if style in ('spline','spline_axis') else None
+        # Explicit mode: a smooth unit direction curve removes the angular-rate
+        # jumps of per-segment S2 interpolation. Existing spline stays unchanged.
+        self.axis_spline=CubicSpline(self.knots,np.array([t[:3,2] for t in transforms]),axis=0) if style=='spline_axis' else None
         dense=np.unique(np.r_[np.linspace(0,self.knots[-1],max(100,int(self.knots[-1]/.0005)+1)),self.knots])
         p=self.spline(dense) if self.spline is not None else np.column_stack([np.interp(dense,self.knots,positions[:,i]) for i in range(3)])
         self.arc_parameters=dense;self.arc_distances=np.r_[0.,np.cumsum(np.linalg.norm(np.diff(p,axis=0),axis=1))]
@@ -43,6 +46,12 @@ class CartesianCurve:
         parameter=float(np.interp(distance,self.arc_distances,self.arc_parameters));result=np.eye(4)
         result[:3,3]=self.spline(parameter) if self.spline is not None else [np.interp(parameter,self.knots,self.positions[:,i]) for i in range(3)]
         if mode=='full':result[:3,:3]=self.rotations(parameter).as_matrix()
+        elif mode=='tool_axis' and self.axis_spline is not None:
+            axis=self.axis_spline(parameter);norm=np.linalg.norm(axis)
+            if norm<1e-6:raise ValueError('Smooth pen direction is undefined between these points; add intermediate normals')
+            axis=axis/norm;reference=np.eye(3)[int(np.argmin(abs(axis)))]
+            x=np.cross(reference,axis);x=x/np.linalg.norm(x)
+            result[:3,:3]=np.column_stack((x,np.cross(axis,x),axis))
         else:
             # SLERP the pointing direction on S2, not a preselected pen twist.
             index=min(len(self.knots)-2,max(0,int(np.searchsorted(self.knots,parameter,side='right')-1)))
@@ -97,7 +106,7 @@ def trace_knots(curve,step):
     return separated(np.r_[fixed,grid])
 
 
-def sample_ik(curve,mode,start,solver,valid,stop,step=.002):
+def sample_ik(curve,mode,start,solver,valid,stop,step=.002,progress=None):
     """Adaptive continuation; never turn a partial trace into an executable path."""
     knots=trace_knots(curve,step)
     positions=[list(start)];distances=[0.]
@@ -111,11 +120,14 @@ def sample_ik(curve,mode,start,solver,valid,stop,step=.002):
         if depth<5 and distance-distances[-1]>.0001:
             middle=(distance+distances[-1])/2;advance(middle,depth+1);advance(distance,depth+1);return
         raise TraceIncomplete(f'Cartesian trace incomplete at {100*distances[-1]/curve.length:.1f}%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained',distance,distances[-1],positions[-1],target)
-    for distance in knots[1:]:advance(float(distance))
+    if progress:progress(0,len(knots)-1)
+    for index,distance in enumerate(knots[1:],1):
+        advance(float(distance))
+        if progress:progress(index,len(knots)-1)
     return np.array(distances),np.array(positions)
 
 
-def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
+def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4,progress=None):
     """Select a complete connected trace, including timing/interpolation checks.
 
     Keep the inexpensive continuation when it passes. Otherwise retain several
@@ -128,7 +140,8 @@ def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
         if stop():raise RuntimeError('Cartesian path stopped')
     check()
     try:
-        distances,positions=sample_ik(curve,mode,start,solver,valid,stop,step)
+        distances,positions=sample_ik(curve,mode,start,solver,valid,stop,step,
+            progress=(lambda done,total:progress('Solving continuous Cartesian IK',done,total,'path samples')) if progress else None)
         result=finish(distances,positions)
         check()
         return distances,positions,result,dict(method='local_continuation',complete_candidates=1)
@@ -141,7 +154,7 @@ def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
     if 'positions' in locals() and hasattr(solver,'errors'):
         from .stroke_search import smooth_trace
         try:
-            optimized_distances,optimized_positions,report=smooth_trace(curve,mode,distances,positions,solver,valid,stop)
+            optimized_distances,optimized_positions,report=smooth_trace(curve,mode,distances,positions,solver,valid,stop,progress=progress)
             result=finish(optimized_distances,optimized_positions)
             check()
             return optimized_distances,optimized_positions,result,report
@@ -190,7 +203,11 @@ def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
         frontier=selected;distances.append(float(distance))
 
     try:
-        for distance in trace_knots(curve,step)[1:]:advance(float(distance))
+        knots=trace_knots(curve,step)
+        if progress:progress('Searching continuous branch alternatives',0,len(knots)-1,'path samples')
+        for index,distance in enumerate(knots[1:],1):
+            advance(float(distance))
+            if progress:progress('Searching continuous branch alternatives',index,len(knots)-1,'path samples')
         for _,history in frontier:
             check()
             search_report['complete_candidates']+=1
@@ -207,8 +224,19 @@ def select_trace(curve,mode,start,solver,valid,stop,finish,step=.002,width=4):
     raise original
 
 
-def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,contacts,velocity_scale=1.,acceleration_scale=1.,allow_contact_ramps=False):
-    law=SpeedLaw(curve.length,speed,acceleration)
+def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,contacts,velocity_scale=1.,acceleration_scale=1.,allow_contact_ramps=False,enforce_tcp_speed=False,progress=None,tcp_min_speed=0.,stop=None):
+    if not math.isfinite(tcp_min_speed) or tcp_min_speed<0:raise ValueError('Minimum TCP speed must be finite and nonnegative')
+    spline=CubicSpline(distances,positions,axis=0)
+    ranged=tcp_min_speed>0
+    if ranged:
+        from .speed_range import BoundedSpeedLaw
+        if progress:progress('Selecting smooth TCP speed within range')
+        law=BoundedSpeedLaw(curve.length,tcp_min_speed,speed,acceleration,spline,
+            [limits[n]['velocity']*velocity_scale for n in JOINTS],
+            [limits[n]['acceleration']*acceleration_scale for n in JOINTS],stop,joint_names=JOINTS)
+    else:law=SpeedLaw(curve.length,speed,acceleration)
+    if not ranged and enforce_tcp_speed and (law.speed<speed-1e-9 or law.plateau_time<=1e-6):
+        raise ValueError('Trace is too short to reach the requested TCP cruise speed; no plan retained')
     if law.duration>110:raise ValueError('Path would exceed 110 seconds; split it or choose a feasible higher speed')
     contact_intervals=[(curve.waypoint_distances[i],curve.waypoint_distances[i+1]) for i,c in enumerate(contacts) if c]
     if not allow_contact_ramps and contact_intervals and any(a<law.ramp_distance-1e-8 or b>curve.length-law.ramp_distance+1e-8 for a,b in contact_intervals):
@@ -218,7 +246,6 @@ def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,
     # Zero joint curvature at a Cartesian endpoint is generally inconsistent
     # with the requested surface curve. Not-a-knot preserves the fitted local
     # curvature instead of biasing endpoint TCP speed during contact ramps.
-    spline=CubicSpline(distances,positions,axis=0)
     times=separated(np.r_[np.arange(0,law.duration,.02),[law.duration,law.ramp_time,law.ramp_time+law.plateau_time],
                             [law.time_at(s) for s in curve.waypoint_distances]],.001)
     times[-1]=law.duration
@@ -231,12 +258,17 @@ def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,
             accelerations=(spline(s,2)*v*v+spline(s,1)*a).tolist())
         set_seconds(point,float(t));trajectory.joint_trajectory.points.append(point)
     # A contact request must not be silently slowed to satisfy joint limits.
-    trajectory=prepare_trajectory(trajectory,limits,velocity_scale,acceleration_scale,rescale=not bool(contact_intervals))
+    trajectory=prepare_trajectory(trajectory,limits,velocity_scale,acceleration_scale,rescale=not (bool(contact_intervals) or enforce_tcp_speed or ranged),
+        progress=(lambda done,total:progress('Checking joint bounds and rates',done,total,'intervals')) if progress else None)
     factor=seconds(trajectory.joint_trajectory.points[-1])/law.duration
-    contact_speeds=[];steady_contact_speeds=[];peak=0.;ramp_error=0.
-    for first,last in zip(trajectory.joint_trajectory.points,trajectory.joint_trajectory.points[1:]):
+    contact_speeds=[];steady_contact_speeds=[];cruise_speeds=[];cruise_samples=[];peak=0.;ramp_error=0.;law_error=0.;range_peak_acceleration=0.
+    total=len(trajectory.joint_trajectory.points)-1
+    if progress:progress('Checking TCP speed and surface normal',0,total,'intervals')
+    for index,(first,last) in enumerate(zip(trajectory.joint_trajectory.points,trajectory.joint_trajectory.points[1:]),1):
+        if progress and (index%10==0 or index==total):progress('Checking TCP speed and surface normal',index-1,total,'intervals')
+        if stop and stop():raise RuntimeError('Stopped during TCP timing validation')
         duration,coeff=segment_coefficients(first,last)
-        for local in np.linspace(0,duration,max(2,math.ceil(duration/.02)+1)):
+        for local in np.linspace(0,duration,max(2,math.ceil(duration/(.01 if ranged else .02))+1)):
             q=coeff@np.array([local**i for i in range(6)])
             qdot=coeff[:,1:]@np.array([i*local**(i-1) for i in range(1,6)])
             absolute=seconds(first)+local;s,_,_=law.at(absolute/factor);expected=curve.evaluate(s,mode)
@@ -244,22 +276,51 @@ def timed_trace(curve,distances,positions,solver,limits,mode,speed,acceleration,
             angle=Rotation.from_matrix(expected[:3,:3].T@actual[:3,:3]).magnitude() if mode=='full' else math.acos(float(np.clip(actual[:3,2]@expected[:3,2],-1,1))) if mode=='tool_axis' else 0.
             if distance>.001 or angle>.01:raise ValueError(f'Timed trace leaves requested geometry ({distance*1000:.2f} mm / {math.degrees(angle):.2f} deg); refine waypoints or choose another route')
             linear=float(np.linalg.norm(jp@qdot));peak=max(peak,linear)
+            if ranged and linear>1e-7:
+                qddot=coeff[:,2:]@np.array([i*(i-1)*local**(i-2) for i in range(2,6)])
+                eps=1e-5
+                jdot=(solver.evaluate(q+qdot*eps)[1]-solver.evaluate(q-qdot*eps)[1])/(2*eps)
+                tangential=abs(float((jp@qdot)@(jp@qddot+jdot@qdot))/linear)
+                range_peak_acceleration=max(range_peak_acceleration,tangential)
+                if tangential>acceleration*1.05+1e-7:raise ValueError('Controller interpolation exceeds requested TCP range acceleration; no plan retained')
+            expected_speed=law.at(absolute/factor)[1]/factor
+            law_error=max(law_error,abs(linear-expected_speed))
+            if law.plateau_time>1e-6 and law.ramp_distance-1e-9<=s<=curve.length-law.ramp_distance+1e-9:
+                cruise_speeds.append(linear)
+                if ranged:cruise_samples.append((absolute,linear))
             if any(a-1e-9<=s<=b+1e-9 for a,b in contact_intervals):
                 contact_speeds.append(linear)
-                expected_speed=law.at(absolute/factor)[1]/factor
                 ramp_error=max(ramp_error,abs(linear-expected_speed))
                 if law.plateau_time>1e-6 and law.ramp_distance-1e-9<=s<=curve.length-law.ramp_distance+1e-9:steady_contact_speeds.append(linear)
+    if progress:progress('Checking TCP speed and surface normal',total,total,'intervals')
     checked_speeds=steady_contact_speeds if allow_contact_ramps else contact_speeds
-    if checked_speeds and max(abs(v-speed) for v in checked_speeds)>speed*.05:
+    if not ranged and checked_speeds and max(abs(v-speed) for v in checked_speeds)>speed*.05:
         raise ValueError('Commanded contact TCP speed varies more than the 5% planning tolerance; no plan retained')
-    if contact_speeds and allow_contact_ramps and ramp_error>speed*.05:
+    if not ranged and contact_speeds and allow_contact_ramps and ramp_error>speed*.05:
         raise ValueError('Contact ramp TCP speed differs from its smooth speed law by more than 5%; no plan retained')
+    if not ranged and enforce_tcp_speed and (not cruise_speeds or max(abs(v-speed) for v in cruise_speeds)>speed*.05 or law_error>speed*.05):
+        raise ValueError('Requested TCP speed varies more than the 5% planning tolerance; no plan retained')
+    if ranged and (not cruise_speeds or min(cruise_speeds)<tcp_min_speed-1e-7 or max(cruise_speeds)>speed+1e-7):
+        raise ValueError('Actual controller TCP speed leaves the explicitly requested range; minimum/maximum were not relaxed')
+    range_report=dict(enabled=ranged,minimum_m_s=tcp_min_speed,maximum_m_s=speed,length_m=curve.length)
+    if ranged:
+        measured=np.array(cruise_samples);_,unique=np.unique(measured[:,0],return_index=True);measured=measured[np.sort(unique)]
+        if len(measured)<2 or measured[-1,0]<=measured[0,0]:raise ValueError('TCP range interior too short to validate its speed band; no plan retained')
+        modeled_mean=float(np.trapz(measured[:,1],measured[:,0])/(measured[-1,0]-measured[0,0]))
+        range_report['modeled_mean_m_s']=modeled_mean
+    if ranged:range_report.update(timing_solver_seconds=law.solver_seconds,planned_mean_m_s=(curve.length-2*law.ramp_distance)/law.plateau_time,
+        slowdown_distance_fraction=law.slowdown_distance_fraction,slowdown_intervals_m=law.slowdown_intervals,
+        modeled_peak_tangential_acceleration_m_s2=range_peak_acceleration)
     return trajectory,dict(requested_tcp_speed_m_s=speed,modeled_peak_tcp_speed_m_s=peak,
         modeled_contact_min_m_s=min(contact_speeds) if contact_speeds else 0.,modeled_contact_max_m_s=max(contact_speeds) if contact_speeds else 0.,
         modeled_steady_contact_min_m_s=min(steady_contact_speeds) if steady_contact_speeds else 0.,
         modeled_steady_contact_max_m_s=max(steady_contact_speeds) if steady_contact_speeds else 0.,
-        contact_ramps_allowed=allow_contact_ramps,contact_has_constant_speed_plateau=bool(steady_contact_speeds and law.plateau_time>1e-6),
+        contact_ramps_allowed=allow_contact_ramps,contact_has_constant_speed_plateau=bool(not ranged and steady_contact_speeds and law.plateau_time>1e-6),
         ramp_only=bool(contact_intervals and law.plateau_time<=1e-6),
+        enforced_tcp_speed=enforce_tcp_speed or ranged,speed_range=range_report,modeled_cruise_min_m_s=min(cruise_speeds) if cruise_speeds else 0.,
+        modeled_cruise_max_m_s=max(cruise_speeds) if cruise_speeds else 0.,
+        trace_start_s=0.,trace_end_s=law.duration*factor,cruise_start_s=law.ramp_time*factor,
+        cruise_end_s=(law.ramp_time+law.plateau_time)*factor,
         transit_time_scale=factor,physical_speed_qualified=False)
 
 

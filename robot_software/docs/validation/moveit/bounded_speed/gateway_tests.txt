@@ -1,0 +1,9 @@
+
+BoundedGateway artifacts: /tmp/pinchy-cartesian-tests-_af4vytc
+....
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-_w7uv5v7
+..
+----------------------------------------------------------------------
+Ran 6 tests in 195.406s
+
+OK

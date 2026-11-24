@@ -19,23 +19,27 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class MockChecks:
-    def __init__(self,folder,profile):
+    def __init__(self,folder,profile,scene=None):
         import rclpy
         from rclpy.qos import QoSProfile,DurabilityPolicy
         from std_msgs.msg import String
         from moveit_msgs.srv import GetPositionFK,GetStateValidity
         self.rclpy=rclpy;self.process=None;self.node=None;self.models=[];self.states={};self.rejections=[];self.calls=0
-        self.domain=200+os.getpid()%25;env=dict(os.environ,ROS_DOMAIN_ID=str(self.domain),ROS_LOG_DIR=str(folder/'ros_logs'))
+        self.status={}
+        self.domain=225+os.getpid()%6;env=dict(os.environ,ROS_DOMAIN_ID=str(self.domain),ROS_LOG_DIR=str(folder/'ros_logs'))
         self.log=(folder/'mock_launch.log').open('w')
-        self.process=subprocess.Popen(['ros2','launch','pinchy_moveit_config','mock_motion.launch.py','rviz:=false','panel:=false',f'calibration:={profile}'],env=env,stdout=self.log,stderr=subprocess.STDOUT,start_new_session=True)
+        command=['ros2','launch','pinchy_moveit_config','mock_motion.launch.py','rviz:=false','panel:=false',f'calibration:={profile}']
+        if scene:command.append(f'scene:={scene}')
+        self.process=subprocess.Popen(command,env=env,stdout=self.log,stderr=subprocess.STDOUT,start_new_session=True)
         rclpy.init(domain_id=self.domain);self.node=rclpy.create_node('read_only_motion_feasibility')
         self.node.create_subscription(String,'/robot_description',lambda m:self.models.append(m.data),QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL))
+        self.node.create_subscription(String,'/pinchy_motion/status',lambda m:setattr(self,'status',json.loads(m.data)),QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.validity=self.node.create_client(GetStateValidity,'/check_state_validity');self.fk=self.node.create_client(GetPositionFK,'/compute_fk')
         deadline=time.monotonic()+45
-        while time.monotonic()<deadline and not(self.models and self.validity.service_is_ready() and self.fk.service_is_ready()):
+        while time.monotonic()<deadline and not(self.models and self.validity.service_is_ready() and self.fk.service_is_ready() and self.status.get('ready')):
             if self.process.poll() is not None:raise RuntimeError('Isolated mock failed: '+str(folder))
             rclpy.spin_once(self.node,timeout_sec=.1)
-        if not(self.models and self.validity.service_is_ready()):raise RuntimeError('Mock readiness timeout')
+        if not(self.models and self.validity.service_is_ready() and self.status.get('ready')):raise RuntimeError('Mock readiness timeout: '+str(self.status))
     def call(self,client,request):
         f=client.call_async(request);self.rclpy.spin_until_future_complete(self.node,f,timeout_sec=8)
         if not f.done():raise RuntimeError('Mock diagnostic service timed out')

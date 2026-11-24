@@ -6,7 +6,7 @@ import sys
 import time
 from pathlib import Path
 from python_qt_binding.QtCore import QTimer,Qt
-from python_qt_binding.QtWidgets import QApplication,QWidget,QGridLayout,QLabel,QDoubleSpinBox,QPushButton,QComboBox,QCheckBox,QTableWidget,QTableWidgetItem,QHeaderView,QAbstractItemView,QVBoxLayout,QHBoxLayout,QFileDialog
+from python_qt_binding.QtWidgets import QApplication,QWidget,QGridLayout,QLabel,QDoubleSpinBox,QPushButton,QComboBox,QCheckBox,QTableWidget,QTableWidgetItem,QHeaderView,QAbstractItemView,QVBoxLayout,QHBoxLayout,QFileDialog,QProgressBar
 from ament_index_python.packages import get_package_share_directory
 from rclpy.node import Node
 import rclpy
@@ -23,6 +23,7 @@ from pinchy_bringup.control_contract import MAX_SPEED,MAX_ACCELERATION,MAX_TCP_S
 from .geometry import quaternion_from_rpy
 from .workspace import configuration as workspace_configuration
 from . import point_sets
+from .planning_progress import progress_text,duration_text
 
 
 class PosePanel(QWidget):
@@ -36,6 +37,7 @@ class PosePanel(QWidget):
         self.queue_timer=QTimer(self);self.queue_timer.setSingleShot(True);self.queue_timer.timeout.connect(self.publish_queue_snapshot)
         self.point_set_metadata={};self.point_set_path=None
         self.target_timer=QTimer(self);self.target_timer.setSingleShot(True);self.target_timer.timeout.connect(self.publish_target)
+        self.planning_started=0.;self.planning_previous_id=None;self.planning_interrupted=False
         self.status_data={}; self.plan_id=''; self.busy=False; self.executing=False; self.goal=None; self.initialized=False;self.has_plan_result=False
         self.setWindowTitle('Pinchy REAL Cartesian poses' if self.hardware else 'Pinchy MOCK Cartesian poses')
         grid=QGridLayout(self)
@@ -80,7 +82,11 @@ class PosePanel(QWidget):
         self.straight_path.setToolTip('Unchecked: OMPL may curve around obstacles. Checked: straight tip line; Exact RPY uses quaternion SLERP, free twist interpolates only pen direction. Incomplete paths are rejected. Not contact drawing.')
         self.straight_path.toggled.connect(self.invalidate);grid.addWidget(self.straight_path,7,2,1,2)
         self.notice=QLabel('Waiting for model, MoveIt and controller');self.notice.setWordWrap(True)
-        self.notice.setMinimumWidth(650);grid.addWidget(self.notice,9,0,1,4)
+        self.notice.setMinimumWidth(650)
+        planning_box=QWidget();planning_layout=QVBoxLayout(planning_box);planning_layout.setContentsMargins(0,0,0,0)
+        planning_layout.addWidget(self.notice)
+        self.progress_bar=QProgressBar();self.progress_bar.setToolTip('Progress for the current stage only. Configuration search can retry; total remaining time is unknown.')
+        self.progress_bar.hide();planning_layout.addWidget(self.progress_bar);grid.addWidget(planning_box,9,0,1,4)
         legend=QLabel('Edit fields or drag the goal arrows/rings in RViz (Interact tool, I); then Plan. Editing never moves the arm.\n'
             f"Blue working region: {self.workspace['design_working_region']['minimum_m']} to {self.workspace['design_working_region']['maximum_m']} m; reach/collisions still require Plan.\n"
             'Robot geometry and the green example floor are collision-checked. The floor is NOT a measured tabletop.')
@@ -96,7 +102,7 @@ class PosePanel(QWidget):
         self.path_button=QPushButton('Plan queued path');self.path_button.clicked.connect(self.plan_queued);buttons.addWidget(self.path_button)
         grid.addWidget(bar,12,0,1,4)
         self.path_style=QComboBox()
-        for title,code in [('Move between poses / pen-up routing','visits'),('Trace straight segments','polyline'),('Smooth through points','spline'),('Fixed TCP rotations + approach','fixed_tcp')]:self.path_style.addItem(title,code)
+        for title,code in [('Move between poses / pen-up routing','visits'),('Trace straight segments','polyline'),('Smooth through points','spline'),('Smooth points and pen direction','spline_axis'),('Fixed TCP rotations + approach','fixed_tcp')]:self.path_style.addItem(title,code)
         self.path_style.setToolTip('Default: collision-planned pen-up routes between destinations. Trace modes additionally constrain the complete TCP path. Smooth explicitly chooses another curve; contact corners require a lift or approved smooth curve.')
         self.path_style.currentIndexChanged.connect(self.invalidate);grid.addWidget(self.path_style,13,0,1,2)
         self.path_style.currentIndexChanged.connect(self.path_style_changed)
@@ -109,8 +115,18 @@ class PosePanel(QWidget):
         self.contact_ramps.setToolTip('Permit smooth acceleration/braking at stroke ends on the surface. Interior contact speed remains checked. Short strokes can be ramp-only and are reported.')
         for column,control in ((0,self.stroke_approach),(2,self.contact_ramps)):
             control.stateChanged.connect(self.invalidate);grid.addWidget(control,14,column,1,2)
+        self.require_speed=QCheckBox('Require requested TCP cruise speed (continuous dry run)')
+        self.require_speed.setToolTip('Check cruise speed within 5%, without automatically slowing the path. Endpoint ramps remain smooth; intermediate points do not stop.')
+        self.require_speed.stateChanged.connect(self.invalidate);grid.addWidget(self.require_speed,15,0,1,4)
+        self.range_summary=QLabel('Interior speed stays within the selected range; start/end ramps are exceptions.')
+        self.range_summary.setWordWrap(True);grid.addWidget(self.range_summary,15,0,1,4);self.range_summary.hide()
+        self.speed_range=QCheckBox('Use TCP speed range')
+        self.speed_range.setToolTip('Explicitly vary interior speed between minimum and maximum, preserving geometry and normals. Endpoint ramps are exceptions. An infeasible minimum rejects the path.')
+        self.tcp_min_speed=QDoubleSpinBox();self.tcp_min_speed.setRange(1.,MAX_TCP_SPEED*1000);self.tcp_min_speed.setValue(3.);self.tcp_min_speed.setSuffix(' mm/s min TCP')
+        self.speed_range.stateChanged.connect(self.speed_range_changed);self.tcp_min_speed.valueChanged.connect(self.invalidate)
+        grid.addWidget(self.speed_range,16,0,1,2);grid.addWidget(self.tcp_min_speed,16,2,1,2)
         explanation=QLabel('Queue: Add each goal, choose trace/curve/visits, then Plan queued path. Nothing moves until Execute.\nPrefer pen-up speed ramps; contact endpoint ramps require the explicit option. Physical contact remains disabled until qualified.')
-        explanation.setWordWrap(True);grid.addWidget(explanation,15,0,1,4)
+        explanation.setWordWrap(True);grid.addWidget(explanation,17,0,1,4)
         files=QWidget();file_layout=QHBoxLayout(files);file_layout.setContentsMargins(0,0,0,0)
         self.file_buttons=[]
         for title,callback in [('Capture current TCP',self.capture_current_waypoint),('Save points…',self.save_points),('Load points…',self.load_points)]:
@@ -121,9 +137,9 @@ class PosePanel(QWidget):
             self.example_sets.addItem(json.loads(path.read_text()).get('name',path.stem),str(path))
         file_layout.addWidget(self.example_sets)
         example_button=QPushButton('Load example');example_button.clicked.connect(self.load_example);file_layout.addWidget(example_button);self.file_buttons.append(example_button)
-        grid.addWidget(files,16,0,1,4)
+        grid.addWidget(files,18,0,1,4)
         self.point_set_label=QLabel('Unsaved point set — Plan queued path, inspect preview, then Execute previewed plan.');self.point_set_label.setWordWrap(True)
-        grid.addWidget(self.point_set_label,17,0,1,4)
+        grid.addWidget(self.point_set_label,19,0,1,4)
         self.path_planner=node.create_client(PlanPath,'/pinchy_motion/plan_path')
         self.planner=node.create_client(PlanPose,'/pinchy_motion/plan_pose')
         self.execution=ActionClient(node,ExecutePlan,'/pinchy_motion/execute_plan')
@@ -176,6 +192,9 @@ class PosePanel(QWidget):
         if self.path_style.currentData()=='fixed_tcp':
             self.orientation_mode.setCurrentIndex(self.orientation_mode.findData('full'))
             self.stroke_approach.setChecked(False);self.contact_ramps.setChecked(False)
+        if self.path_style.currentData() in ('visits','fixed_tcp'):
+            self.require_speed.setChecked(False)
+            if hasattr(self,'speed_range'):self.speed_range.setChecked(False)
 
     def append_waypoint(self,values,contact):
         row=self.queue.rowCount();self.queue.insertRow(row)
@@ -189,8 +208,8 @@ class PosePanel(QWidget):
         data.update(schema_version=1,frame='base_link',tcp_frame='pointer_tip',units={'position':'m','orientation':'deg'},
             orientation_mode=self.orientation_mode.currentData(),style=self.path_style.currentData(),
             joint_speed_deg_s=self.speed.value(),joint_acceleration_deg_s2=self.acceleration.value(),
-            tcp_speed_m_s=self.tcp_speed.value()/1000.,tcp_acceleration_m_s2=self.tcp_acceleration.value()/1000.,
-            allow_contact_ramps=self.contact_ramps.isChecked(),plan_pen_up_approach=self.stroke_approach.isChecked(),waypoints=[])
+            tcp_min_speed_m_s=self.tcp_min_speed.value()/1000. if self.speed_range.isChecked() else 0.,tcp_speed_m_s=self.tcp_speed.value()/1000.,tcp_acceleration_m_s2=self.tcp_acceleration.value()/1000.,
+            allow_contact_ramps=self.contact_ramps.isChecked(),plan_pen_up_approach=self.stroke_approach.isChecked(),enforce_tcp_speed=self.require_speed.isChecked(),waypoints=[])
         for row in range(self.queue.rowCount()):
             values=[float(self.queue.item(row,column).text()) for column in range(6)]
             data['waypoints'].append(dict(xyz=values[:3],rpy_deg=values[3:],contact=self.queue.item(row,6).checkState()==Qt.Checked))
@@ -216,6 +235,9 @@ class PosePanel(QWidget):
         self.speed.setValue(data['joint_speed_deg_s']);self.acceleration.setValue(data['joint_acceleration_deg_s2'])
         self.tcp_speed.setValue(data['tcp_speed_m_s']*1000);self.tcp_acceleration.setValue(data['tcp_acceleration_m_s2']*1000)
         self.contact_ramps.setChecked(data['allow_contact_ramps']);self.stroke_approach.setChecked(data['plan_pen_up_approach'])
+        self.require_speed.setChecked(data['enforce_tcp_speed'])
+        self.speed_range.setChecked(data['tcp_min_speed_m_s']>0)
+        if data['tcp_min_speed_m_s']>0:self.tcp_min_speed.setValue(data['tcp_min_speed_m_s']*1000)
         for point in data['waypoints']:self.append_waypoint([*point['xyz'],*point['rpy_deg']],point['contact'])
         self.queue.selectRow(0);self.point_set_path=Path(path) if path else None
         self.point_set_label.setText(data['name']+(' — '+str(path) if path else ''))
@@ -271,7 +293,8 @@ class PosePanel(QWidget):
         try:
             request=PlanPath.Request(orientation_mode=self.orientation_mode.currentData(),style=self.path_style.currentData(),
                 plan_pen_up_approach=self.stroke_approach.isChecked(),allow_contact_ramps=self.contact_ramps.isChecked(),
-                tcp_speed=self.tcp_speed.value()/1000.,tcp_acceleration=self.tcp_acceleration.value()/1000.,
+                enforce_tcp_speed=self.require_speed.isChecked(),
+                tcp_min_speed=self.tcp_min_speed.value()/1000. if self.speed_range.isChecked() else 0.,tcp_speed=self.tcp_speed.value()/1000.,tcp_acceleration=self.tcp_acceleration.value()/1000.,
                 velocity_scaling=min(1.,self.speed.value()/self.status_data.get('max_speed_deg_s',30.)),
                 acceleration_scaling=min(1.,self.acceleration.value()/self.status_data.get('max_acceleration_deg_s2',180.)))
             for row in range(self.queue.rowCount()):
@@ -279,9 +302,9 @@ class PosePanel(QWidget):
                 pose=PoseStamped();pose.header.frame_id='base_link';pose.pose.position.x,pose.pose.position.y,pose.pose.position.z=values[:3]
                 q=quaternion_from_rpy(values[3:]);pose.pose.orientation=Quaternion(x=q[0],y=q[1],z=q[2],w=q[3])
                 request.waypoints.append(pose);request.contact_segments.append(self.queue.item(row,6).checkState()==Qt.Checked)
-            self.invalidate();self.busy=True;self.target_timer.stop();self.notice.setText('Checking the complete ordered path…')
+            self.invalidate();self.busy=True;self.target_timer.stop();self.begin_planning_display()
             self.path_planner.call_async(request).add_done_callback(self.planned)
-        except Exception as error:self.busy=False;self.notice.setText(str(error))
+        except Exception as error:self.busy=False;self.progress_bar.hide();self.notice.setText(str(error))
 
     def make_target(self):
         pose=PoseStamped();pose.header.frame_id='base_link'
@@ -388,8 +411,38 @@ class PosePanel(QWidget):
             for control,value in zip(self.inputs,pose):control.setValue(value)
             self.invalidate()
 
+    def speed_range_changed(self,*args):
+        ranged=self.speed_range.isChecked()
+        self.tcp_speed.setSuffix(' mm/s max TCP' if ranged else ' mm/s TCP')
+        self.require_speed.setVisible(not ranged);self.range_summary.setVisible(ranged)
+        self.invalidate()
+
+    def begin_planning_display(self):
+        self.planning_started=time.monotonic();self.planning_interrupted=False
+        self.planning_previous_id=self.status_data.get('planning_progress',{}).get('request_id')
+        self.progress_bar.setRange(0,0);self.progress_bar.show();self.update_planning_display()
+
+    def update_planning_display(self):
+        if not self.busy or self.executing:return
+        if self.planning_interrupted or self.status_data.get('safety','').startswith('HOLD:') or self.status_data.get('hardware',self.hardware)!=self.hardware:
+            self.progress_bar.hide();return
+        state=self.status_data.get('planning_progress',{})
+        fresh=time.monotonic()-self.last_status<1.5
+        if fresh and state.get('active') and state.get('request_id')!=self.planning_previous_id:
+            self.notice.setText(progress_text(state))
+            done,total=state.get('completed'),state.get('total')
+            if total and done is not None:
+                self.progress_bar.setRange(0,total);self.progress_bar.setValue(done);self.progress_bar.setFormat('%p% of this stage')
+            else:self.progress_bar.setRange(0,0)
+        else:
+            self.progress_bar.setRange(0,0)
+            self.notice.setText(f'Planning · {duration_text(time.monotonic()-self.planning_started)} elapsed\n'+
+                ('Waiting for the planner’s next stage update…' if fresh else 'Planning status is stale; waiting for fresh feedback…'))
+        self.progress_bar.show()
+
     def poll(self):
         self.executor.spin_once(timeout_sec=0)
+        self.update_planning_display()
         ready=self.status_data.get('ready',False) and time.monotonic()-self.last_status<1.5
         self.plan_button.setEnabled(ready and not self.busy)
         self.path_button.setEnabled(ready and not self.busy and self.queue.rowCount()>0)
@@ -401,12 +454,16 @@ class PosePanel(QWidget):
         for box in [*self.inputs,self.speed,self.acceleration,self.orientation_mode,self.straight_path]:box.setEnabled(not self.busy)
         for box in self.inputs[3:]:box.setEnabled(not self.busy and self.orientation_mode.currentData()!='position')
         self.orientation_mode.setEnabled(not self.busy and self.path_style.currentData()!='fixed_tcp')
+        self.require_speed.setEnabled(not self.busy and self.path_style.currentData() in ('polyline','spline','spline_axis') and not self.speed_range.isChecked())
+        continuous=self.path_style.currentData() in ('polyline','spline','spline_axis')
+        self.speed_range.setEnabled(not self.busy and continuous)
+        self.tcp_min_speed.setEnabled(not self.busy and continuous and self.speed_range.isChecked())
         if self.path_style.currentData()=='fixed_tcp':
             for control in (self.tcp_speed,self.tcp_acceleration,self.stroke_approach,self.contact_ramps):control.setEnabled(False)
 
     def plan(self):
         if self.busy or not self.status_data.get('ready'):return
-        self.invalidate();self.busy=True;self.notice.setText('Solving the selected pose constraints and checking the complete trajectory…')
+        self.invalidate();self.busy=True;self.begin_planning_display()
         self.target_timer.stop();request=PlanPose.Request(target=self.make_target(),orientation_mode=self.orientation_mode.currentData(),
             path_mode='cartesian' if self.straight_path.isChecked() else 'joint')
         request.velocity_scaling=min(1.,self.speed.value()/self.status_data.get('max_speed_deg_s',30.))
@@ -414,7 +471,7 @@ class PosePanel(QWidget):
         self.planner.call_async(request).add_done_callback(self.planned)
 
     def planned(self,future):
-        self.busy=False
+        self.busy=False;self.progress_bar.hide()
         try:
             result=future.result();self.plan_id=result.plan_id if result.success else ''
             self.has_plan_result=True
@@ -424,6 +481,7 @@ class PosePanel(QWidget):
     def execute(self):
         if self.busy or not self.plan_id:return
         self.busy=True;self.executing=True;token=self.plan_id;self.invalidate()
+        self.notice.setText('Checking current scene and start before execution…')
         self.execution.send_goal_async(ExecutePlan.Goal(plan_id=token,hardware_confirmed=self.hardware),
             feedback_callback=lambda msg:self.notice.setText(f'{msg.feedback.stage}: {msg.feedback.progress*100:.0f}%')).add_done_callback(self.accepted)
 
@@ -443,6 +501,7 @@ class PosePanel(QWidget):
     def stop(self,recover=False):
         self.invalidate();client=self.recovery if recover else self.stop_client
         if not client.service_is_ready():self.notice.setText('Motion gateway unavailable');return
+        self.planning_interrupted=True;self.progress_bar.hide()
         self.notice.setText('Requesting powered hold…')
         def completed(future):
             try:self.notice.setText(future.result().message)

@@ -1,0 +1,54 @@
+{
+  "success": true,
+  "surface": "quarter_pipe",
+  "retract": {
+    "success": true,
+    "distance_m": 0.01,
+    "duration_s": 3.568952782,
+    "message": "Controller completed; encoder/model TCP residual: 0.00 mm, 0.00 deg. Independent physical tip accuracy is not measured."
+  },
+  "hardware": "mock",
+  "physical_motors_moved": false,
+  "point_set_file": "/home/leo/Robot-Arm/robot_software/src/pinchy_motion/examples/point_sets/06_quarter_pipe_continuous_2in.json",
+  "point_set_sha256": "770cea06e1e184d9222cbbc0847eb1f7baf5d0c4938adf852ee4d4d3522fb8fc",
+  "requested_tcp_speed_m_s": 0.003,
+  "live_reference_min_m_s": 0.0029863671213673447,
+  "live_reference_max_m_s": 0.003013094778652965,
+  "cruise_samples": 2572,
+  "interior_waypoints_checked": 39,
+  "minimum_interior_waypoint_speed_m_s": 0.002986429640548898,
+  "max_normal_error_deg": 0.048301305001422185,
+  "stand_off_range_m": [
+    0.0049985459902909535,
+    0.00500116304143669
+  ],
+  "encoder_model_xyz_span_m": [
+    0.003048068899531242,
+    0.04771573555167083,
+    0.05079997768786451
+  ],
+  "endpoint_result": "Controller completed; encoder/model TCP residual: 0.00 mm, 0.00 deg. Independent physical tip accuracy is not measured.",
+  "consumed_plan_replay_rejected": true,
+  "offline_metrics": {
+    "trace_interval_s": [
+      2.6425562620000003,
+      54.752498535
+    ],
+    "cruise_interval_s": [
+      2.878175711018797,
+      54.516879085981195
+    ],
+    "sampled_cruise_min_m_s": 0.0029863664926384455,
+    "sampled_cruise_max_m_s": 0.0030130962539056186,
+    "min_cruise_speed_ratio": 0.9954554975461485,
+    "max_normal_error_deg": 0.04829612265743198,
+    "minimum_tcp_stand_off_m": 0.004998546092495448,
+    "maximum_tcp_stand_off_m": 0.00500116279293171,
+    "xyz_span_m": [
+      0.0030480721071057815,
+      0.04774275078664866,
+      0.050799999060173656
+    ]
+  },
+  "original_artifact_dir": "/tmp/pinchy-cartesian-tests-8b_i_qxo"
+}

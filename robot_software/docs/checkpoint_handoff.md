@@ -6,10 +6,36 @@
 > and [Cartesian guide](cartesian_control.md) describe the implemented pose layer. This file remains the technical map
 > of the established control stack; its checkpoint-only task list is historical.
 
-Updated November 9, 2026. Read this first, then inspect the linked code and
+Updated November 22, 2026. Read this first, then inspect the linked code and
 repository. This file records technical decisions; the final-product roadmap
 is the authority for current statuses and ordering. It is a starting map,
 not a substitute for checking the implementation and working-tree changes.
+
+## November 22: TCP range implemented and estimated operating caps
+
+The owner authorized completing optional bounded TCP timing. It is implemented
+through point-set save/load, CLI, panel, PlanPath, whole-stroke search and shared
+execution. Existing files default to fixed speed. Enable **Use TCP speed range**
+and set explicit minimum/maximum; example **08** uses 4–18 mm/s on the larger
+imaginary cylinder. Complete mock and real-driver/PTY runs pass all 59 interior
+waypoints without interior stops, at selected joint caps of 30/180. The smaller
+loop also passes full mock planning/execution at 3–12 mm/s and all 39 interior
+waypoints. See [usage and constraints](bounded_speed_proposal.md)
+and [validation](validation/moveit/bounded_speed/validation.md).
+This supersedes the November 19 range TODO below; historical entries remain
+for context. The physical halfway tracking pause remains unresolved, and no
+physical motion or live hardware restart was performed.
+
+The coupled CAD/manufacturer-curve estimate gives 102.14349 deg/s and
+408.57397 deg/s² before the owner's subtraction. Applying 10 in each unit,
+rounding down, and retaining the old 90/360 floors gives **92.14 deg/s and
+398.5 deg/s²** software ceilings. Defaults remain 30/180; raw motor profile
+1000/64, startup ramp, saved position calibration and safety behavior are
+preserved. These are conditional performance estimates, not physically proven
+safe limits. See [calculation and limitations](estimated_operating_limits.md).
+Use the next normal startup for model/hardware changes and reopen planner/panel
+together for the updated PlanPath interface. Step 12 coverage and physical
+verification remain open.
 
 ## Current handoff entry: drawing feasibility
 
@@ -22,6 +48,52 @@ broader coverage and physical qualification remain unresolved;
 step 12 is the drawing-feasibility gate. Keep IK/continuity ahead of other
 feature work per the current owner priority. The earlier checkpoint table below is
 historical, not the current task list.
+
+The [continuous cylinder test](continuous_cylinder_test.md) now provides a
+41-point, two-inch air loop at 3 mm/s. It passed live controller reference-speed
+checks through every interior waypoint on mock and a real-driver/PTY emulator.
+All three nominal collision scenes have passing central loops and separately
+checked 10 mm retracts. The [wider endpoint study](validation/feasibility/nominal_surfaces/validation.md)
+still leaves coverage unresolved. Step 11 is software-complete at this dry-run
+level; step 12 remains open. No physical motor moved or live hardware restarted.
+
+November 17: [example 07](continuous_cylinder_test.md#larger-faster-example)
+adds a 76.2 × 76.2 mm surface oval at strict 7 mm/s on the same nominal cylinder
+with an explicit lower imaginary placement and matching pedestal scene.
+Complete mock and driver/PTY runs pass all 59 interior waypoints at cruise;
+this does not establish physical speed or full coverage. The explicit
+`spline_axis` mode smooths pen direction; existing spline files are unchanged.
+[Execute latency](execute_latency.md) now reuses collision validation only for
+the identical checked trajectory/model/scene, retaining fresh start, scene,
+feedback and safety checks. Request-to-moving-reference was 0.31–0.38 s for
+that roughly 1,936-point example. Reopen planner and panel after the build;
+no live hardware restart or physical movement was performed.
+
+November 19: [speed diagnosis](cylinder_speed_investigation.md) distinguishes
+high-speed wrist-rate rejection from a recorded physical halfway tracking pause.
+The controller command remains continuous in that recorded pause; the downstream
+cause is unresolved. Do not claim backlash or firmware as proven. At that checkpoint an optional
+[TCP speed range](bounded_speed_proposal.md) was TODO only. The November 22
+entry above supersedes that status following later owner authorization.
+
+November 19 follow-up: the owner authorized a **90 deg/s joint ceiling** across
+the saved profile, shared contract/model and driver; the selected default stays
+30 deg/s. The larger loop now passes 18 mm/s / 80 mm/s² on complete mock/PTY
+stacks. No physical maximum is qualified. Endpoint-ramp tests do not show a
+halfway ramp. New nonblocking goal-register telemetry and the enriched recorder
+are ready for an operator-run physical loop; the physical halfway pause remains
+unfixed pending that evidence. See [follow-up](cylinder_speed_investigation.md#follow-up-owner-approved-90-degs-ceiling).
+Use the next normal startup to load hardware/model changes; do not hot-restart a
+powered arm or claim that a planner-only restart loads the new hardware cap.
+
+The [expanded step-12 gate](validation/feasibility/surface_gate/validation.md)
+now includes three proposed non-overhanging support scenes, nine complete
+boundary/height paths and six full-system mock/PTY executions with actual
+retract execution. All pass at strict 3 mm/s. Read its exact tested regions;
+endpoint grids alone are not coverage. A necessary wrist-reach bound rules out
+part of the current-placement front-180° request. Physical geometry and a
+placement/tool or coverage decision remain necessary; do not check off full
+coverage or change the active TCP/limits to manufacture it.
 
 The latest investigation reproduced a continuous trace failing even though its
 exact intermediate target had collision-checked IK in another configuration.
@@ -198,11 +270,12 @@ Run from `robot_software/`:
 ```
 
 The terminal dashboard needs one **s** keypress to arm automatic capture.
-It visits IDs 1–6 sequentially. The selected joint must be within 90 degrees
-of its saved zero, inside its CAD bounds, and stationary for one second.
+It visits IDs 1–6 sequentially. The selected joint must be inside its saved/CAD capture interval and stationary
+for one second. There is no additional ±90° startup cap by default.
 It moves to zero and holds; earlier holds stay powered. Yellow means locking,
 green means locked. The dashboard shows the selected joint’s actual capture
-interval (the intersection of the ±90° window, saved operating range and CAD bounds, with a tiny zero-settling allowance), with the reason for waiting.
+interval (saved operating range clipped to CAD bounds, with the retained tiny
+zero-settling allowance), with the reason for waiting.
 Small stationary encoder jitter is tolerated; continuous drift is not auto-captured.
 **l** captures immediately only when armed and inside that interval; it never
 bypasses bounds. **p** pauses capture; **q** aborts/releases. `--plain`
@@ -225,8 +298,9 @@ torque. Excessive lag/stall, bounds, power and thermal checks remain active.
 Support the arm during startup if it cannot lift itself; physical loading,
 mechanics, supply and torque qualification still belong to roadmap step 8.
 
-The default capture window is now ±90°, reduced by each joint's saved/CAD
-range. `--max-start-degrees 25` retains a narrower window if desired. A maximum
+The default capture interval now uses each joint’s saved/CAD range directly,
+without an extra ±90° window. `--max-start-degrees 25` adds a narrower optional
+window; `--max-start-degrees 90` restores the previous extra cap if desired. A maximum
 10-tick settling corridor around zero permits tiny inward corrections at an
 operating boundary. Both the plain prompts and dashboard use the same interval.
 A wider window does not increase speed, torque or joint limits. Startup's

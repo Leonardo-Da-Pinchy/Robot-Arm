@@ -1,0 +1,1390 @@
+{
+  "surface": "cylinder",
+  "scene_file": "/home/leo/Robot-Arm/robot_software/src/pinchy_moveit_config/config/nominal_cylinder_pedestal_dry_run.yaml",
+  "scene_sha256": "75cf07f7f5a193392ee33d909997ee30f345f45ea303263e47dd51ea4f928a7b",
+  "cases": [
+    {
+      "case": "lower_horizontal",
+      "point_set": {
+        "schema_version": 1,
+        "name": "cylinder: lower_horizontal, strict 3 mm/s",
+        "frame": "base_link",
+        "tcp_frame": "pointer_tip",
+        "units": {
+          "position": "m",
+          "orientation": "deg"
+        },
+        "orientation_mode": "tool_axis",
+        "style": "spline",
+        "waypoints": [
+          {
+            "xyz": [
+              0.3775,
+              0.061028856829700266,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.0,
+              29.999999999999993,
+              -29.999999999999993
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3748363193438164,
+              0.06269330923502313,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.0,
+              34.0,
+              -34.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3722952336103454,
+              0.06453951608769751,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.0,
+              38.0,
+              -37.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3698891227138514,
+              0.06655848285351726,
+              0.175
+            ],
+            "rpy_deg": [
+              -89.99999999999999,
+              42.00000000000001,
+              -41.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3676297089847607,
+              0.06874037332934513,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.0,
+              45.999999999999986,
+              -45.999999999999986
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36552800005964603,
+              0.07107455756410573,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.0,
+              49.99999999999999,
+              -49.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3635942352531274,
+              0.07354966364683871,
+              0.175
+            ],
+            "rpy_deg": [
+              -89.99999999999999,
+              54.0,
+              -53.999999999999986
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36183783567296085,
+              0.07615363310950579,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.00000000000003,
+              58.00000000000001,
+              -58.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3602673583213483,
+              0.07887377967463492,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.00000000000003,
+              62.000000000000014,
+              -62.000000000000014
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35889045440608297,
+              0.081696851061589,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.00000000000003,
+              66.00000000000001,
+              -66.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35771383206463414,
+              0.0846090935503449,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.00000000000001,
+              70.0,
+              -70.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35674322368277567,
+              0.08759631898823504,
+              0.175
+            ],
+            "rpy_deg": [
+              -89.99999999999997,
+              74.0,
+              -73.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3559833579669788,
+              0.09064397391320084,
+              0.175
+            ],
+            "rpy_deg": [
+              -90.00000000000006,
+              78.00000000000001,
+              -78.00000000000006
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35543793690662934,
+              0.09373721045679706,
+              0.175
+            ],
+            "rpy_deg": [
+              -89.99999999999996,
+              82.00000000000001,
+              -81.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35510961773830796,
+              0.09686095868151437,
+              0.175
+            ],
+            "rpy_deg": [
+              -89.99999999999989,
+              86.0,
+              -85.99999999999989
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.175
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35510961773830796,
+              0.10313904131848564,
+              0.175
+            ],
+            "rpy_deg": [
+              89.99999999999989,
+              86.0,
+              85.99999999999989
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35543793690662934,
+              0.10626278954320295,
+              0.175
+            ],
+            "rpy_deg": [
+              89.99999999999996,
+              82.00000000000001,
+              81.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3559833579669788,
+              0.10935602608679917,
+              0.175
+            ],
+            "rpy_deg": [
+              90.00000000000006,
+              78.00000000000001,
+              78.00000000000006
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35674322368277567,
+              0.11240368101176497,
+              0.175
+            ],
+            "rpy_deg": [
+              89.99999999999997,
+              74.0,
+              73.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35771383206463414,
+              0.11539090644965509,
+              0.175
+            ],
+            "rpy_deg": [
+              89.99999999999999,
+              70.0,
+              69.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35889045440608297,
+              0.11830314893841101,
+              0.175
+            ],
+            "rpy_deg": [
+              90.00000000000003,
+              66.00000000000001,
+              66.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3602673583213483,
+              0.12112622032536509,
+              0.175
+            ],
+            "rpy_deg": [
+              90.0,
+              62.000000000000014,
+              62.000000000000014
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36183783567296085,
+              0.12384636689049422,
+              0.175
+            ],
+            "rpy_deg": [
+              90.00000000000001,
+              58.00000000000001,
+              58.00000000000002
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3635942352531274,
+              0.1264503363531613,
+              0.175
+            ],
+            "rpy_deg": [
+              90.00000000000003,
+              54.0,
+              54.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36552800005964603,
+              0.12892544243589427,
+              0.175
+            ],
+            "rpy_deg": [
+              90.0,
+              49.99999999999999,
+              49.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3676297089847607,
+              0.13125962667065488,
+              0.175
+            ],
+            "rpy_deg": [
+              90.0,
+              45.999999999999986,
+              45.999999999999986
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3698891227138514,
+              0.13344151714648272,
+              0.175
+            ],
+            "rpy_deg": [
+              90.00000000000001,
+              42.00000000000001,
+              42.00000000000002
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3722952336103454,
+              0.1354604839123025,
+              0.175
+            ],
+            "rpy_deg": [
+              90.0,
+              38.0,
+              37.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3748363193438164,
+              0.13730669076497687,
+              0.175
+            ],
+            "rpy_deg": [
+              90.00000000000001,
+              34.00000000000002,
+              34.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3775,
+              0.13897114317029974,
+              0.175
+            ],
+            "rpy_deg": [
+              90.0,
+              29.999999999999993,
+              29.999999999999993
+            ],
+            "contact": false
+          }
+        ],
+        "allow_contact_ramps": false,
+        "plan_pen_up_approach": true,
+        "enforce_tcp_speed": true,
+        "joint_speed_deg_s": 30.0,
+        "joint_acceleration_deg_s2": 180.0,
+        "tcp_speed_m_s": 0.003,
+        "tcp_acceleration_m_s2": 0.02,
+        "notes": "Proposed pedestal scene only. Boundary/height witness, not arbitrary-path coverage or physical qualification. Strict 3 mm/s with normals preserved and 5 mm air gap.",
+        "source": {
+          "generator": "nominal_paths.coverage_strokes",
+          "surface": "cylinder",
+          "center_m": [
+            0.4,
+            0.1,
+            0.22
+          ],
+          "surface_span_m": [
+            0.08377580409572782,
+            0.0
+          ],
+          "stand_off_m": 0.005,
+          "nominal_radius_m": 0.04,
+          "scene": "nominal_cylinder_pedestal_dry_run.yaml",
+          "hypothetical_placement": true,
+          "physical_contact_qualified": false,
+          "case": "lower_horizontal",
+          "supported_area_claim": false
+        }
+      },
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: Cartesian trace incomplete at 39.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+      "planning_elapsed_s": 65.22018742398359
+    },
+    {
+      "case": "center_vertical",
+      "point_set": {
+        "schema_version": 1,
+        "name": "cylinder: center_vertical, strict 3 mm/s",
+        "frame": "base_link",
+        "tcp_frame": "pointer_tip",
+        "units": {
+          "position": "m",
+          "orientation": "deg"
+        },
+        "orientation_mode": "tool_axis",
+        "style": "spline",
+        "waypoints": [
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.175
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.178
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.181
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.184
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.187
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.19
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.193
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.196
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.199
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.202
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.20500000000000002
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.20800000000000002
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.21100000000000002
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.214
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.217
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.22
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.223
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.226
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.229
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.232
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.235
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.238
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.241
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.244
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.247
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.25
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.253
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.256
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.259
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.262
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.265
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          }
+        ],
+        "allow_contact_ramps": false,
+        "plan_pen_up_approach": true,
+        "enforce_tcp_speed": true,
+        "joint_speed_deg_s": 30.0,
+        "joint_acceleration_deg_s2": 180.0,
+        "tcp_speed_m_s": 0.003,
+        "tcp_acceleration_m_s2": 0.02,
+        "notes": "Proposed pedestal scene only. Boundary/height witness, not arbitrary-path coverage or physical qualification. Strict 3 mm/s with normals preserved and 5 mm air gap.",
+        "source": {
+          "generator": "nominal_paths.coverage_strokes",
+          "surface": "cylinder",
+          "center_m": [
+            0.4,
+            0.1,
+            0.22
+          ],
+          "surface_span_m": [
+            0.0,
+            0.09
+          ],
+          "stand_off_m": 0.005,
+          "nominal_radius_m": 0.04,
+          "scene": "nominal_cylinder_pedestal_dry_run.yaml",
+          "hypothetical_placement": true,
+          "physical_contact_qualified": false,
+          "case": "center_vertical",
+          "supported_area_claim": false
+        }
+      },
+      "success": true,
+      "message": "Ordered spline path ready; 31 waypoints, no motion sent. Required TCP cruise 3.00 mm/s; modeled 3.000\u20133.000 mm/s, with no interior waypoint stops or automatic slowdown. Includes an explicitly requested pen-up route to a whole-stroke-selected starting configuration. Low joint travel reserve: pen_pitch 0.70 deg along this plan; validate the next segment too.",
+      "planning_elapsed_s": 72.27566742102499,
+      "metrics": {
+        "trace_interval_s": [
+          3.075317539,
+          33.310936988
+        ],
+        "cruise_interval_s": [
+          3.310936988019084,
+          33.07531753898092
+        ],
+        "sampled_cruise_min_m_s": 0.0029999866168499627,
+        "sampled_cruise_max_m_s": 0.0030000338619952504,
+        "min_cruise_speed_ratio": 0.9999955389499875,
+        "max_normal_error_deg": 7.540324677666867e-06,
+        "minimum_tcp_stand_off_m": 0.004999998864417307,
+        "maximum_tcp_stand_off_m": 0.005000002133151625,
+        "xyz_span_m": [
+          3.268734283246033e-09,
+          4.673484918504833e-09,
+          0.08999982925064728
+        ]
+      },
+      "independent_moveit_fk": true,
+      "retract": {
+        "success": true,
+        "distance_m": 0.01,
+        "duration_s": 3.568952782
+      }
+    },
+    {
+      "case": "upper_horizontal",
+      "point_set": {
+        "schema_version": 1,
+        "name": "cylinder: upper_horizontal, strict 3 mm/s",
+        "frame": "base_link",
+        "tcp_frame": "pointer_tip",
+        "units": {
+          "position": "m",
+          "orientation": "deg"
+        },
+        "orientation_mode": "tool_axis",
+        "style": "spline",
+        "waypoints": [
+          {
+            "xyz": [
+              0.3775,
+              0.13897114317029974,
+              0.265
+            ],
+            "rpy_deg": [
+              90.0,
+              29.999999999999993,
+              29.999999999999993
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3748363193438164,
+              0.13730669076497687,
+              0.265
+            ],
+            "rpy_deg": [
+              90.0,
+              34.0,
+              34.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3722952336103454,
+              0.1354604839123025,
+              0.265
+            ],
+            "rpy_deg": [
+              90.0,
+              38.0,
+              37.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3698891227138514,
+              0.13344151714648275,
+              0.265
+            ],
+            "rpy_deg": [
+              89.99999999999999,
+              42.00000000000001,
+              41.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3676297089847607,
+              0.13125962667065488,
+              0.265
+            ],
+            "rpy_deg": [
+              90.0,
+              45.999999999999986,
+              45.999999999999986
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36552800005964603,
+              0.12892544243589427,
+              0.265
+            ],
+            "rpy_deg": [
+              90.0,
+              49.99999999999999,
+              49.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3635942352531274,
+              0.1264503363531613,
+              0.265
+            ],
+            "rpy_deg": [
+              89.99999999999999,
+              54.0,
+              53.999999999999986
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36183783567296085,
+              0.12384636689049422,
+              0.265
+            ],
+            "rpy_deg": [
+              90.00000000000003,
+              58.00000000000001,
+              58.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3602673583213483,
+              0.12112622032536509,
+              0.265
+            ],
+            "rpy_deg": [
+              90.00000000000003,
+              62.000000000000014,
+              62.000000000000014
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35889045440608297,
+              0.11830314893841101,
+              0.265
+            ],
+            "rpy_deg": [
+              90.00000000000003,
+              66.00000000000001,
+              66.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35771383206463414,
+              0.1153909064496551,
+              0.265
+            ],
+            "rpy_deg": [
+              90.00000000000001,
+              70.0,
+              70.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35674322368277567,
+              0.11240368101176497,
+              0.265
+            ],
+            "rpy_deg": [
+              89.99999999999997,
+              74.0,
+              73.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3559833579669788,
+              0.10935602608679917,
+              0.265
+            ],
+            "rpy_deg": [
+              90.00000000000006,
+              78.00000000000001,
+              78.00000000000006
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35543793690662934,
+              0.10626278954320295,
+              0.265
+            ],
+            "rpy_deg": [
+              89.99999999999996,
+              82.00000000000001,
+              81.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35510961773830796,
+              0.10313904131848564,
+              0.265
+            ],
+            "rpy_deg": [
+              89.99999999999989,
+              86.0,
+              85.99999999999989
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35500000000000004,
+              0.1,
+              0.265
+            ],
+            "rpy_deg": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35510961773830796,
+              0.09686095868151437,
+              0.265
+            ],
+            "rpy_deg": [
+              -89.99999999999989,
+              86.0,
+              -85.99999999999989
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35543793690662934,
+              0.09373721045679706,
+              0.265
+            ],
+            "rpy_deg": [
+              -89.99999999999996,
+              82.00000000000001,
+              -81.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3559833579669788,
+              0.09064397391320084,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.00000000000006,
+              78.00000000000001,
+              -78.00000000000006
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35674322368277567,
+              0.08759631898823504,
+              0.265
+            ],
+            "rpy_deg": [
+              -89.99999999999997,
+              74.0,
+              -73.99999999999997
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35771383206463414,
+              0.08460909355034492,
+              0.265
+            ],
+            "rpy_deg": [
+              -89.99999999999999,
+              70.0,
+              -69.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.35889045440608297,
+              0.081696851061589,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.00000000000003,
+              66.00000000000001,
+              -66.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3602673583213483,
+              0.07887377967463492,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.0,
+              62.000000000000014,
+              -62.000000000000014
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36183783567296085,
+              0.07615363310950579,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.00000000000001,
+              58.00000000000001,
+              -58.00000000000002
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3635942352531274,
+              0.07354966364683871,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.00000000000003,
+              54.0,
+              -54.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.36552800005964603,
+              0.07107455756410574,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.0,
+              49.99999999999999,
+              -49.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3676297089847607,
+              0.06874037332934513,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.0,
+              45.999999999999986,
+              -45.999999999999986
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3698891227138514,
+              0.06655848285351727,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.00000000000001,
+              42.00000000000001,
+              -42.00000000000002
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3722952336103454,
+              0.06453951608769751,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.0,
+              38.0,
+              -37.99999999999999
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3748363193438164,
+              0.06269330923502314,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.00000000000001,
+              34.00000000000002,
+              -34.00000000000001
+            ],
+            "contact": false
+          },
+          {
+            "xyz": [
+              0.3775,
+              0.061028856829700266,
+              0.265
+            ],
+            "rpy_deg": [
+              -90.0,
+              29.999999999999993,
+              -29.999999999999993
+            ],
+            "contact": false
+          }
+        ],
+        "allow_contact_ramps": false,
+        "plan_pen_up_approach": true,
+        "enforce_tcp_speed": true,
+        "joint_speed_deg_s": 30.0,
+        "joint_acceleration_deg_s2": 180.0,
+        "tcp_speed_m_s": 0.003,
+        "tcp_acceleration_m_s2": 0.02,
+        "notes": "Proposed pedestal scene only. Boundary/height witness, not arbitrary-path coverage or physical qualification. Strict 3 mm/s with normals preserved and 5 mm air gap.",
+        "source": {
+          "generator": "nominal_paths.coverage_strokes",
+          "surface": "cylinder",
+          "center_m": [
+            0.4,
+            0.1,
+            0.22
+          ],
+          "surface_span_m": [
+            0.08377580409572782,
+            0.0
+          ],
+          "stand_off_m": 0.005,
+          "nominal_radius_m": 0.04,
+          "scene": "nominal_cylinder_pedestal_dry_run.yaml",
+          "hypothetical_placement": true,
+          "physical_contact_qualified": false,
+          "case": "upper_horizontal",
+          "supported_area_claim": false
+        }
+      },
+      "success": false,
+      "message": "No complete stroke and pen-up approach passed bounded configuration/timing/collision search. No partial plan retained; this is not proof of impossibility. Last rejection: no alternative start IK found",
+      "planning_elapsed_s": 40.08626289400854
+    }
+  ],
+  "model_sha256": "2759dfc4ff6cd1e9f816890fdb9cc4a49a51e1a033b0dbcb2a1df7c2e84fb322",
+  "profile_sha256": "99a78eeb73271c97654f444674dd4b5a79d0c8fa0fb7ec407113d626459d97b9",
+  "zero_valid": true
+}

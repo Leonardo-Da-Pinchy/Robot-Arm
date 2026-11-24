@@ -1,0 +1,57 @@
+{
+  "requested_tcp_speed_m_s": 0.012,
+  "modeled_peak_tcp_speed_m_s": 0.011946411459069191,
+  "modeled_contact_min_m_s": 0.0,
+  "modeled_contact_max_m_s": 0.0,
+  "modeled_steady_contact_min_m_s": 0.0,
+  "modeled_steady_contact_max_m_s": 0.0,
+  "contact_ramps_allowed": false,
+  "contact_has_constant_speed_plateau": false,
+  "ramp_only": false,
+  "enforced_tcp_speed": true,
+  "speed_range": {
+    "enabled": true,
+    "minimum_m_s": 0.003,
+    "maximum_m_s": 0.012,
+    "length_m": 0.16970706418788956,
+    "modeled_mean_m_s": 0.008172563202156286,
+    "timing_solver_seconds": 0.05634736601496115,
+    "planned_mean_m_s": 0.008172429291077015,
+    "slowdown_distance_fraction": 0.8487891317188423,
+    "slowdown_intervals_m": [
+      [
+        0.0002694835072432459,
+        0.005268540752320169
+      ],
+      [
+        0.007668088229957092,
+        0.02826420407967402
+      ],
+      [
+        0.04006197917805556,
+        0.07675505935692017
+      ],
+      [
+        0.07745492737123094,
+        0.09195219338195403
+      ],
+      [
+        0.09235211796156018,
+        0.13134476447316018
+      ],
+      [
+        0.14214272812252632,
+        0.16943758068064632
+      ]
+    ],
+    "modeled_peak_tangential_acceleration_m_s2": 0.027281182947435673
+  },
+  "modeled_cruise_min_m_s": 0.00305829035636036,
+  "modeled_cruise_max_m_s": 0.011946411459069191,
+  "trace_start_s": 0.0,
+  "trace_end_s": 21.052120514999995,
+  "cruise_start_s": 0.17613301127194583,
+  "cruise_end_s": 20.87598750372805,
+  "transit_time_scale": 1.0000000000105063,
+  "physical_speed_qualified": false
+}

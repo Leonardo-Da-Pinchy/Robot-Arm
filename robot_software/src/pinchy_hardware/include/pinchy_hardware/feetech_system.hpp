@@ -45,6 +45,7 @@ private:
   void release() noexcept;
   void announce(const std::string & message);
   void publish_targets(const std::vector<double> & targets);
+  void publish_servo_goals(const rclcpp::Time & stamp);
   hardware_interface::return_type fault(const std::exception &);
   std::unique_ptr<CheckedPort> port_;
   std::vector<Calibration> calibration_;
@@ -55,6 +56,8 @@ private:
   rclcpp::Publisher<control_msgs::msg::SpeedScalingFactor>::SharedPtr pause_publisher_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr held_publisher_;
   std::unique_ptr<realtime_tools::RealtimePublisher<sensor_msgs::msg::JointState>> held_realtime_;
+  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr goal_publisher_;
+  std::unique_ptr<realtime_tools::RealtimePublisher<sensor_msgs::msg::JointState>> goal_realtime_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr reset_service_;
   std::unique_ptr<rclcpp::executors::SingleThreadedExecutor> safety_executor_;
   std::vector<double> held_commands_;

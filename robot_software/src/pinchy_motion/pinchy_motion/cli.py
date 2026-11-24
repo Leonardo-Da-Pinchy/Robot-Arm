@@ -98,9 +98,9 @@ def main():
                         raise ValueError(key+' exceeds the current session caps or is invalid')
                     data[scale]=value/maximum
             request=PlanPath.Request(orientation_mode=mode,style=data.get('style',''),
-                tcp_speed=float(data.get('tcp_speed_m_s',.02)),tcp_acceleration=float(data.get('tcp_acceleration_m_s2',.05)),
+                tcp_min_speed=float(data.get('tcp_min_speed_m_s',0.)),tcp_speed=float(data.get('tcp_speed_m_s',.02)),tcp_acceleration=float(data.get('tcp_acceleration_m_s2',.05)),
                 velocity_scaling=float(data.get('velocity_scaling',min(1.,30./current.get('max_speed_deg_s',30.)))),acceleration_scaling=float(data.get('acceleration_scaling',min(1.,180./current.get('max_acceleration_deg_s2',180.)))))
-            for name in ('allow_contact_ramps','plan_pen_up_approach'):
+            for name in ('allow_contact_ramps','plan_pen_up_approach','enforce_tcp_speed'):
                 value=data.get(name,False)
                 if not isinstance(value,bool):raise ValueError(name+' must be true or false')
                 setattr(request,name,value)
@@ -127,9 +127,11 @@ def main():
                 request.waypoints.append(pose);request.contact_segments.append(contact)
             client=node.create_client(PlanPath,'/pinchy_motion/plan_path')
             if not client.wait_for_service(timeout_sec=5):raise RuntimeError('Ordered-path gateway unavailable')
-            result=wait(client.call_async(request),150)
+            result=wait(client.call_async(request),480)
             summary=dict(success=result.success,message=result.message,plan_id=result.plan_id,duration_s=result.duration,
                 modeled_contact_min_mm_s=result.modeled_contact_min_speed*1000,modeled_contact_max_mm_s=result.modeled_contact_max_speed*1000,hardware=current['hardware'])
+            summary.update(modeled_cruise_min_mm_s=result.modeled_cruise_min_speed*1000,modeled_cruise_max_mm_s=result.modeled_cruise_max_speed*1000)
+            summary.update(trace_interval_s=[result.trace_start_time,result.trace_end_time],cruise_interval_s=[result.cruise_start_time,result.cruise_end_time])
             print(json.dumps(summary,indent=2))
             if result.success:
                 print('Preview in RViz, then: ros2 run pinchy_motion pose execute '+result.plan_id+(' --hardware' if current['hardware'] else ''))
@@ -163,7 +165,7 @@ def main():
         if not client.wait_for_server(timeout_sec=5): raise RuntimeError('Execution gateway unavailable')
         goal=wait(client.send_goal_async(ExecutePlan.Goal(plan_id=args.plan_id,hardware_confirmed=args.hardware)),5)
         if not goal.accepted: raise RuntimeError('Plan rejected: missing/expired/busy or wrong hardware authorization')
-        result=wait(goal.get_result_async(),150)
+        result=wait(goal.get_result_async(),300)
         print(result.result.message)
         return 0 if result.result.success else 1
     except KeyboardInterrupt:

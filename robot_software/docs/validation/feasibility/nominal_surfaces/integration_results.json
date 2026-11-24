@@ -1,0 +1,43 @@
+{
+  "mock": {
+    "passed": 8,
+    "artifact_dir": "/tmp/pinchy-cartesian-tests-63xmv5wk",
+    "cases": [
+      "ordered_free_twist_path_and_contact_timing",
+      "queued_path_gui_and_cli",
+      "whole_stroke_setup_with_contact_ramps",
+      "unreachable_and_invalid_pose_never_moves",
+      "collision_rejected_without_movement",
+      "scene_change_invalidates_preview",
+      "stop_retains_powered_hold_and_allows_new_plan",
+      "action_cancel_is_canceled_and_holds"
+    ]
+  },
+  "pty": {
+    "passed": 4,
+    "artifact_dir": "/tmp/pinchy-cartesian-tests-qxvlqc6p",
+    "cases": [
+      "scene_change_invalidates_preview",
+      "stop_retains_powered_hold_and_allows_new_plan",
+      "action_cancel_is_canceled_and_holds",
+      "temperature_hold_recovery_preserves_power"
+    ]
+  },
+  "build": {
+    "packages": [
+      "pinchy_motion_interfaces",
+      "pinchy_motion",
+      "pinchy_moveit_config"
+    ],
+    "passed": true
+  },
+  "physical_motors_moved": false,
+  "additional_mock_checks": {
+    "passed": 2,
+    "cases": [
+      "ordered_free_twist_path_and_contact_timing",
+      "spline_and_visit_path_previews"
+    ],
+    "purpose": "Verify shared collision batching on fixed-start traces after the final transport change"
+  }
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "mode": "fixed",
+    "wall_seconds": 9.32368170801783,
+    "cpu_seconds": 9.29325008,
+    "points": 1882,
+    "duration_s": 36.504184894,
+    "range_report": {
+      "enabled": false,
+      "minimum_m_s": 0.0,
+      "maximum_m_s": 0.007,
+      "length_m": 0.25456718150829183
+    }
+  },
+  {
+    "mode": "range",
+    "wall_seconds": 8.130410273966845,
+    "cpu_seconds": 8.111113119999999,
+    "points": 988,
+    "duration_s": 18.733509481,
+    "range_report": {
+      "enabled": true,
+      "minimum_m_s": 0.004,
+      "maximum_m_s": 0.018,
+      "length_m": 0.25456718150829183,
+      "modeled_mean_m_s": 0.013785257672247912,
+      "timing_solver_seconds": 0.052536775008775294,
+      "planned_mean_m_s": 0.013785120470992559,
+      "slowdown_distance_fraction": 0.4462809917355372,
+      "slowdown_intervals_m": [
+        [
+          0.00031928438799046536,
+          0.005317879126815484
+        ],
+        [
+          0.039608239035155104,
+          0.08849449558086378
+        ],
+        [
+          0.16357338855801556,
+          0.21765818363210226
+        ],
+        [
+          0.24924930238147638,
+          0.2542478971203014
+        ]
+      ],
+      "modeled_peak_tangential_acceleration_m_s2": 0.04093027205611474
+    }
+  }
+]

@@ -1,0 +1,11 @@
+
+NinetyDegreePipeline artifacts: /tmp/pinchy-ros-tests-4f005k69
+.
+HardwarePipeline artifacts: /tmp/pinchy-ros-tests-35lyq69y
+..This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+.
+----------------------------------------------------------------------
+Ran 4 tests in 21.409s
+
+OK

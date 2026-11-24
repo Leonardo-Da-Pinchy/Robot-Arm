@@ -54,8 +54,8 @@ void Calibration::validate() const
   require(minimum >= 0 && maximum <= 4095 && minimum < maximum && zero >= minimum && zero <= maximum,
           "Invalid calibrated encoder range/zero; wrapping is unsupported");
   require(std::isfinite(lower) && std::isfinite(upper) && lower < upper &&
-          std::isfinite(max_velocity) && max_velocity > 0 && max_velocity <= 1.0471975511965976,
-          "Invalid calibrated radian limits/velocity (maximum 60 deg/s)");
+          std::isfinite(max_velocity) && max_velocity > 0 && max_velocity <= 1.6081463727875753,
+          "Invalid calibrated radian limits/velocity (maximum 92.14 deg/s)");
   require(startup_tolerance_ticks >= 1 && startup_tolerance_ticks <= 19, "Invalid startup settling tolerance");
   to_ticks(lower); to_ticks(upper);
 }
@@ -197,6 +197,13 @@ CallbackReturn FeetechSystem::on_init(const hardware_interface::HardwareInfo & i
       held_realtime_->msg_.position.resize(n);
       for (const auto & joint : info_.joints) held_realtime_->msg_.name.push_back(joint.name);
       held_realtime_->unlock();
+      goal_publisher_ = safety_node_->create_publisher<sensor_msgs::msg::JointState>(
+        "/arm_diagnostics/servo_goal_positions", rclcpp::SensorDataQoS().keep_last(1));
+      goal_realtime_ = std::make_unique<realtime_tools::RealtimePublisher<sensor_msgs::msg::JointState>>(goal_publisher_);
+      goal_realtime_->lock();
+      goal_realtime_->msg_.position.resize(n);
+      for (const auto & joint : info_.joints) goal_realtime_->msg_.name.push_back(joint.name);
+      goal_realtime_->unlock();
       reset_service_ = safety_node_->create_service<std_srvs::srv::Trigger>("/arm_safety/reset",
         [this](std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
           response->success = false;
@@ -241,6 +248,7 @@ std::vector<hardware_interface::CommandInterface> FeetechSystem::export_command_
 void FeetechSystem::sample(bool require_torque)
 {
   const auto sample_started = std::chrono::steady_clock::now();
+  const auto goal_stamp = safety_node_ ? safety_node_->get_clock()->now() : rclcpp::Time(0);
   std::vector<double> measured(positions_.size());
   for (size_t i = 0; i < calibration_.size(); ++i) {
     auto id = calibration_[i].id;
@@ -281,6 +289,7 @@ void FeetechSystem::sample(bool require_torque)
   std::copy(measured.begin(), measured.end(), positions_.begin());
   // Timestamp the oldest observation, not the end of the sequential sweep.
   last_feedback_ = sample_started;
+  publish_servo_goals(goal_stamp);
 }
 CallbackReturn FeetechSystem::on_configure(const rclcpp_lifecycle::State &)
 {
@@ -392,6 +401,21 @@ void FeetechSystem::publish_targets(const std::vector<double> & targets)
     held_realtime_->msg_.header.stamp = safety_node_->get_clock()->now();
     std::copy(targets.begin(), targets.end(), held_realtime_->msg_.position.begin());
     held_realtime_->unlockAndPublish();
+  }
+}
+void FeetechSystem::publish_servo_goals(const rclcpp::Time & stamp)
+{
+  // Reuse registers 42/43 from the existing read sweep: no extra bus traffic.
+  // As with accepted targets, DDS work stays on the publisher worker thread.
+  if (goal_realtime_ && goal_realtime_->trylock()) {
+    goal_realtime_->msg_.header.stamp = stamp;
+    for (size_t i = 0; i < calibration_.size(); ++i) {
+      const auto & c = calibration_[i];
+      // Observation only: a stale saved goal before activation may be outside
+      // operating limits. Do not clamp it or turn diagnostics into a fault.
+      goal_realtime_->msg_.position[i] = (goal_ticks_[i]-c.zero)*radians_per_tick*c.direction;
+    }
+    goal_realtime_->unlockAndPublish();
   }
 }
 void FeetechSystem::announce(const std::string & message)

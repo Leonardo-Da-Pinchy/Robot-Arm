@@ -1,0 +1,6 @@
+FOUND {'method': 'whole_stroke_optimization', 'iterations': 100, 'fixed_start': False, 'starting_configurations': 1, 'rejections': ['Cartesian trace incomplete at 34.1%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained', 'Interpolated trajectory exceeds wrist_flex bounds'], 'seed_method': 'whole_stroke_bidirectional'}
+SPEED 0.006 PASS
+SPEED 0.01 FAIL Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.56; wrist_flex acceleration at 15.440000s (interval 0.007774s))
+SPEED 0.012 FAIL Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.87; wrist_flex acceleration at 12.900000s (interval 0.009142s))
+SPEED 0.014 FAIL Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 2.18; wrist_flex acceleration at 11.100000s (interval 0.001444s))
+SPEED 0.018 FAIL Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 2.81; wrist_flex acceleration at 8.700000s (interval 0.004269s))

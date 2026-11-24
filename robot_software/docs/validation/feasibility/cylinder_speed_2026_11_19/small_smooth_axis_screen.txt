@@ -1,0 +1,4 @@
+0.006 PASS
+0.01 PASS
+0.012 FAIL Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.01; wrist_roll velocity at 4.580000s (interval 0.020000s))
+0.018 FAIL Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.52; wrist_roll velocity at 3.140000s (interval 0.020000s))

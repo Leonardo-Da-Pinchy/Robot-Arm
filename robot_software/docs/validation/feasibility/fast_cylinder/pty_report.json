@@ -1,0 +1,49 @@
+{
+  "success": true,
+  "surface": "cylinder",
+  "retract": null,
+  "hardware": "PTY emulator",
+  "physical_motors_moved": false,
+  "point_set_file": "src/pinchy_motion/examples/point_sets/07_cylinder_continuous_3in_fast.json",
+  "point_set_sha256": "fef22fb85099b0dd626201348ebd5842a6030a8fdb59d63fbc1d54b0c18a66e4",
+  "execute_to_first_moving_reference_s": 0.313844711999991,
+  "requested_tcp_speed_m_s": 0.007,
+  "live_reference_min_m_s": 0.0069701285388736375,
+  "live_reference_max_m_s": 0.0070354227436143285,
+  "cruise_samples": 1781,
+  "interior_waypoints_checked": 59,
+  "minimum_interior_waypoint_speed_m_s": 0.006981416630635138,
+  "max_normal_error_deg": 0.020167079823966427,
+  "stand_off_range_m": [
+    0.004999596290868651,
+    0.0050001431666224574
+  ],
+  "encoder_model_xyz_span_m": [
+    0.02953959629225017,
+    0.0707402344742259,
+    0.07708653135600724
+  ],
+  "endpoint_result": "Controller completed; encoder/model TCP residual: 0.13 mm, 0.03 deg. Independent physical tip accuracy is not measured.",
+  "consumed_plan_replay_rejected": true,
+  "offline_metrics": {
+    "trace_interval_s": [
+      4.15839743,
+      41.07491636
+    ],
+    "cruise_interval_s": [
+      4.70817614438047,
+      40.52513764561954
+    ],
+    "sampled_cruise_min_m_s": 0.00696990257087043,
+    "sampled_cruise_max_m_s": 0.007035600743043807,
+    "min_cruise_speed_ratio": 0.9957003672672042,
+    "max_normal_error_deg": 0.02981252646419268,
+    "minimum_tcp_stand_off_m": 0.004999595295981769,
+    "maximum_tcp_stand_off_m": 0.0050001492037955245,
+    "xyz_span_m": [
+      0.02929525318997611,
+      0.07083911144661297,
+      0.07619999990731728
+    ]
+  }
+}

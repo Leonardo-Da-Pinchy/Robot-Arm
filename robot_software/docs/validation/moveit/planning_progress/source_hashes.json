@@ -1,0 +1,14 @@
+{
+  "src/pinchy_motion/pinchy_motion/planning_progress.py": "1c5dc5276067c43110be7741e020bcb4a54ca471ff25b374f924a6a203a2c9c1",
+  "src/pinchy_motion/pinchy_motion/server.py": "bc27ce0036d2db91701836d27869ac2d13d8ef16b4333bf54434fc72be67fb54",
+  "src/pinchy_motion/pinchy_motion/panel.py": "23424e4648f8f2c761831636fbae76d9a077499afd780eb3a21edd0c2f6ab3c3",
+  "src/pinchy_motion/pinchy_motion/paths.py": "fda9183901af89fa3091efa482de16a7ac3a4f37c517c775b65c8701027bea3a",
+  "src/pinchy_motion/pinchy_motion/geometry.py": "81c060c559a2d036cc89d2a39ebd71b183e47f35cf6c3776ede33a3aaa5ef1e3",
+  "src/pinchy_motion/pinchy_motion/stroke_search.py": "b9f0ce4bcd8cda6f86e35d49654c74354a2fca479fd1ed0562db8e7ae104b182",
+  "tools/test_planning_progress.py": "0d5afbb54f3227bc1001353dee6447cf00418dfae9f9e66028256dae9a0e05b0",
+  "tools/check_planning_progress.py": "348cf71fa2f65e1bd2707f98ccb4b573b86f8df8724e86adde4a869f054e68e1",
+  "tools/test_feasibility.py": "5c22af6304cf331d628e82012eca000c008bdf92b8cac4641868e4b44c067a22",
+  "calibration/arm.json": "99a78eeb73271c97654f444674dd4b5a79d0c8fa0fb7ec407113d626459d97b9",
+  "src/pinchy_description/config/active_tool.json": "7c47f24467f059225dbecd7e96325c0fc7f0aeac741834da5a1bd94595d881ad",
+  "src/pinchy_description/urdf/pinchy_arm.urdf": "9c035a11c0e5d4cc22e4288a52dc8ed4c11b73a5db8ee0b6f69a1b21f5f9057d"
+}

@@ -1,0 +1,7 @@
+........................This plugin does not support propagateSizeHints()
+This plugin does not support raise()
+....................
+----------------------------------------------------------------------
+Ran 44 tests in 16.576s
+
+OK

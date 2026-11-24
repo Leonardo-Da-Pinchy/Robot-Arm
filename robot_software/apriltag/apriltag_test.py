@@ -12,8 +12,10 @@ WIDTH = 640
 HEIGHT = 480
 FPS = 30
 
-TAG_SIZE = 0.05  # Physical tag size in meters
+TAG_SIZE = 0.0238125  # Physical tag size in meters
 AXIS_LENGTH = TAG_SIZE / 2
+DISTANCE_OFFSET = 0.0086 # physical offset from optical center to front of camera
+NUM_TAGS = 3 # Maximum number of tags we want to detect
 
 # Camera position relative to robot origin
 CAMERA_X = 0.1016  # 4 inches
@@ -160,12 +162,16 @@ try:
 
         for i in range(len(tags)):
             tag = tags[i]
-            if i < 5:
+            if i < NUM_TAGS:
                 if tag.pose_t is None or tag.pose_R is None:
                     continue
 
                 # Position relative to camera (meters)
-                p_camera = tag.pose_t.flatten()
+                x_cam, y_cam, z_cam = tag.pose_t.flatten()
+                
+                z_corrected = z_cam - DISTANCE_OFFSET
+                
+                p_camera = [x_cam, y_cam, z_corrected]
 
                 # Distance from camera
                 distance_camera = np.linalg.norm(p_camera)

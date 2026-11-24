@@ -1,6 +1,7 @@
 """Read-only task/branch diagnostics using the shared live-model IK.
 
-Finite searches are witnesses, not impossibility certificates. No servo I/O,
+Finite searches are witnesses, not impossibility certificates. A separate
+necessary link-reach bound can rule out poses but never accept them. No servo I/O,
 planning-scene edits, controller goals or operational calibration changes.
 """
 import math
@@ -90,3 +91,34 @@ def speed_envelope(distances,positions,limits,speed,acceleration):
         worst_joint_velocity_rad_s=float(np.max(np.abs(dq)*speed)),
         worst_constant_speed_joint_acceleration_rad_s2=float(np.max(np.abs(ddq)*speed*speed)),
         requested_tcp_acceleration_m_s2=acceleration)
+
+
+def wrist_reach_bound(solver,target):
+    """Necessary geometry bound with unrestricted joints and free axial twist.
+
+    The tool attachment's axial offset fixes a circle of possible sixth-axis
+    origins at the requested XYZ/normal. If even its nearest point exceeds the
+    sum of upstream link offsets, the pose cannot be reached by this model.
+    Passing this bound is never IK, collision or continuity acceptance.
+    It requires a constrained normal; never use it to reject position-only IK.
+    """
+    target=np.asarray(target,dtype=float)
+    if target.shape!=(4,4) or not np.isfinite(target).all() or np.linalg.norm(target[:3,2])<1e-12:
+        raise ValueError('Finite transform with nonzero tool direction required')
+    chain=solver.chain;first=next(i for i,(index,_,_) in enumerate(chain) if index==0)
+    last=next(i for i,(index,_,_) in enumerate(chain) if index==5)
+    anchor=np.eye(4)
+    for _,origin,_ in chain[:first+1]:anchor=anchor@origin
+    maximum=sum(float(np.linalg.norm(origin[:3,3])) for _,origin,_ in chain[first+1:last+1])
+    attachment=np.eye(4)
+    for _,origin,_ in chain[last+1:]:attachment=attachment@origin
+    tool_axis=attachment[:3,2];offset=attachment[:3,3]
+    axial=float(offset@tool_axis);perpendicular=float(np.linalg.norm(offset-axial*tool_axis))
+    normal=np.asarray(target)[:3,2];normal=normal/np.linalg.norm(normal)
+    center=np.asarray(target)[:3,3]-anchor[:3,3]-axial*normal
+    parallel=float(center@normal);radial=float(np.linalg.norm(center-parallel*normal))
+    minimum=float(np.hypot(parallel,radial-perpendicular))
+    return dict(axial_tool_offset_m=axial,perpendicular_tool_offset_m=perpendicular,
+        maximum_upstream_offset_sum_m=maximum,minimum_required_wrist_distance_m=minimum,
+        excess_m=minimum-maximum,certainly_outside_wrist_reach=minimum>maximum+1e-9,
+        scope='Necessary bound only; passing is not a reachable or collision-free result')

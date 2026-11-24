@@ -34,7 +34,10 @@ fault handling in the Cartesian application.
 
 Continuous drawing must follow
 `src/pinchy_moveit_config/config/drawing_motion_policy.yaml`: approximately
-constant TCP surface speed through stroke interiors; accelerate/decelerate in
+constant TCP surface speed through stroke interiors in fixed-speed mode; the
+owner-authorized optional range mode must stay within explicit minimum/maximum
+interior speeds without waypoint stops or hidden reductions below the minimum.
+See `docs/bounded_speed_proposal.md`. Accelerate/decelerate in
 pen-up motion wherever feasible. The owner also permits smooth contact endpoint
 ramps when explicitly requested via `allow_contact_ramps`; report ramp-only
 short strokes. See `docs/stroke_planning.md`. Do not stop at sampled contact waypoints or silently

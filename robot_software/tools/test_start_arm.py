@@ -2,6 +2,7 @@
 import copy
 import io
 import json
+import math
 import os
 import fcntl
 import pty
@@ -145,10 +146,44 @@ class StartupTests(unittest.TestCase):
         self.assertTrue(self.bus.motion_settings)
         self.assertTrue(all(speed == 150 and acceleration == 8 for _, speed, acceleration in self.bus.motion_settings))
 
-    def test_outside_ninety_degree_window_rejected_before_any_write(self):
+    def test_outside_saved_range_rejected_before_any_write(self):
         self.bus.motors[1].position = 3200 # More than 90 degrees from zero
         with self.assertRaises(ValueError): self.start.lock_motor(1)
         self.assertEqual(self.bus.events, [])
+
+    def test_default_capture_accepts_stationary_start_beyond_ninety_within_saved_limits(self):
+        joint=self.profile['joints']['shoulder_pan']
+        joint.update(min_radians=math.radians(-105),max_radians=math.radians(105),
+            min_tick=math.floor(2048-math.radians(105)/(2*math.pi/4096)),
+            max_tick=math.ceil(2048+math.radians(105)/(2*math.pi/4096)),max_velocity=math.radians(30))
+        self.start=GuidedStartup(self.bus,self.profile,clock=self.clock,sleep=self.clock.sleep)
+        ticks=round(2048+math.radians(100)/(2*math.pi/4096));self.bus.motors[1].position=ticks
+        low,high=self.start.capture_interval(1);self.assertGreater(high,math.pi/2)
+        gate=CaptureWindow()
+        for i in range(10):self.assertLess(gate.update(i*.1,ticks,low<=self.start.angle(1,ticks)<=high),1.)
+        self.assertEqual(gate.update(1.,ticks,True),1.)
+        original=copy.deepcopy(self.profile)
+        with redirect_stdout(io.StringIO()):self.start.lock_motor(1)
+        goals=[e[2] for e in self.bus.events if e[1]=='goal']
+        self.assertEqual(goals,sorted(goals,reverse=True));self.assertEqual(goals[-1],2048)
+        self.assertEqual(self.profile,original);self.assertFalse(any(e[1]=='off' for e in self.bus.events))
+        # The old window remains an explicit opt-in, and rejects before writes.
+        bus=Bus();bus.motors[1].position=ticks
+        limited=GuidedStartup(bus,self.profile,max_start_degrees=90,clock=self.clock,sleep=self.clock.sleep)
+        with self.assertRaises(ValueError):limited.lock_motor(1)
+        self.assertFalse(bus.events)
+
+    def test_faster_default_ramp_and_joint_cap_are_measured_from_command_timing(self):
+        self.profile['joints']['shoulder_pan']['max_velocity']=math.radians(30)
+        self.bus.motors[1].position=2276
+        with redirect_stdout(io.StringIO()):self.start.lock_motor(1)
+        self.assertAlmostEqual(self.clock.now,1.6,delta=.06)
+        self.assertEqual(self.bus.motors[1].goal,2048)
+        self.assertAlmostEqual(self.start.ramp_rad_s,.225)
+
+    def test_invalid_optional_capture_window_is_rejected(self):
+        for value in (0.,-1.,181.,math.nan,math.inf,True):
+            with self.subTest(value=value),self.assertRaises(ValueError):GuidedStartup(self.bus,self.profile,max_start_degrees=value)
 
     def test_default_capture_accepts_both_ninety_degree_endpoints(self):
         for position in (1024,3072):
@@ -166,7 +201,7 @@ class StartupTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.start.lock_motor(4)
         self.assertEqual(self.bus.events,[])
 
-    def test_default_window_allows_twenty_degrees_with_slow_monotonic_move(self):
+    def test_lower_profile_speed_still_caps_the_zeroing_ramp(self):
         self.bus.motors[1].position = 2276 # About 20 degrees from zero
         with redirect_stdout(io.StringIO()): self.start.lock_motor(1)
         goals = [event[2] for event in self.bus.events if event[1] == 'goal']
@@ -362,11 +397,16 @@ class StartupIntegrationTests(unittest.TestCase):
     def test_cartesian_entry_preserves_guided_holds_through_moveit_start(self):
         self.live_dashboard(True, motion=True)
 
-    def live_dashboard(self, via_ros, motion=False):
+    def test_live_terminal_captures_beyond_ninety_degrees_and_hands_off_powered(self):
+        self.live_dashboard(False,wide_start=True)
+
+    def live_dashboard(self, via_ros, motion=False,wide_start=False):
         folder = Path(tempfile.mkdtemp(prefix='pinchy-dashboard-test-'))
         ready, report = folder/'ready.json', folder/'report.json'
         initial = folder/'initial.json'
-        initial.write_text(json.dumps({str(i): 2058 for i in range(1, 7)}))
+        initial_positions={str(i):2058 for i in range(1,7)}
+        if wide_start:initial_positions['1']=round(2048+math.radians(100)/(2*math.pi/4096))
+        initial.write_text(json.dumps(initial_positions))
         emulator = subprocess.Popen(['/usr/bin/python3', str(ROOT/'tools/servo_bus_emulator.py'),
             str(ready), str(report), str(initial)], start_new_session=True)
         process = None
@@ -384,6 +424,11 @@ class StartupIntegrationTests(unittest.TestCase):
             deadline = time.monotonic()+10
             while not ready.exists() and time.monotonic() < deadline: time.sleep(0.05)
             saved = profile(Bus()); saved.update(port=json.loads(ready.read_text())['port'], torque_limit=1000)
+            if wide_start:
+                saved.update(speed=500,acceleration=32)
+                saved['joints']['shoulder_pan'].update(min_radians=math.radians(-105),max_radians=math.radians(105),
+                    min_tick=math.floor(2048-math.radians(105)/(2*math.pi/4096)),
+                    max_tick=math.ceil(2048+math.radians(105)/(2*math.pi/4096)),max_velocity=math.radians(30))
             calibration = folder/'arm.json'; calibration.write_text(json.dumps(saved))
             command = [str(ROOT/'.venv/bin/python'), str(ROOT/'tools/start_arm.py')]
             if via_ros:

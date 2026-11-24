@@ -51,7 +51,9 @@ class WholeStrokeTests(unittest.TestCase):
         d,p,result,report=select_stroke(curve,'tool_axis',start,solver,lambda q:True,stop,finish)
         self.check_complete(curve,solver,d,p,result)
         self.assertGreater(np.max(abs(p[0]-start)),.05)
-        self.assertGreater(report['starting_configurations'],1)
+        self.assertGreaterEqual(report['starting_configurations'],1)
+        self.assertIn(report.get('seed_method',report['method']),('whole_stroke_start_search','whole_stroke_bidirectional'))
+        self.assertTrue(report['rejections'])
 
     def test_wrist_bound_failure_is_fixed_without_changing_held_start(self):
         curve,solver,start,stop,finish=self.problem(.35,.15)

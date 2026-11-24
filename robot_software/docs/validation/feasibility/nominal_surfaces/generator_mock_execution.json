@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "hardware": "mock",
+  "physical_motors_moved": false,
+  "requested_tcp_speed_m_s": 0.003,
+  "live_reference_min_m_s": 0.002986363787245513,
+  "live_reference_max_m_s": 0.0030121559126033647,
+  "cruise_samples": 2806,
+  "interior_waypoints_checked": 39,
+  "minimum_interior_waypoint_speed_m_s": 0.0029865095766286698,
+  "max_normal_error_deg": 0.1187344318324878,
+  "stand_off_range_m": [
+    0.004999625213525816,
+    0.005000292575832538
+  ],
+  "encoder_model_xyz_span_m": [
+    0.008771763609079719,
+    0.05335644958290536,
+    0.05079998446455905
+  ],
+  "endpoint_result": "Controller completed; encoder/model TCP residual: 0.00 mm, 0.00 deg. Independent physical tip accuracy is not measured.",
+  "consumed_plan_replay_rejected": true,
+  "offline_metrics": {
+    "trace_interval_s": [
+      4.047101438,
+      60.85174228300001
+    ],
+    "cruise_interval_s": [
+      4.282720887019308,
+      60.61612283398069
+    ],
+    "sampled_cruise_min_m_s": 0.0029861226715840227,
+    "sampled_cruise_max_m_s": 0.0030122082226160195,
+    "min_cruise_speed_ratio": 0.9953742238613409,
+    "max_normal_error_deg": 0.11872393408214077,
+    "minimum_tcp_stand_off_m": 0.0049996233317173636,
+    "maximum_tcp_stand_off_m": 0.005000292578166227,
+    "xyz_span_m": [
+      0.008771775520313663,
+      0.05338597951881907,
+      0.05080000000000001
+    ]
+  }
+}

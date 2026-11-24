@@ -1,0 +1,28 @@
+[
+  {
+    "mode": "mock",
+    "artifact_directory": "/tmp/pinchy-cartesian-tests-sc5_t4wd",
+    "preflight": [
+      {
+        "plan_id": "918d79ccec4146d9a901ef8a34820947",
+        "preflight_s": 0.34757282699865755,
+        "preview_validation_reused": true,
+        "points": 1937
+      }
+    ],
+    "execute_to_first_moving_reference_s": 0.382416579999699
+  },
+  {
+    "mode": "pty",
+    "artifact_directory": "/tmp/pinchy-cartesian-tests-e6aqifc2",
+    "preflight": [
+      {
+        "plan_id": "106a729059f64baba0e353707104f56a",
+        "preflight_s": 0.27781978200073354,
+        "preview_validation_reused": true,
+        "points": 1936
+      }
+    ],
+    "execute_to_first_moving_reference_s": 0.313844711999991
+  }
+]

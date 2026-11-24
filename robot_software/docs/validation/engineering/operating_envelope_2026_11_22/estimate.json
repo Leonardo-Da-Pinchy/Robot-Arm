@@ -1,0 +1,87 @@
+{
+  "samples": 1184,
+  "elapsed_seconds": 21.52052196400473,
+  "assumptions": "Nominal CAD masses/inertias, no added pen or payload; sampled poses, absolute-value coupled dynamics bounds for simultaneous motion; 10% reduced stall torque and no-load speed; omits friction, motor rotor inertia and thermal duty. Performance estimate only, not measured safe limits.",
+  "joints": [
+    {
+      "joint": "shoulder_pan",
+      "conservative_sampled_simultaneous_speed_deg_s": 173.67251413560686,
+      "conservative_sampled_simultaneous_acceleration_deg_s2": 2542.840832212451,
+      "max_gravity_nm": 3.6007973079155646e-15,
+      "max_mass_matrix_abs_row_sum": 0.03695390262812458,
+      "max_coriolis_absolute_sum": 0.06385282282149396,
+      "joint_compatible_scale": 1.774209052108182
+    },
+    {
+      "joint": "shoulder_lift",
+      "conservative_sampled_simultaneous_speed_deg_s": 116.09126485323094,
+      "conservative_sampled_simultaneous_acceleration_deg_s2": 708.1808463909913,
+      "max_gravity_nm": 0.9866887965024127,
+      "max_mass_matrix_abs_row_sum": 0.05427632407294861,
+      "max_coriolis_absolute_sum": 0.05068352840604953,
+      "joint_compatible_scale": 1.1349276819256788
+    },
+    {
+      "joint": "elbow_flex",
+      "conservative_sampled_simultaneous_speed_deg_s": 165.56925454685788,
+      "conservative_sampled_simultaneous_acceleration_deg_s2": 1940.5853206004053,
+      "max_gravity_nm": 0.5406496445805287,
+      "max_mass_matrix_abs_row_sum": 0.03380275530397277,
+      "max_coriolis_absolute_sum": 0.029999778776293368,
+      "joint_compatible_scale": 1.606127399886652
+    },
+    {
+      "joint": "wrist_flex",
+      "conservative_sampled_simultaneous_speed_deg_s": 208.26666901433038,
+      "conservative_sampled_simultaneous_acceleration_deg_s2": 7245.332642317628,
+      "max_gravity_nm": 0.16212140332379016,
+      "max_mass_matrix_abs_row_sum": 0.012048152831470564,
+      "max_coriolis_absolute_sum": 0.01758071549994401,
+      "joint_compatible_scale": 2.161235283421567
+    },
+    {
+      "joint": "wrist_roll",
+      "conservative_sampled_simultaneous_speed_deg_s": 229.07055303194824,
+      "conservative_sampled_simultaneous_acceleration_deg_s2": 30120.80432184055,
+      "max_gravity_nm": 0.03547033791656425,
+      "max_mass_matrix_abs_row_sum": 0.0031277973927079507,
+      "max_coriolis_absolute_sum": 0.007549210239900672,
+      "joint_compatible_scale": 2.495530351472862
+    },
+    {
+      "joint": "pen_pitch",
+      "conservative_sampled_simultaneous_speed_deg_s": 230.15094575800225,
+      "conservative_sampled_simultaneous_acceleration_deg_s2": 36321.064443365955,
+      "max_gravity_nm": 0.02474152456765801,
+      "max_mass_matrix_abs_row_sum": 0.0025953906361324552,
+      "max_coriolis_absolute_sum": 0.0071806749688903115,
+      "joint_compatible_scale": 2.5183151477406285
+    }
+  ],
+  "global_speed_estimate_deg_s": 116.09126485323094,
+  "global_acceleration_estimate_deg_s2": 708.1808463909913,
+  "selected_joint_compatible_pair": {
+    "common_relative_scale": 1.1349276819256788,
+    "estimated_speed_deg_s": 102.1434913733111,
+    "estimated_acceleration_deg_s2": 408.5739654932444,
+    "speed_margin_deg_s": 10.0,
+    "acceleration_margin_deg_s2": 10.0,
+    "pre_task_floor_speed_deg_s": 90.0,
+    "pre_task_floor_acceleration_deg_s2": 360.0,
+    "software_speed_deg_s": 92.14,
+    "software_acceleration_deg_s2": 398.5,
+    "raw_profile_unchanged": true
+  },
+  "method": "Upper bounds on absolute gravity, mass-matrix row sums and Coriolis coefficients across sampled poses. Common relative speed/acceleration scaling; independent extrema are NOT combined.",
+  "limitations": "Finite nominal CAD envelope at 12 V, no extra payload, friction, rotor inertia or thermal model. Family suffix/real duty not verified. Not a certified safe limit; floor rule can retain an unqualified existing ceiling.",
+  "sources": [
+    "https://cdn.robotshop.com/media/F/Fit/RB-Fit-155/pdf/feetech_12v_30kg_cm_magnetic_encoding_servo_sts321_specification_pdf.pdf",
+    "https://files.seeedstudio.com/products/Feetech/108090003_FEETECH_ST-3215-C047-Datasheet.pdf"
+  ],
+  "input_hashes": {
+    "/home/leo/Robot-Arm/robot_software/src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+    "/home/leo/Robot-Arm/robot_software/calibration/arm.json": "785a791dc9586cf62ad27a86cca14614c243e25f92a64196f1ee0530a7a42b49",
+    "docs/validation/engineering/operating_envelope_2026_11_22/geometric_branch.npz": "e9e6fe6a2b288001eb92d2ecbaedb039eecb12c0633a7ec966ed9f837eda6c75"
+  },
+  "nominal_moving_mass_kg": 0.517676
+}

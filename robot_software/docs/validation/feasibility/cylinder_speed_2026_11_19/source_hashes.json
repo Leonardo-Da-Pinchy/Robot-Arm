@@ -1,0 +1,8 @@
+{
+  "src/pinchy_motion/pinchy_motion/paths.py": "615f9e01181affc4a1f1a2947725d5d9c41cf13c840c4f2693d69081915cc0c8",
+  "src/pinchy_motion/pinchy_motion/geometry.py": "81c060c559a2d036cc89d2a39ebd71b183e47f35cf6c3776ede33a3aaa5ef1e3",
+  "src/pinchy_motion/pinchy_motion/stroke_search.py": "b9f0ce4bcd8cda6f86e35d49654c74354a2fca479fd1ed0562db8e7ae104b182",
+  "src/pinchy_motion/pinchy_motion/server.py": "6f28c3d6789a0a18433a66d68168ca65629978f95ca5f53f7750e971856d7183",
+  "src/pinchy_hardware/src/feetech_system.cpp": "8c922641daa172c1d90a1984758dd99ff8c56ab9c7fe7d08a7dd133bd4c3ad58",
+  "calibration/arm.json": "99a78eeb73271c97654f444674dd4b5a79d0c8fa0fb7ec407113d626459d97b9"
+}

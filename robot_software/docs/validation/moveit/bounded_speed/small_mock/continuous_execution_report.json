@@ -1,0 +1,86 @@
+{
+  "success": true,
+  "surface": "cylinder",
+  "retract": null,
+  "hardware": "mock",
+  "physical_motors_moved": false,
+  "point_set_file": "/tmp/small_cylinder_range.json",
+  "point_set_sha256": "aac5389c0a0829a605a81ca61220b22fe80fa7320ad6a994cd1276646ead2809",
+  "execute_to_first_moving_reference_s": 0.4104843760142103,
+  "requested_tcp_speed_m_s": 0.012,
+  "requested_min_tcp_speed_m_s": 0.003,
+  "live_reference_peak_tangential_acceleration_m_s2": 0.016970642343308286,
+  "range_report": [
+    {
+      "enabled": true,
+      "minimum_m_s": 0.003,
+      "maximum_m_s": 0.012,
+      "length_m": 0.16970706418788956,
+      "modeled_mean_m_s": 0.00833513724430836,
+      "timing_solver_seconds": 0.23439754301216453,
+      "planned_mean_m_s": 0.008335003496635782,
+      "slowdown_distance_fraction": 0.8452451269935026,
+      "slowdown_intervals_m": [
+        [
+          0.0002718055614114759,
+          0.005270725569244413
+        ],
+        [
+          0.007670207173004223,
+          0.02786584400464929
+        ],
+        [
+          0.04016318722391831,
+          0.09165206330459756
+        ],
+        [
+          0.09255186890600749,
+          0.1313434881667911
+        ],
+        [
+          0.14234111218402357,
+          0.16943525862647807
+        ]
+      ],
+      "modeled_peak_tangential_acceleration_m_s2": 0.027039423024517298
+    }
+  ],
+  "live_reference_min_m_s": 0.003282295092006987,
+  "live_reference_max_m_s": 0.011944122326342583,
+  "cruise_samples": 1005,
+  "interior_waypoints_checked": 39,
+  "minimum_interior_waypoint_speed_m_s": 0.004547109480833861,
+  "max_normal_error_deg": 0.11870598751848889,
+  "stand_off_range_m": [
+    0.004999650932283391,
+    0.0050002924225724665
+  ],
+  "encoder_model_xyz_span_m": [
+    0.00877177172234761,
+    0.05336049595370164,
+    0.05079999253826964
+  ],
+  "endpoint_result": "Controller completed; encoder/model TCP residual: 0.00 mm, 0.00 deg. Independent physical tip accuracy is not measured.",
+  "consumed_plan_replay_rejected": true,
+  "offline_metrics": {
+    "trace_interval_s": [
+      4.014905394,
+      24.665753524
+    ],
+    "cruise_interval_s": [
+      4.192556087733084,
+      24.488102830266914
+    ],
+    "sampled_cruise_min_m_s": 0.003069786229073982,
+    "sampled_cruise_max_m_s": 0.011945229890555584,
+    "min_cruise_speed_ratio": 0.2558155190894985,
+    "max_normal_error_deg": 0.11871901411159198,
+    "minimum_tcp_stand_off_m": 0.00499963898172541,
+    "maximum_tcp_stand_off_m": 0.005000292597650474,
+    "xyz_span_m": [
+      0.008771781593361339,
+      0.053385986481557526,
+      0.05079999999999821
+    ]
+  }
+}

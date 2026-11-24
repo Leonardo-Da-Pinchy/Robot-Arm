@@ -1,0 +1,9 @@
+..........
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-1_em6nkt
+...
+HardwareCartesian artifacts: /tmp/pinchy-cartesian-tests-5gsnunv8
+.....
+----------------------------------------------------------------------
+Ran 18 tests in 36.872s
+
+OK

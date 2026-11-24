@@ -1,0 +1,62 @@
+[
+  {
+    "angle_deg": -90.0,
+    "axial_tool_offset_m": 0.14899999999999994,
+    "perpendicular_tool_offset_m": 0.01880000000000054,
+    "maximum_upstream_offset_sum_m": 0.41568064927577203,
+    "minimum_required_wrist_distance_m": 0.38684719102096027,
+    "excess_m": -0.02883345825481176,
+    "certainly_outside_wrist_reach": false,
+    "scope": "Necessary bound only; passing is not a reachable or collision-free result"
+  },
+  {
+    "angle_deg": -75.0,
+    "axial_tool_offset_m": 0.14899999999999994,
+    "perpendicular_tool_offset_m": 0.01880000000000054,
+    "maximum_upstream_offset_sum_m": 0.41568064927577203,
+    "minimum_required_wrist_distance_m": 0.3405992549197063,
+    "excess_m": -0.07508139435606576,
+    "certainly_outside_wrist_reach": false,
+    "scope": "Necessary bound only; passing is not a reachable or collision-free result"
+  },
+  {
+    "angle_deg": 45.0,
+    "axial_tool_offset_m": 0.14899999999999994,
+    "perpendicular_tool_offset_m": 0.01880000000000054,
+    "maximum_upstream_offset_sum_m": 0.41568064927577203,
+    "minimum_required_wrist_distance_m": 0.3435064894297044,
+    "excess_m": -0.07217415984606762,
+    "certainly_outside_wrist_reach": false,
+    "scope": "Necessary bound only; passing is not a reachable or collision-free result"
+  },
+  {
+    "angle_deg": 60.0,
+    "axial_tool_offset_m": 0.14899999999999994,
+    "perpendicular_tool_offset_m": 0.01880000000000054,
+    "maximum_upstream_offset_sum_m": 0.41568064927577203,
+    "minimum_required_wrist_distance_m": 0.3897832462276354,
+    "excess_m": -0.025897403048136647,
+    "certainly_outside_wrist_reach": false,
+    "scope": "Necessary bound only; passing is not a reachable or collision-free result"
+  },
+  {
+    "angle_deg": 75.0,
+    "axial_tool_offset_m": 0.14899999999999994,
+    "perpendicular_tool_offset_m": 0.01880000000000054,
+    "maximum_upstream_offset_sum_m": 0.41568064927577203,
+    "minimum_required_wrist_distance_m": 0.4349605405425608,
+    "excess_m": 0.01927989126678875,
+    "certainly_outside_wrist_reach": true,
+    "scope": "Necessary bound only; passing is not a reachable or collision-free result"
+  },
+  {
+    "angle_deg": 90.0,
+    "axial_tool_offset_m": 0.14899999999999994,
+    "perpendicular_tool_offset_m": 0.01880000000000054,
+    "maximum_upstream_offset_sum_m": 0.41568064927577203,
+    "minimum_required_wrist_distance_m": 0.4767082505753657,
+    "excess_m": 0.06102760129959367,
+    "certainly_outside_wrist_reach": true,
+    "scope": "Necessary bound only; passing is not a reachable or collision-free result"
+  }
+]

@@ -1,0 +1,34 @@
+description: Proposed support for nominal simulation only; not measured or installed.
+  Original object, floor and TCP unchanged. Cylinder uses a 40 mm diameter pedestal;
+  panel support stays behind its drawing face; pipe uses an annular-sector pedestal
+  under its wall. Mounting, stability, tabletop/base wings and real clearances require
+  owner measurements.
+objects:
+- id: example_floor
+  frame: base_link
+  size:
+  - 1.2
+  - 1.2
+  - 0.04
+  center:
+  - 0.0
+  - 0.0
+  - -0.04
+- id: nominal_cylinder
+  frame: base_link
+  type: cylinder
+  radius: 0.04
+  height: 0.1
+  center:
+  - 0.4
+  - 0.1
+  - 0.22
+- id: nominal_fixture
+  frame: base_link
+  type: cylinder
+  radius: 0.02
+  height: 0.02
+  center:
+  - 0.4
+  - 0.1
+  - 0.16

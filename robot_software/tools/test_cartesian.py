@@ -124,11 +124,13 @@ class HoldProtocolTests(unittest.TestCase):
 
 class CartesianFixture:
     hardware=False
+    emulated_max_velocity=math.radians(30)
     @classmethod
     def setUpClass(cls):
         cls.folder=Path(tempfile.mkdtemp(prefix='pinchy-cartesian-tests-'))
         print(f'\n{cls.__name__} artifacts: {cls.folder}',flush=True)
-        cls.domain=185+(os.getpid()%20)+int(cls.hardware)
+        cls.domain=int(os.environ.get('PINCHY_TEST_DOMAIN',185+(os.getpid()%20)+int(cls.hardware)))
+        if not 180<=cls.domain<=232:raise ValueError('Test ROS domain must be isolated in 180..232')
         os.environ['ROS_DOMAIN_ID']=str(cls.domain)
         cls.context=Context();rclpy.init(context=cls.context,domain_id=cls.domain)
         cls.node=rclpy.create_node('cartesian_test',context=cls.context)
@@ -146,7 +148,7 @@ class CartesianFixture:
                     ticks=[round(2048+values['direction']*a/(2*math.pi/4096)) for a in (values['min_radians'],values['max_radians'])]
                     values['min_tick'],values['max_tick']=min(ticks),max(ticks)
             config.update(calibration_confirmed=True,port=cls.bus.path,speed=500,acceleration=32,torque_limit=1000)
-            for joint in config['joints'].values():joint['max_velocity']=math.radians(30)
+            for joint in config['joints'].values():joint['max_velocity']=cls.emulated_max_velocity
             path=cls.folder/'emulated_calibration.yaml';path.write_text(yaml.safe_dump(config))
             commands.append(['ros2','launch','pinchy_bringup','hardware_control.launch.py',f'calibration:={path}','motion_enabled:=true'])
             commands.append(['ros2','launch','pinchy_moveit_config','planning.launch.py','hardware:=true','rviz:=false','panel:=false'])
@@ -155,6 +157,8 @@ class CartesianFixture:
             if os.environ.get('PINCHY_TEST_CALIBRATED_MOCK')=='1':command.append(f'calibration:={ROOT / "calibration/arm.json"}')
             commands.append(command)
         for i,command in enumerate(commands):
+            if os.environ.get('PINCHY_TEST_SCENE') and any('pinchy_moveit_config'==part for part in command):
+                command.append('scene:='+os.environ['PINCHY_TEST_SCENE'])
             log=(cls.folder/f'launch-{i}.log').open('w');cls.logs.append(log)
             cls.processes.append(subprocess.Popen(command,stdout=log,stderr=subprocess.STDOUT,env=env,start_new_session=True))
         def joints(message):cls.state=dict(zip(message.name,message.position))
@@ -487,6 +491,21 @@ class CartesianFixture:
     def test_01p_reported_pen_up_targets_from_zero(self):
         # Exact held state and target quaternions from the real-session logs.
         # Exercise preview only, on saved-limit mock or a PTY adapter.
+        if max(abs(self.state[n]) for n in JOINTS)>=.03:
+            # Establish this isolated mock/PTY test's named starting posture.
+            # The fixture always owns a fresh test graph and a generated PTY;
+            # it never attaches to the operator's physical controller.
+            from pinchy_bringup.control_contract import motion_duration
+            duration=motion_duration([abs(self.state[n]) for n in JOINTS],[math.radians(30)]*6,math.radians(180))
+            client=ActionClient(self.node,FollowJointTrajectory,'/arm_controller/follow_joint_trajectory')
+            try:
+                goal=FollowJointTrajectory.Goal();goal.trajectory.joint_names=JOINTS
+                for values,t in [([self.state[n] for n in JOINTS],0.),([0.]*6,duration)]:
+                    point=JointTrajectoryPoint(positions=values,velocities=[0.]*6,accelerations=[0.]*6)
+                    point.time_from_start.sec,point.time_from_start.nanosec=divmod(round(t*1e9),10**9);goal.trajectory.points.append(point)
+                handle=self.wait(client.send_goal_async(goal),5);self.assertTrue(handle.accepted)
+                result=self.wait(handle.get_result_async(),duration+8);self.assertEqual(result.status,4);self.pump(.2)
+            finally:client.destroy()
         self.assertLess(max(abs(self.state[n]) for n in JOINTS),.03)
         requests=[
             ([.428247,.142794,.239279],[-.6815802620347066,.23370210541832073,-.6658017981340734,-.19375148497283684]),
@@ -559,7 +578,12 @@ class CartesianFixture:
         # These rounded coordinates are within micrometres of the starting
         # XYZ. A trace intentionally rejects duplicate points; that is not an
         # IK failure. Exercise an actual nearby translation separately.
-        self.assertFalse(planned.success);self.assertIn('no positional movement',planned.message)
+        # IK can finish within its allowed endpoint tolerance, so these rounded
+        # historical XYZs are not guaranteed to duplicate the held start in a
+        # different test history. Exercise an exact current-pose duplicate.
+        duplicate=self.target([self.state[name] for name in JOINTS])
+        duplicate_result=self.service(PlanPose,'/pinchy_motion/plan_pose',PlanPose.Request(target=duplicate,orientation_mode='tool_axis',path_mode='cartesian'),seconds=90)
+        self.assertFalse(duplicate_result.success);self.assertIn('no positional movement',duplicate_result.message)
         target.pose.position.y+=.002
         planned=self.service(PlanPose,'/pinchy_motion/plan_pose',PlanPose.Request(target=target,orientation_mode='tool_axis',path_mode='cartesian'),seconds=90)
         self.assertTrue(planned.success,planned.message)

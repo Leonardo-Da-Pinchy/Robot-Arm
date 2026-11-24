@@ -1,6 +1,6 @@
 # Product requirement, not a claim that pose-transit timing implements drawing.
 # Ordered-path timing is software validated; physical contact remains disabled.
-version: 2
+version: 4
 contact_motion_implemented: false
 contact_timing_planning_implemented: true
 planning_speed_variation_fraction: 0.05
@@ -33,7 +33,26 @@ exceptions:
   - explicitly_requested_pause
   - unavoidable_contact_transition
   - explicitly_requested_contact_endpoint_ramps
+  - explicitly_requested_bounded_tcp_speed
   - sharp_corner_with_explicitly_approved_slowdown
 corner_policy: preserve_geometry_or_lift_or_explicitly_approved_blend
 unachievable_contact_speed: reject_or_request_explicit_alternative_before_execution
 geometry_and_joint_limits_take_priority: true
+
+pen_up_dry_run:
+  strict_cruise_speed_available: true
+  request_field: enforce_tcp_speed
+  automatic_slowdown_when_requested: false
+  short_ramp_only_request: reject
+  sharp_corner_request: reject
+
+bounded_tcp_speed:
+  implemented: true
+  opt_in_minimum_request_field: tcp_min_speed
+  maximum_request_field: tcp_speed
+  disabled_minimum_m_s: 0.0
+  interior_minimum_is_hard_at_validated_samples: true
+  endpoint_ramps_are_explicit_exceptions: true
+  no_silent_geometry_or_normal_changes: true
+  infeasible_minimum: reject_without_partial_execution
+  physical_tracking_qualified: false

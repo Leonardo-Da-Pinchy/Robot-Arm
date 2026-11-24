@@ -1,0 +1,55 @@
+{
+  "pair": {
+    "common_relative_scale": 1.1349276819256788,
+    "estimated_speed_deg_s": 102.1434913733111,
+    "estimated_acceleration_deg_s2": 408.5739654932444,
+    "speed_margin_deg_s": 10.0,
+    "acceleration_margin_deg_s2": 10.0,
+    "pre_task_floor_speed_deg_s": 90.0,
+    "pre_task_floor_acceleration_deg_s2": 360.0,
+    "software_speed_deg_s": 92.14,
+    "software_acceleration_deg_s2": 398.5,
+    "raw_profile_unchanged": true
+  },
+  "conditional_torque_bounds": [
+    {
+      "joint": "shoulder_pan",
+      "conditional_torque_upper_nm": 0.42215146240754353,
+      "derated_curve_available_nm": 1.6438124655555555,
+      "passes_nominal_bound": true
+    },
+    {
+      "joint": "shoulder_lift",
+      "conditional_torque_upper_nm": 1.4952625044252505,
+      "derated_curve_available_nm": 1.6438124655555555,
+      "passes_nominal_bound": true
+    },
+    {
+      "joint": "elbow_flex",
+      "conditional_torque_upper_nm": 0.8533359116111772,
+      "derated_curve_available_nm": 1.6438124655555555,
+      "passes_nominal_bound": true
+    },
+    {
+      "joint": "wrist_flex",
+      "conditional_torque_upper_nm": 0.291384057092507,
+      "derated_curve_available_nm": 1.6438124655555555,
+      "passes_nominal_bound": true
+    },
+    {
+      "joint": "wrist_roll",
+      "conditional_torque_upper_nm": 0.07674787249162354,
+      "derated_curve_available_nm": 1.6438124655555555,
+      "passes_nominal_bound": true
+    },
+    {
+      "joint": "pen_pitch",
+      "conditional_torque_upper_nm": 0.06136301530088195,
+      "derated_curve_available_nm": 1.6438124655555555,
+      "passes_nominal_bound": true
+    }
+  ],
+  "only_calibrated_velocity_fields_and_audit_changed": true,
+  "raw_motor_profile_unchanged": true,
+  "no_physical_motor_commands": true
+}

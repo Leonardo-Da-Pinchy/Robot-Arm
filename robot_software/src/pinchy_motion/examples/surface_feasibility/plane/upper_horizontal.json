@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "name": "plane: upper_horizontal, strict 3 mm/s",
+  "frame": "base_link",
+  "tcp_frame": "pointer_tip",
+  "units": {
+    "position": "m",
+    "orientation": "deg"
+  },
+  "orientation_mode": "tool_axis",
+  "style": "spline",
+  "waypoints": [
+    {
+      "xyz": [
+        0.355,
+        0.15000000000000002,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.14666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.14333333333333334,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.14,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.13666666666666666,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.13333333333333336,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.13,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.12666666666666668,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.12333333333333334,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.12000000000000001,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.11666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.11333333333333334,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.11000000000000001,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.10666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.10333333333333333,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.1,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.09666666666666668,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.09333333333333334,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.09,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.08666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.08333333333333334,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.08,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.07666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.07333333333333333,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.07,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.06666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.06333333333333334,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.06,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.05666666666666667,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.05333333333333333,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.355,
+        0.05,
+        0.265
+      ],
+      "rpy_deg": [
+        -0.0,
+        90.0,
+        0.0
+      ],
+      "contact": false
+    }
+  ],
+  "allow_contact_ramps": false,
+  "plan_pen_up_approach": true,
+  "enforce_tcp_speed": true,
+  "joint_speed_deg_s": 30.0,
+  "joint_acceleration_deg_s2": 180.0,
+  "tcp_speed_m_s": 0.003,
+  "tcp_acceleration_m_s2": 0.02,
+  "notes": "Proposed pedestal scene only. Boundary/height witness, not arbitrary-path coverage or physical qualification. Strict 3 mm/s with normals preserved and 5 mm air gap.",
+  "source": {
+    "generator": "nominal_paths.coverage_strokes",
+    "surface": "plane",
+    "center_m": [
+      0.36,
+      0.1,
+      0.22
+    ],
+    "surface_span_m": [
+      0.1,
+      0.0
+    ],
+    "stand_off_m": 0.005,
+    "nominal_radius_m": 0.0,
+    "scene": "nominal_plane_pedestal_dry_run.yaml",
+    "hypothetical_placement": true,
+    "physical_contact_qualified": false,
+    "case": "upper_horizontal",
+    "supported_area_claim": false
+  }
+}

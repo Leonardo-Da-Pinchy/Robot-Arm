@@ -49,11 +49,11 @@ impossibility proof. The same XYZ with the displayed current pointing direction
 has valid bounded IK and passed collision-checked mock transit planning. Raising
 speed limits cannot solve a position/direction mismatch.
 
-Current selectable caps: joints 60 deg/s and 360 deg/s²; queued TCP 400 mm/s
+Current selectable caps: joints 92.14 deg/s and 398.5 deg/s²; queued TCP 400 mm/s
 and 2000 mm/s². Starting values remain 30 deg/s, 180 deg/s², 20 mm/s and
 50 mm/s². Zeroing speed remains unchanged. Joint caps live in the shared control contract and are also
 bounded by calibration, URDF, raw motor settings and the driver (which currently
-rejects configured max_velocity above 60 deg/s). TCP request caps are checked by
+rejects configured max_velocity above 92.14 deg/s). TCP request caps are checked by
 both panel and gateway. Change the matching layers together when selecting new
 caps; GUI maxima are not measured physical performance. The TCP timing fields
 apply to queued trace/spline paths; OMPL pose visits use joint timing caps.
@@ -353,7 +353,9 @@ changing geometry, and collision-checks dense interpolated states. These are
 discrete checks, not a mathematical continuous swept-volume proof. No fields
 are added at dispatch that would change interpolation after validation.
 
-The gateway rechecks current state, model, scene and timed path before execution;
+The gateway rechecks current state, model, scene and the exact validated trajectory
+fingerprint before execution, reusing preview collision validation only for an
+identical trajectory/model/scene (see [Execute latency](execute_latency.md));
 scene changes or lost feedback during execution request powered hold. Endpoint
 results report encoder/model FK residual, not independent physical accuracy.
 The low-level hardware protections remain authoritative even if another client
@@ -422,3 +424,12 @@ For twist-dependent nearby failures and singularity/range investigations, see
 travel reserve, and the limits window includes a Reserve column. Preview notices
 flag low reserve over the actual controller interpolation. These are diagnostic
 warnings, not additional motor-stop conditions or automated unwinding.
+
+Planning now exposes live elapsed time, stage counts/percentages and approximate
+stage time remaining in the Cartesian window. See [planning progress](planning_progress.md).
+
+
+November 22: an explicitly enabled [TCP range](bounded_speed_proposal.md) adds
+minimum/maximum interior timing without changing old fixed-speed point sets.
+The [joint ceilings](estimated_operating_limits.md) now follow the owner's
+coupled estimate-minus-10 rule; they are not measured physical safe limits.

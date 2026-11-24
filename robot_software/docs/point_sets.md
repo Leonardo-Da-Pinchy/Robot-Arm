@@ -36,6 +36,12 @@ physical contact remains disabled pending qualification.
 | [Fixed TCP: small tilts](../src/pinchy_motion/examples/point_sets/01_fixed_tcp_tilts.json) | Seven poses at XYZ approximately (0.422999, −0.011669, 0.277707) m; full orientations tilt ±3° about local tool X/Y and return. Uses 5 deg/s and 30 deg/s² joint caps. |
 | [Small pen-up pose loop](../src/pinchy_motion/examples/point_sets/02_small_pen_up_square.json) | Five destinations around a 5 mm square near the same bent modeled posture. Routed pen-up visits stop at destinations and do not promise a square connecting TCP trace. Uses 5 deg/s and 30 deg/s². |
 | [Captured session points](../src/pinchy_motion/examples/point_sets/03_captured_session_points.json) | The owner's seven poses recovered from the November 15 session's latest submitted queue. Pen-direction/free-twist visits; position/orientation/contact values match the log. Joint and TCP acceleration settings were not logged, so shared defaults are recorded. |
+| [Cylinder continuous two-inch dry run](../src/pinchy_motion/examples/point_sets/04_cylinder_continuous_2in.json) | 41-point oval, 50.8 mm surface width × 50.8 mm height, 5 mm air gap, constrained normal, strict 3 mm/s cruise and checked pen-up start route. Passed mock/PTY execution. |
+| [Plane continuous two-inch dry run](../src/pinchy_motion/examples/point_sets/05_plane_continuous_2in.json) | Same dimensions/speed on an upright nominal panel; complete mock preflight and separate 10 mm retract passed. |
+| [Quarter-pipe continuous two-inch dry run](../src/pinchy_motion/examples/point_sets/06_quarter_pipe_continuous_2in.json) | Same dimensions/speed inside the nominal concave R100 mm quarter pipe; complete mock preflight and separate 10 mm retract passed. |
+
+See [continuous test instructions](continuous_cylinder_test.md) for assumed
+placements, scene presets, settings and repeatable qualifications.
 
 All examples are staging data and require a new scene/start/model-checked preview.
 They are not certified physical placements or contact jobs. The illustrative
@@ -119,3 +125,31 @@ and its established powered holds independent; this feature adds no servo writer
 
 See [validation](validation/moveit/point_sets/validation.md), [ordered paths](cartesian_paths.md),
 [the stroke contract](stroke_planning.md), and the canonical [roadmap](implementation_roadmap.md).
+
+
+## Extended feasibility sets
+
+Nine preflighted lower-horizontal, vertical and upper-horizontal sets are
+installed in `examples/surface_feasibility/{cylinder,plane,quarter_pipe}/`.
+Use **Load points…** to select one. These require the explicitly paired
+`nominal_*_pedestal_dry_run.yaml` proposed scene in isolated testing; loading a
+file never installs a support or changes the live scene. See the
+[expanded gate](validation/feasibility/surface_gate/validation.md) for tested
+angles/widths, executed cases, setup concepts and remaining physical decisions.
+
+Planning now exposes live elapsed time, stage counts/percentages and approximate
+stage time remaining in the Cartesian window. See [planning progress](planning_progress.md).
+
+
+The larger/faster cylinder is example **07**, a 76.2 mm surface oval at strict
+7 mm/s, with an explicit lower imaginary-cylinder placement and `spline_axis`
+interpolation. See [dimensions, matching scene and qualification commands](continuous_cylinder_test.md#larger-faster-example).
+Loading it preserves its required speed and requests a checked pen-up approach;
+it never installs collision geometry or executes automatically.
+
+
+Example **08 — Cylinder: 3-inch dry run, TCP range 4–18 mm/s** demonstrates the
+optional range mode with the same lower imaginary placement/scene as 07.
+`tcp_min_speed_m_s` zero/absent preserves fixed timing; a positive value explicitly
+sets the interior floor, with `tcp_speed_m_s` as the ceiling. The band and mode
+round-trip through save/load, panel requests and CLI. See [usage and bounds](bounded_speed_proposal.md).

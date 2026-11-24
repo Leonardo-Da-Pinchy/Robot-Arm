@@ -29,7 +29,7 @@ from servo_setup import SetupBus
 from servo_bench import error_text
 from servo_diagnostics import temperature_spike_unconfirmed
 
-STARTUP_RAMP_RAD_S = 0.1125  # ~6.45 deg/s, 1.5x the previous zeroing ramp.
+STARTUP_RAMP_RAD_S = 0.225  # ~12.9 deg/s, twice the previous zeroing ramp.
 STARTUP_SERVO_SPEED = 150
 STARTUP_SERVO_ACCELERATION = 8
 STARTUP_POLICY = json.loads((ROOT/'src/pinchy_description/config/startup_policy.json').read_text())
@@ -73,13 +73,14 @@ def validate_profile(profile):
 
 
 class GuidedStartup:
-    def __init__(self, bus, profile, max_start_degrees=90, log=lambda *a, **k: None,
+    def __init__(self, bus, profile, max_start_degrees=None, log=lambda *a, **k: None,
                  clock=time.monotonic, sleep=time.sleep):
         self.bus, self.profile = bus, profile
         self.model = validate_profile(profile)
-        if not 0 < max_start_degrees <= 90:
-            raise ValueError('Startup capture window must be in (0, 90] degrees')
-        self.max_start = math.radians(max_start_degrees)
+        if max_start_degrees is not None and (isinstance(max_start_degrees,bool) or not math.isfinite(max_start_degrees) or not 0 < max_start_degrees <= 180):
+            raise ValueError('Optional startup capture window must be in (0, 180] degrees')
+        self.max_start = math.inf if max_start_degrees is None else math.radians(max_start_degrees)
+        self.ramp_rad_s = STARTUP_RAMP_RAD_S
         self.log, self.clock, self.sleep = log, clock, sleep
         self.held = []; self.touched = set()
         self.hot_counts = dict.fromkeys(JOINTS, 0)
@@ -190,7 +191,7 @@ class GuidedStartup:
         current = self.state(servo_id)
         if current['torque'] != 1 or abs(current['position']-start) > 5:
             raise RuntimeError('Unexpected movement during current-pose hold')
-        duration = max(0.35, abs(angle)/min(STARTUP_RAMP_RAD_S, j['max_velocity']))
+        duration = max(0.35, abs(angle)/min(self.ramp_rad_s, j['max_velocity']))
         began = self.clock(); last = start
         while True:
             fraction = min(1.0, (self.clock()-began)/duration)
@@ -323,8 +324,8 @@ def main():
     parser.add_argument('--motion', action='store_true', help='After the same guided startup, open MoveIt and Cartesian pose controls instead of joint sliders')
     parser.add_argument('--no-gui', action='store_true', help='Start ROS after zero holds, without RViz/sliders')
     parser.add_argument('--wizard-only', action='store_true', help='Keep prompted holds without starting ROS; q releases')
-    parser.add_argument('--max-start-degrees', type=float, default=90,
-                        help='Maximum starting distance from zero in degrees (default: 90; saved/CAD limits still apply)')
+    parser.add_argument('--max-start-degrees', type=float, default=None,
+                        help='Optional extra starting-angle cap in (0,180] degrees; default: saved/CAD limits only')
     parser.add_argument('--log', type=Path, default=Path('/tmp/pinchy-arm-startup.jsonl'))
     args = parser.parse_args()
     def interrupted(signum, frame):
@@ -333,8 +334,8 @@ def main():
     signal.signal(signal.SIGHUP, interrupted)
     if not args.hardware: parser.error('Add --hardware only when ready for the prompted physical zero-and-hold steps')
     if not 0 <= args.domain <= 232: parser.error('ROS domain must be in 0..232')
-    if not math.isfinite(args.max_start_degrees) or not 0 < args.max_start_degrees <= 90:
-        parser.error('--max-start-degrees must be in (0, 90]')
+    if args.max_start_degrees is not None and (not math.isfinite(args.max_start_degrees) or not 0 < args.max_start_degrees <= 180):
+        parser.error('--max-start-degrees must be in (0, 180]')
     if args.motion:
         available = subprocess.run(ros_command(args, 'ros2', 'pkg', 'prefix', 'pinchy_moveit_config'),
             capture_output=True, text=True, timeout=10)

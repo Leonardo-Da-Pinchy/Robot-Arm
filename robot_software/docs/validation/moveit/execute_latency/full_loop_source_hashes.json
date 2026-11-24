@@ -1,0 +1,15 @@
+{
+  "src/pinchy_motion/pinchy_motion/server.py": "bad89cabf238c483dd8dff09e7f55bdd34f32da3a8f08065c082ab71cc3ffd2d",
+  "src/pinchy_motion/pinchy_motion/panel.py": "a5c535b98e7cce86fffd5acc9e04cbe6cb4312289e9467a8469744cc4b436668",
+  "src/pinchy_motion/pinchy_motion/paths.py": "615f9e01181affc4a1f1a2947725d5d9c41cf13c840c4f2693d69081915cc0c8",
+  "src/pinchy_motion/pinchy_motion/point_sets.py": "c44055dbeb97bed4084ef6e44f7682b2a105f6f86a12908d2e60131d845efe9e",
+  "src/pinchy_motion/pinchy_motion/nominal_paths.py": "71c3c57235996e857ce42a53dc0343d00aa9efd3f73cd901ed6d56ee354bdbab",
+  "src/pinchy_motion/examples/point_sets/07_cylinder_continuous_3in_fast.json": "fef22fb85099b0dd626201348ebd5842a6030a8fdb59d63fbc1d54b0c18a66e4",
+  "src/pinchy_moveit_config/config/fast_cylinder_pedestal_dry_run.yaml": "4eb82e6ede4863a1d28da82d6c787d5fc96086b459e38d489812453c338e5a55",
+  "tools/test_execution_preview.py": "9853336ad89f777e8f97584dc2bf0a464ed8ed2719bc34280d7778db84711460",
+  "tools/test_trajectory_validation.py": "fa427f6e9f782cb549925b443ecf72d99ae66c33d5f4dd520d982efedeb68ee4",
+  "tools/test_paths.py": "6262ee2e2ed55e72f56104c1ec5974ff6d1f12620ba31c20dfff61f29054b330",
+  "tools/test_nominal_paths.py": "8e93a3176ca3161f9e495f3042e3ffd8000faffcf238f3752e69800ba97158f2",
+  "tools/test_pose_panel.py": "e1da816cfd35f7d2b9776e66371cfa554cfce763cc010fb236361f322a3162fd",
+  "tools/qualify_continuous_execution.py": "46c68b948f56563bd34868359eadc0339a2aace491871586a2126729d3ac7c36"
+}

@@ -34,6 +34,22 @@ full front-180° coverage, the selected entire objects or physical contact.
 See [new results](validation/feasibility/stroke_start_search/report.json) and
 [validation details](validation/feasibility/stroke_start_search/validation.md).
 
+The later [nominal-surface study](validation/feasibility/nominal_surfaces/validation.md)
+adds actual example object/fixture collision solids, two-inch loops on all three
+geometries and separately checked retracts. The cylinder also passes live
+controller execution on mock/PTY with strict 3 mm/s cruise. Wider endpoint
+sampling still leaves many targets unresolved; physical/full-area coverage is
+not established. Historical claims below about missing object solids describe
+the original investigation, not these new opt-in scenes.
+
+The [expanded surface gate](validation/feasibility/surface_gate/validation.md)
+now resolves the assumed fixture conflicts using explicit support proposals,
+passes nine complete boundary/height paths and six mock/PTY system executions
+with retracts, and introduces a necessary wrist-reach bound. At the current
+cylinder placement, +75°/+90° cannot fit the upstream link reach even with
+unrestricted joints and free axial twist. Other unresolved points remain finite
+search outcomes; alternate placement feasibility is not globally disproven.
+
 ## What the original investigation found
 
 | Question | Evidence / practical consequence |
@@ -229,8 +245,8 @@ an approach. The caller collision-plans a pen-up OMPL route from the held state
 to the winning first configuration. Its exact endpoint, zero boundary
 derivatives, controller interpolation and collisions are validated before the
 combined preview token exists. Stop/model changes still abort; no partial trace
-or unchecked same-task joint jump is executable. This search has a 90-second
-runtime budget; it is finite and can still miss useful branches.
+or unchecked same-task joint jump is executable. This search now has a 360-second
+setup budget; it is finite and can still miss useful branches.
 
 The [owner's stroke contract](stroke_planning.md) permits smooth contact endpoint
 ramps when explicitly requested. Off-surface ramps remain preferred. Interior

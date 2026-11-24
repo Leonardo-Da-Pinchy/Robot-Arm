@@ -1,0 +1,42 @@
+{
+  "log": "docs/validation/feasibility/cylinder_speed_2026_11_19/physical_14mm_s_recording.jsonl.gz",
+  "events": [
+    {
+      "start_stamp_ns": 1795066539540333435,
+      "end_stamp_ns": 1795066539740054928,
+      "duration_s": 0.1997218132019043,
+      "speed_mm_s": {
+        "commanded": 7.842531624848891,
+        "measured": 1.3085827329373503,
+        "adapter_applied": null,
+        "servo_goals": null
+      },
+      "boundary": "adapter_applied_unobserved_or_stale"
+    },
+    {
+      "start_stamp_ns": 1795066539761984027,
+      "end_stamp_ns": 1795066539940390107,
+      "duration_s": 0.1784060001373291,
+      "speed_mm_s": {
+        "commanded": 13.996923467536318,
+        "measured": 0.0,
+        "adapter_applied": null,
+        "servo_goals": null
+      },
+      "boundary": "adapter_applied_unobserved_or_stale"
+    },
+    {
+      "start_stamp_ns": 1795066548800591077,
+      "end_stamp_ns": 1795066548980472424,
+      "duration_s": 0.17988133430480957,
+      "speed_mm_s": {
+        "commanded": 13.996948832092293,
+        "measured": 2.3636842112767944,
+        "adapter_applied": null,
+        "servo_goals": null
+      },
+      "boundary": "adapter_applied_unobserved_or_stale"
+    }
+  ],
+  "interpretation": "Boundary evidence only; physical/firmware root cause requires further verification."
+}

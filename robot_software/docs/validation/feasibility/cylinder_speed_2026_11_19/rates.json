@@ -1,0 +1,332 @@
+[
+  {
+    "tcp_speed_mm_s": 7.0,
+    "tcp_acceleration_mm_s2": 20.0,
+    "outcome": "pass",
+    "joints": {
+      "shoulder_pan": {
+        "peak_velocity_deg_s": 12.483019694786883,
+        "peak_acceleration_deg_s2": 3.2293218228847107,
+        "velocity_at_s": 9.42,
+        "acceleration_at_s": 11.28,
+        "velocity_phase_deg": 90.50053510994236,
+        "acceleration_phase_deg": 107.96575632099771
+      },
+      "shoulder_lift": {
+        "peak_velocity_deg_s": 9.609961896202238,
+        "peak_acceleration_deg_s2": 9.03483300395973,
+        "velocity_at_s": 5.98,
+        "acceleration_at_s": 9.8,
+        "velocity_phase_deg": 57.98004060193636,
+        "acceleration_phase_deg": 94.05699577785069
+      },
+      "elbow_flex": {
+        "peak_velocity_deg_s": 8.506776166747885,
+        "peak_acceleration_deg_s2": 8.699631773046113,
+        "velocity_at_s": 31.52,
+        "acceleration_at_s": 9.8,
+        "velocity_phase_deg": 307.67719475786464,
+        "acceleration_phase_deg": 94.05699577785069
+      },
+      "wrist_flex": {
+        "peak_velocity_deg_s": 6.9490856572871325,
+        "peak_acceleration_deg_s2": 6.863917909691126,
+        "velocity_at_s": 5.02,
+        "acceleration_at_s": 10.0,
+        "velocity_phase_deg": 48.63962364205886,
+        "acceleration_phase_deg": 95.92994927798303
+      },
+      "wrist_roll": {
+        "peak_velocity_deg_s": 26.106112465771268,
+        "peak_acceleration_deg_s2": 6.1515417005389175,
+        "velocity_at_s": 9.44,
+        "acceleration_at_s": 10.66,
+        "velocity_phase_deg": 90.6876819402018,
+        "acceleration_phase_deg": 102.1223432613661
+      },
+      "pen_pitch": {
+        "peak_velocity_deg_s": 5.38516530016163,
+        "peak_acceleration_deg_s2": 9.834694010834385,
+        "velocity_at_s": 11.56,
+        "acceleration_at_s": 9.8,
+        "velocity_phase_deg": 110.6163544158989,
+        "acceleration_phase_deg": 94.05699577785069
+      }
+    }
+  },
+  {
+    "tcp_speed_mm_s": 12.0,
+    "tcp_acceleration_mm_s2": 80.0,
+    "outcome": "pass",
+    "joints": {
+      "shoulder_pan": {
+        "peak_velocity_deg_s": 21.3994623339222,
+        "peak_acceleration_deg_s2": 9.490251886746371,
+        "velocity_at_s": 5.44,
+        "acceleration_at_s": 6.52,
+        "velocity_phase_deg": 90.30070207849249,
+        "acceleration_phase_deg": 107.6829262569201
+      },
+      "shoulder_lift": {
+        "peak_velocity_deg_s": 16.47422039349007,
+        "peak_acceleration_deg_s2": 26.679222554035054,
+        "velocity_at_s": 3.44,
+        "acceleration_at_s": 5.66,
+        "velocity_phase_deg": 57.88427238642593,
+        "acceleration_phase_deg": 93.83031613221274
+      },
+      "elbow_flex": {
+        "peak_velocity_deg_s": 14.583044857285055,
+        "peak_acceleration_deg_s2": 25.75441458415441,
+        "velocity_at_s": 18.34,
+        "acceleration_at_s": 5.66,
+        "velocity_phase_deg": 307.6082852813936,
+        "acceleration_phase_deg": 93.83031613221274
+      },
+      "wrist_flex": {
+        "peak_velocity_deg_s": 11.912716277440087,
+        "peak_acceleration_deg_s2": 20.171513837974764,
+        "velocity_at_s": 2.88,
+        "acceleration_at_s": 5.78,
+        "velocity_phase_deg": 48.54214912694586,
+        "acceleration_phase_deg": 95.75666400757349
+      },
+      "wrist_roll": {
+        "peak_velocity_deg_s": 44.753335655609455,
+        "peak_acceleration_deg_s2": 18.086123188171882,
+        "velocity_at_s": 5.46,
+        "acceleration_at_s": 6.168198996,
+        "velocity_phase_deg": 90.62152379005299,
+        "acceleration_phase_deg": 102.00000000026024
+      },
+      "pen_pitch": {
+        "peak_velocity_deg_s": 9.231711943133412,
+        "peak_acceleration_deg_s2": 29.11250775327704,
+        "velocity_at_s": 6.7,
+        "acceleration_at_s": 5.66,
+        "velocity_phase_deg": 110.60349882277052,
+        "acceleration_phase_deg": 93.83031613221274
+      }
+    }
+  },
+  {
+    "tcp_speed_mm_s": 14.0,
+    "tcp_acceleration_mm_s2": 80.0,
+    "outcome": "pass",
+    "joints": {
+      "shoulder_pan": {
+        "peak_velocity_deg_s": 24.966039389573652,
+        "peak_acceleration_deg_s2": 12.917287291538843,
+        "velocity_at_s": 4.7,
+        "acceleration_at_s": 5.64,
+        "velocity_phase_deg": 90.3133894449082,
+        "acceleration_phase_deg": 107.96575632099771
+      },
+      "shoulder_lift": {
+        "peak_velocity_deg_s": 19.2199237924051,
+        "peak_acceleration_deg_s2": 36.11018017603225,
+        "velocity_at_s": 2.98,
+        "acceleration_at_s": 4.9,
+        "velocity_phase_deg": 57.78708533756735,
+        "acceleration_phase_deg": 94.05699577785069
+      },
+      "elbow_flex": {
+        "peak_velocity_deg_s": 17.01355233349901,
+        "peak_acceleration_deg_s2": 34.75206205611647,
+        "velocity_at_s": 15.76,
+        "acceleration_at_s": 4.9,
+        "velocity_phase_deg": 307.67719475786464,
+        "acceleration_phase_deg": 94.05699577785069
+      },
+      "wrist_flex": {
+        "peak_velocity_deg_s": 13.89817131457491,
+        "peak_acceleration_deg_s2": 27.455671558074947,
+        "velocity_at_s": 2.5,
+        "acceleration_at_s": 5.0,
+        "velocity_phase_deg": 48.44322784721112,
+        "acceleration_phase_deg": 95.92994927798303
+      },
+      "wrist_roll": {
+        "peak_velocity_deg_s": 52.21222493154295,
+        "peak_acceleration_deg_s2": 24.72506043601123,
+        "velocity_at_s": 4.72,
+        "acceleration_at_s": 5.323492626,
+        "velocity_phase_deg": 90.6876819402018,
+        "acceleration_phase_deg": 102.00000000803752
+      },
+      "pen_pitch": {
+        "peak_velocity_deg_s": 10.770330600322378,
+        "peak_acceleration_deg_s2": 39.28983902285687,
+        "velocity_at_s": 5.78,
+        "acceleration_at_s": 4.9,
+        "velocity_phase_deg": 110.6163544158989,
+        "acceleration_phase_deg": 94.05699577785069
+      }
+    }
+  },
+  {
+    "tcp_speed_mm_s": 16.0,
+    "tcp_acceleration_mm_s2": 80.0,
+    "outcome": "Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.04; wrist_roll velocity at 4.160000s (interval 0.020000s))",
+    "joints": {
+      "shoulder_pan": {
+        "peak_velocity_deg_s": 28.53261644522822,
+        "peak_acceleration_deg_s2": 16.871558911645423,
+        "velocity_at_s": 4.14,
+        "acceleration_at_s": 4.96,
+        "velocity_phase_deg": 90.11414880014507,
+        "acceleration_phase_deg": 107.71052160814867
+      },
+      "shoulder_lift": {
+        "peak_velocity_deg_s": 21.965627191319808,
+        "peak_acceleration_deg_s2": 46.93818074092629,
+        "velocity_at_s": 2.64,
+        "acceleration_at_s": 4.32,
+        "velocity_phase_deg": 57.69189488484797,
+        "acceleration_phase_deg": 93.96464770274112
+      },
+      "elbow_flex": {
+        "peak_velocity_deg_s": 19.44405980971325,
+        "peak_acceleration_deg_s2": 45.051538709469696,
+        "velocity_at_s": 13.82,
+        "acceleration_at_s": 4.32,
+        "velocity_phase_deg": 307.5253720701841,
+        "acceleration_phase_deg": 93.96464770274112
+      },
+      "wrist_flex": {
+        "peak_velocity_deg_s": 15.883624359514023,
+        "peak_acceleration_deg_s2": 35.860469012882625,
+        "velocity_at_s": 2.22,
+        "acceleration_at_s": 4.4,
+        "velocity_phase_deg": 48.34633621236785,
+        "acceleration_phase_deg": 95.676967830976
+      },
+      "wrist_roll": {
+        "peak_velocity_deg_s": 59.67111420747258,
+        "peak_acceleration_deg_s2": 32.33469693340695,
+        "velocity_at_s": 4.16,
+        "acceleration_at_s": 4.7,
+        "velocity_phase_deg": 90.5419096554623,
+        "acceleration_phase_deg": 102.11019119563174
+      },
+      "pen_pitch": {
+        "peak_velocity_deg_s": 12.30894925751112,
+        "peak_acceleration_deg_s2": 50.94336997316387,
+        "velocity_at_s": 5.08,
+        "acceleration_at_s": 4.32,
+        "velocity_phase_deg": 110.3061705082305,
+        "acceleration_phase_deg": 93.96464770274112
+      }
+    }
+  },
+  {
+    "tcp_speed_mm_s": 18.0,
+    "tcp_acceleration_mm_s2": 80.0,
+    "outcome": "Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.17; wrist_roll velocity at 3.740000s (interval 0.020000s))",
+    "joints": {
+      "shoulder_pan": {
+        "peak_velocity_deg_s": 32.099193500881704,
+        "peak_acceleration_deg_s2": 21.35306674623384,
+        "velocity_at_s": 3.72,
+        "acceleration_at_s": 4.44,
+        "velocity_phase_deg": 90.18420985584834,
+        "acceleration_phase_deg": 107.5652974712817
+      },
+      "shoulder_lift": {
+        "peak_velocity_deg_s": 24.71133059023452,
+        "peak_acceleration_deg_s2": 59.58466063930868,
+        "velocity_at_s": 2.38,
+        "acceleration_at_s": 3.88,
+        "velocity_phase_deg": 57.59870200157314,
+        "acceleration_phase_deg": 94.0347445617764
+      },
+      "elbow_flex": {
+        "peak_velocity_deg_s": 21.8745726173097,
+        "peak_acceleration_deg_s2": 57.288249871657975,
+        "velocity_at_s": 12.32,
+        "acceleration_at_s": 3.88,
+        "velocity_phase_deg": 307.48696913238933,
+        "acceleration_phase_deg": 94.0347445617764
+      },
+      "wrist_flex": {
+        "peak_velocity_deg_s": 17.868993320453285,
+        "peak_acceleration_deg_s2": 45.38590604629102,
+        "velocity_at_s": 2.02,
+        "acceleration_at_s": 3.96,
+        "velocity_phase_deg": 48.588235609265105,
+        "acceleration_phase_deg": 95.96121476573592
+      },
+      "wrist_roll": {
+        "peak_velocity_deg_s": 67.13000348341049,
+        "peak_acceleration_deg_s2": 40.67304630508095,
+        "velocity_at_s": 3.74,
+        "acceleration_at_s": 4.210307434,
+        "velocity_phase_deg": 90.665442072121,
+        "acceleration_phase_deg": 101.99999998999513
+      },
+      "pen_pitch": {
+        "peak_velocity_deg_s": 13.847567914702287,
+        "peak_acceleration_deg_s2": 64.77107278772591,
+        "velocity_at_s": 4.5600000000000005,
+        "acceleration_at_s": 3.88,
+        "velocity_phase_deg": 110.48547140531011,
+        "acceleration_phase_deg": 94.0347445617764
+      }
+    }
+  },
+  {
+    "tcp_speed_mm_s": 18.0,
+    "tcp_acceleration_mm_s2": 20.0,
+    "outcome": "Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 1.17; wrist_roll velocity at 4.260000s (interval 0.020000s))",
+    "joints": {
+      "shoulder_pan": {
+        "peak_velocity_deg_s": 32.09919350088102,
+        "peak_acceleration_deg_s2": 21.353066747935294,
+        "velocity_at_s": 4.26,
+        "acceleration_at_s": 4.98,
+        "velocity_phase_deg": 90.42136602910965,
+        "acceleration_phase_deg": 107.80478273918277
+      },
+      "shoulder_lift": {
+        "peak_velocity_deg_s": 24.711330590234606,
+        "peak_acceleration_deg_s2": 59.55057195238382,
+        "velocity_at_s": 2.92,
+        "acceleration_at_s": 4.4,
+        "velocity_phase_deg": 57.84329064241444,
+        "acceleration_phase_deg": 93.79055141852284
+      },
+      "elbow_flex": {
+        "peak_velocity_deg_s": 21.87456728592809,
+        "peak_acceleration_deg_s2": 57.244067974790596,
+        "velocity_at_s": 12.86,
+        "acceleration_at_s": 4.4,
+        "velocity_phase_deg": 307.7339753717501,
+        "acceleration_phase_deg": 93.79055141852284
+      },
+      "wrist_flex": {
+        "peak_velocity_deg_s": 17.869077404453318,
+        "peak_acceleration_deg_s2": 45.38590580491367,
+        "velocity_at_s": 2.54,
+        "acceleration_at_s": 4.48,
+        "velocity_phase_deg": 48.33205510543541,
+        "acceleration_phase_deg": 95.71687606802594
+      },
+      "wrist_roll": {
+        "peak_velocity_deg_s": 67.13000348340762,
+        "peak_acceleration_deg_s2": 40.726091246044476,
+        "velocity_at_s": 4.26,
+        "acceleration_at_s": 4.74,
+        "velocity_phase_deg": 90.42136602910965,
+        "acceleration_phase_deg": 101.98909412148622
+      },
+      "pen_pitch": {
+        "peak_velocity_deg_s": 13.84755954679036,
+        "peak_acceleration_deg_s2": 64.7165005820898,
+        "velocity_at_s": 5.08,
+        "acceleration_at_s": 4.4,
+        "velocity_phase_deg": 110.23823640175684,
+        "acceleration_phase_deg": 93.79055141852284
+      }
+    }
+  }
+]

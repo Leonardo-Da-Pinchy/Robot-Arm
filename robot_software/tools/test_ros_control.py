@@ -370,7 +370,7 @@ class HardwarePipeline(Pipeline, unittest.TestCase):
         import json
         deadline = time.monotonic()+5
         samples = []
-        while not samples and time.monotonic() < deadline:
+        while (not samples or not samples[-1].get('adapter_applied') or not samples[-1].get('servo_goals')) and time.monotonic() < deadline:
             for path in (self.folder/'ros_logs').glob('pinchy-motion-*.jsonl'):
                 samples = [json.loads(line) for line in path.read_text().splitlines()]
             if not samples: time.sleep(0.05)
@@ -380,6 +380,11 @@ class HardwarePipeline(Pipeline, unittest.TestCase):
         self.assertEqual(len(sample['commanded']), 6)
         self.assertEqual(len(sample['measured']), 6)
         self.assertEqual(len(sample['error_radians']), 6)
+        self.assertEqual(len(sample['reference_positions']),6)
+        for field in ('adapter_applied','servo_goals'):
+            self.assertIsNotNone(sample[field]);self.assertEqual(len(sample[field]['positions']),6)
+            self.assertGreater(sample[field]['stamp_ns'],0);self.assertLess(sample[field]['age_s'],.5)
+        self.assertEqual(sample['safety'],'READY')
 
     def test_05_stop_holds_command_with_large_feedback_lag_and_allows_next_move(self):
         from python_qt_binding.QtWidgets import QApplication
@@ -595,6 +600,34 @@ class HardwarePipeline(Pipeline, unittest.TestCase):
             if window.graph is not None: window.graph.close(); window.graph.timer.stop()
             window.timer.stop(); window.client.destroy(); window.executor.shutdown()
             window.deleteLater(); app.processEvents(); node.destroy_node()
+
+
+class NinetyDegreePipeline(Pipeline, unittest.TestCase):
+    hardware=True
+    hardware_velocity=math.radians(90)
+
+    def test_selected_ninety_cap_and_goal_readback_through_reversal(self):
+        from pinchy_bringup.control_contract import motion_duration
+        from rclpy.qos import qos_profile_sensor_data
+        samples=[]
+        sub=self.node.create_subscription(JointState,'/arm_diagnostics/servo_goal_positions',lambda m:samples.append(m),qos_profile_sensor_data)
+        try:
+            # Pen remains stationary; only the emulated shoulder-pan reverses.
+            first=[0.]*6;first[0]=-.4
+            h=self.goal([first],seconds=1.5);self.assertEqual(self.wait(h.get_result_async()).status,GoalStatus.STATUS_SUCCEEDED)
+            duration=motion_duration([.8],[math.radians(90)],math.radians(360))
+            goal=FollowJointTrajectory.Goal();goal.trajectory.joint_names=JOINTS
+            for values,t in [(first,0.),([.4,0.,0.,0.,0.,0.],duration)]:
+                point=JointTrajectoryPoint(positions=values,velocities=[0.]*6,accelerations=[0.]*6)
+                point.time_from_start.sec,point.time_from_start.nanosec=divmod(round(t*1e9),1_000_000_000);goal.trajectory.points.append(point)
+            h=self.wait(self.client.send_goal_async(goal));self.assertTrue(h.accepted);self.assertEqual(self.wait(h.get_result_async()).status,GoalStatus.STATUS_SUCCEEDED)
+            self.assertGreater(len(samples),15)
+            positions=[m.position[0] for m in samples];stamps=[m.header.stamp.sec+m.header.stamp.nanosec/1e9 for m in samples]
+            rates=[abs(b-a)/(tb-ta) for a,b,ta,tb in zip(positions,positions[1:],stamps,stamps[1:]) if .01<tb-ta<.1]
+            self.assertGreater(max(rates),math.radians(65),'Did not exercise the raised envelope')
+            self.assertLess(max(rates),math.radians(100),'Unexpected target discontinuity')
+            self.assertAlmostEqual(positions[-1],.4,delta=.01)
+        finally:self.node.destroy_subscription(sub)
 
 
 class UnloadedBenchPipeline(Pipeline, unittest.TestCase):

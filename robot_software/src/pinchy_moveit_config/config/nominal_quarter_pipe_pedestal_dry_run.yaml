@@ -1,0 +1,40 @@
+description: Proposed support for nominal simulation only; not measured or installed.
+  Original object, floor and TCP unchanged. Cylinder uses a 40 mm diameter pedestal;
+  panel support stays behind its drawing face; pipe uses an annular-sector pedestal
+  under its wall. Mounting, stability, tabletop/base wings and real clearances require
+  owner measurements.
+objects:
+- id: example_floor
+  frame: base_link
+  size:
+  - 1.2
+  - 1.2
+  - 0.04
+  center:
+  - 0.0
+  - 0.0
+  - -0.04
+- id: nominal_quarter_pipe
+  frame: base_link
+  type: quarter_pipe
+  inner_radius: 0.1
+  height: 0.1
+  wall_thickness: 0.004
+  angle_deg: 90.0
+  segments: 48
+  center:
+  - 0.25
+  - 0.1
+  - 0.22
+- id: nominal_fixture
+  frame: base_link
+  type: quarter_pipe
+  inner_radius: 0.099
+  height: 0.02
+  wall_thickness: 0.006
+  angle_deg: 90.0
+  segments: 48
+  center:
+  - 0.25
+  - 0.1
+  - 0.16

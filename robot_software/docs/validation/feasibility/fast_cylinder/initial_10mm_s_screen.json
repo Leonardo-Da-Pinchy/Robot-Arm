@@ -1,0 +1,10 @@
+{
+  "candidates": 4,
+  "reasons": [
+    "Interpolated trajectory exceeds wrist_flex bounds",
+    "Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 2.87; wrist_flex acceleration at 24.240000s (interval 0.001704s))",
+    "Interpolated trajectory exceeds wrist_flex bounds",
+    "Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least 3.17; wrist_flex acceleration at 2.400000s (interval 0.010192s))"
+  ],
+  "elapsed": 72.27467851599795
+}

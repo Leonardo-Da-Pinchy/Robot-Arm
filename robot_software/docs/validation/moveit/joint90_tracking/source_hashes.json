@@ -1,0 +1,14 @@
+{
+  "src/pinchy_bringup/pinchy_bringup/control_contract.py": "8138593d28ef842cfd4c138baf6dfe17907098b300df1b28d778596a4498a49a",
+  "src/pinchy_bringup/scripts/motion_monitor.py": "4dc12b826081e1b2db130c9aeb10c85102b793ea3da9552fe039edd6bb11d00f",
+  "src/pinchy_description/urdf/pinchy_arm.urdf": "bfdb3728e5cd946bf054af3119690f34acee0169da9161a783190c5ab61d9b42",
+  "src/pinchy_hardware/src/feetech_system.cpp": "c75bd9f0a1ad5f604fd93449e056c9380ab4756a0af1d649b1db57d7c547535d",
+  "src/pinchy_hardware/include/pinchy_hardware/feetech_system.hpp": "2323c7fba2f7042448fa1ef986991717fabb6eeac7132921b91e2edd4bfdb3cf",
+  "tools/analyze_motion_tracking.py": "a7f1dd1662842320faf6df37f8c9ecf0184e67a240e02e53388561c4cdd21315",
+  "tools/test_motion_tracking.py": "5f33894c4f7d49573a8def93ca432eb5b746d28e975609800df3beaf4498aae3",
+  "tools/test_motion_monitor.py": "b5b29232ee1f3d298e81115b48ce5c8782be8d5a7f00a33006d3d7a4b0e90561",
+  "tools/qualify_nominal_paths.py": "6218b682b2a669f7be38fc773fd86507049968db74f9b1607a0f1eebabbf52be",
+  "tools/qualify_continuous_execution.py": "98c071ae6f6c1cb08cb14c4fa7f916ff69e4ed6c26548b7bc5d3021defd8673f",
+  "calibration/arm.json": "471c5692b0f8640c1f65404d4ed59d8bf7325bce6fec91a4439ee84a60fe09d7",
+  "tools/build_arm_model.py": "954707d69e51504f275e1ef0feae1e57e05cbd964c3c59e762643905e8c38172"
+}

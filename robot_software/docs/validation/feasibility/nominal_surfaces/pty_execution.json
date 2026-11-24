@@ -1,0 +1,46 @@
+{
+  "success": true,
+  "hardware": "PTY emulator",
+  "physical_motors_moved": false,
+  "requested_tcp_speed_m_s": 0.003,
+  "live_reference_min_m_s": 0.0029860683126011174,
+  "live_reference_max_m_s": 0.0030118551350537524,
+  "cruise_samples": 2807,
+  "interior_waypoints_checked": 39,
+  "minimum_interior_waypoint_speed_m_s": 0.0029860683126011174,
+  "max_normal_error_deg": 0.11873061541302357,
+  "stand_off_range_m": [
+    0.004999624181224467,
+    0.005000292602761837
+  ],
+  "encoder_model_xyz_span_m": [
+    0.009041236784780637,
+    0.05357039994902327,
+    0.0516505366439918
+  ],
+  "endpoint_result": "Controller completed; encoder/model TCP residual: 0.39 mm, 0.06 deg. Independent physical tip accuracy is not measured.",
+  "consumed_plan_replay_rejected": true,
+  "offline_metrics": {
+    "trace_interval_s": [
+      4.132462091,
+      60.93710293600001
+    ],
+    "cruise_interval_s": [
+      4.368081540019308,
+      60.70148348698069
+    ],
+    "sampled_cruise_min_m_s": 0.0029860543035472816,
+    "sampled_cruise_max_m_s": 0.003012302853979583,
+    "min_cruise_speed_ratio": 0.9953514345157605,
+    "max_normal_error_deg": 0.11873231417092135,
+    "minimum_tcp_stand_off_m": 0.004999626491179826,
+    "maximum_tcp_stand_off_m": 0.005000292598503368,
+    "xyz_span_m": [
+      0.008771782024658836,
+      0.053385987171356106,
+      0.050799999999999984
+    ]
+  },
+  "point_set_file": "/home/leo/Robot-Arm/robot_software/src/pinchy_motion/examples/point_sets/04_cylinder_continuous_2in.json",
+  "point_set_sha256": "9005b0dff817d3094b1ffc470f8c0c3c3454591d50eb76d27e713f43760d2645"
+}

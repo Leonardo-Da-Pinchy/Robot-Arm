@@ -149,15 +149,15 @@ TEST(Hardware, ExplicitCalibrationAndUniqueIDs)
   h = info("/does/not/exist"); h.joints[1].parameters["servo_id"] = "1";
   FeetechSystem third; EXPECT_EQ(third.on_init(h), CallbackReturn::ERROR);
 }
-TEST(Hardware, DoubledOperatingEnvelopeAccepted)
+TEST(Hardware, EstimatedOperatingEnvelopeAccepted)
 {
   Bus bus; auto h = info(bus.path);
   h.hardware_parameters["speed"] = "1000";
   h.hardware_parameters["acceleration"] = "64";
-  for (auto & joint : h.joints) joint.parameters["max_velocity"] = "1.0471975511965976";
+  for (auto & joint : h.joints) joint.parameters["max_velocity"] = "1.6081463727875753";
   FeetechSystem hw; EXPECT_EQ(hw.on_init(h), CallbackReturn::SUCCESS);
-  Calibration c{1, 2048, 1, 1024, 3072, -1, 1, 1.0471975511965976};
-  EXPECT_NO_THROW(c.validate()); c.max_velocity = 1.05;
+  Calibration c{1, 2048, 1, 1024, 3072, -1, 1, 1.6081463727875753};
+  EXPECT_NO_THROW(c.validate()); c.max_velocity = 1.6181463727875753;
   EXPECT_THROW(c.validate(), std::runtime_error);
 }
 TEST(Hardware, StartupAtActualPositionSyncAndRelease)

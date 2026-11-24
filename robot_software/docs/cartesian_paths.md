@@ -165,3 +165,22 @@ Execute controls. **Fixed TCP rotations + approach** explicitly plans a pen-up
 approach to the first pose and checks constant modeled XYZ during subsequent
 full-orientation rotations. See [saved point sets](point_sets.md) for the saved
 seven-point session list, examples, file format and read-only queue-export CLI.
+
+Planning now exposes live elapsed time, stage counts/percentages and approximate
+stage time remaining in the Cartesian window. See [planning progress](planning_progress.md).
+
+
+`style: spline_axis` explicitly adds smooth unit pen-direction interpolation to
+the existing natural cubic XYZ spline in pen-direction mode. Existing `spline`
+files retain segmentwise S2 interpolation; full RPY remains SLERP. Degenerate
+smooth directions reject. Whole-stroke timing, interpolation, collision and
+normal checks still apply. Example 07 demonstrates the new mode; see the
+[larger cylinder test](continuous_cylinder_test.md#larger-faster-example).
+
+
+`PlanPath.tcp_min_speed > 0` now explicitly selects bounded TCP timing; zero
+retains fixed-speed behavior. The positive interior minimum must be below
+`tcp_speed`, which becomes the upper bound. Scene/model/start checks and Execute
+semantics are unchanged. The response's `speed_range_report_json` contains
+per-trace achieved/mean speed, slowdown locations and solver timing. See the
+[bounded-speed contract](bounded_speed_proposal.md).

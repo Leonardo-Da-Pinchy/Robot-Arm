@@ -1,0 +1,8 @@
+{
+  "tools/estimate_operating_envelope.py": "d7b6b3cac2411f78ff2ea261c530d0ad57d52b7f22c59947f200cb181578983d",
+  "src/pinchy_bringup/pinchy_bringup/control_contract.py": "06f38c627efee4bbd159d78ccd4b38b02ed94eb38f16d43c82594037ac6f1b39",
+  "src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+  "src/pinchy_hardware/src/feetech_system.cpp": "6eceb85fcb3c7a3e540ca647fe6f88856dcff1b24fb677a6474971b61a5cd491",
+  "tools/build_arm_model.py": "60460d5c76f2f8fdc53ce7cd67e7f18682cfa7229d3438af0b55993ce3c62942",
+  "calibration/arm.json": "785a791dc9586cf62ad27a86cca14614c243e25f92a64196f1ee0530a7a42b49"
+}

@@ -9,6 +9,24 @@ from pinchy_bringup.control_contract import JOINTS
 from pinchy_motion.feasibility import axis_frame,CylinderArc,posture_metrics,twist_family,speed_envelope
 
 class FeasibilityTests(unittest.TestCase):
+    def test_wrist_bound_never_rejects_fk_generated_reachable_poses(self):
+        from pinchy_motion.feasibility import wrist_reach_bound
+        _,solver=calibrated_solver()
+        for q in np.random.default_rng(121).uniform(solver.lower,solver.upper,(100,6)):
+            result=wrist_reach_bound(solver,solver.evaluate(q)[0])
+            self.assertFalse(result['certainly_outside_wrist_reach'])
+        self.assertAlmostEqual(result['axial_tool_offset_m'],.149,places=9)
+        self.assertAlmostEqual(result['perpendicular_tool_offset_m'],.0188,places=9)
+
+    def test_current_cylinder_far_side_exceeds_even_unrestricted_link_reach(self):
+        from pinchy_motion.feasibility import wrist_reach_bound,axis_frame
+        from pinchy_motion.nominal_paths import surface_pose
+        _,solver=calibrated_solver()
+        for angle in (75.,90.):
+            p,d=surface_pose('cylinder',[.4,.1,.22],.04*np.radians(angle),0.)
+            result=wrist_reach_bound(solver,axis_frame(p,d))
+            self.assertTrue(result['certainly_outside_wrist_reach']);self.assertGreater(result['excess_m'],.01)
+
     def test_direction_frame_is_right_handed_and_normalized(self):
         for d in ([1,0,0],[0,0,1],[0,0,-3],[1,2,3]):
             frame=axis_frame([.3,0,.2],d);np.testing.assert_allclose(frame[:3,:3].T@frame[:3,:3],np.eye(3),atol=1e-12)
@@ -85,7 +103,7 @@ class FeasibilityTests(unittest.TestCase):
         target=solver.evaluate([.1,-.25,.5,-.25,.4,.4])[0]
         failure=TraceIncomplete('incomplete trace',.005,.004,[0.]*6,target)
         fake=SimpleNamespace(ik_solver=solver,root=root,limits=limits,stop_requested=False,model_changed=False,
-            request_id='test',position_diagnostic_valid=lambda q:True,get_logger=lambda:Mock())
+            request_id='test',planning_step=Mock(),position_diagnostic_valid=lambda q:True,get_logger=lambda:Mock())
         pose=PoseStamped();pose.pose.position.x=.3;pose.pose.position.z=.2;pose.pose.orientation.w=1.
         with patch('pinchy_motion.server.select_trace',side_effect=failure):
             with self.assertRaisesRegex(RuntimeError,'DOES have collision-checked IK in another configuration'):

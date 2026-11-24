@@ -33,3 +33,12 @@ This records design choices only. It does not install collision objects into a
 live scene, change calibration or safety behavior, authorize physical movement,
 or close roadmap steps 11–12. Use the canonical [roadmap](implementation_roadmap.md)
 and [motion-feasibility investigation](motion_feasibility.md) for next work.
+
+
+[Proposed support concepts and expanded software evidence](validation/feasibility/surface_gate/validation.md)
+are now available. They retain these object dimensions and are not approved
+physical fixtures or placements. The plane and quarter pipe have full-width
+boundary witnesses over 90 mm interior height; the cylinder's tested band is
+120° (−75°…+45° at its assumed placement). Full front-180° requires a reviewed
+placement/tool change or an explicit scope decision; it has not been accepted
+as a smaller requirement automatically.

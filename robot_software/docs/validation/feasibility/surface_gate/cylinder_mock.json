@@ -1,0 +1,54 @@
+{
+  "success": true,
+  "surface": "cylinder",
+  "retract": {
+    "success": true,
+    "distance_m": 0.01,
+    "duration_s": 3.568952782,
+    "message": "Controller completed; encoder/model TCP residual: 0.00 mm, 0.00 deg. Independent physical tip accuracy is not measured."
+  },
+  "hardware": "mock",
+  "physical_motors_moved": false,
+  "point_set_file": "/tmp/step12-cylinder-offset-band/cylinder/lower_horizontal.json",
+  "point_set_sha256": "58a716ec152c5bb5023cc4f485e2f941c58c0d40e2b6bda7fceb1afe37fd2399",
+  "requested_tcp_speed_m_s": 0.003,
+  "live_reference_min_m_s": 0.002942914260737103,
+  "live_reference_max_m_s": 0.003062530819933309,
+  "cruise_samples": 1549,
+  "interior_waypoints_checked": 29,
+  "minimum_interior_waypoint_speed_m_s": 0.002966656983261606,
+  "max_normal_error_deg": 0.017707255572824973,
+  "stand_off_range_m": [
+    0.004989158448919347,
+    0.0050028830720926926
+  ],
+  "encoder_model_xyz_span_m": [
+    0.03272500952704166,
+    0.07459232623560991,
+    4.317925360236563e-06
+  ],
+  "endpoint_result": "Controller completed; encoder/model TCP residual: 0.00 mm, 0.00 deg. Independent physical tip accuracy is not measured.",
+  "consumed_plan_replay_rejected": true,
+  "offline_metrics": {
+    "trace_interval_s": [
+      4.703514169,
+      36.354741086000004
+    ],
+    "cruise_interval_s": [
+      4.9391336180222805,
+      36.119121636977724
+    ],
+    "sampled_cruise_min_m_s": 0.002942783618766949,
+    "sampled_cruise_max_m_s": 0.003062651806228944,
+    "min_cruise_speed_ratio": 0.9809278729223164,
+    "max_normal_error_deg": 0.01771564973552414,
+    "minimum_tcp_stand_off_m": 0.0049891589201927836,
+    "maximum_tcp_stand_off_m": 0.005002884218027331,
+    "xyz_span_m": [
+      0.03335314236779813,
+      0.07528639840331565,
+      4.323571217101918e-06
+    ]
+  },
+  "original_artifact_dir": "/tmp/pinchy-cartesian-tests-ju_ceoxv"
+}

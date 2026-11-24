@@ -35,12 +35,12 @@ def normalize(data,bounds=None,allow_empty=False):
         raise ValueError('Point-set units must be metres and degrees')
     mode=data.get('orientation_mode','tool_axis');style=data.get('style','visits')
     if mode not in ('full','tool_axis','position'):raise ValueError('Unknown orientation mode')
-    if style not in ('visits','polyline','spline','fixed_tcp'):raise ValueError('Unknown point-set path style')
+    if style not in ('visits','polyline','spline','spline_axis','fixed_tcp'):raise ValueError('Unknown point-set path style')
     points=data.get('waypoints')
     if not isinstance(points,list) or not (0 if allow_empty else 1)<=len(points)<=80:raise ValueError('Point set needs 1..80 waypoints')
     result=dict(schema_version=1,name=str(data.get('name','Point set')),frame='base_link',tcp_frame='pointer_tip',
         units={'position':'m','orientation':'deg'},orientation_mode=mode,style=style,waypoints=[])
-    for field,default in [('allow_contact_ramps',False),('plan_pen_up_approach',False)]:
+    for field,default in [('allow_contact_ramps',False),('plan_pen_up_approach',False),('enforce_tcp_speed',False)]:
         value=data.get(field,default)
         if not isinstance(value,bool):raise ValueError(field+' must be true or false')
         result[field]=value
@@ -49,6 +49,11 @@ def normalize(data,bounds=None,allow_empty=False):
         ('joint_acceleration_deg_s2',180.,.1,math.degrees(MAX_ACCELERATION)),
         ('tcp_speed_m_s',.02,.001,MAX_TCP_SPEED),('tcp_acceleration_m_s2',.05,.001,MAX_TCP_ACCELERATION)]:
         result[field]=number(data.get(field,default),field,low,high)
+    result['tcp_min_speed_m_s']=number(data.get('tcp_min_speed_m_s',0.),'Minimum TCP speed',0.,MAX_TCP_SPEED)
+    if result['tcp_min_speed_m_s']:
+        if result['tcp_min_speed_m_s']<.001:raise ValueError('Positive minimum TCP speed must be at least 1 mm/s')
+        if result['tcp_min_speed_m_s']>=result['tcp_speed_m_s']:raise ValueError('Minimum TCP speed must be below maximum')
+        if style not in ('polyline','spline','spline_axis'):raise ValueError('TCP speed range requires a continuous trace')
     for index,point in enumerate(points):
         if not isinstance(point,dict):raise ValueError('Each waypoint must be an object')
         if point.get('frame','base_link')!='base_link':raise ValueError('Waypoint frame must be base_link')
@@ -77,6 +82,8 @@ def normalize(data,bounds=None,allow_empty=False):
         if result['plan_pen_up_approach']:raise ValueError('Fixed-TCP rotation includes its own approach')
         if points and any(np.linalg.norm(np.asarray(p['xyz'])-result['waypoints'][0]['xyz'])>1e-6 for p in result['waypoints']):
             raise ValueError('Fixed-TCP rotation waypoints must share one XYZ')
+    if result['enforce_tcp_speed'] and style not in ('polyline','spline','spline_axis'):
+        raise ValueError('Required TCP cruise speed needs a continuous trace style')
     for field in ('notes','source'):
         if field in data:result[field]=data[field]
     json.dumps(result,allow_nan=False)

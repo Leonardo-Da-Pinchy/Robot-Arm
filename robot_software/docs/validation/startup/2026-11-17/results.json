@@ -1,0 +1,52 @@
+{
+  "tests_passed": 37,
+  "elapsed_s": 152.433,
+  "physical_motors_moved": false,
+  "command": "PYTHONPATH=tools .venv/bin/python -m unittest test_start_arm",
+  "dashboard_artifacts": [
+    {
+      "folder": "/tmp/pinchy-dashboard-test-8z299ncg",
+      "initial_positions": {
+        "1": 2058,
+        "2": 2058,
+        "3": 2058,
+        "4": 2058,
+        "5": 2058,
+        "6": 2058
+      }
+    },
+    {
+      "folder": "/tmp/pinchy-dashboard-test-mspge4e1",
+      "initial_positions": {
+        "1": 3186,
+        "2": 2058,
+        "3": 2058,
+        "4": 2058,
+        "5": 2058,
+        "6": 2058
+      }
+    },
+    {
+      "folder": "/tmp/pinchy-dashboard-test-wej90d5j",
+      "initial_positions": {
+        "1": 2058,
+        "2": 2058,
+        "3": 2058,
+        "4": 2058,
+        "5": 2058,
+        "6": 2058
+      }
+    },
+    {
+      "folder": "/tmp/pinchy-dashboard-test-l5tpu6nu",
+      "initial_positions": {
+        "1": 2058,
+        "2": 2058,
+        "3": 2058,
+        "4": 2058,
+        "5": 2058,
+        "6": 2058
+      }
+    }
+  ]
+}

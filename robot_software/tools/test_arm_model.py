@@ -58,7 +58,7 @@ class ModelTests(unittest.TestCase):
             if source.get('type') == 'revolute':
                 for bound in ['lower', 'upper']:
                     self.assertEqual(joint.find('limit').get(bound), source.find('limit').get(bound))
-                self.assertAlmostEqual(float(joint.find('limit').get('velocity')), math.radians(30), places=12)
+                self.assertAlmostEqual(float(joint.find('limit').get('velocity')), math.radians(92.14), places=12)
 
     def test_nominal_zero_tip_matches_supplied_validation(self):
         expected = json.loads((CAD / 'transform_validation.json').read_text())['base_link_to_pen_tip_at_all_zero_m']

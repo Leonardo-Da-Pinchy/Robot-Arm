@@ -1,0 +1,19 @@
+{
+  "src/pinchy_motion/pinchy_motion/speed_range.py": "0abdf8376b646c6271869c134200f000e9ba2943d2f3efb6cbae6e79c53f9d4d",
+  "src/pinchy_motion/pinchy_motion/paths.py": "898fa4795f7a956525f44ac39e870bc4d226d367acaecdfcf821abd65f14d2f1",
+  "src/pinchy_motion/pinchy_motion/server.py": "0f74862d959071eb18c165a8e38bb82c9991b78ff284098d3006c7e2874506e7",
+  "src/pinchy_motion/pinchy_motion/panel.py": "2b1067244a29a17a60a6b741a89a10fce3b17803f03555a3473ead667e72ad3b",
+  "src/pinchy_motion/pinchy_motion/point_sets.py": "22672c16bc98d4a09125993d183c1b0beb42e265e660f9debce4a5648ca8d7f7",
+  "src/pinchy_motion/pinchy_motion/cli.py": "a72c0d4fb51f0eef50ae1b5f2fbd89bea46f86229d422a0bf4665dfc3d7206a0",
+  "src/pinchy_motion/pinchy_motion/nominal_paths.py": "fc2595c1ad499e55e045c7a2bef191902d3d314fdbe56edbf8d4c85e7eb71e1e",
+  "src/pinchy_motion_interfaces/srv/PlanPath.srv": "a81968b937f01f42895efabed4629973199e9aa437c443bcf8584f1bb5f04f69",
+  "src/pinchy_motion/examples/point_sets/08_cylinder_tcp_speed_range.json": "ddde7f2261f2f0e51401b348b7c0a68d12d17a0ca1910c195699c1e38ab55642",
+  "src/pinchy_bringup/pinchy_bringup/control_contract.py": "06f38c627efee4bbd159d78ccd4b38b02ed94eb38f16d43c82594037ac6f1b39",
+  "src/pinchy_description/urdf/pinchy_arm.urdf": "5f39c17be0bcb8846fbca103dc8d2207ae8a55dc9cf3748e044079de59ddb630",
+  "src/pinchy_hardware/src/feetech_system.cpp": "6eceb85fcb3c7a3e540ca647fe6f88856dcff1b24fb677a6474971b61a5cd491",
+  "src/pinchy_moveit_config/config/drawing_motion_policy.yaml": "b118e442ccc39340fc97ed74547465928d1af356ba64232f69d6c042d21bd14e",
+  "calibration/arm.json": "785a791dc9586cf62ad27a86cca14614c243e25f92a64196f1ee0530a7a42b49",
+  "tools/qualify_continuous_execution.py": "3c2333c314d1c6c9f303cd9c75d9d477bd74df156a4170e2c2e6b64852a29665",
+  "tools/test_bounded_speed_system.py": "5ccd03575e85c90778853ea84b5ecd1332d24ddd5b05046f34e7d1271b39b1c3",
+  "tools/test_speed_range.py": "f611c519baa7326c74cc4c0c1ba9a912ff836109d42f81f14d93bc6f529dcbc5"
+}

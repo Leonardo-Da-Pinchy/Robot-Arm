@@ -1,0 +1,7 @@
+{
+  "tools/start_arm.py": "9bdf2d95422c90ffae7d5b24e3d2a089b0fab540a9406e973320f44f73ad7ec5",
+  "tools/startup_dashboard.py": "79bff102f99c3a54dd03daa9fc89050c15955214a1d5046d5b5049ccf065eb52",
+  "tools/test_start_arm.py": "81b6cd4efb20d2ebe6e2f41bc32b4889d81bf09e76bd055c94dd2e2e82868b97",
+  "calibration/arm.json": "99a78eeb73271c97654f444674dd4b5a79d0c8fa0fb7ec407113d626459d97b9",
+  "src/pinchy_description/config/startup_policy.json": "f2a1df15a21e21dc4175192c7b956d8dd4c738714bae24e021295917cc59abdf"
+}

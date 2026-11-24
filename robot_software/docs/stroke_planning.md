@@ -34,8 +34,8 @@ current explicit curve/lift/corner handling; do not hide corner blending.
 
 ## Implemented planning options
 
-`PlanPath` keeps its existing fixed-held-start tracing by default. Two opt-in
-fields expose stroke setup and the clarified endpoint-ramp policy:
+`PlanPath` keeps its existing fixed-held-start tracing by default. Three opt-in
+fields expose stroke setup, endpoint ramps and strict dry-run timing:
 
 - `plan_pen_up_approach: true`: waypoint 0 is the trace start; its incoming
   contact label must be false. Search starting IK configurations against the
@@ -49,7 +49,11 @@ fields expose stroke setup and the clarified endpoint-ramp policy:
   Ramp-only short strokes are explicitly reported. Joint limits remain strict;
   contact trajectories are not uniformly slowed behind the caller's back.
 
-Both fields are available in the JSON CLI and panel. Rebuild interface and
+- `enforce_tcp_speed: true`: require the requested cruise speed for a continuous
+  pen-up dry run too. Reject hidden slowdown, short ramp-only traces and sharp
+  polyline corners. Report checked cruise extrema and trace/cruise time windows.
+
+All three fields are available in the JSON CLI and panel. Rebuild interface and
 motion packages, then restart the planning server, panel and other interface
 clients together. Do not automatically restart physical bringup. Physical
 contact-tagged requests remain disabled pending tool/contact qualification.
@@ -58,6 +62,8 @@ contact-tagged requests remain disabled pending tool/contact qualification.
 of a complete branch, exact task reprojection and adaptive jump checks. The
 start-search option can change the initial configuration because a checked
 pen-up route is included; ordinary fixed-start traces retain the exact start.
+An interior bottleneck can also seed a candidate connected backward and forward
+along the same curve; only complete histories can proceed to validation.
 Start-candidate generation uses a separate cache so continuation history cannot
 consume its seed budget. Optimization uses the actual spacing between samples,
 and dense exact reprojection controls nonlinear FK/speed error. The joint spline
@@ -84,3 +90,17 @@ result; measure the installed tool and update model/collision geometry together.
 
 See [nominal geometries](nominal_geometries.md), [motion feasibility](motion_feasibility.md)
 and the canonical [roadmap](implementation_roadmap.md).
+
+The [two-inch cylinder test](continuous_cylinder_test.md) provides an executable
+continuous dry run and repeatable live-controller speed qualification.
+
+
+## Bounded-speed timing
+
+November 22: the owner authorized implementation of the optional minimum/maximum
+TCP range. It is now implemented in planner, panel, saved point sets and CLI;
+fixed speed remains the default. See [the implemented contract](bounded_speed_proposal.md).
+Range mode permits smooth interior speed variation only inside its explicit
+band; it does not permit waypoint stops, a hidden lower minimum, changed
+geometry/normals or altered safety behavior. Endpoint-ramp exceptions remain
+explicit, and physical contact remains disabled pending qualification.

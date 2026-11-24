@@ -1,0 +1,7 @@
+..........
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-3waegtmw
+...
+----------------------------------------------------------------------
+Ran 13 tests in 18.763s
+
+OK

@@ -1,6 +1,6 @@
 # Final-product roadmap
 
-Updated November 15, 2026. This is the current ordered plan through the finished
+Updated November 22, 2026. This is the current ordered plan through the finished
 product, superseding the older checkpoint-only task list. The owner reports
 that the assembled arm, startup, ROS control and sliders worked well for the
 demos. This confirms demonstrated operation; it does not establish measured
@@ -123,7 +123,7 @@ SVG pen-down subpath is intended as one continuous motion; see the
 The [versioned drawing policy](../src/pinchy_moveit_config/config/drawing_motion_policy.yaml)
 records this requirement. Qualified speed/variation are TBD; the implemented
 ordered-path interface validates modeled contact timing in mock, while physical
-contact execution remains disabled pending qualification. Steps 8 and 12–17 must
+contact execution remains disabled pending qualification. Steps 12–17 and verification steps 23–24 must
 establish measured drawing behavior. See [ordered paths](cartesian_paths.md).
 
 ## Ordered work through completion
@@ -152,8 +152,8 @@ measurements have already passed.
 | 8 | ✅ **Complete — owner accepted** | **Hardware qualification** — Accepted for moving forward; remaining measurements carried into verification steps 23–24. |
 | 9 | ✅ **Software complete — current model** | **MoveIt setup** — IK, collision planning and controller integration implemented; final scene geometry pending. |
 | 10 | ✅ **Complete — owner accepted** | **Poses and saved points** — Functional workflow accepted for moving forward; refinements and physical measurements continue through steps 23–24. [Usage](point_sets.md). |
-| 11 | 🟨 **Software implemented — qualification pending** | **Continuous strokes** — Whole-stroke configuration search and speed/normal checks implemented; two broad arcs pass at 3 mm/s in mock. Physical contact/coverage unqualified. |
-| 12 | 🔜 **Next — feasibility gate / geometry pending** | **Drawing feasibility** — Add objects/fixtures, choose placement and validate complete strokes/lifts across the three geometries. Full coverage remains unqualified. |
+| 11 | ✅ **Software complete — dry-run tested** | **Continuous strokes** — Fixed-speed and explicit TCP speed ranges pass mock/PTY tests; physical drawing/tracking remain unqualified. [Timing](bounded_speed_proposal.md). |
+| 12 | 🟨 **Partial — setup/coverage decision pending** | **Drawing feasibility** — Proposed supports, nine complete paths and six system executions pass; current cylinder placement cannot cover 180°. [Results](validation/feasibility/surface_gate/validation.md). |
 | 13 | ⬜ **Remaining — pen needed** | **Pen calibration** — Install pen; measure tip, axis and compliance; update the tool model. |
 | 14 | ⬜ **Remaining** | **Surface mapping** — Map lines/curves onto the plane, cylinder and quarter pipe, including normals and pen-up transitions. |
 | 15 | ⬜ **Remaining** | **SVG import** — Handle units, transforms and curves; preserve strokes and reject unsupported input. |
@@ -275,8 +275,18 @@ repeatability still need operator checks. Guided startup has a ±90° outer
 capture window clipped to saved/CAD ranges, with the same bounded ramp and
 powered-hold monitoring. See the IK investigation for the recapture evidence.
 
-The immediate software priority remains **steps 11–12**: qualify IK routing and
-whole-stroke continuity under the contact-speed policy before other feature work.
+The immediate priority is **step 12**: review the proposed physical supports and
+resolve the front-180° requirement. Nine boundary/height paths and six complete
+mock/driver-emulator executions now pass with proposed supports. At the current
+cylinder placement a necessary reach bound rules out part of the requested
+front 180°; a 58-placement search and 48-start coupled placement/configuration
+optimization did not establish an alternative. Neither is a global proof.
+See the [expanded gate evidence](validation/feasibility/surface_gate/validation.md).
+Measured tool/table/fixture/base-wing geometry and a placement/tool change or
+explicit coverage decision are still needed before treating the gate as closed. Step 11 now
+passes continuous cylinder execution on mock and PTY at 3 mm/s, with every
+interior waypoint traversed at speed; physical speed/contact measurements
+remain in steps 13 and 23–24.
 Whole-stroke optimization and explicit start selection now resolve the two
 recorded broad cases at 3 mm/s with gentler ramps; they do not establish full
 drawing coverage or physical qualification. Steps 9–10 now provide the software pose

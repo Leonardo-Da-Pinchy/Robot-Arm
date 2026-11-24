@@ -6,7 +6,11 @@ string orientation_mode
 # Empty style defaults to visits for pen-up requests, polyline for contact.
 # fixed_tcp: pen-up approach to point 0, then full-pose rotations at one XYZ.
 string style
+# Fixed cruise when tcp_min_speed is zero; upper band bound otherwise.
 float64 tcp_speed
+# Zero retains fixed-speed behavior. Positive explicitly enables [min, tcp_speed].
+# Interior speed floor is strict; endpoint ramps remain explicit exceptions.
+float64 tcp_min_speed
 float64 tcp_acceleration
 # One label for each current/previous -> waypoint segment. Empty means all pen-up.
 bool[] contact_segments
@@ -16,6 +20,10 @@ bool allow_contact_ramps
 # Explicitly route pen-up to waypoint 0, choosing its configuration for the
 # complete remaining trace. Segment 0 must be pen-up. Never implied by failure.
 bool plan_pen_up_approach
+# Keep requested TCP cruise speed on a continuous pen-up dry run too.
+# Joint-rate excess rejects the plan rather than silently slowing it.
+# A positive tcp_min_speed always enforces both band bounds, independently of this flag.
+bool enforce_tcp_speed
 float64 velocity_scaling
 float64 acceleration_scaling
 ---
@@ -28,3 +36,14 @@ geometry_msgs/PoseStamped resolved_target
 geometry_msgs/PoseStamped[] resolved_waypoints
 float64 modeled_contact_min_speed
 float64 modeled_contact_max_speed
+float64 modeled_cruise_min_speed
+float64 modeled_cruise_max_speed
+# Single-trace timing windows relative to the combined trajectory start.
+# In range mode, cruise denotes the band-checked interior, not constant velocity.
+# Zero when the request is stopped visits or has multiple separate trace legs.
+float64 trace_start_time
+float64 trace_end_time
+float64 cruise_start_time
+float64 cruise_end_time
+# Per-trace bounded-speed timing metrics and geometric slowdown locations.
+string speed_range_report_json

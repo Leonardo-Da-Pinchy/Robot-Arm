@@ -283,7 +283,8 @@ checks pass. The older screenshot request that needed about +95° now produces a
 complete collision-checked free-twist plan with the saved ranges in mock.
 The earlier motor-6 block above is historical, superseded by this capture.
 
-Startup now accepts an outer ±90° window, clipped to each saved/CAD interval
+Startup originally accepted an outer ±90° window. The November 17 update
+removes that extra default window and captures within each saved/CAD interval
 with only a 10-tick settling allowance near zero. It retains the gradual ramp,
 prior powered holds and health/lag checks; this is guided single-joint zeroing,
 not a MoveIt collision-planned route. The operator must support/clear the sweep.

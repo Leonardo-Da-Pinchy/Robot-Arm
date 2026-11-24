@@ -14,8 +14,9 @@ def generate_launch_description():
         DeclareLaunchArgument('rviz',default_value='true'),
         DeclareLaunchArgument('panel',default_value='true'),
         DeclareLaunchArgument('calibration',default_value=''),
+        DeclareLaunchArgument('scene',default_value=str(config/'config/scene.yaml')),
         IncludeLaunchDescription(PythonLaunchDescriptionSource(str(bringup/'launch/mock_control.launch.py')),
             launch_arguments={'rviz':'false','sliders':'false','calibration':LaunchConfiguration('calibration')}.items()),
         IncludeLaunchDescription(PythonLaunchDescriptionSource(str(config/'launch/planning.launch.py')),
             launch_arguments={'hardware':'false','rviz':LaunchConfiguration('rviz'),
-                              'panel':LaunchConfiguration('panel')}.items())])
+                              'panel':LaunchConfiguration('panel'),'scene':LaunchConfiguration('scene')}.items())])

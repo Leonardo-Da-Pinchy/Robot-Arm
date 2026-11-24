@@ -1,0 +1,32 @@
+description: Hypothetical lower placement for the 3-inch 7 mm/s air loop. Nominal
+  80 mm diameter x 100 mm cylinder; center [0.4, 0.1, 0.15] m. Proposed pedestal only;
+  not a measured physical fixture.
+objects:
+- id: example_floor
+  frame: base_link
+  size:
+  - 1.2
+  - 1.2
+  - 0.04
+  center:
+  - 0.0
+  - 0.0
+  - -0.04
+- id: nominal_cylinder
+  frame: base_link
+  type: cylinder
+  radius: 0.04
+  height: 0.1
+  center:
+  - 0.4
+  - 0.1
+  - 0.15
+- id: nominal_fixture
+  frame: base_link
+  type: cylinder
+  radius: 0.02
+  height: 0.02
+  center:
+  - 0.4
+  - 0.1
+  - 0.09

@@ -1,0 +1,14 @@
+Starting >>> pinchy_description
+Starting >>> pinchy_hardware
+Starting >>> pinchy_motion_interfaces
+Finished <<< pinchy_description [0.96s]
+Finished <<< pinchy_hardware [2.21s]
+Starting >>> pinchy_bringup
+Finished <<< pinchy_bringup [2.16s]
+Finished <<< pinchy_motion_interfaces [19.3s]
+Starting >>> pinchy_motion
+Finished <<< pinchy_motion [2.17s]
+Starting >>> pinchy_moveit_config
+Finished <<< pinchy_moveit_config [0.96s]
+
+Summary: 6 packages finished [23.0s]

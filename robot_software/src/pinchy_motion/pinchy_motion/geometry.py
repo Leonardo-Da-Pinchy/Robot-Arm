@@ -77,7 +77,7 @@ def extrema(coefficients, duration, derivative):
     return result
 
 
-def prepare_trajectory(trajectory, limits, velocity_scaling=1.0, acceleration_scaling=1.0, rescale=True):
+def prepare_trajectory(trajectory, limits, velocity_scaling=1.0, acceleration_scaling=1.0, rescale=True,progress=None):
     """Reorder, validate spline extrema, and uniformly slow without changing geometry."""
     result = copy.deepcopy(trajectory); joint = result.joint_trajectory
     if len(joint.joint_names)!=6 or set(joint.joint_names)!=set(JOINTS): raise ValueError('Plan must contain exactly the six arm joints')
@@ -99,7 +99,10 @@ def prepare_trajectory(trajectory, limits, velocity_scaling=1.0, acceleration_sc
         raise ValueError('Invalid or excessive trajectory duration')
     factor = 1.05 if rescale else 1.0
     limiter='none'
-    for a,b in zip(joint.points,joint.points[1:]):
+    total=len(joint.points)-1
+    if progress:progress(0,total)
+    for index,(a,b) in enumerate(zip(joint.points,joint.points[1:]),1):
+        if progress and (index%25==0 or index==total):progress(index-1,total)
         duration, coefficients = segment_coefficients(a,b)
         position = extrema(coefficients,duration,0)
         velocity = extrema(coefficients,duration,1)
@@ -111,6 +114,7 @@ def prepare_trajectory(trajectory, limits, velocity_scaling=1.0, acceleration_sc
             for candidate,kind in [(1.05*max(abs(velocity[i]))/(limit['velocity']*velocity_scaling),'velocity'),
                     (1.05*math.sqrt(max(abs(acceleration[i]))/(limit['acceleration']*acceleration_scaling)),'acceleration')]:
                 if candidate>factor:factor=candidate;limiter=f'{name} {kind} at {seconds(a):.6f}s (interval {duration:.6f}s)'
+    if progress:progress(total,total)
     if not rescale and factor>1.+1e-6:
         raise ValueError(f'Requested contact speed exceeds joint timing limits; reduce speed/acceleration (required time scale at least {factor:.2f}; {limiter})')
     for point in joint.points:

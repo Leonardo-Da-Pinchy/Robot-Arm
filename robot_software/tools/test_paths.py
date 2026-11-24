@@ -10,6 +10,58 @@ from pinchy_motion.geometry import seconds
 
 
 class PathTests(unittest.TestCase):
+    def test_closed_oval_has_one_pair_of_endpoint_ramps_and_no_halfway_ramp(self):
+        from pinchy_motion.nominal_paths import dry_run_loop,fast_cylinder_loop
+        from pinchy_motion.feasibility import axis_frame
+        for data in (dry_run_loop(),fast_cylinder_loop()):
+            curve=CartesianCurve([axis_frame(p['xyz'],p['direction']) for p in data['waypoints']],data['style'])
+            for speed in (.003,.007,.014,.018):
+                for acceleration in (.02,.08):
+                    law=SpeedLaw(curve.length,speed,acceleration)
+                    # The actual 180-degree input point is an interior knot,
+                    # even though the closed loop has identical end positions.
+                    half=curve.waypoint_distances[(len(data['waypoints'])-1)//2]
+                    for s in (half-.002,half,half+.002):
+                        _,v,a=law.at(law.time_at(s));self.assertAlmostEqual(v,speed,places=10);self.assertAlmostEqual(a,0.,places=10)
+                    self.assertEqual(law.at(0.),(0.,0.,0.));self.assertAlmostEqual(law.at(law.duration)[1],0.,places=10)
+
+    def test_explicit_axis_spline_preserves_knots_and_smooths_direction_rate(self):
+        from scipy.spatial.transform import Rotation
+        transforms=[]
+        for x,angle in zip((0.,.02,.04,.06),(0.,.3,.1,.6)):
+            t=np.eye(4);t[0,3]=x;t[:3,:3]=Rotation.from_euler('y',angle).as_matrix();transforms.append(t)
+        old=CartesianCurve(transforms,'spline');curve=CartesianCurve(transforms,'spline_axis')
+        for distance,t in zip(curve.waypoint_distances,transforms):
+            np.testing.assert_allclose(curve.evaluate(distance,'tool_axis')[:3,2],t[:3,2],atol=1e-12)
+        for distance in np.linspace(0,curve.length,101):
+            np.testing.assert_allclose(curve.evaluate(distance,'tool_axis')[:3,3],old.evaluate(distance,'tool_axis')[:3,3],atol=1e-12)
+            np.testing.assert_allclose(curve.evaluate(distance,'full'),old.evaluate(distance,'full'),atol=1e-12)
+            self.assertAlmostEqual(np.linalg.norm(curve.evaluate(distance,'tool_axis')[:3,2]),1.,places=12)
+        h=1e-7;s=.02;n=curve.evaluate(s,'tool_axis')[:3,2]
+        left=(n-curve.evaluate(s-h,'tool_axis')[:3,2])/h
+        right=(curve.evaluate(s+h,'tool_axis')[:3,2]-n)/h
+        np.testing.assert_allclose(left,right,atol=.001)
+
+    def test_undefined_smooth_direction_rejects(self):
+        from scipy.spatial.transform import Rotation
+        a=np.eye(4);b=a.copy();b[0,3]=.02;b[:3,:3]=Rotation.from_euler('x',np.pi).as_matrix()
+        with self.assertRaisesRegex(ValueError,'undefined'):
+            CartesianCurve([a,b],'spline_axis').evaluate(.01,'tool_axis')
+
+    def test_pen_up_dry_run_can_require_cruise_speed_without_contact_tags(self):
+        from pinchy_motion.geometry import model_limits
+        root,solver=calibrated_solver();q=np.array([.1,-.25,.5,-.25,.4,.4]);a=solver.evaluate(q)[0];transforms=[]
+        for offset in (0.,.005,.01,.02):
+            t=a.copy();t[1,3]+=offset;transforms.append(t)
+        curve=CartesianCurve(transforms);d,p=sample_ik(curve,'tool_axis',q,solver,lambda q:True,lambda:False)
+        limits=model_limits(root)
+        trajectory,summary=timed_trace(curve,d,p,solver,limits,'tool_axis',.005,.02,[False]*3,enforce_tcp_speed=True)
+        self.assertTrue(summary['enforced_tcp_speed']);self.assertAlmostEqual(summary['transit_time_scale'],1.,places=8)
+        self.assertGreater(summary['modeled_cruise_min_m_s'],.00475);self.assertLess(summary['modeled_cruise_max_m_s'],.00525)
+        for limit in limits.values():limit.update(velocity=.0001,acceleration=.0001)
+        with self.assertRaisesRegex(ValueError,'joint timing limits'):
+            timed_trace(curve,d,p,solver,limits,'tool_axis',.005,.02,[False]*3,enforce_tcp_speed=True)
+
     def test_rotation_progress_ignores_sub_tolerance_fk_translation_noise(self):
         from scipy.spatial.transform import Rotation
         from moveit_msgs.msg import RobotTrajectory

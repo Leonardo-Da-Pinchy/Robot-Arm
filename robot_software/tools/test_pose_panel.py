@@ -39,6 +39,46 @@ class GoalDirectionTests(unittest.TestCase):
         finally:
             window.target_timer.stop();window.executor.shutdown();window.close();app.processEvents();node.destroy_node();context.shutdown()
 
+    def test_cylinder_file_retains_required_speed_and_visits_clear_it(self):
+        from pinchy_motion.nominal_paths import dry_run_loop,fast_cylinder_loop
+        app=QApplication.instance() or QApplication([])
+        context=Context();rclpy.init(context=context,domain_id=221)
+        node=rclpy.create_node('continuous_speed_file_test',context=context);window=PosePanel(node)
+        try:
+            window.timer.stop();window.apply_point_set(dry_run_loop())
+            self.assertEqual(window.queue.rowCount(),41);self.assertTrue(window.require_speed.isChecked())
+            self.assertTrue(window.stroke_approach.isChecked());self.assertEqual(window.tcp_speed.value(),3.)
+            self.assertTrue(window.queue_document()['enforce_tcp_speed'])
+            window.path_style.setCurrentIndex(window.path_style.findData('visits'))
+            self.assertFalse(window.require_speed.isChecked())
+            window.apply_point_set(fast_cylinder_loop())
+            self.assertEqual(window.queue.rowCount(),61);self.assertEqual(window.tcp_speed.value(),7.)
+            self.assertEqual(window.path_style.currentData(),'spline_axis')
+            self.assertTrue(window.require_speed.isChecked());self.assertTrue(window.queue_document()['enforce_tcp_speed'])
+            self.assertEqual(window.queue_document()['style'],'spline_axis')
+        finally:
+            window.target_timer.stop();window.queue_timer.stop();window.executor.shutdown();window.close();app.processEvents();node.destroy_node();context.shutdown()
+
+    def test_range_load_roundtrip_request_and_visits_reset(self):
+        from pinchy_motion.nominal_paths import bounded_cylinder_loop
+        app=QApplication.instance() or QApplication([])
+        context=Context();rclpy.init(context=context,domain_id=221)
+        node=rclpy.create_node('bounded_speed_panel_test',context=context);window=PosePanel(node)
+        try:
+            window.timer.stop();self.assertFalse(window.speed_range.isChecked())
+            window.apply_point_set(bounded_cylinder_loop())
+            self.assertTrue(window.speed_range.isChecked());self.assertEqual(window.tcp_min_speed.value(),4.)
+            self.assertEqual(window.tcp_speed.value(),18.);self.assertIn('max',window.tcp_speed.suffix())
+            self.assertEqual(window.queue_document()['tcp_min_speed_m_s'],.004)
+            window.status_data={'ready':True,'max_speed_deg_s':90.,'max_acceleration_deg_s2':360.};window.path_planner=Mock();window.execution=Mock()
+            window.plan_queued();request=window.path_planner.call_async.call_args.args[0]
+            self.assertAlmostEqual(request.tcp_min_speed,.004);self.assertAlmostEqual(request.tcp_speed,.018)
+            window.execution.send_goal_async.assert_not_called()
+            window.busy=False;window.path_style.setCurrentIndex(window.path_style.findData('visits'))
+            self.assertFalse(window.speed_range.isChecked());self.assertEqual(window.queue_document()['tcp_min_speed_m_s'],0.)
+        finally:
+            window.busy=False;window.target_timer.stop();window.queue_timer.stop();window.executor.shutdown();window.close();app.processEvents();node.destroy_node();context.shutdown()
+
     def test_screenshot_is_nearby_in_xyz_but_large_direction_change(self):
         distance,angle=goal_difference(CURRENT,GOAL)
         self.assertAlmostEqual(distance*1000,16.52,delta=.1)
@@ -57,7 +97,7 @@ class GoalDirectionTests(unittest.TestCase):
         window=PosePanel(node)
         try:
             self.assertEqual([window.speed.value(),window.acceleration.value(),window.tcp_speed.value(),window.tcp_acceleration.value()],[30.,180.,20.,50.])
-            self.assertEqual([window.speed.maximum(),window.acceleration.maximum(),window.tcp_speed.maximum(),window.tcp_acceleration.maximum()],[60.,360.,400.,2000.])
+            self.assertEqual([window.speed.maximum(),window.acceleration.maximum(),window.tcp_speed.maximum(),window.tcp_acceleration.maximum()],[92.14,398.5,400.,2000.])
             window.timer.stop();window.status_data={'current_pose_xyz_rpy_deg':CURRENT}
             for box,value in zip(window.inputs,GOAL):box.setValue(value)
             window.planner=Mock();window.execution=Mock();window.target_pub=Mock()
