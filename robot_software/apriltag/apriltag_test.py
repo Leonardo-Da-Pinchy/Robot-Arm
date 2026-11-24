@@ -9,7 +9,7 @@ FPS = 30
 TAG_SIZE = 0.0238125  # 15/16 inches, meters
 AXIS_LENGTH = TAG_SIZE / 2
 DISTANCE_OFFSET = 0.0086  # Empirical forward offset, meters
-APPLY_OFFSET = False  # Revalidate offset after rectification
+APPLY_OFFSET = True  # Revalidate offset after rectification
 
 
 def rotation_to_euler(R):
