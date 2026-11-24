@@ -10,13 +10,31 @@ no zero, direction, position bound, safety policy or active collision scene.
 The design report requires inward surface normals with pen twist free, preserves
 stroke geometry, and calls for five perpendicular poses across the front 180°
 plus measured drawing accuracy. It supplies no final cylinder size/placement.
-The owner confirmed those are not yet selected. Examples here use an explicitly
-hypothetical 80 mm diameter cylinder; they are not approved physical placements.
+At the time of the investigation the owner had not selected those. The owner
+has since selected [nominal geometries](nominal_geometries.md), including an
+80 mm diameter × 100 mm tall cylinder/mug. The historical examples below used
+a hypothetical 80 mm diameter cylinder; they remain unapproved physical
+placements and do not qualify the newly selected full object geometries.
 The shared `pointer_tip` is still an unmeasured RViz proxy with a 149 mm axial
 offset from joint six. Verify the real pen/TCP and physical joint ranges before
 deciding that mechanical changes are required.
 
-## What was found
+## Current planner follow-up
+
+The original investigation and first bounded beam attempt below are historical.
+The subsequent [stroke planner](stroke_planning.md) now passes both recorded
+broad arcs at an explicitly requested **3 mm/s with 20 mm/s² TCP ramps**, retaining
+saved position bounds and default **30 deg/s / 180 deg/s²** joint caps.
+The first case needs another starting configuration and a checked pen-up route;
+the second can pass whole-stroke optimization from its original held start.
+Independent mock collision/FK and actual controller-polynomial validation passed.
+This resolves those cases at those settings, not their original 10 mm/s request,
+full front-180° coverage, the selected entire objects or physical contact.
+
+See [new results](validation/feasibility/stroke_start_search/report.json) and
+[validation details](validation/feasibility/stroke_start_search/validation.md).
+
+## What the original investigation found
 
 | Question | Evidence / practical consequence |
 | --- | --- |
@@ -133,7 +151,7 @@ regressions and two mock ROS workflow regressions. The collision/FK investigatio
 used isolated mock services; no physical motion or automatic restart was performed.
 
 
-## Bounded whole-stroke selection follow-up
+## Historical first bounded whole-stroke selection follow-up
 
 The runtime now calls `paths.select_trace`: retain the fast continuation if it
 passes; otherwise explore local task-nullspace alternatives with a beam of up
@@ -194,3 +212,71 @@ The IK layer remains in the right architectural location (KDL/bounded candidates
 above MoveIt collision/routing and the shared controller), but the drawing
 feasibility gate is **not ready to close**. Continue posture/whole-stroke work
 before HTTPS/job features. No physical motors moved or were restarted.
+
+
+## Whole-stroke optimization and explicit pen-up start selection
+
+`stroke_search.smooth_trace` jointly adjusts a complete joint history using
+sparse task residuals, joint smoothness and travel reserve. Exact reprojection
+restores strict XYZ/normal constraints, with adaptive sampling and the same
+0.15 rad step guard. A low optimizer cost is never acceptance: the timed
+controller polynomial, task geometry, requested contact speed and collisions
+must all pass. Ordinary traces keep the held start fixed.
+
+`plan_pen_up_approach` explicitly allows `select_stroke` to retry different
+starting configurations against the whole remaining path before committing to
+an approach. The caller collision-plans a pen-up OMPL route from the held state
+to the winning first configuration. Its exact endpoint, zero boundary
+derivatives, controller interpolation and collisions are validated before the
+combined preview token exists. Stop/model changes still abort; no partial trace
+or unchecked same-task joint jump is executable. This search has a 90-second
+runtime budget; it is finite and can still miss useful branches.
+
+The [owner's stroke contract](stroke_planning.md) permits smooth contact endpoint
+ramps when explicitly requested. Off-surface ramps remain preferred. Interior
+contact speed, normal direction and drawing geometry remain checked, with no
+silent speed scaling for contact. Physical contact is still disabled.
+
+| Exact historical arc | Passing follow-up at 3 mm/s, 20 mm/s² |
+| --- | --- |
+| X=0.40 m, Z=0.20 m, R=0.04 m, −60° to +60° | Alternative start plus whole-stroke optimization; modeled steady contact speed 2.996–3.004 mm/s, with a collision-checked pen-up route. Fixed-start local/beam search still fails at 52.9%. |
+| X=0.35 m, Z=0.15 m, R=0.04 m, −60° to +60° | Fixed-start whole-stroke optimization; modeled steady contact speed 2.990–3.008 mm/s. Explicit alternative-start mode also passes at 2.989–3.009 mm/s with a checked route. |
+
+Reproduce the [report](validation/feasibility/stroke_start_search/report.json):
+
+```bash
+OPENBLAS_NUM_THREADS=1 python3 tools/check_stroke_selection.py --moveit \
+  --tcp-speed .003 --tcp-acceleration .02 --budget 120 \
+  --output-dir /tmp/stroke-start-checked-3mm
+```
+
+The numerical assay's ramps still lie on the hypothetical arc, not an approved
+physical pen-up lead-in. The newly checked pen-up route reaches the selected
+start but does not qualify actual object/holder clearance: the scene still
+contains only the shared robot and example floor, with no final object,
+fixture, tabletop or base-wing geometry. This is modeled software validation.
+The original faster requests are not silently retimed to 3 mm/s. Three mm/s is
+not established as a physically useful drawing speed or a minimum speed.
+
+The comparison tool now explicitly caps its timing assays at the shared default
+joint speed/acceleration; its earlier comparison used model maxima. Historical
+reports remain unchanged. This distinction matters when comparing timing.
+
+A [geometry-only pen-length comparison](validation/feasibility/stroke_start_search/pen_length_comparison.json)
+varied only the axial holder-to-TCP offset in an in-memory model: 100, 125,
+149 and 175 mm. Each of the first three solved all ten sampled XYZ/normal tasks;
+175 mm solved nine. This finite five-angle-per-arc test neither establishes a
+length optimum nor proves the unresolved sample impossible. It checks no
+collisions, full strokes, actual pen body, stiffness or tool calibration. No
+active TCP/model/calibration was changed. Choose installed pen length using
+measured geometry and complete drawing/clearance checks, not endpoint counts.
+
+
+Final [runtime preview events](validation/feasibility/stroke_start_search/runtime_broad_previews.json)
+also pass both broad cases through the actual PlanPath service with 13 sampled
+spline waypoints and explicit full-stroke contact endpoint ramps. Interior speeds
+are 2.988–3.009 and 2.999–3.003 mm/s respectively. The initial exact-arc assay
+above and final spline-request previews are distinct tests. Runtime integration
+required isolating start-candidate seeds from the continuation cache, accounting
+for nonuniform path sample spacing, preserving endpoint joint curvature, and
+densely reprojecting exact task constraints. No validation tolerance was relaxed.

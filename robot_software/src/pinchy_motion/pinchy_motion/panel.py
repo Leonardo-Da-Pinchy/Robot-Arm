@@ -4,8 +4,10 @@ import math
 import signal
 import sys
 import time
+from pathlib import Path
 from python_qt_binding.QtCore import QTimer,Qt
-from python_qt_binding.QtWidgets import QApplication,QWidget,QGridLayout,QLabel,QDoubleSpinBox,QPushButton,QComboBox,QCheckBox,QTableWidget,QTableWidgetItem,QHeaderView,QAbstractItemView,QVBoxLayout,QHBoxLayout
+from python_qt_binding.QtWidgets import QApplication,QWidget,QGridLayout,QLabel,QDoubleSpinBox,QPushButton,QComboBox,QCheckBox,QTableWidget,QTableWidgetItem,QHeaderView,QAbstractItemView,QVBoxLayout,QHBoxLayout,QFileDialog
+from ament_index_python.packages import get_package_share_directory
 from rclpy.node import Node
 import rclpy
 from rclpy.action import ActionClient
@@ -20,6 +22,7 @@ from pinchy_motion_interfaces.action import ExecutePlan
 from pinchy_bringup.control_contract import MAX_SPEED,MAX_ACCELERATION,MAX_TCP_SPEED,MAX_TCP_ACCELERATION
 from .geometry import quaternion_from_rpy
 from .workspace import configuration as workspace_configuration
+from . import point_sets
 
 
 class PosePanel(QWidget):
@@ -29,8 +32,11 @@ class PosePanel(QWidget):
         self.executor=SingleThreadedExecutor(context=node.context); self.executor.add_node(node)
         self.workspace=workspace_configuration();self.syncing_target=False;self.limits_window=None
         self.target_pub=node.create_publisher(PoseStamped,'/pinchy_motion/target_input',10)
+        self.queue_pub=node.create_publisher(String,'/pinchy_motion/queued_points',QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL))
+        self.queue_timer=QTimer(self);self.queue_timer.setSingleShot(True);self.queue_timer.timeout.connect(self.publish_queue_snapshot)
+        self.point_set_metadata={};self.point_set_path=None
         self.target_timer=QTimer(self);self.target_timer.setSingleShot(True);self.target_timer.timeout.connect(self.publish_target)
-        self.status_data={}; self.plan_id=''; self.busy=False; self.executing=False; self.goal=None; self.initialized=False
+        self.status_data={}; self.plan_id=''; self.busy=False; self.executing=False; self.goal=None; self.initialized=False;self.has_plan_result=False
         self.setWindowTitle('Pinchy REAL Cartesian poses' if self.hardware else 'Pinchy MOCK Cartesian poses')
         grid=QGridLayout(self)
         title=QLabel(('REAL hardware' if self.hardware else 'MOCK motors')+' | base_link → pointer_tip\n'
@@ -82,20 +88,42 @@ class PosePanel(QWidget):
         self.queue=QTableWidget(0,7);self.queue.setHorizontalHeaderLabels(['X m','Y m','Z m','Roll deg','Pitch deg','Yaw deg','Contact'])
         self.queue.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);self.queue.setMinimumHeight(130);self.queue.setMaximumHeight(180)
         self.queue.itemChanged.connect(self.invalidate);grid.addWidget(self.queue,11,0,1,4)
+        self.queue.itemSelectionChanged.connect(self.select_waypoint)
         bar=QWidget();buttons=QHBoxLayout(bar);buttons.setContentsMargins(0,0,0,0)
-        for title,callback in [('Add goal',self.add_waypoint),('Remove',self.remove_waypoint),('Up',lambda:self.move_waypoint(-1)),('Down',lambda:self.move_waypoint(1)),('Clear',self.clear_waypoints)]:
-            button=QPushButton(title);button.clicked.connect(callback);buttons.addWidget(button)
+        self.queue_edit_buttons=[]
+        for title,callback in [('Add goal',self.add_waypoint),('Update selected',self.update_waypoint),('Remove',self.remove_waypoint),('Up',lambda:self.move_waypoint(-1)),('Down',lambda:self.move_waypoint(1)),('Clear',self.clear_waypoints)]:
+            button=QPushButton(title);button.clicked.connect(callback);buttons.addWidget(button);self.queue_edit_buttons.append(button)
         self.path_button=QPushButton('Plan queued path');self.path_button.clicked.connect(self.plan_queued);buttons.addWidget(self.path_button)
         grid.addWidget(bar,12,0,1,4)
         self.path_style=QComboBox()
-        for title,code in [('Trace straight segments','polyline'),('Smooth through points','spline'),('Visit poses / stop at each','visits')]:self.path_style.addItem(title,code)
-        self.path_style.setToolTip('Smooth is an explicitly different curve between waypoints. Straight segments stop at pen-up corners; contact corners require a lift or approved smooth curve.')
+        for title,code in [('Move between poses / pen-up routing','visits'),('Trace straight segments','polyline'),('Smooth through points','spline'),('Fixed TCP rotations + approach','fixed_tcp')]:self.path_style.addItem(title,code)
+        self.path_style.setToolTip('Default: collision-planned pen-up routes between destinations. Trace modes additionally constrain the complete TCP path. Smooth explicitly chooses another curve; contact corners require a lift or approved smooth curve.')
         self.path_style.currentIndexChanged.connect(self.invalidate);grid.addWidget(self.path_style,13,0,1,2)
+        self.path_style.currentIndexChanged.connect(self.path_style_changed)
         self.tcp_speed=QDoubleSpinBox();self.tcp_speed.setRange(1.,MAX_TCP_SPEED*1000);self.tcp_speed.setValue(20.);self.tcp_speed.setSuffix(' mm/s TCP')
         self.tcp_acceleration=QDoubleSpinBox();self.tcp_acceleration.setRange(1.,MAX_TCP_ACCELERATION*1000);self.tcp_acceleration.setValue(50.);self.tcp_acceleration.setSuffix(' mm/s² TCP')
         for column,box in [(2,self.tcp_speed),(3,self.tcp_acceleration)]:box.valueChanged.connect(self.invalidate);grid.addWidget(box,13,column)
-        explanation=QLabel('Queue: Add each goal, choose trace/curve/visits, then Plan queued path. Nothing moves until Execute.\nContact marks require pen-up lead-in/out; timing qualification is mock-only until the pen/contact setup is verified.')
-        explanation.setWordWrap(True);grid.addWidget(explanation,14,0,1,4)
+        self.stroke_approach=QCheckBox('Choose stroke start + pen-up route')
+        self.stroke_approach.setToolTip('First queued point is the stroke start; its incoming segment must be pen-up. Search starting configurations for the complete remaining trace. Preview only until Execute.')
+        self.contact_ramps=QCheckBox('Allow contact endpoint speed ramps')
+        self.contact_ramps.setToolTip('Permit smooth acceleration/braking at stroke ends on the surface. Interior contact speed remains checked. Short strokes can be ramp-only and are reported.')
+        for column,control in ((0,self.stroke_approach),(2,self.contact_ramps)):
+            control.stateChanged.connect(self.invalidate);grid.addWidget(control,14,column,1,2)
+        explanation=QLabel('Queue: Add each goal, choose trace/curve/visits, then Plan queued path. Nothing moves until Execute.\nPrefer pen-up speed ramps; contact endpoint ramps require the explicit option. Physical contact remains disabled until qualified.')
+        explanation.setWordWrap(True);grid.addWidget(explanation,15,0,1,4)
+        files=QWidget();file_layout=QHBoxLayout(files);file_layout.setContentsMargins(0,0,0,0)
+        self.file_buttons=[]
+        for title,callback in [('Capture current TCP',self.capture_current_waypoint),('Save points…',self.save_points),('Load points…',self.load_points)]:
+            button=QPushButton(title);button.clicked.connect(callback);file_layout.addWidget(button);self.file_buttons.append(button)
+        self.example_sets=QComboBox();self.example_sets.addItem('Example point sets…','')
+        self.example_dir=Path(get_package_share_directory('pinchy_motion'))/'examples/point_sets'
+        for path in sorted(self.example_dir.glob('*.json')):
+            self.example_sets.addItem(json.loads(path.read_text()).get('name',path.stem),str(path))
+        file_layout.addWidget(self.example_sets)
+        example_button=QPushButton('Load example');example_button.clicked.connect(self.load_example);file_layout.addWidget(example_button);self.file_buttons.append(example_button)
+        grid.addWidget(files,16,0,1,4)
+        self.point_set_label=QLabel('Unsaved point set — Plan queued path, inspect preview, then Execute previewed plan.');self.point_set_label.setWordWrap(True)
+        grid.addWidget(self.point_set_label,17,0,1,4)
         self.path_planner=node.create_client(PlanPath,'/pinchy_motion/plan_path')
         self.planner=node.create_client(PlanPose,'/pinchy_motion/plan_pose')
         self.execution=ActionClient(node,ExecutePlan,'/pinchy_motion/execute_plan')
@@ -107,20 +135,130 @@ class PosePanel(QWidget):
             QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.last_status=0.
         self.timer=QTimer(self);self.timer.timeout.connect(self.poll);self.timer.start(20)
+        self.queue_timer.start(0)
 
     def add_waypoint(self):
+        if self.busy:return
+        if self.queue.rowCount()>=80:self.notice.setText('Point sets support at most 80 points');return
         row=self.queue.rowCount();self.queue.insertRow(row)
         for column,box in enumerate(self.inputs):self.queue.setItem(row,column,QTableWidgetItem(str(box.value())))
         contact=QTableWidgetItem();contact.setFlags(Qt.ItemIsEnabled|Qt.ItemIsUserCheckable if not self.hardware else Qt.ItemIsEnabled)
         contact.setCheckState(Qt.Unchecked);contact.setToolTip('Contact on the segment approaching this waypoint. Physical contact execution is not qualified.')
         self.queue.setItem(row,6,contact);self.queue.selectRow(row);self.invalidate()
 
+    def update_waypoint(self):
+        if self.busy:return
+        row=self.queue.currentRow()
+        if row<0:return
+        for column,box in enumerate(self.inputs):self.queue.item(row,column).setText(str(box.value()))
+        self.invalidate()
+
+    def select_waypoint(self):
+        if self.busy:return
+        row=self.queue.currentRow()
+        if row<0:return
+        try:values=[float(self.queue.item(row,column).text()) for column in range(6)]
+        except (ValueError,AttributeError):return
+        for box,value in zip(self.inputs,values):
+            previous=box.blockSignals(True);box.setValue(value);box.blockSignals(previous)
+        self.target_edited()
+
+    def capture_current_waypoint(self):
+        if self.busy:return
+        if self.queue.rowCount()>=80:self.notice.setText('Point sets support at most 80 points');return
+        pose=self.status_data.get('current_pose_xyz_rpy_deg')
+        if pose is None or time.monotonic()-self.last_status>1.5:
+            self.notice.setText('Waiting for fresh current TCP feedback');return
+        self.append_waypoint(pose,False)
+        self.notice.setText('Captured measured/model TCP as a queued point; no motion sent.')
+
+    def path_style_changed(self):
+        if self.path_style.currentData()=='fixed_tcp':
+            self.orientation_mode.setCurrentIndex(self.orientation_mode.findData('full'))
+            self.stroke_approach.setChecked(False);self.contact_ramps.setChecked(False)
+
+    def append_waypoint(self,values,contact):
+        row=self.queue.rowCount();self.queue.insertRow(row)
+        for column,value in enumerate(values):self.queue.setItem(row,column,QTableWidgetItem(str(value)))
+        item=QTableWidgetItem();item.setFlags(Qt.ItemIsEnabled|Qt.ItemIsUserCheckable if not self.hardware else Qt.ItemIsEnabled)
+        item.setCheckState(Qt.Checked if contact else Qt.Unchecked);self.queue.setItem(row,6,item)
+        self.queue.selectRow(row);self.invalidate()
+
+    def queue_document(self,allow_empty=False):
+        data=dict(self.point_set_metadata)
+        data.update(schema_version=1,frame='base_link',tcp_frame='pointer_tip',units={'position':'m','orientation':'deg'},
+            orientation_mode=self.orientation_mode.currentData(),style=self.path_style.currentData(),
+            joint_speed_deg_s=self.speed.value(),joint_acceleration_deg_s2=self.acceleration.value(),
+            tcp_speed_m_s=self.tcp_speed.value()/1000.,tcp_acceleration_m_s2=self.tcp_acceleration.value()/1000.,
+            allow_contact_ramps=self.contact_ramps.isChecked(),plan_pen_up_approach=self.stroke_approach.isChecked(),waypoints=[])
+        for row in range(self.queue.rowCount()):
+            values=[float(self.queue.item(row,column).text()) for column in range(6)]
+            data['waypoints'].append(dict(xyz=values[:3],rpy_deg=values[3:],contact=self.queue.item(row,6).checkState()==Qt.Checked))
+        return point_sets.normalize(data,self.workspace,allow_empty)
+
+    def publish_queue_snapshot(self):
+        try:data=dict(self.queue_document(allow_empty=True),queue_valid=True,snapshot_unix_s=time.time())
+        except (ValueError,AttributeError,TypeError) as error:data=dict(queue_valid=False,error=str(error),snapshot_unix_s=time.time())
+        self.queue_pub.publish(String(data=json.dumps(data,allow_nan=False)))
+
+    def apply_point_set(self,data,path=None):
+        if self.busy:raise ValueError('Wait for the active planning/execution request before replacing points')
+        data=point_sets.normalize(data,self.workspace)
+        if data['joint_speed_deg_s']>self.speed.maximum() or data['joint_acceleration_deg_s2']>self.acceleration.maximum():
+            raise ValueError('Saved joint settings exceed this session’s caps')
+        if self.hardware and any(p['contact'] for p in data['waypoints']):raise ValueError('Contact-tagged point sets remain mock-only')
+        # Validate every field before replacing the existing queue. Loading
+        # changes only staging data and goal markers, never an execution token.
+        self.queue_timer.stop();self.queue.setRowCount(0)
+        self.point_set_metadata={key:data[key] for key in ('name','notes','source') if key in data}
+        self.orientation_mode.setCurrentIndex(self.orientation_mode.findData(data['orientation_mode']))
+        self.path_style.setCurrentIndex(self.path_style.findData(data['style']))
+        self.speed.setValue(data['joint_speed_deg_s']);self.acceleration.setValue(data['joint_acceleration_deg_s2'])
+        self.tcp_speed.setValue(data['tcp_speed_m_s']*1000);self.tcp_acceleration.setValue(data['tcp_acceleration_m_s2']*1000)
+        self.contact_ramps.setChecked(data['allow_contact_ramps']);self.stroke_approach.setChecked(data['plan_pen_up_approach'])
+        for point in data['waypoints']:self.append_waypoint([*point['xyz'],*point['rpy_deg']],point['contact'])
+        self.queue.selectRow(0);self.point_set_path=Path(path) if path else None
+        self.point_set_label.setText(data['name']+(' — '+str(path) if path else ''))
+        self.invalidate();self.notice.setText(f'Loaded {self.queue.rowCount()} points. Plan queued path to preview; nothing moved.')
+
+    def save_points(self):
+        if self.busy:return
+        try:
+            data=self.queue_document()
+            default=self.point_set_path or Path.home()/'pinchy-points.json'
+            if default.resolve().is_relative_to(self.example_dir.resolve()):default=Path.home()/default.name
+            path,_=QFileDialog.getSaveFileName(self,'Save point set',str(default),'Point sets (*.json)')
+            if not path:return
+            data['name']=Path(path).stem;point_sets.write(path,data,self.workspace)
+            self.point_set_path=Path(path);self.point_set_metadata['name']=data['name'];self.point_set_label.setText(str(path))
+            self.invalidate()
+            self.notice.setText(f'Saved {self.queue.rowCount()} points; execution still requires a new checked preview.')
+        except (ValueError,OSError,AttributeError,TypeError) as error:self.notice.setText(str(error))
+
+    def load_points(self):
+        if self.busy:return
+        path,_=QFileDialog.getOpenFileName(self,'Load point set',str(self.point_set_path or Path.home()),'Point sets (*.json)')
+        if path:
+            try:self.apply_point_set(point_sets.read(path,self.workspace),path)
+            except (ValueError,OSError) as error:self.notice.setText(str(error))
+
+    def load_example(self):
+        if self.busy:return
+        path=self.example_sets.currentData()
+        if path:
+            try:self.apply_point_set(point_sets.read(path,self.workspace),path)
+            except (ValueError,OSError) as error:self.notice.setText(str(error))
+
     def remove_waypoint(self):
+        if self.busy:return
         if self.queue.currentRow()>=0:self.queue.removeRow(self.queue.currentRow());self.invalidate()
 
-    def clear_waypoints(self):self.queue.setRowCount(0);self.invalidate()
+    def clear_waypoints(self):
+        if self.busy:return
+        self.queue.setRowCount(0);self.invalidate()
 
     def move_waypoint(self,offset):
+        if self.busy:return
         row=self.queue.currentRow();destination=row+offset
         if row<0 or not 0<=destination<self.queue.rowCount():return
         for column in range(7):
@@ -132,6 +270,7 @@ class PosePanel(QWidget):
         if self.busy or not self.status_data.get('ready'):return
         try:
             request=PlanPath.Request(orientation_mode=self.orientation_mode.currentData(),style=self.path_style.currentData(),
+                plan_pen_up_approach=self.stroke_approach.isChecked(),allow_contact_ramps=self.contact_ramps.isChecked(),
                 tcp_speed=self.tcp_speed.value()/1000.,tcp_acceleration=self.tcp_acceleration.value()/1000.,
                 velocity_scaling=min(1.,self.speed.value()/self.status_data.get('max_speed_deg_s',30.)),
                 acceleration_scaling=min(1.,self.acceleration.value()/self.status_data.get('max_acceleration_deg_s2',180.)))
@@ -197,6 +336,10 @@ class PosePanel(QWidget):
 
     def invalidate(self,*args):
         self.plan_id='';self.execute_button.setEnabled(False) if hasattr(self,'execute_button') else None
+        if self.has_plan_result and not self.busy:
+            self.has_plan_result=False
+            self.notice.setText('Inputs changed — plan again for the new goal or queue.')
+        if hasattr(self,'queue_timer'):self.queue_timer.start(40)
 
     def on_status(self,message):
         self.last_status=time.monotonic();self.status_data=json.loads(message.data)
@@ -250,10 +393,16 @@ class PosePanel(QWidget):
         ready=self.status_data.get('ready',False) and time.monotonic()-self.last_status<1.5
         self.plan_button.setEnabled(ready and not self.busy)
         self.path_button.setEnabled(ready and not self.busy and self.queue.rowCount()>0)
-        for control in [self.queue,self.path_style,self.tcp_speed,self.tcp_acceleration]:control.setEnabled(not self.busy)
+        for control in [self.queue,self.path_style,self.tcp_speed,self.tcp_acceleration,self.stroke_approach,self.contact_ramps]:control.setEnabled(not self.busy)
+        for button in self.queue_edit_buttons:button.setEnabled(not self.busy)
+        for button in self.file_buttons:button.setEnabled(not self.busy)
+        self.example_sets.setEnabled(not self.busy)
         self.execute_button.setEnabled(ready and bool(self.plan_id) and not self.busy)
         for box in [*self.inputs,self.speed,self.acceleration,self.orientation_mode,self.straight_path]:box.setEnabled(not self.busy)
         for box in self.inputs[3:]:box.setEnabled(not self.busy and self.orientation_mode.currentData()!='position')
+        self.orientation_mode.setEnabled(not self.busy and self.path_style.currentData()!='fixed_tcp')
+        if self.path_style.currentData()=='fixed_tcp':
+            for control in (self.tcp_speed,self.tcp_acceleration,self.stroke_approach,self.contact_ramps):control.setEnabled(False)
 
     def plan(self):
         if self.busy or not self.status_data.get('ready'):return
@@ -268,6 +417,7 @@ class PosePanel(QWidget):
         self.busy=False
         try:
             result=future.result();self.plan_id=result.plan_id if result.success else ''
+            self.has_plan_result=True
             self.notice.setText(f'{result.duration:.2f} s — {result.message} Preview in RViz, then Execute' if result.success else result.message)
         except Exception as error:self.notice.setText(str(error))
 
@@ -302,6 +452,7 @@ class PosePanel(QWidget):
     def closeEvent(self,event):
         if self.executing:self.stop();event.ignore()
         else:
+            self.timer.stop();self.queue_timer.stop();self.target_timer.stop()
             if self.limits_window is not None:self.limits_window.close()
             event.accept()
 
@@ -320,5 +471,5 @@ def main():
     signal.signal(signal.SIGINT,stop);signal.signal(signal.SIGTERM,stop)
     try:return app.exec_()
     finally:
-        window.timer.stop();window.executor.shutdown();node.destroy_node()
+        window.timer.stop();window.queue_timer.stop();window.target_timer.stop();window.executor.shutdown();node.destroy_node()
         if rclpy.ok():rclpy.shutdown()

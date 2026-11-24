@@ -15,18 +15,24 @@ not a substitute for checking the implementation and working-tree changes.
 
 Start with the canonical [implementation roadmap](implementation_roadmap.md),
 then read [motion feasibility](motion_feasibility.md) before changing motion
-planning. Step 11 now has a bounded alternative trace search from the fixed held start,
-but robust whole-stroke/starting-configuration selection is still unresolved;
+planning. Step 11 now has whole-stroke optimization plus explicit starting-configuration
+selection with a collision-planned pen-up approach; the two recorded broad cases
+pass modeled timing at 3 mm/s and 20 mm/s² ramps under default joint caps, but
+broader coverage and physical qualification remain unresolved;
 step 12 is the drawing-feasibility gate. Keep IK/continuity ahead of other
 feature work per the current owner priority. The earlier checkpoint table below is
 historical, not the current task list.
 
 The latest investigation reproduced a continuous trace failing even though its
 exact intermediate target had collision-checked IK in another configuration.
-The diagnostic does not supply a connected path or fix runtime branch selection.
+That original diagnostic supplied no connected path. A subsequent
+[whole-stroke planner follow-up](stroke_planning.md) now selects and validates
+complete candidates and their explicit pen-up approaches for those cases; the
+historical failure evidence remains preserved.
 Singularity sensitivity and joint-range concerns also remain. Full front-180°
 drawing coverage is unqualified; narrow software timing success is not physical
-qualification. Final object dimensions/placement are not yet supplied.
+qualification. The owner has now selected [nominal object dimensions](nominal_geometries.md);
+placement, fixtures and supported drawing coverage remain unqualified.
 
 The [investigation](motion_feasibility.md) links code, repeatable commands, plots,
 exact failure witnesses and validation results. Use its failing cases for future

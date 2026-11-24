@@ -1,0 +1,12 @@
+
+MockCartesian artifacts: /tmp/pinchy-cartesian-tests-g36sbo68
+test_01c_straight_lerp_slerp_path_preview_and_execute (__main__.MockCartesian.test_01c_straight_lerp_slerp_path_preview_and_execute) ... ok
+test_01d_blocked_straight_path_never_retains_partial_plan (__main__.MockCartesian.test_01d_blocked_straight_path_never_retains_partial_plan) ... ok
+test_01i_queued_path_gui_and_cli (__main__.MockCartesian.test_01i_queued_path_gui_and_cli) ... This plugin does not support propagateSizeHints()
+This plugin does not support propagateSizeHints()
+ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 25.910s
+
+OK

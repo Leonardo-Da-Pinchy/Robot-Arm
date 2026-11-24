@@ -181,7 +181,11 @@ def validate_cartesian_shape(trajectory, kinematics, start, end):
     for q in sampled_positions(trajectory):
         actual=kinematics.evaluate(q)[0]
         current_rotation=Rotation.from_matrix(origin[:3,:3].T@actual[:3,:3]).as_rotvec()
-        fraction=float((actual[:3,3]-origin[:3,3])@vector/length2) if length2>1e-12 else float(current_rotation@rotation/angle2) if angle2>1e-12 else 1.
+        # Estimate progress from the whole pose, scaled by the same geometry
+        # tolerances used below. Micrometre FK drift must not dominate a
+        # rotation-only motion merely because its translation is nonzero.
+        denominator=length2/.001**2+angle2/.01**2
+        fraction=float(((actual[:3,3]-origin[:3,3])@vector/.001**2+current_rotation@rotation/.01**2)/denominator) if denominator>1e-12 else 1.
         clamped=np.clip(fraction,0.,1.)
         distance=np.linalg.norm(actual[:3,3]-(origin[:3,3]+vector*clamped))
         expected=origin[:3,:3]@Rotation.from_rotvec(rotation*clamped).as_matrix()

@@ -3,11 +3,19 @@ geometry_msgs/PoseStamped[] waypoints
 string orientation_mode
 # polyline: exact segments, stops at pen-up corners; spline: explicitly chosen smooth curve;
 # visits: free-space pose visits, with stops. No style is silently substituted.
+# Empty style defaults to visits for pen-up requests, polyline for contact.
+# fixed_tcp: pen-up approach to point 0, then full-pose rotations at one XYZ.
 string style
 float64 tcp_speed
 float64 tcp_acceleration
 # One label for each current/previous -> waypoint segment. Empty means all pen-up.
 bool[] contact_segments
+# Explicitly permit smooth speed ramps at the stroke's ends during contact.
+# Interior contact speed and geometry remain checked; no interior waypoint stops.
+bool allow_contact_ramps
+# Explicitly route pen-up to waypoint 0, choosing its configuration for the
+# complete remaining trace. Segment 0 must be pen-up. Never implied by failure.
+bool plan_pen_up_approach
 float64 velocity_scaling
 float64 acceleration_scaling
 ---

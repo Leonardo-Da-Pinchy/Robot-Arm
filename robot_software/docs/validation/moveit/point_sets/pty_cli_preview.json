@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "message": "Ordered visits path ready; 5 waypoints, no motion sent. Pen-up timing; ramps and joint limits may lower TCP speed. Low joint travel reserve: pen_pitch 0.70 deg along this plan; validate the next segment too.",
+  "plan_id": "f6e81c5ad02944f8b000b7d5f6bb918c",
+  "duration_s": 11.851955934,
+  "modeled_contact_min_mm_s": 0.0,
+  "modeled_contact_max_mm_s": 0.0,
+  "hardware": true
+}

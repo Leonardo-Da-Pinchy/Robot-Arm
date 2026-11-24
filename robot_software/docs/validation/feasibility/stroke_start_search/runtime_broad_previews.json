@@ -1,0 +1,493 @@
+{
+  "scope": "Saved-limit isolated mock; 13 explicitly spline-interpolated arc samples per stroke, full endpoint contact ramps, checked pen-up routes, preview only. No physical commands.",
+  "events": [
+    {
+      "event": "path_request",
+      "request_id": "01a59b1afe3c4658b39eb208c7ab7bef",
+      "style": "spline",
+      "mode": "tool_axis",
+      "start": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints": [
+        {
+          "xyz": [
+            0.38,
+            -0.034641016151377546,
+            0.2
+          ],
+          "quaternion": [
+            0.6123724356957946,
+            0.3535533905932738,
+            0.6123724356957946,
+            -0.3535533905932738
+          ]
+        },
+        {
+          "xyz": [
+            0.37428849561253846,
+            -0.030641777724759116,
+            0.2
+          ],
+          "quaternion": [
+            0.6408563820557887,
+            0.2988362387301198,
+            0.6408563820557887,
+            -0.2988362387301198
+          ]
+        },
+        {
+          "xyz": [
+            0.3693582222752409,
+            -0.02571150438746157,
+            0.2
+          ],
+          "quaternion": [
+            0.6644630243886747,
+            0.24184476264797525,
+            0.6644630243886747,
+            -0.24184476264797525
+          ]
+        },
+        {
+          "xyz": [
+            0.3653589838486225,
+            -0.019999999999999997,
+            0.2
+          ],
+          "quaternion": [
+            0.6830127018922193,
+            0.18301270189221927,
+            0.6830127018922193,
+            -0.18301270189221927
+          ]
+        },
+        {
+          "xyz": [
+            0.36241229516856366,
+            -0.013680805733026751,
+            0.2
+          ],
+          "quaternion": [
+            0.6963642403200189,
+            0.12278780396897288,
+            0.6963642403200189,
+            -0.12278780396897288
+          ]
+        },
+        {
+          "xyz": [
+            0.3606076898795117,
+            -0.006945927106677219,
+            0.2
+          ],
+          "quaternion": [
+            0.7044160264027587,
+            0.061628416716219395,
+            0.7044160264027587,
+            -0.061628416716219395
+          ]
+        },
+        {
+          "xyz": [
+            0.36000000000000004,
+            0.0,
+            0.2
+          ],
+          "quaternion": [
+            0.7071067811865475,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ]
+        },
+        {
+          "xyz": [
+            0.3606076898795117,
+            0.006945927106677214,
+            0.2
+          ],
+          "quaternion": [
+            0.7044160264027587,
+            -0.06162841671621937,
+            0.7044160264027587,
+            0.06162841671621937
+          ]
+        },
+        {
+          "xyz": [
+            0.36241229516856366,
+            0.013680805733026742,
+            0.2
+          ],
+          "quaternion": [
+            0.6963642403200189,
+            -0.12278780396897279,
+            0.6963642403200189,
+            0.12278780396897279
+          ]
+        },
+        {
+          "xyz": [
+            0.3653589838486225,
+            0.019999999999999993,
+            0.2
+          ],
+          "quaternion": [
+            0.6830127018922193,
+            -0.18301270189221924,
+            0.6830127018922193,
+            0.18301270189221924
+          ]
+        },
+        {
+          "xyz": [
+            0.3693582222752409,
+            0.025711504387461562,
+            0.2
+          ],
+          "quaternion": [
+            0.6644630243886748,
+            -0.24184476264797516,
+            0.6644630243886748,
+            0.24184476264797516
+          ]
+        },
+        {
+          "xyz": [
+            0.37428849561253846,
+            0.030641777724759116,
+            0.2
+          ],
+          "quaternion": [
+            0.6408563820557887,
+            -0.2988362387301198,
+            0.6408563820557887,
+            0.2988362387301198
+          ]
+        },
+        {
+          "xyz": [
+            0.38,
+            0.034641016151377546,
+            0.2
+          ],
+          "quaternion": [
+            0.6123724356957946,
+            -0.3535533905932738,
+            0.6123724356957946,
+            0.3535533905932738
+          ]
+        }
+      ],
+      "contacts": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tcp_speed": 0.003
+    },
+    {
+      "event": "stroke_start_selected",
+      "request_id": "01a59b1afe3c4658b39eb208c7ab7bef",
+      "method": "whole_stroke_start_search",
+      "starting_configurations": 5,
+      "rejections": [
+        "Cartesian trace incomplete at 52.9%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+        "Cartesian trace incomplete at 52.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+        "Cartesian trace incomplete at 52.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+        "Cartesian trace incomplete at 52.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained"
+      ]
+    },
+    {
+      "event": "path_planned",
+      "request_id": "01a59b1afe3c4658b39eb208c7ab7bef",
+      "plan_id": "57e5edaa3030419a8b2f1be97aeeee86",
+      "duration": 32.300621186,
+      "points": 1454,
+      "timing": [
+        {
+          "requested_tcp_speed_m_s": 0.003,
+          "modeled_peak_tcp_speed_m_s": 0.0030093083850703476,
+          "modeled_contact_min_m_s": 0.0,
+          "modeled_contact_max_m_s": 0.0030093083850703476,
+          "modeled_steady_contact_min_m_s": 0.0029880313541958436,
+          "modeled_steady_contact_max_m_s": 0.0030093083850703476,
+          "contact_ramps_allowed": true,
+          "contact_has_constant_speed_plateau": true,
+          "ramp_only": false,
+          "transit_time_scale": 0.9999999999964135,
+          "physical_speed_qualified": false,
+          "configuration_selection": {
+            "method": "whole_stroke_start_search",
+            "starting_configurations": 5,
+            "rejections": [
+              "Cartesian trace incomplete at 52.9%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+              "Cartesian trace incomplete at 52.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+              "Cartesian trace incomplete at 52.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained",
+              "Cartesian trace incomplete at 52.8%: no continuous collision-free IK step found within saved limits. A different twist/approach configuration may be needed; Visit poses permits pen-up repositioning, not contact tracing. No partial plan retained"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "event": "path_request",
+      "request_id": "24ea7521131b413a86dc3d78f88af722",
+      "style": "spline",
+      "mode": "tool_axis",
+      "start": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints": [
+        {
+          "xyz": [
+            0.32999999999999996,
+            -0.034641016151377546,
+            0.15
+          ],
+          "quaternion": [
+            0.6123724356957946,
+            0.3535533905932738,
+            0.6123724356957946,
+            -0.3535533905932738
+          ]
+        },
+        {
+          "xyz": [
+            0.3242884956125384,
+            -0.030641777724759116,
+            0.15
+          ],
+          "quaternion": [
+            0.6408563820557887,
+            0.2988362387301198,
+            0.6408563820557887,
+            -0.2988362387301198
+          ]
+        },
+        {
+          "xyz": [
+            0.31935822227524086,
+            -0.02571150438746157,
+            0.15
+          ],
+          "quaternion": [
+            0.6644630243886747,
+            0.24184476264797525,
+            0.6644630243886747,
+            -0.24184476264797525
+          ]
+        },
+        {
+          "xyz": [
+            0.31535898384862243,
+            -0.019999999999999997,
+            0.15
+          ],
+          "quaternion": [
+            0.6830127018922193,
+            0.18301270189221927,
+            0.6830127018922193,
+            -0.18301270189221927
+          ]
+        },
+        {
+          "xyz": [
+            0.3124122951685636,
+            -0.013680805733026751,
+            0.15
+          ],
+          "quaternion": [
+            0.6963642403200189,
+            0.12278780396897288,
+            0.6963642403200189,
+            -0.12278780396897288
+          ]
+        },
+        {
+          "xyz": [
+            0.31060768987951165,
+            -0.006945927106677219,
+            0.15
+          ],
+          "quaternion": [
+            0.7044160264027587,
+            0.061628416716219395,
+            0.7044160264027587,
+            -0.061628416716219395
+          ]
+        },
+        {
+          "xyz": [
+            0.31,
+            0.0,
+            0.15
+          ],
+          "quaternion": [
+            0.7071067811865475,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ]
+        },
+        {
+          "xyz": [
+            0.31060768987951165,
+            0.006945927106677214,
+            0.15
+          ],
+          "quaternion": [
+            0.7044160264027587,
+            -0.06162841671621937,
+            0.7044160264027587,
+            0.06162841671621937
+          ]
+        },
+        {
+          "xyz": [
+            0.3124122951685636,
+            0.013680805733026742,
+            0.15
+          ],
+          "quaternion": [
+            0.6963642403200189,
+            -0.12278780396897279,
+            0.6963642403200189,
+            0.12278780396897279
+          ]
+        },
+        {
+          "xyz": [
+            0.31535898384862243,
+            0.019999999999999993,
+            0.15
+          ],
+          "quaternion": [
+            0.6830127018922193,
+            -0.18301270189221924,
+            0.6830127018922193,
+            0.18301270189221924
+          ]
+        },
+        {
+          "xyz": [
+            0.31935822227524086,
+            0.025711504387461562,
+            0.15
+          ],
+          "quaternion": [
+            0.6644630243886748,
+            -0.24184476264797516,
+            0.6644630243886748,
+            0.24184476264797516
+          ]
+        },
+        {
+          "xyz": [
+            0.3242884956125384,
+            0.030641777724759116,
+            0.15
+          ],
+          "quaternion": [
+            0.6408563820557887,
+            -0.2988362387301198,
+            0.6408563820557887,
+            0.2988362387301198
+          ]
+        },
+        {
+          "xyz": [
+            0.32999999999999996,
+            0.034641016151377546,
+            0.15
+          ],
+          "quaternion": [
+            0.6123724356957946,
+            -0.3535533905932738,
+            0.6123724356957946,
+            0.3535533905932738
+          ]
+        }
+      ],
+      "contacts": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tcp_speed": 0.003
+    },
+    {
+      "event": "stroke_start_selected",
+      "request_id": "24ea7521131b413a86dc3d78f88af722",
+      "method": "whole_stroke_optimization",
+      "iterations": 100,
+      "fixed_start": false,
+      "starting_configurations": 1,
+      "rejections": [
+        "Interpolated trajectory exceeds wrist_flex bounds"
+      ]
+    },
+    {
+      "event": "path_planned",
+      "request_id": "24ea7521131b413a86dc3d78f88af722",
+      "plan_id": "d00e6288f49f42ad8bf9b3c649d4063a",
+      "duration": 32.525744721,
+      "points": 1456,
+      "timing": [
+        {
+          "requested_tcp_speed_m_s": 0.003,
+          "modeled_peak_tcp_speed_m_s": 0.0030028432535899882,
+          "modeled_contact_min_m_s": 0.0,
+          "modeled_contact_max_m_s": 0.0030028432535899882,
+          "modeled_steady_contact_min_m_s": 0.0029985868733108513,
+          "modeled_steady_contact_max_m_s": 0.0030028432535899882,
+          "contact_ramps_allowed": true,
+          "contact_has_constant_speed_plateau": true,
+          "ramp_only": false,
+          "transit_time_scale": 0.9999999999964135,
+          "physical_speed_qualified": false,
+          "configuration_selection": {
+            "method": "whole_stroke_optimization",
+            "iterations": 100,
+            "fixed_start": false,
+            "starting_configurations": 1,
+            "rejections": [
+              "Interpolated trajectory exceeds wrist_flex bounds"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

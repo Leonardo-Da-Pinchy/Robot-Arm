@@ -341,6 +341,50 @@ class CartesianFixture:
         failure=self.service(PlanPath,'/pinchy_motion/plan_path',rejected,seconds=120)
         self.assertFalse(failure.success);self.assertFalse(failure.plan_id)
 
+    def test_01n_whole_stroke_setup_with_contact_ramps(self):
+        if self.hardware:
+            target=self.target([self.state[n] for n in JOINTS])
+            request=PlanPath.Request(waypoints=[target,target],style='polyline',orientation_mode='tool_axis',
+                contact_segments=[False,True],allow_contact_ramps=True,plan_pen_up_approach=True)
+            result=self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=15)
+            self.assertFalse(result.success);self.assertFalse(result.plan_id);self.assertIn('mock-only',result.message)
+            return
+        initial=self.plan([.1,-.25,.5,-.25,.4,.4]);self.assertTrue(self.execute(initial).result.success)
+        origin=self.target([.1,-.25,.5,-.25,.4,.4]);targets=[]
+        for offset in (.004,.009,.014):
+            target=copy.deepcopy(origin);target.pose.position.y+=offset;targets.append(target)
+        request=PlanPath.Request(waypoints=targets,style='polyline',orientation_mode='tool_axis',
+            tcp_speed=.005,tcp_acceleration=.02,contact_segments=[False,True,True],
+            allow_contact_ramps=True,plan_pen_up_approach=True)
+        before=dict(self.state);result=self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=150)
+        self.assertTrue(result.success,result.message);self.assertEqual(len(result.resolved_waypoints),3)
+        self.assertIn('whole-stroke-selected',result.message);self.assertIn('endpoint ramps',result.message)
+        self.assertAlmostEqual(result.modeled_contact_min_speed,0.,delta=1e-6)
+        for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+        self.assertTrue(self.execute(result).result.success)
+        request.contact_segments[0]=True
+        rejected=self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=15)
+        self.assertFalse(rejected.success);self.assertFalse(rejected.plan_id);self.assertIn('pen-up first',rejected.message)
+
+    def test_01o_broad_stroke_start_search_previews(self):
+        if self.hardware:self.skipTest('Broad contact previews are mock-only')
+        from pinchy_motion.feasibility import CylinderArc
+        for cx,z in ((.4,.2),(.35,.15)):
+            with self.subTest(center_x=cx,height=z):
+                curve=CylinderArc(cx,.04,z,60);targets=[]
+                for distance in np.linspace(0,curve.length,13):
+                    t=curve.evaluate(distance);target=PoseStamped();target.header.frame_id='base_link'
+                    target.pose.position.x,target.pose.position.y,target.pose.position.z=map(float,t[:3,3])
+                    r=Rotation.from_matrix(t[:3,:3]).as_quat()
+                    target.pose.orientation=Quaternion(x=float(r[0]),y=float(r[1]),z=float(r[2]),w=float(r[3]));targets.append(target)
+                request=PlanPath.Request(waypoints=targets,style='spline',orientation_mode='tool_axis',
+                    tcp_speed=.003,tcp_acceleration=.02,contact_segments=[False]+[True]*12,
+                    allow_contact_ramps=True,plan_pen_up_approach=True)
+                before=dict(self.state);result=self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=150)
+                self.assertTrue(result.success,result.message);self.assertEqual(len(result.resolved_waypoints),13)
+                self.assertGreater(result.modeled_contact_max_speed,.00285);self.assertLess(result.modeled_contact_max_speed,.00315)
+                for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+
     def test_01i_queued_path_gui_and_cli(self):
         from python_qt_binding.QtWidgets import QApplication
         from rclpy.parameter import Parameter
@@ -357,6 +401,8 @@ class CartesianFixture:
             window.copy_current();base=[box.value() for box in window.inputs]
             for delta in (.002,.004):
                 window.inputs[1].setValue(base[1]+delta);window.add_waypoint()
+            self.assertEqual(window.path_style.currentData(),'visits')
+            window.path_style.setCurrentIndex(window.path_style.findData('polyline'))
             self.assertEqual(window.queue.rowCount(),2);window.plan_queued();until(lambda:not window.busy)
             self.assertTrue(window.plan_id,window.notice.text());self.assertIn('Ordered polyline',window.notice.text())
             window.grab().save(str(self.folder/'ordered-path-panel.png'))
@@ -367,6 +413,115 @@ class CartesianFixture:
         file=self.folder/'ordered-path.json';file.write_text(json.dumps(dict(style='polyline',orientation_mode='tool_axis',tcp_speed_m_s=.01,waypoints=[dict(xyz=[p.x,p.y+.002,p.z],rpy_deg=rpy),dict(xyz=[p.x,p.y+.004,p.z],rpy_deg=rpy)])))
         process=subprocess.run(['ros2','run','pinchy_motion','pose','path',str(file)],capture_output=True,text=True,timeout=120)
         self.assertEqual(process.returncode,0,process.stdout+process.stderr)
+
+    def test_01q_saved_fixed_tcp_rotation_sequence(self):
+        from pinchy_motion import point_sets
+        from ament_index_python.packages import get_package_share_directory
+        data=point_sets.read(Path(get_package_share_directory('pinchy_motion'))/'examples/point_sets/01_fixed_tcp_tilts.json')
+        request=PlanPath.Request(style=data['style'],orientation_mode=data['orientation_mode'],
+            velocity_scaling=data['joint_speed_deg_s']/self.status['max_speed_deg_s'],
+            acceleration_scaling=data['joint_acceleration_deg_s2']/self.status['max_acceleration_deg_s2'])
+        for point in data['waypoints']:
+            pose=PoseStamped();pose.header.frame_id='base_link';pose.pose.position.x,pose.pose.position.y,pose.pose.position.z=point['xyz']
+            q=Rotation.from_euler('xyz',point['rpy_deg'],degrees=True).as_quat()
+            pose.pose.orientation=Quaternion(x=float(q[0]),y=float(q[1]),z=float(q[2]),w=float(q[3]))
+            request.waypoints.append(pose);request.contact_segments.append(False)
+        before=dict(self.state);result=self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=150)
+        self.assertTrue(result.success,result.message);self.assertEqual(len(result.resolved_waypoints),7)
+        self.assertIn('modeled TCP drift',result.message)
+        for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+        # Independent MoveIt FK on trajectory samples after the initial approach.
+        points=result.trajectory.joint_trajectory.points;anchor=np.array(data['waypoints'][0]['xyz']);first_orientation=Rotation.from_euler('xyz',data['waypoints'][0]['rpy_deg'],degrees=True)
+        reached=False;angular=[];checks=[]
+        for point in points:
+            pose=self.target(list(point.positions));p=pose.pose.position;r=pose.pose.orientation
+            rotation=Rotation.from_quat([r.x,r.y,r.z,r.w]);distance=np.linalg.norm(np.array([p.x,p.y,p.z])-anchor)
+            if distance<.0002 and (first_orientation.inv()*rotation).magnitude()<.002:reached=True
+            if reached:
+                self.assertLess(distance,.001)
+                angular.append((first_orientation.inv()*rotation).magnitude());checks.append(distance)
+        self.assertTrue(reached);self.assertGreater(max(angular),np.radians(2.5))
+        (self.folder/'fixed_tcp_sequence.json').write_text(json.dumps(dict(message=result.message,maximum_sampled_position_error_m=max(checks),maximum_orientation_change_rad=max(angular),duration=result.duration),indent=2))
+        self.assertTrue(self.execute(result).result.success)
+        # Different XYZ must never be accepted under a fixed-position label.
+        request.waypoints[-1].pose.position.x+=.002
+        rejected=self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=15)
+        self.assertFalse(rejected.success);self.assertFalse(rejected.plan_id);self.assertIn('share one XYZ',rejected.message)
+
+    def test_01r_point_set_files_gui_and_queue_cli(self):
+        from unittest.mock import patch
+        from python_qt_binding.QtWidgets import QApplication
+        from rclpy.parameter import Parameter
+        from ament_index_python.packages import get_package_share_directory
+        from pinchy_motion import point_sets
+        from pinchy_motion.panel import PosePanel
+        app=QApplication.instance() or QApplication([])
+        node=rclpy.create_node('saved_queue_roundtrip_test',context=self.context,parameter_overrides=[Parameter('hardware',value=self.hardware)])
+        window=PosePanel(node);window.show();before=dict(self.state)
+        def until(predicate):
+            deadline=time.monotonic()+90
+            while not predicate() and time.monotonic()<deadline:app.processEvents();self.executor.spin_once(timeout_sec=0);time.sleep(.01)
+            self.assertTrue(predicate(),window.notice.text())
+        try:
+            until(lambda:window.plan_button.isEnabled())
+            data=point_sets.read(Path(get_package_share_directory('pinchy_motion'))/'examples/point_sets/02_small_pen_up_square.json')
+            window.apply_point_set(data);path=self.folder/'saved-points.json'
+            with patch('pinchy_motion.panel.QFileDialog.getSaveFileName',return_value=(str(path),'Point sets (*.json)')):window.save_points()
+            self.assertTrue(path.exists());self.assertEqual(point_sets.read(path)['joint_speed_deg_s'],5.)
+            window.clear_waypoints();self.assertEqual(window.queue.rowCount(),0)
+            with patch('pinchy_motion.panel.QFileDialog.getOpenFileName',return_value=(str(path),'Point sets (*.json)')):window.load_points()
+            self.assertEqual(window.queue.rowCount(),5);self.assertFalse(window.plan_id)
+            window.publish_queue_snapshot();out=self.folder/'published-points.json'
+            process=subprocess.run(['ros2','run','pinchy_motion','pose','queue','--out',str(out)],capture_output=True,text=True,timeout=20)
+            self.assertEqual(process.returncode,0,process.stdout+process.stderr)
+            self.assertEqual(len(point_sets.read(out)['waypoints']),5)
+            window.plan_queued();until(lambda:not window.busy);self.assertTrue(window.plan_id,window.notice.text())
+            for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+        finally:window.close();window.executor.shutdown();app.processEvents();node.destroy_node()
+        summary=self.folder/'saved-point-cli-plan.json'
+        process=subprocess.run(['ros2','run','pinchy_motion','pose','path',str(path),'--out',str(summary)],capture_output=True,text=True,timeout=150)
+        self.assertEqual(process.returncode,0,process.stdout+process.stderr)
+        self.assertTrue(json.loads(summary.read_text())['success'])
+        for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+
+    def test_01p_reported_pen_up_targets_from_zero(self):
+        # Exact held state and target quaternions from the real-session logs.
+        # Exercise preview only, on saved-limit mock or a PTY adapter.
+        self.assertLess(max(abs(self.state[n]) for n in JOINTS),.03)
+        requests=[
+            ([.428247,.142794,.239279],[-.6815802620347066,.23370210541832073,-.6658017981340734,-.19375148497283684]),
+            ([.359299,-.073879,.16414],[-.7198100734753331,.03227670670453764,-.693418395741209,.0016126919832649689]),
+            ([.370924,.076653,.239279],Rotation.from_euler('xyz',[-129.153,-86.519,-86.050],degrees=True).as_quat())]
+        before=dict(self.state);records=[]
+        for index,(xyz,quat) in enumerate(requests):
+            target=PoseStamped();target.header.frame_id='base_link'
+            target.pose.position.x,target.pose.position.y,target.pose.position.z=xyz
+            target.pose.orientation=Quaternion(x=float(quat[0]),y=float(quat[1]),z=float(quat[2]),w=float(quat[3]))
+            for kind,client,request in [
+                ('pose',self.plan_client,PlanPose.Request(target=target,orientation_mode='tool_axis')),
+                ('queue',None,PlanPath.Request(waypoints=[target],orientation_mode='tool_axis',contact_segments=[False]))]:
+                result=(self.wait(client.call_async(request),90) if client else
+                    self.service(PlanPath,'/pinchy_motion/plan_path',request,seconds=120))
+                records.append(dict(kind=kind,xyz=xyz,success=result.success,message=result.message))
+                if index==0:
+                    # Independent global search also retains a residual for
+                    # this XYZ+axis. A pen-up route cannot fix endpoint IK.
+                    self.assertFalse(result.success);self.assertFalse(result.plan_id)
+                    self.assertIn('direction',result.message);self.assertNotIn('trace incomplete',result.message)
+                    continue
+                self.assertTrue(result.success,result.message)
+                if kind=='queue':self.assertIn('Ordered visits',result.message)
+                solved=result.resolved_target.pose.orientation
+                np.testing.assert_allclose(Rotation.from_quat([solved.x,solved.y,solved.z,solved.w]).as_matrix()[:,2],
+                    Rotation.from_quat(quat).as_matrix()[:,2],atol=.002)
+                for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+            if index==0:
+                explicit=PlanPath.Request(waypoints=[target],orientation_mode='position',contact_segments=[False])
+                result=self.service(PlanPath,'/pinchy_motion/plan_path',explicit,seconds=120)
+                records.append(dict(kind='explicit_position_only',xyz=xyz,success=result.success,message=result.message))
+                self.assertTrue(result.success,result.message)
+                for name in JOINTS:self.assertAlmostEqual(before[name],self.state[name],delta=.002)
+        (self.folder/'reported_pen_up_targets.json').write_text(json.dumps(records,indent=2))
 
     def test_01j_free_twist_straight_transit(self):
         interior=self.plan([.1,-.25,.5,-.25,.4,.4]);self.assertTrue(self.execute(interior).result.success)

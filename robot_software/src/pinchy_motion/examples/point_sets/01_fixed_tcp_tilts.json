@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "name": "Fixed TCP: small tilts (approach first)",
+  "frame": "base_link",
+  "tcp_frame": "pointer_tip",
+  "units": {
+    "position": "m",
+    "orientation": "deg"
+  },
+  "orientation_mode": "full",
+  "style": "fixed_tcp",
+  "waypoints": [
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149682,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        46.26540524149682,
+        -59.86007456767394,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        40.265405241496836,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149682,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        39.98185427309117,
+        -57.616355038387546,
+        138.96628303122677
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        47.09300095342793,
+        -61.97617290304656,
+        130.74759885800393
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149682,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    }
+  ],
+  "allow_contact_ramps": false,
+  "plan_pen_up_approach": false,
+  "joint_speed_deg_s": 5.0,
+  "joint_acceleration_deg_s2": 30.0,
+  "tcp_speed_m_s": 0.005,
+  "tcp_acceleration_m_s2": 0.02,
+  "notes": "First point is reached by a pen-up approach; afterwards rotate \u00b13 degrees around local tool X/Y at the same modeled XYZ. Proxy TCP is unmeasured. Preview on the current scene before explicit execution; this is not a contact job."
+}

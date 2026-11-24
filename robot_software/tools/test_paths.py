@@ -10,6 +10,24 @@ from pinchy_motion.geometry import seconds
 
 
 class PathTests(unittest.TestCase):
+    def test_rotation_progress_ignores_sub_tolerance_fk_translation_noise(self):
+        from scipy.spatial.transform import Rotation
+        from moveit_msgs.msg import RobotTrajectory
+        from trajectory_msgs.msg import JointTrajectoryPoint
+        from pinchy_motion.geometry import validate_cartesian_shape,set_seconds
+        class Kinematics:
+            drift=.00002
+            def evaluate(self,q):
+                t=np.eye(4);t[:3,:3]=Rotation.from_rotvec([0.,0.,q[0]]).as_matrix()
+                t[0,3]=self.drift*np.sin(np.pi*q[0]/.052)+.000002*q[0]/.052
+                return t,None,None
+        trajectory=RobotTrajectory()
+        for index,angle in enumerate((0.,.026,.052)):
+            point=JointTrajectoryPoint(positions=[angle,0.,0.,0.,0.,0.]);set_seconds(point,float(index));trajectory.joint_trajectory.points.append(point)
+        kin=Kinematics();validate_cartesian_shape(trajectory,kin,[0.]*6,[.052,0.,0.,0.,0.,0.])
+        kin.drift=.002
+        with self.assertRaisesRegex(ValueError,'deviates'):validate_cartesian_shape(trajectory,kin,[0.]*6,[.052,0.,0.,0.,0.,0.])
+
     def branch_problem(self):
         # Five constrained coordinates, one free twist. At the far end the
         # near-zero branch dies; the planner must turn before reaching it.
@@ -105,6 +123,44 @@ class PathTests(unittest.TestCase):
         self.assertTrue(any(np.linalg.norm(p.velocities)>.001 for p in trajectory.joint_trajectory.points[1:-1]))
         with self.assertRaisesRegex(ValueError,'lead-in/out'):
             timed_trace(curve,distances,positions,solver,limits,'tool_axis',.005,.05,[True,True,True])
+
+    def test_explicit_contact_endpoint_ramps_preserve_steady_speed(self):
+        from pinchy_motion.geometry import model_limits
+        root,solver=calibrated_solver();q=np.array([.1,-.25,.5,-.25,.4,.4]);a=solver.evaluate(q)[0];b=a.copy();b[1,3]+=.02
+        curve=CartesianCurve([a,b]);d,p=sample_ik(curve,'tool_axis',q,solver,lambda q:True,lambda:False)
+        _,summary=timed_trace(curve,d,p,solver,model_limits(root),'tool_axis',.005,.02,[True],allow_contact_ramps=True)
+        self.assertTrue(summary['contact_has_constant_speed_plateau'])
+        self.assertAlmostEqual(summary['modeled_contact_min_m_s'],0.,places=8)
+        self.assertGreater(summary['modeled_steady_contact_min_m_s'],.00475)
+        self.assertLess(summary['modeled_steady_contact_max_m_s'],.00525)
+        self.assertAlmostEqual(summary['transit_time_scale'],1.,places=8)
+
+    def test_contact_ramps_do_not_bypass_joint_rate_limits(self):
+        from pinchy_motion.geometry import model_limits
+        root,solver=calibrated_solver();q=np.array([.1,-.25,.5,-.25,.4,.4]);a=solver.evaluate(q)[0];b=a.copy();b[1,3]+=.02
+        curve=CartesianCurve([a,b]);d,p=sample_ik(curve,'tool_axis',q,solver,lambda q:True,lambda:False)
+        limits=model_limits(root)
+        for item in limits.values():item.update(velocity=.00001,acceleration=.00001)
+        with self.assertRaisesRegex(ValueError,'contact speed exceeds joint timing'):
+            timed_trace(curve,d,p,solver,limits,'tool_axis',.005,.02,[True],allow_contact_ramps=True)
+
+    def test_short_contact_stroke_reports_ramp_only_profile(self):
+        from pinchy_motion.geometry import model_limits
+        root,solver=calibrated_solver();q=np.array([.1,-.25,.5,-.25,.4,.4]);a=solver.evaluate(q)[0];b=a.copy();b[1,3]+=.002
+        curve=CartesianCurve([a,b]);d,p=sample_ik(curve,'tool_axis',q,solver,lambda q:True,lambda:False,step=.0005)
+        _,summary=timed_trace(curve,d,p,solver,model_limits(root),'tool_axis',.02,.02,[True],allow_contact_ramps=True)
+        self.assertTrue(summary['ramp_only']);self.assertFalse(summary['contact_has_constant_speed_plateau'])
+        self.assertLess(summary['modeled_contact_max_m_s'],.02)
+
+    def test_start_search_stop_after_complete_candidate_never_retries(self):
+        from pinchy_motion.stroke_search import select_stroke
+        _,solver=calibrated_solver();q=np.array([.1,-.25,.5,-.25,.4,.4]);a=solver.evaluate(q)[0];b=a.copy();b[1,3]+=.01
+        curve=CartesianCurve([a,b]);stopped=[False];calls=[]
+        def finish(d,p):
+            calls.append(1);stopped[0]=True;raise RuntimeError('Stop during complete-candidate validation')
+        with self.assertRaisesRegex(RuntimeError,'stopped'):
+            select_stroke(curve,'tool_axis',q,solver,lambda q:True,lambda:stopped[0],finish)
+        self.assertEqual(len(calls),1)
 
     def test_explicit_smooth_curve_preserves_waypoints_and_contact_speed(self):
         _,solver=calibrated_solver();q=np.array([.1,-.25,.5,-.25,.4,.4]);origin=solver.evaluate(q)[0];transforms=[]

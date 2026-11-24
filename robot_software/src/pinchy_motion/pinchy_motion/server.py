@@ -356,6 +356,24 @@ class MotionServer(Node):
         if result.error_code.val!=1:raise RuntimeError('Free-space route planning failed (code '+str(result.error_code.val)+'); endpoint IK succeeded')
         return result.trajectory
 
+    def route_to_pose(self,target,start,mode,velocity,acceleration):
+        """Share collision-aware endpoint/route retries across both pose UIs."""
+        excluded=[];last_error=None
+        for attempt in range(3):
+            if self.stop_requested or self.model_changed:raise RuntimeError('Stopped during pose routing')
+            try:goal=self.solve_ik(target,start,mode,exclude=excluded)
+            except RuntimeError:
+                if last_error is not None:raise RuntimeError('No checked route found to the valid pose configurations: '+str(last_error)) from last_error
+                raise
+            excluded.append(goal);resolved=self.pose_from_joints(goal)
+            try:
+                trajectory=self.plan_transit(start,goal,resolved,velocity,acceleration,'joint')
+                return goal,resolved,trajectory
+            except RuntimeError as error:
+                if self.stop_requested or self.model_changed:raise
+                last_error=error
+        raise RuntimeError('No checked route found after three pose configurations: '+str(last_error)) from last_error
+
     def target_changed(self,revision):
         self.clear_path_preview();self.plans.clear()
         if not self.active:self.active_id=''
@@ -407,18 +425,13 @@ class MotionServer(Node):
             p=target.pose.position
             if not inside_workspace([p.x,p.y,p.z],self.workspace):
                 raise RuntimeError('Pose is outside the configured numerical XYZ input bounds (not a reachable-workspace boundary)')
-            goal_positions=self.solve_ik(target,start,mode);self.valid(goal_positions)
-            resolved=self.pose_from_joints(goal_positions)
-            try:
+            if path_mode=='joint':
+                goal_positions,resolved,trajectory=self.route_to_pose(target,start,mode,velocity,acceleration)
+            else:
+                goal_positions=self.solve_ik(target,start,mode);self.valid(goal_positions)
+                resolved=self.pose_from_joints(goal_positions)
                 trajectory=(self.trace_paths(start,[target],mode,'polyline',[False],.02,.05,velocity,acceleration)[0]
                     if path_mode=='cartesian' and mode!='full' else self.plan_transit(start,goal_positions,resolved,velocity,acceleration,path_mode))
-            except RuntimeError:
-                if path_mode!='joint' or self.stop_requested:raise
-                # A valid endpoint can be in another disconnected branch. Try
-                # another collision-free solution before declaring route failure.
-                goal_positions=self.solve_ik(target,start,mode,exclude=[goal_positions])
-                resolved=self.pose_from_joints(goal_positions)
-                trajectory=self.plan_transit(start,goal_positions,resolved,velocity,acceleration,path_mode)
             if len(trajectory.joint_trajectory.points)==1:
                 point=copy.deepcopy(trajectory.joint_trajectory.points[0]); point.time_from_start.sec=1
                 trajectory.joint_trajectory.points.append(point)
@@ -468,7 +481,7 @@ class MotionServer(Node):
             self.operation.release()
         return response
 
-    def trace_paths(self,start,targets,mode,style,contacts,speed,acceleration,velocity_scale,acceleration_scale):
+    def trace_paths(self,start,targets,mode,style,contacts,speed,acceleration,velocity_scale,acceleration_scale,allow_contact_ramps=False):
         transforms=[self.ik_solver.evaluate(start)[0],*[pose_matrix(p.pose) for p in targets]]
         resolved=[];deadline=time.monotonic()+45
         def stopped():
@@ -493,7 +506,7 @@ class MotionServer(Node):
                 except (RuntimeError,ValueError) as error:rejected.append(str(error));return False
             def finish(distances,positions):
                 trajectory,summary=timed_trace(curve,distances,positions,self.ik_solver,self.limits,mode,speed,acceleration,
-                    contacts[first:last],velocity_scale,acceleration_scale)
+                    contacts[first:last],velocity_scale,acceleration_scale,allow_contact_ramps)
                 for candidate in sampled_positions(trajectory):
                     if stopped():raise RuntimeError('Stopped during trace interpolation validation')
                     self.valid(candidate)
@@ -522,16 +535,73 @@ class MotionServer(Node):
             trajectories.append(trajectory);summaries.append(summary);q=trajectory.joint_trajectory.points[-1].positions
         return concatenate(trajectories),summaries,resolved
 
+    def trace_with_approach(self,start,targets,mode,style,contacts,speed,acceleration,velocity_scale,acceleration_scale,allow_contact_ramps):
+        """Explicit pen-up route to a start selected for the entire stroke."""
+        from .stroke_search import select_stroke
+        if len(targets)<2 or contacts[0] or style=='visits':
+            raise ValueError('Stroke setup requires two or more waypoints, a pen-up first segment and a trace style')
+        transforms=[pose_matrix(p.pose) for p in targets]
+        if style=='polyline' and corner_indices(transforms):
+            raise ValueError('Stroke setup needs a smooth trace or collinear points; no automatic contact corner blending')
+        curve=CartesianCurve(transforms,style);deadline=time.monotonic()+90;state_checks={}
+        def stopped():
+            if time.monotonic()>deadline:raise RuntimeError('Whole-stroke setup exceeded its time budget; no partial plan retained')
+            return self.stop_requested or self.model_changed
+        def valid(q):
+            if stopped():raise RuntimeError('Whole-stroke planning stopped')
+            key=tuple(map(float,q))
+            if key not in state_checks:
+                try:self.valid(q);state_checks[key]=True
+                except (RuntimeError,ValueError):state_checks[key]=False
+            return state_checks[key]
+        def finish(distances,positions):
+            stroke,summary=timed_trace(curve,distances,positions,self.ik_solver,self.limits,mode,speed,acceleration,
+                contacts[1:],velocity_scale,acceleration_scale,allow_contact_ramps)
+            for q in sampled_positions(stroke):
+                if stopped():raise RuntimeError('Whole-stroke planning stopped')
+                self.valid(q)
+            if stopped():raise RuntimeError('Whole-stroke planning stopped')
+            approach=self.plan_transit(start,positions[0].tolist(),self.pose_from_joints(positions[0]),velocity_scale,acceleration_scale,'joint')
+            if len(approach.joint_trajectory.points)==1:
+                point=copy.deepcopy(approach.joint_trajectory.points[0]);point.time_from_start.sec=1
+                approach.joint_trajectory.points.append(point)
+            if max(abs(a-b) for a,b in zip(start,approach.joint_trajectory.points[0].positions))>1e-6:
+                raise RuntimeError('Pen-up approach does not start at the held command')
+            if max(abs(a-b) for a,b in zip(positions[0],approach.joint_trajectory.points[-1].positions))>1e-5:
+                raise RuntimeError('Pen-up approach does not reach the selected stroke start')
+            # Match the exact constrained start; any endpoint change and zero
+            # derivatives are made BEFORE polynomial and collision validation.
+            approach.joint_trajectory.points[-1].positions=positions[0].tolist()
+            for endpoint in (approach.joint_trajectory.points[0],approach.joint_trajectory.points[-1]):
+                endpoint.velocities=[0.]*6;endpoint.accelerations=[0.]*6
+            approach=prepare_trajectory(approach,self.limits,velocity_scale,acceleration_scale)
+            for q in sampled_positions(approach):
+                if stopped():raise RuntimeError('Pen-up approach validation stopped')
+                self.valid(q)
+            return concatenate([approach,stroke]),summary
+        distances,positions,(trajectory,summary),selection=select_stroke(curve,mode,start,self.ik_solver,valid,stopped,finish)
+        summary['configuration_selection']=selection
+        self.get_logger().info('PLAN_EVENT '+json.dumps(dict(event='stroke_start_selected',request_id=self.request_id,**selection)))
+        resolved=[self.pose_from_joints(positions[int(np.argmin(abs(distances-distance)))]) for distance in curve.waypoint_distances]
+        return trajectory,[summary],resolved
+
     def plan_path(self,request,response):
         if not self.operation.acquire(False):response.message='Another planning/execution operation is active';return response
         try:
             self.clear_path_preview()
             self.check_ready();self.plans.clear();self.stop_requested=False;self.stage='planning ordered path';self.request_id=uuid.uuid4().hex
             if not 1<=len(request.waypoints)<=80:raise ValueError('Path requires 1..80 ordered waypoints')
-            mode=request.orientation_mode or 'tool_axis';style=request.style or 'polyline'
-            if mode not in MODES or style not in ('polyline','spline','visits'):raise ValueError('Invalid path style/orientation mode')
+            mode=request.orientation_mode or 'tool_axis'
             contacts=list(request.contact_segments) or [False]*len(request.waypoints)
             if len(contacts)!=len(request.waypoints):raise ValueError('Contact labels must match waypoint count')
+            # A pen-up pose queue promises destinations, not an unrequested
+            # straight Cartesian drawing trace from the held posture.
+            style=request.style or ('polyline' if any(contacts) else 'visits')
+            if mode not in MODES or style not in ('polyline','spline','visits','fixed_tcp'):raise ValueError('Invalid path style/orientation mode')
+            if style=='fixed_tcp' and (mode!='full' or any(contacts)):
+                raise ValueError('Fixed-TCP rotation requires Exact RPY and pen-up points')
+            if request.plan_pen_up_approach and (style in ('visits','fixed_tcp') or len(request.waypoints)<2 or contacts[0]):
+                raise ValueError('Stroke setup requires two or more trace waypoints and a pen-up first segment')
             if self.hardware and any(contacts):raise ValueError('Contact-tagged paths are mock-only until physical pen/contact qualification; pen-up paths remain available')
             velocity=request.velocity_scaling or min(1.,DEFAULT_SPEED/max(v['velocity'] for v in self.limits.values()));acceleration=request.acceleration_scaling or min(1.,DEFAULT_ACCELERATION/min(v['acceleration'] for v in self.limits.values()))
             if not all(math.isfinite(v) and 0<v<=1 for v in (velocity,acceleration)):raise ValueError('Scaling must be in (0,1]')
@@ -542,18 +612,25 @@ class MotionServer(Node):
             for target in targets:
                 p=target.pose.position
                 if not inside_workspace([p.x,p.y,p.z],self.workspace):raise ValueError('Waypoint outside numerical XYZ input bounds')
+            if style=='fixed_tcp':
+                anchor=pose_matrix(targets[0].pose)[:3,3]
+                if any(np.linalg.norm(pose_matrix(p.pose)[:3,3]-anchor)>1e-6 for p in targets):
+                    raise ValueError('Fixed-TCP rotation waypoints must share one XYZ; the first leg is a pen-up approach')
             revision=self.publish_target(targets[-1]);start=list(self.hold.applied if self.hardware else self.hold.commanded)
             actual=[self.actual[n] for n in JOINTS]
             if max(abs(a-b) for a,b in zip(actual,start))>.05:raise RuntimeError('Measured start is too far from held command')
             self.valid(actual,measured=True);self.valid(start);scene=self.scene_digest()
             self.get_logger().info('PLAN_EVENT '+json.dumps(dict(event='path_request',request_id=self.request_id,style=style,mode=mode,start=start,waypoints=[dict(xyz=[p.pose.position.x,p.pose.position.y,p.pose.position.z],quaternion=[p.pose.orientation.x,p.pose.orientation.y,p.pose.orientation.z,p.pose.orientation.w]) for p in targets],contacts=contacts,tcp_speed=speed)))
             summaries=[]
-            if style=='visits':
+            fixed_tcp_deviation=0.
+            if style in ('visits','fixed_tcp'):
                 if any(contacts):raise ValueError('Visit poses stops at each endpoint; it is not a contact trace')
                 legs=[];q=start;resolved=[]
-                for target in targets:
-                    qgoal=self.solve_ik(target,q,mode);pose=self.pose_from_joints(qgoal)
-                    leg=self.plan_transit(q,qgoal,pose,velocity,acceleration,'joint')
+                for index,target in enumerate(targets):
+                    if style=='fixed_tcp' and index>0:
+                        qgoal=self.solve_ik(target,q,'full');pose=self.pose_from_joints(qgoal)
+                        leg=self.plan_transit(q,qgoal,pose,velocity,acceleration,'cartesian')
+                    else:qgoal,pose,leg=self.route_to_pose(target,q,mode,velocity,acceleration)
                     if len(leg.joint_trajectory.points)==1:
                         duplicate=copy.deepcopy(leg.joint_trajectory.points[0]);duplicate.time_from_start.sec=1
                         leg.joint_trajectory.points.append(duplicate)
@@ -565,10 +642,22 @@ class MotionServer(Node):
                     for endpoint in (leg.joint_trajectory.points[0],leg.joint_trajectory.points[-1]):
                         endpoint.velocities=[0.]*6;endpoint.accelerations=[0.]*6
                     leg=prepare_trajectory(leg,self.limits,velocity,acceleration)
+                    if style=='fixed_tcp' and index>0:
+                        validate_cartesian_shape(leg,self.ik_solver,q,leg.joint_trajectory.points[-1].positions)
+                        for candidate in sampled_positions(leg):
+                            if self.stop_requested or self.model_changed:raise RuntimeError('Stopped during fixed-TCP validation')
+                            deviation=float(np.linalg.norm(self.ik_solver.evaluate(candidate)[0][:3,3]-anchor))
+                            fixed_tcp_deviation=max(fixed_tcp_deviation,deviation)
+                            if deviation>.001:raise ValueError('Rotation trajectory moves the TCP by more than 1 mm; no plan retained')
+                        distance,angle=self.ik_solver.errors(leg.joint_trajectory.points[-1].positions,pose_matrix(target.pose),'full')
+                        if distance>.0002 or angle>.002:raise ValueError('Rotation endpoint fails the requested full pose')
                     legs.append(leg);q=leg.joint_trajectory.points[-1].positions;resolved.append(self.pose_from_joints(q))
                 trajectory=concatenate(legs)
             else:
-                trajectory,summaries,resolved=self.trace_paths(start,targets,mode,style,contacts,speed,tcp_acceleration,velocity,acceleration)
+                if request.plan_pen_up_approach:
+                    trajectory,summaries,resolved=self.trace_with_approach(start,targets,mode,style,contacts,speed,tcp_acceleration,velocity,acceleration,request.allow_contact_ramps)
+                else:
+                    trajectory,summaries,resolved=self.trace_paths(start,targets,mode,style,contacts,speed,tcp_acceleration,velocity,acceleration,request.allow_contact_ramps)
             trajectory=prepare_trajectory(trajectory,self.limits,velocity,acceleration,rescale=False)
             if len(trajectory.joint_trajectory.points)>3000 or seconds(trajectory.joint_trajectory.points[-1])>120:raise ValueError('Combined path exceeds 3000 samples / 120 seconds; split the path')
             if max(abs(a-b) for a,b in zip(start,trajectory.joint_trajectory.points[0].positions))>1e-5:raise RuntimeError('Path start differs from held command')
@@ -600,14 +689,21 @@ class MotionServer(Node):
             mins=[s['modeled_contact_min_m_s'] for s in summaries if s['modeled_contact_max_m_s']>0];maxs=[s['modeled_contact_max_m_s'] for s in summaries if s['modeled_contact_max_m_s']>0]
             response.modeled_contact_min_speed=min(mins) if mins else 0.;response.modeled_contact_max_speed=max(maxs) if maxs else 0.
             response.message=f'Ordered {style} path ready; {len(targets)} waypoints, no motion sent.'
+            if style=='fixed_tcp':response.message+=f' Includes a pen-up approach to point 1; subsequent rotations have modeled TCP drift at most {fixed_tcp_deviation*1000:.3f} mm. Physical TCP accuracy is unmeasured.'
+            if request.plan_pen_up_approach:response.message+=' Includes an explicitly requested pen-up route to a whole-stroke-selected starting configuration.'
+            if request.allow_contact_ramps and any(contacts):
+                response.message+=' Smooth contact endpoint ramps permitted; interior speed is checked.'
+                if any(s.get('ramp_only') for s in summaries):response.message+=' Short stroke: ramp-only profile, requested cruise speed is not reached.'
             if mins:response.message+=f' Modeled contact speed {1000*min(mins):.2f}–{1000*max(maxs):.2f} mm/s; physical speed unqualified.'
+            elif style=='fixed_tcp':response.message+=' Rotation timing uses the selected joint speed/acceleration caps.'
             else:response.message+=' Pen-up timing; ramps and joint limits may lower TCP speed.'
             reserve=trajectory_reserve(trajectory,self.limits)
             if reserve['margin_deg']<5.:response.message+=f" Low joint travel reserve: {reserve['joint']} {reserve['margin_deg']:.2f} deg along this plan; validate the next segment too."
             self.get_logger().info('PLAN_EVENT '+json.dumps(dict(event='path_planned',request_id=self.request_id,plan_id=token,duration=response.duration,points=len(trajectory.joint_trajectory.points),timing=summaries)))
         except Exception as error:
             self.stage='path rejected';response.message=str(error);self.get_logger().warn(response.message)
-            self.get_logger().info('PLAN_EVENT '+json.dumps(dict(event='path_rejected',request_id=self.request_id,message=response.message)))
+            self.get_logger().info('PLAN_EVENT '+json.dumps(dict(event='path_rejected',request_id=self.request_id,message=response.message,
+                selection=getattr(error,'selection_report',{}))))
         finally:self.operation.release()
         return response
 

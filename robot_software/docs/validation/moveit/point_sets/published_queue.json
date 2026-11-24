@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "name": "saved-points",
+  "frame": "base_link",
+  "tcp_frame": "pointer_tip",
+  "units": {
+    "position": "m",
+    "orientation": "deg"
+  },
+  "orientation_mode": "full",
+  "style": "visits",
+  "waypoints": [
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149683,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42799893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149683,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42799893282650336,
+        -0.006668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149683,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.006668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149683,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    },
+    {
+      "xyz": [
+        0.42299893282650336,
+        -0.011668853781146406,
+        0.2777067210375771
+      ],
+      "rpy_deg": [
+        43.26540524149683,
+        -59.86007456767393,
+        135.12612015501298
+      ],
+      "contact": false
+    }
+  ],
+  "allow_contact_ramps": false,
+  "plan_pen_up_approach": false,
+  "joint_speed_deg_s": 5.0,
+  "joint_acceleration_deg_s2": 30.0,
+  "tcp_speed_m_s": 0.005,
+  "tcp_acceleration_m_s2": 0.02,
+  "notes": "Five pen-up destinations near a bent modeled posture, at 5 deg/s. OMPL visits do not promise a square TCP trace between endpoints. Preview before explicit execution."
+}

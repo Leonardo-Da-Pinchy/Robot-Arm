@@ -91,6 +91,29 @@ class FeasibilityTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'DOES have collision-checked IK in another configuration'):
                 MotionServer.trace_paths(fake,[0.]*6,[pose],'tool_axis','polyline',[False],.01,.05,1.,1.)
 
+    def test_pen_up_pose_routing_retries_another_endpoint_configuration(self):
+        from types import SimpleNamespace
+        from unittest.mock import Mock
+        from pinchy_motion.server import MotionServer
+        answers=iter([[.1]*6,[.2]*6]);excluded=[]
+        def solve(target,start,mode,exclude):
+            excluded.append([list(q) for q in exclude]);return next(answers)
+        fake=SimpleNamespace(stop_requested=False,model_changed=False,solve_ik=solve,
+            pose_from_joints=lambda q:q,plan_transit=Mock(side_effect=[RuntimeError('first branch blocked'),'checked route']))
+        goal,pose,trajectory=MotionServer.route_to_pose(fake,'target',[0.]*6,'tool_axis',.5,.5)
+        self.assertEqual(goal,[.2]*6);self.assertEqual(trajectory,'checked route')
+        self.assertEqual(excluded,[[],[[.1]*6]])
+
+    def test_pen_up_pose_routing_does_not_retry_after_stop(self):
+        from types import SimpleNamespace
+        from unittest.mock import Mock
+        from pinchy_motion.server import MotionServer
+        fake=SimpleNamespace(stop_requested=False,model_changed=False,solve_ik=Mock(return_value=[.1]*6),pose_from_joints=lambda q:q)
+        def stop(*args):fake.stop_requested=True;raise RuntimeError('Stopped')
+        fake.plan_transit=stop
+        with self.assertRaisesRegex(RuntimeError,'Stopped'):MotionServer.route_to_pose(fake,'target',[0.]*6,'tool_axis',.5,.5)
+        self.assertEqual(fake.solve_ik.call_count,1)
+
     def test_sampled_speed_capacity_matches_linear_joint_path(self):
         distances=np.linspace(0,.04,20);q=np.zeros((20,6));q[:,0]=2*distances
         limits={n:dict(velocity=.5,acceleration=3.) for n in JOINTS}

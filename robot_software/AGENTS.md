@@ -16,6 +16,8 @@ When the user asks for the full list or current project status:
 - Preserve its 1–24 numbering and existing table/status formatting. Reproduce
   the numbered table directly when giving the full list; do not independently
   rewrite a second version in chat.
+- Keep rows concise: a short step name and brief status note. Put expanded
+  implementation detail in linked notes rather than repeating it in chat.
 - Retain implementation caveats, external ownership and pending owner inputs
   in the roadmap or linked technical documents when shortening descriptions.
 - Historical checkpoint/status tables are references, not competing task lists.
@@ -32,6 +34,8 @@ fault handling in the Cartesian application.
 
 Continuous drawing must follow
 `src/pinchy_moveit_config/config/drawing_motion_policy.yaml`: approximately
-constant TCP surface speed during contact; accelerate/decelerate in pen-up
-motion wherever feasible. Do not stop at sampled contact waypoints or silently
+constant TCP surface speed through stroke interiors; accelerate/decelerate in
+pen-up motion wherever feasible. The owner also permits smooth contact endpoint
+ramps when explicitly requested via `allow_contact_ramps`; report ramp-only
+short strokes. See `docs/stroke_planning.md`. Do not stop at sampled contact waypoints or silently
 relax geometry/speed to get a trajectory. Pose transit is not contact drawing.

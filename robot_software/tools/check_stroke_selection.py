@@ -5,6 +5,7 @@ No action client or serial connection. Optional MoveIt uses an isolated mock;
 ramps remain on the hypothetical surface, so this never creates a contact plan.
 """
 import argparse
+import copy
 import hashlib
 import json
 import time
@@ -15,18 +16,23 @@ import numpy as np
 
 from analyze_motion_feasibility import MockChecks,ROOT
 from pinchy_motion.feasibility import CylinderArc
-from pinchy_motion.geometry import model_limits,sampled_positions
+from pinchy_motion.geometry import model_limits,sampled_positions,prepare_trajectory,seconds
 from pinchy_motion.ik import BoundedIK
 from pinchy_motion.paths import sample_ik,select_trace,timed_trace
+from pinchy_motion.stroke_search import select_stroke
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--moveit',action='store_true')
     parser.add_argument('--budget',type=float,default=45.)
+    parser.add_argument('--tcp-speed',type=float,help='Explicit speed in m/s for every case; no automatic contact slowdown')
+    parser.add_argument('--tcp-acceleration',type=float,help='Explicit TCP acceleration in m/s² for every case')
     parser.add_argument('--output-dir',type=Path,default=Path('/tmp/stroke-selection'))
     args=parser.parse_args()
     if not 1<=args.budget<=120:parser.error('budget must be 1..120 seconds per search')
+    if args.tcp_speed is not None and not 0<args.tcp_speed<=.4:parser.error('tcp-speed must be in (0,0.4] m/s')
+    if args.tcp_acceleration is not None and not 0<args.tcp_acceleration<=2.:parser.error('tcp-acceleration must be in (0,2] m/s²')
     folder=args.output_dir;folder.mkdir(parents=True,exist_ok=True)
     checks=None
     report=dict(motor_commands_sent=False,collision_checked=args.moveit,
@@ -38,21 +44,25 @@ def main():
         model=checks.models[-1] if checks else root
         limits=model_limits(model)
         # The offline URDF is nominal; use the same saved bounds as live bringup.
-        from pinchy_bringup.control_contract import JOINTS
+        from pinchy_bringup.control_contract import JOINTS,DEFAULT_SPEED,DEFAULT_ACCELERATION
         profile=json.loads((ROOT/'calibration/arm.json').read_text())
-        for name in JOINTS:limits[name].update(lower=profile['joints'][name]['min_radians'],upper=profile['joints'][name]['max_radians'])
+        for name in JOINTS:limits[name].update(lower=profile['joints'][name]['min_radians'],upper=profile['joints'][name]['max_radians'],
+            velocity=min(DEFAULT_SPEED,limits[name]['velocity']),acceleration=min(DEFAULT_ACCELERATION,limits[name]['acceleration']))
+        report['joint_limits']=limits
         valid=checks.valid if checks else lambda q:True
         for name,cx,z,start,end,speed,acceleration in [
             ('continuation_failure',.4,.2,-60,60,.01,.05),
             ('broad_timing',.35,.15,-60,60,.01,.05),
             ('narrow_timing',.35,.15,-45,-10,.005,.02)]:
             curve=CylinderArc(cx,.04,z,60,start_angle_deg=start,end_angle_deg=end)
+            if args.tcp_speed is not None:speed=args.tcp_speed
+            if args.tcp_acceleration is not None:acceleration=args.tcp_acceleration
             fresh=BoundedIK(model,limits)
             q=fresh.search(curve.evaluate(0),np.zeros(6),'tool_axis',valid=valid,budget=5.)
-            row=dict(name=name,center_x_m=cx,height_m=z,radius_m=.04,angle_interval_deg=[start,end],start_q=q,methods={})
+            row=dict(name=name,center_x_m=cx,height_m=z,radius_m=.04,angle_interval_deg=[start,end],start_q=q,requested_speed_m_s=speed,requested_acceleration_m_s2=acceleration,methods={})
             report['cases'].append(row)
             if q is None:row['status']='start_unresolved';continue
-            for method in ('local','whole_stroke'):
+            for method in ('local','whole_stroke','stroke_start'):
                 fresh=BoundedIK(model,limits);began=time.monotonic();rejections=[]
                 def stopped():return time.monotonic()-began>args.budget
                 def finish(d,p):
@@ -66,6 +76,33 @@ def main():
                                 if stopped():raise RuntimeError('Search time budget exceeded')
                                 if not valid(candidate):raise ValueError('Timed interpolation collides')
                             for candidate in p:checks.verify_fk(fresh,candidate)
+                            if method=='stroke_start':
+                                from moveit_msgs.srv import GetMotionPlan
+                                from moveit_msgs.msg import Constraints,JointConstraint,RobotState
+                                from sensor_msgs.msg import JointState
+                                client=checks.node.create_client(GetMotionPlan,'/plan_kinematic_path')
+                                try:
+                                    if not client.wait_for_service(timeout_sec=5):raise RuntimeError('Mock pen-up route planner unavailable')
+                                    req=GetMotionPlan.Request();motion=req.motion_plan_request
+                                    motion.group_name='arm';motion.pipeline_id='ompl';motion.planner_id='RRTConnectkConfigDefault'
+                                    motion.allowed_planning_time=5.;motion.num_planning_attempts=3
+                                    motion.start_state=RobotState(joint_state=JointState(name=JOINTS,position=list(map(float,q))))
+                                    goal=Constraints(name='selected_stroke_start')
+                                    goal.joint_constraints=[JointConstraint(joint_name=n,position=float(value),tolerance_above=1e-5,tolerance_below=1e-5,weight=1.) for n,value in zip(JOINTS,p[0])]
+                                    motion.goal_constraints=[goal]
+                                    planned=checks.call(client,req).motion_plan_response
+                                    if planned.error_code.val!=1:raise ValueError('Selected stroke has no checked pen-up route from the original start')
+                                    if len(planned.trajectory.joint_trajectory.points)==1:
+                                        point=copy.deepcopy(planned.trajectory.joint_trajectory.points[0]);point.time_from_start.sec=1
+                                        planned.trajectory.joint_trajectory.points.append(point)
+                                    route=prepare_trajectory(planned.trajectory,limits)
+                                    for candidate in sampled_positions(route):
+                                        if stopped():raise RuntimeError('Search time budget exceeded')
+                                        if not valid(candidate):raise ValueError('Pen-up approach interpolation collides')
+                                    if max(abs(np.asarray(route.joint_trajectory.points[-1].positions)-p[0]))>1e-4:raise ValueError('Pen-up route endpoint mismatch')
+                                    summary['pen_up_approach']=dict(collision_checked=True,duration_s=seconds(route.joint_trajectory.points[-1]),start_q=q,selected_q=p[0].tolist())
+                                finally:checks.node.destroy_client(client)
+                        elif method=='stroke_start':summary['pen_up_approach']=dict(collision_checked=False,route_not_checked=True)
                         return summary
                     except (ValueError,RuntimeError) as error:
                         rejections.append(str(error));raise
@@ -75,7 +112,8 @@ def main():
                     if method=='local':
                         d,p=sample_ik(curve,'tool_axis',q,fresh,valid,stopped)
                         summary=finish(d,p);selection=dict(method='local_continuation')
-                    else:d,p,summary,selection=select_trace(curve,'tool_axis',q,fresh,valid,stopped,finish)
+                    elif method=='whole_stroke':d,p,summary,selection=select_trace(curve,'tool_axis',q,fresh,valid,stopped,finish)
+                    else:d,p,summary,selection=select_stroke(curve,'tool_axis',q,fresh,valid,stopped,finish)
                     outcome.update(success=True,selection=selection,timing=summary,distances_m=d.tolist(),positions=p.tolist(),
                         minimum_reserve_deg=float(np.degrees(np.minimum(p-fresh.lower,fresh.upper-p).min())))
                 except (ValueError,RuntimeError) as error:

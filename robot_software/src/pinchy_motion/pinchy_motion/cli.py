@@ -23,6 +23,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
     sub.add_parser('status',help='Show mode, readiness and current encoder/model TCP pose')
+    queue=sub.add_parser('queue',help='Read the current panel point queue without planning or moving')
+    queue.add_argument('--out',type=Path,help='Save the published queue as a reusable point-set JSON')
     plan=sub.add_parser('plan',help='Solve full-pose IK, collision-check and preview; never moves')
     plan.add_argument('--xyz',nargs=3,type=float,required=True,metavar=('X','Y','Z'),help='Metres in --frame')
     plan.add_argument('--rpy',nargs=3,type=float,metavar=('ROLL','PITCH','YAW'),help='Degrees unless --radians; Rz(yaw) Ry(pitch) Rx(roll)')
@@ -57,6 +59,19 @@ def main():
         response=wait(client.call_async(Trigger.Request()),12)
         node.destroy_client(client); return response
     try:
+        if args.command=='queue':
+            snapshots=[]
+            node.create_subscription(String,'/pinchy_motion/queued_points',lambda m:snapshots.append(json.loads(m.data)),
+                QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL))
+            deadline=time.monotonic()+8
+            while not snapshots and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.1)
+            if not snapshots:raise RuntimeError('No published point queue; reopen an updated pose panel')
+            value=snapshots[-1];print(json.dumps(value,indent=2))
+            if not value.get('queue_valid',False):raise ValueError(value.get('error','Invalid point queue'))
+            if args.out:
+                from .point_sets import write
+                write(args.out,value)
+            return 0
         if args.command in ('stop','recover'):
             result=trigger('/pinchy_motion/'+args.command); print(result.message); return 0 if result.success else 1
         status=[]
@@ -69,10 +84,26 @@ def main():
         if args.command=='status': print(json.dumps(current,indent=2)); return 0
         if not current['ready']: raise RuntimeError(current['reason'])
         if args.command=='path':
-            data=json.loads(args.file.read_text());mode=data.get('orientation_mode','tool_axis')
-            request=PlanPath.Request(orientation_mode=mode,style=data.get('style','polyline'),
+            data=json.loads(args.file.read_text())
+            if 'schema_version' in data:
+                from .point_sets import normalize
+                data=normalize(data)
+            mode=data.get('orientation_mode','tool_axis')
+            for key,scale,maximum in [('joint_speed_deg_s','velocity_scaling',current.get('max_speed_deg_s',30.)),
+                    ('joint_acceleration_deg_s2','acceleration_scaling',current.get('max_acceleration_deg_s2',180.))]:
+                if key in data:
+                    if scale in data:raise ValueError('Specify absolute '+key+' or '+scale+', not both')
+                    value=data[key]
+                    if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not 0<value<=maximum:
+                        raise ValueError(key+' exceeds the current session caps or is invalid')
+                    data[scale]=value/maximum
+            request=PlanPath.Request(orientation_mode=mode,style=data.get('style',''),
                 tcp_speed=float(data.get('tcp_speed_m_s',.02)),tcp_acceleration=float(data.get('tcp_acceleration_m_s2',.05)),
                 velocity_scaling=float(data.get('velocity_scaling',min(1.,30./current.get('max_speed_deg_s',30.)))),acceleration_scaling=float(data.get('acceleration_scaling',min(1.,180./current.get('max_acceleration_deg_s2',180.)))))
+            for name in ('allow_contact_ramps','plan_pen_up_approach'):
+                value=data.get(name,False)
+                if not isinstance(value,bool):raise ValueError(name+' must be true or false')
+                setattr(request,name,value)
             for point in data['waypoints']:
                 pose=PoseStamped();pose.header.frame_id=point.get('frame',data.get('frame','base_link'))
                 xyz=point['xyz']

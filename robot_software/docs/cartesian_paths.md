@@ -8,7 +8,12 @@ checks are shared with joint bringup. No second servo writer is introduced.
 ## Panel
 
 Set a goal using XYZ/RPY or the draggable axes, then **Add goal** to the queue.
-Repeat; select a row to remove or reorder it. **Plan queued** creates a preview
+Repeat; select a row to remove or reorder it. **Update selected** replaces that
+row with the current top fields while retaining its contact label. The queue defaults to **Move
+between poses / pen-up routing**, which collision-plans routes to destinations.
+Choose an explicit trace style when the connecting TCP geometry matters. The
+upper Straight TCP checkbox applies to the single-pose Plan button; the queue
+has its own path-style selector. **Plan queued** creates a preview
 only. Inspect the trajectory and duration before using the existing Execute
 button. Stop discards motion; recovery does not resume the interrupted path.
 
@@ -17,7 +22,7 @@ button. Stop discards motion; recovery does not resume the interrupted path.
 - **Smooth through points** explicitly chooses a natural cubic XYZ curve through
   the points. Inspect its shape: it can overshoot between points. The complete
   curve, joint limits and collisions are checked.
-- **Visit poses** uses OMPL between poses and stops at each. It can route around
+- **Move between poses / pen-up routing** (`visits`, the queue default) uses OMPL between poses and stops at each. It can route around
   obstacles and does not promise a straight TCP path or constant TCP speed.
 
 Pen direction/free twist remains the default. Traces interpolate the tool +z
@@ -117,6 +122,46 @@ range, interpolation and speed issues. A bounded whole-stroke alternative search
 choices from the fixed held start when continuation or timed validation fails.
 It retains up to four distinct histories, then accepts only a complete timed,
 collision-checked trace. It does not insert same-pose joint jumps or automatic
-pen-up repositioning. The recorded broad arcs still fail, so robust starting-
-configuration selection remains necessary before claiming drawing coverage.
+pen-up repositioning. A later whole-stroke optimizer and explicit starting-configuration search now
+pass both recorded broad arcs at 3 mm/s and 20 mm/s² ramps under default joint
+caps. Drawing-region coverage and physical contact remain unqualified. See
+[the newer results](validation/feasibility/stroke_start_search/report.json).
 See the [selection comparison](validation/feasibility/whole_stroke_selection/report.json).
+
+
+## Whole-stroke setup and optional contact endpoint ramps
+
+See [the stroke contract](stroke_planning.md) for the owner's intended operation.
+The panel now has **Choose stroke start + pen-up route** and **Allow contact
+endpoint speed ramps**. Both default off so existing requests keep their
+semantics. Their JSON/service fields are `plan_pen_up_approach` and
+`allow_contact_ramps` (booleans). The first requires waypoint 0's incoming
+segment to be pen-up and at least two waypoints; subsequent points describe
+one smooth/collinear trace. Visit poses is not a stroke mode.
+
+A setup request searches alternative start configurations and optimizes complete
+joint histories before accepting the checked pen-up approach and stroke. Normal
+direction and geometry are retained. Explicit contact ramps permit smooth
+endpoint acceleration/braking; the interior plateau still has 5% modeled speed
+checks. A short ramp-only stroke is identified in the response. Contact speed
+min/max include ramps; they are not plateau-only statistics.
+
+Rebuild `pinchy_motion_interfaces` and `pinchy_motion` and restart planning
+clients/server together to load the extended interface. Contact remains
+mock-only and physical execution still requires the existing explicit controls.
+
+
+The [reported pen-up queue replay](pen_up_queue_replay.md) records the exact
+zero-start screenshot targets, corrected defaults and remaining endpoint-axis
+constraint distinction. Unspecified service/JSON styles use routed visits for
+pen-up and polyline for contact; explicitly selected traces remain strict.
+
+
+## Saved queues and rotation tests
+
+The panel can **Capture current TCP**, **Save points…**, **Load points…** and
+load example queues. These stage poses and settings; use the existing Plan then
+Execute controls. **Fixed TCP rotations + approach** explicitly plans a pen-up
+approach to the first pose and checks constant modeled XYZ during subsequent
+full-orientation rotations. See [saved point sets](point_sets.md) for the saved
+seven-point session list, examples, file format and read-only queue-export CLI.
