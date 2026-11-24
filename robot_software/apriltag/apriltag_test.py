@@ -9,7 +9,7 @@ FPS = 30
 TAG_SIZE = 0.0238125  # 15/16 inches, meters
 AXIS_LENGTH = TAG_SIZE / 2
 DISTANCE_OFFSET = 0.0086  # Empirical forward offset, meters
-APPLY_OFFSET = True
+APPLY_OFFSET = False  # Revalidate offset after rectification
 
 
 def rotation_to_euler(R):
@@ -25,6 +25,69 @@ def rotation_to_euler(R):
         yaw = np.arctan2(-R[2, 0], sy)
         roll = 0.0
     return np.degrees([roll, pitch, yaw])
+
+
+def rectification_maps(intr, camera_matrix, distortion):
+    size = (intr.width, intr.height)
+    if intr.model == rs.distortion.brown_conrady:
+        return cv2.initUndistortRectifyMap(
+            camera_matrix, distortion, None, camera_matrix,
+            size, cv2.CV_32FC1
+        )
+
+    if intr.model == rs.distortion.inverse_brown_conrady:
+        # Deproject raw pixels onto a unit-depth plane using RealSense.
+        # This is a geometric ray calculation, NOT a depth sensor reading.
+        u, v = np.meshgrid(
+            np.arange(intr.width, dtype=np.float32),
+            np.arange(intr.height, dtype=np.float32)
+        )
+        dx = np.empty_like(u)
+        dy = np.empty_like(v)
+        for row in range(intr.height):
+            for col in range(intr.width):
+                x, y, _ = rs.rs2_deproject_pixel_to_point(
+                    intr, [float(col), float(row)], 1.0
+                )
+                dx[row, col] = intr.fx * x + intr.ppx - col
+                dy[row, col] = intr.fy * y + intr.ppy - row
+
+        # Invert the raw-to-rectified displacement field to obtain
+        # the rectified-to-raw sampling coordinates cv2.remap needs.
+        mx, my = u.copy(), v.copy()
+        for _ in range(30):
+            sx = cv2.remap(dx, mx, my, cv2.INTER_LINEAR,
+                           borderMode=cv2.BORDER_REPLICATE)
+            sy = cv2.remap(dy, mx, my, cv2.INTER_LINEAR,
+                           borderMode=cv2.BORDER_REPLICATE)
+            mx, my = u - sx, v - sy
+        sx = cv2.remap(dx, mx, my, cv2.INTER_LINEAR,
+                       borderMode=cv2.BORDER_REPLICATE)
+        sy = cv2.remap(dy, mx, my, cv2.INTER_LINEAR,
+                       borderMode=cv2.BORDER_REPLICATE)
+        residual = np.hypot(mx + sx - u, my + sy - v)
+        valid = ((mx >= 0) & (mx <= intr.width - 1) &
+                 (my >= 0) & (my <= intr.height - 1))
+        if not np.any(valid) or np.max(residual[valid]) > 0.5:
+            raise RuntimeError("Rectification map failed to converge.")
+        print(f"Map inversion residual: {np.max(residual[valid]):.3f} px")
+        mx[~valid] = -1
+        my[~valid] = -1
+        return mx, my
+
+    if intr.model == rs.distortion.modified_brown_conrady:
+        mx = np.empty((intr.height, intr.width), dtype=np.float32)
+        my = np.empty_like(mx)
+        for row in range(intr.height):
+            for col in range(intr.width):
+                ray = [(col - intr.ppx) / intr.fx,
+                       (row - intr.ppy) / intr.fy, 1.0]
+                mx[row, col], my[row, col] = rs.rs2_project_point_to_pixel(
+                    intr, ray
+                )
+        return mx, my
+
+    raise RuntimeError(f"Unsupported distortion model: {intr.model}")
 
 
 def main():
@@ -58,19 +121,13 @@ def main():
         distortion = np.array(intr.coeffs, dtype=np.float64)
         zero_distortion = np.zeros(5, dtype=np.float64)
 
-        # Precompute rectification maps for supported distortion models.
+        # Use the SDK's own distortion model to build a rectified image.
         maps = None
-        if intr.model in (rs.distortion.brown_conrady,
-                          rs.distortion.modified_brown_conrady):
-            maps = cv2.initUndistortRectifyMap(
-                camera_matrix, distortion, None, camera_matrix,
-                (WIDTH, HEIGHT), cv2.CV_16SC2
-            )
-        elif intr.model != rs.distortion.none and np.any(distortion):
-            raise RuntimeError(
-                f"Unsupported distortion model: {intr.model}. "
-                "Rectify the color stream before pose estimation."
-            )
+        print(f"Distortion model: {intr.model}")
+        print(f"Distortion coefficients: {distortion}")
+        if intr.model != rs.distortion.none and np.any(distortion):
+            print("Building rectification maps...")
+            maps = rectification_maps(intr, camera_matrix, distortion)
 
         print("Camera started. Press q to quit.")
         while True:
@@ -91,47 +148,49 @@ def main():
             )
 
             for i in range(len(tags)):
+                if i > 8:
+                    continue
+
                 tag = tags[i]
-                if i <= 8:
-                    if tag.pose_t is None or tag.pose_R is None:
-                        continue
-                    R = tag.pose_R
-                    t = tag.pose_t.reshape(3, 1)
-                    x, y, z = t.flatten()
+                if tag.pose_t is None or tag.pose_R is None:
+                    continue
+                R = tag.pose_R
+                t = tag.pose_t.reshape(3, 1)
+                x, y, z = t.flatten()
 
-                    # Only correct reported position, not the projection pose.
-                    if APPLY_OFFSET:
-                        z -= DISTANCE_OFFSET
-                    distance = np.linalg.norm([x, y, z])
-                    roll, pitch, yaw = rotation_to_euler(R)
+                # Only correct reported position, not the projection pose.
+                if APPLY_OFFSET:
+                    z -= DISTANCE_OFFSET
+                distance = np.linalg.norm([x, y, z])
+                roll, pitch, yaw = rotation_to_euler(R)
 
-                    rvec, _ = cv2.Rodrigues(R)
-                    cv2.drawFrameAxes(
-                        display, camera_matrix, zero_distortion,
-                        rvec, t, AXIS_LENGTH, 2
+                rvec, _ = cv2.Rodrigues(R)
+                cv2.drawFrameAxes(
+                    display, camera_matrix, zero_distortion,
+                    rvec, t, AXIS_LENGTH, 2
+                )
+                corners = tag.corners.astype(np.int32)
+                cv2.polylines(display, [corners], True, (0, 255, 0), 2)
+                center = tag.center.astype(int)
+
+                lines = [
+                    f"ID: {tag.tag_id}",
+                    f"X: {x * 100:.2f} cm",
+                    f"Y: {y * 100:.2f} cm",
+                    f"Z: {z * 100:.2f} cm",
+                    f"Distance: {distance * 100:.2f} cm",
+                    f"Roll: {roll:.1f} deg",
+                    f"Pitch: {pitch:.1f} deg",
+                    f"Yaw: {yaw:.1f} deg"
+                ]
+                text_x = max(0, min(center[0] + 15, WIDTH - 200))
+                text_y = max(20, min(center[1] - 40, HEIGHT - 155))
+                for i, line in enumerate(lines):
+                    cv2.putText(
+                        display, line, (text_x, text_y + i * 18),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 255), 1
                     )
-                    corners = tag.corners.astype(np.int32)
-                    cv2.polylines(display, [corners], True, (0, 255, 0), 2)
-                    center = tag.center.astype(int)
-
-                    lines = [
-                        f"ID: {tag.tag_id}",
-                        f"X: {x * 100:.2f} cm",
-                        f"Y: {y * 100:.2f} cm",
-                        f"Z: {z * 100:.2f} cm",
-                        f"Distance: {distance * 100:.2f} cm",
-                        f"Roll: {roll:.1f} deg",
-                        f"Pitch: {pitch:.1f} deg",
-                        f"Yaw: {yaw:.1f} deg"
-                    ]
-                    text_x = max(0, min(center[0] + 15, WIDTH - 200))
-                    text_y = max(20, min(center[1] - 40, HEIGHT - 155))
-                    for i, line in enumerate(lines):
-                        cv2.putText(
-                            display, line, (text_x, text_y + i * 18),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 255), 1
-                        )
-                    print(" | ".join(lines))
+                print(" | ".join(lines))
 
             cv2.imshow("AprilTag Pose Detection", display)
             if cv2.waitKey(1) & 0xFF == ord('q'):
